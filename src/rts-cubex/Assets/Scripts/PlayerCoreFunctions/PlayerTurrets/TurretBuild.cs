@@ -9,6 +9,8 @@ public class TurretBuild : MonoBehaviour
     //NOTE: When you implement the barracks spawn system, then use this variable! :)
     //[SerializeField] GameObject barrack;
     [Header("Main configuration parameters")]
+
+    [SerializeField] GameObject errorForWorker;
     //boolean variable for indicating when the user can build a barracks structure
     [SerializeField] bool canBuildTurret = false;
      //boolean variable for indicating if the barracks structure is built
@@ -51,6 +53,11 @@ public class TurretBuild : MonoBehaviour
          {
           playerbase.setResourceAMountScreenState(true);    
           return; 
+         }
+         if (playerbase.getworkersAmount() <= 0){
+            Debug.Log("Build worker first"); 
+		    errorForWorker.SetActive(true);  
+            return;
          }
         playerbase.setBuildingArea(true);
      //   clickUndo.SetActive(true);

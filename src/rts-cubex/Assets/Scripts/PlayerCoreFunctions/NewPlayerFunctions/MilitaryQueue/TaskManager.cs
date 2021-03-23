@@ -11,7 +11,7 @@ class BuildTask
 
 }
 public class TaskManager : MonoBehaviour
-{    
+{  
     [SerializeField] int taskAmount = 3;//For testing
     void Start()
     {

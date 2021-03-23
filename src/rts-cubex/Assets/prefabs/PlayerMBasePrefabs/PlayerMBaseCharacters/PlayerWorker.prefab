@@ -248,6 +248,7 @@ MonoBehaviour:
   - 10
   - 5
   - 15
+  - 5
   barrack: {fileID: 3982760522625839459, guid: 6bbee8d24627e634bb9904ceb9f20567, type: 3}
   turret: {fileID: 1977407095747823598, guid: fdfc73abe498751498f835588878f83a, type: 3}
   collector: {fileID: 5925267552922996641, guid: 168caf05f7938f849b2772444555ccc4,
@@ -258,7 +259,7 @@ MonoBehaviour:
     type: 3}
   playerDefenceWall: {fileID: 632747773362660625, guid: db621ff232524104aa6d1a966b1f058b,
     type: 3}
-  armyCamp: {fileID: 4142774846951105975, guid: b37f7318014ec7d4a8bc24caaa7cd833,
+  creditsMiningStation: {fileID: 1774960678499825050, guid: a6da07bb136b3f9449c7fe64a6fc2ce2,
     type: 3}
   barrackbuild: {fileID: 7263487730573901329, guid: a73e2c48c5ebb43429a4dbbad8fad10a,
     type: 3}

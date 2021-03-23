@@ -11,6 +11,9 @@ public class Worker : MonoBehaviour
     string buildingType;
     TimerForSpawningOriginal timerspawn;
     [SerializeField] string workerIndex;
+    int pressedButtonIndex = 0;
+
+    public int changePressedBtnIndex{get{return pressedButtonIndex;}set {pressedButtonIndex = value;}}
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +29,7 @@ public class Worker : MonoBehaviour
         CheckingDistanceForResearchCenter();
         CheckingDistanceForTroopsResearchCenter();
         CheckingDistanceForPLayerWall();
+        CheckingDistanceForMiningStation();
     }
     public void SetDestination(Vector3 energonPos) // method which which sets the destination of particular buildigs for worker
     {
@@ -39,7 +43,7 @@ public class Worker : MonoBehaviour
             {
                if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
                {
-               timerspawn.startTimer(transform.position,0);   
+               timerspawn.startTimer(transform.position,0, pressedButtonIndex);   
                buildingType = "none";
                }
             }
@@ -54,7 +58,7 @@ public class Worker : MonoBehaviour
             {
                if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
                {
-               timerspawn.startTimer(transform.position,2); 
+               timerspawn.startTimer(transform.position,2, pressedButtonIndex); 
                buildingType = "none";
                }
             }
@@ -68,7 +72,7 @@ public class Worker : MonoBehaviour
             {
                if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
                {
-               timerspawn.startTimer(transform.position,3); 
+               timerspawn.startTimer(transform.position,3, pressedButtonIndex); 
                buildingType = "none";
                }
             }
@@ -82,7 +86,7 @@ public class Worker : MonoBehaviour
             {
                if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
                {
-               timerspawn.startTimer(transform.position = new Vector3(transform.position.x, 2f, transform.position.z),4); 
+               timerspawn.startTimer(transform.position = new Vector3(transform.position.x, 2f, transform.position.z),4, pressedButtonIndex); 
                buildingType = "none";
                }
             }
@@ -96,7 +100,21 @@ public class Worker : MonoBehaviour
             {
                if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
                {
-               timerspawn.startTimer(transform.position,5); 
+               timerspawn.startTimer(transform.position,5, pressedButtonIndex); 
+               buildingType = "none";
+               }
+            }
+        }
+    }
+    private void CheckingDistanceForMiningStation()
+    {
+        if(!workerNav.pathPending && buildingType == "miningStation")  // reikia pakeisti build type;
+        {
+            if(workerNav.remainingDistance <= workerNav.stoppingDistance)
+            {
+               if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
+               {
+               timerspawn.startTimer(transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z),6, pressedButtonIndex); 
                buildingType = "none";
                }
             }
@@ -105,7 +123,7 @@ public class Worker : MonoBehaviour
     private void OnTriggerEnter(Collider other) { 
         if (other.gameObject.tag == "Depo" && (other.gameObject.GetComponent<BuildMiningStation>().getIndex() == workerIndex)) // condition which check for the tag Depo (Deposit Units) and also by checking index of each deposit unit avoids accidential collisions with other Deposits which have not been selected, 
         { 
-            timerspawn.startTimer(other.gameObject.transform.position,1);  
+            timerspawn.startTimer(other.gameObject.transform.position,1, pressedButtonIndex);  
             Destroy(other.gameObject); // desroyname ta deposit pointa.
         }
     }

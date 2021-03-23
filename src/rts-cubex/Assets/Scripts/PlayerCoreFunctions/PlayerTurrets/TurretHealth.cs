@@ -12,6 +12,10 @@ public class TurretHealth : MonoBehaviour {
     [SerializeField] Image healthBarBackground;
      float descreaseHealthBarOfStructure;
     [SerializeField] int regenerateHpAmount;
+    [SerializeField] int maxShield = 1000;
+    [SerializeField] int shieldHealth = 0;
+    [SerializeField] Image shieldForeground;
+    [SerializeField] Image shieldBackground;
     private bool isShot = false;
     void Start () {
         health.SetActive (false);
@@ -25,6 +29,15 @@ public class TurretHealth : MonoBehaviour {
         if (turretHP >= maxHP) {
             health.SetActive (false);
         }
+         if (shieldHealth < maxShield)
+        {
+            health.SetActive (true);
+            StartCoroutine(RegenerateShield());
+        }
+        if (shieldBackground && shieldForeground)
+        {
+            shieldForeground.fillAmount = (float)shieldHealth / (float)maxShield;
+        }
         if (turretHP <= 0) {
             Destroy (gameObject);
         }
@@ -34,6 +47,14 @@ public class TurretHealth : MonoBehaviour {
        // descreaseHealthBarOfStructure = Math.Round((((damagePoints*100)/healthOfStructureOriginal) / 100),5);
         descreaseHealthBarOfStructure = (((float)damagePoints * 100) / (float)maxHP) / 100;
         
+        if (shieldHealth <= 0)
+        {
+            turretHP -= damagePoints;
+        }
+        else
+        {
+            shieldHealth -= damagePoints;
+        }
        // Debug.Log(System.Math.Round(descreaseHealthBarOfStructure,5));
         
         turretHP -= damagePoints;  //  int 
@@ -56,6 +77,20 @@ public class TurretHealth : MonoBehaviour {
                 turretHP += regenerateHpAmount;
                 healthBarForeground.fillAmount += ((((float)regenerateHpAmount * 100) / (float)maxHP) / 100);
                 yield return new WaitForSeconds (0.3f);
+            }
+        }
+    }
+    IEnumerator RegenerateShield()
+    {
+        int x = shieldHealth;
+        yield return new WaitForSeconds(15);
+        if (x == shieldHealth)
+        {
+            isShot = false;
+            while (shieldHealth < maxShield && !isShot)
+            {
+                shieldHealth += regenerateHpAmount;
+                yield return new WaitForSeconds(0.3f);
             }
         }
     }

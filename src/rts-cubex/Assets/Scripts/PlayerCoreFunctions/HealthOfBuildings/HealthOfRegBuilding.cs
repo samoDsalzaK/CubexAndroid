@@ -14,7 +14,6 @@ public class HealthOfRegBuilding : MonoBehaviour
     float descreaseHealthBarOfStructure;
     float increaseHealthBarOfStructure;
     [SerializeField] int regenerateHpAmount;
-
     [SerializeField] int maxShield = 1000;
     [SerializeField] int shieldHealth = 0;
     [SerializeField] Image shieldForeground;
@@ -29,10 +28,6 @@ public class HealthOfRegBuilding : MonoBehaviour
     }
     void Update()
     {
-        healthBarForeground.fillAmount = (float)health / (float)healthOfStructureOriginal;
-        if (shieldBackground&&shieldForeground){
-            shieldForeground.fillAmount = (float)shieldHealth / (float)maxShield;
-        }
         if (health < healthOfStructureOriginal)
         {
             StartCoroutine(RegenerateHealth());
@@ -40,6 +35,11 @@ public class HealthOfRegBuilding : MonoBehaviour
         if (shieldHealth < maxShield)
         {
             StartCoroutine(RegenerateShield());
+        }
+        healthBarForeground.fillAmount = (float)health / (float)healthOfStructureOriginal;
+        if (shieldBackground && shieldForeground)
+        {
+            shieldForeground.fillAmount = (float)shieldHealth / (float)maxShield;
         }
         if (health <= 0)
         {
@@ -61,6 +61,8 @@ public class HealthOfRegBuilding : MonoBehaviour
             shieldHealth -= damagePoints;
         }
 
+        //  int 
+        // health2 -= (float)damagePoints; // 265 // float
         healthBarForeground.fillAmount -= descreaseHealthBarOfStructure;  // 264.9
 
         isShot = true;
