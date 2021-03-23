@@ -43,7 +43,7 @@ TagManager:
   - Ground
   - EBColBody
   - EWRA
-  - cryptominingstation
+  - Camp
   layers:
   - Default
   - TransparentFX
@@ -68,7 +68,7 @@ TagManager:
   - TroopArrow
   - enemyRange
   - AreaScanner
-  - creditsMiningStation
+  - 
   - 
   - 
   - 
