@@ -45,7 +45,7 @@ public class TimedSpawn : MonoBehaviour {
         if (playerBase.getCreditsAmount () >= unitCost) {
             if(playerBase.getPlayerTroopsAmount() <  playerBase.getPlayerMaxTroopsAmount()){
             playerBase.setCreditsAmount (playerBase.getCreditsAmount () - unitCost);
-           // lightTroopTimer.startTimer(spawnDelay);
+            lightTroopTimer.startTimer(spawnDelay);
 
         }
         else {

@@ -12,7 +12,9 @@ public class ResearchConf : ScriptableObject
     [SerializeField] private int sHeavyMaxHP = 300;
     [SerializeField] int sDamage = 10;
     [SerializeField] private float sHeavyTroopScalingCoef = 300f;
+    [SerializeField] private float sHeavyTroopShieldScalingCoef = 300f;
     [SerializeField] private float sLightTroopScalingCoef = 100f;
+    [SerializeField] private float sLightTroopShieldScalingCoef = 100f;
     [SerializeField] private int sTroopResearchHealth = 250;
     [SerializeField] private int sBarrackHealth = 350;
     [Header("Troop Research and Barracks varying values")]
@@ -111,7 +113,13 @@ public class ResearchConf : ScriptableObject
     public float getHeavyTroopScalingCoef(){
         return heavyTroopScalingCoef;
     }
+    public float getHeavyTroopShieldScalingCoef(){
+        return heavyTroopScalingCoef;
+    }
     public float getLightTroopScalingCoef(){
+        return lightTroopScalingCoef;
+    }
+    public float getLightTroopShieldScalingCoef(){
         return lightTroopScalingCoef;
     }
     public int getTroopResearchHealth(){

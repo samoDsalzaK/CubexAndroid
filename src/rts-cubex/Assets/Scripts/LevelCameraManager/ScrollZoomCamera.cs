@@ -21,7 +21,7 @@ class ScrollZoomCamera : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log("Zoom"+Camera.transform.position);
+        Debug.Log("Zoom"+Camera.transform.position);
         Camera.transform.position = new Vector3 (Mathf.Clamp(Camera.transform.position.x,x_min,x_max), Camera.transform.position.y,Mathf.Clamp(Camera.transform.position.z,z_min,z_max));
         //Update Plane
         if (Input.touchCount >= 1)

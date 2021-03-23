@@ -258,6 +258,8 @@ MonoBehaviour:
     type: 3}
   playerDefenceWall: {fileID: 632747773362660625, guid: db621ff232524104aa6d1a966b1f058b,
     type: 3}
+  armyCamp: {fileID: 4142774846951105975, guid: b37f7318014ec7d4a8bc24caaa7cd833,
+    type: 3}
   barrackbuild: {fileID: 7263487730573901329, guid: a73e2c48c5ebb43429a4dbbad8fad10a,
     type: 3}
   turretbuild: {fileID: 6612897795333985024, guid: 4b951f77cb195fa4c965511e7b68d08d,

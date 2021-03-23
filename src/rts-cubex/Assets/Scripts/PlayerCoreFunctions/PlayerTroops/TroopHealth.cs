@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TroopHealth : MonoBehaviour {
+public class TroopHealth : MonoBehaviour
+{
     [SerializeField] private int unitHP;
     public GameObject health;
     [SerializeField] Image healthBarForeground;
@@ -14,97 +15,168 @@ public class TroopHealth : MonoBehaviour {
     [SerializeField] int regenerationAmount = 1;
     private bool oneTimeGetHP = false;
     private Base playerBase;
-    [SerializeField] int TroopWeight=1;
-    void Start () {
-        health.SetActive (false);
-        if(FindObjectOfType<Base>() == null)
+    [SerializeField] int TroopWeight = 1;
+    [SerializeField] int maxShield = 100;
+    [SerializeField] int shieldHealth;
+    [SerializeField] Image shieldForeground;
+    [SerializeField] Image shieldBackground;
+    [SerializeField] bool canShield;
+    void Start()
+    {
+        shieldHealth = 0;
+        health.SetActive(false);
+        if (FindObjectOfType<Base>() == null)
         {
-           return;
+            return;
         }
         else
         {
-           playerBase = FindObjectOfType<Base>();
+            playerBase = FindObjectOfType<Base>();
         }
         //upgrade = FindObjectOfType<Research> ();
-        //unitHP = upgrade.getMaxHP ();
+        unitHP = upgrade.getMaxHP();
         //healthBar.sizeDelta = new Vector2 (unitHP * scalingCoef, healthBar.sizeDelta.y);
-        //healthBarForeground.fillAmount = unitHP/upgrade.getLightTroopScalingCoef();
+        healthBarForeground.fillAmount = unitHP / upgrade.getLightTroopScalingCoef();
     }
-    void Update () {
-        if (FindObjectOfType<Research> () != null) {
-            if (!oneTimeGetHP) {
+    void Update()
+    {
+        if (FindObjectOfType<Research>() != null)
+        {
+            if (!oneTimeGetHP)
+            {
                 oneTimeGetHP = true;
-                unitHP = upgrade.getMaxHP ();
+                unitHP = upgrade.getMaxHP();
             }
-            healthBarForeground.fillAmount = unitHP / upgrade.getLightTroopScalingCoef ();
-            if (unitHP < upgrade.getMaxHP ()) {
-                health.SetActive (true);
-                StartCoroutine (RegenerateHealth ());
+            if (unitHP < upgrade.getMaxHP())
+            {
+                health.SetActive(true);
+                StartCoroutine(RegenerateHealth());
             }
-            if (unitHP >= upgrade.getMaxHP ()) {
-                health.SetActive (false);
+            if (unitHP >= upgrade.getMaxHP())
+            {
+                health.SetActive(false);
             }
-            //healthBarForeground.fillAmount = unitHP/scalingCoef;
-            if (unitHP <= 0) {
-                Destroy (gameObject);
+            if (shieldHealth < maxShield && canShield)
+            {
+                health.SetActive(true);
+                StartCoroutine(GenerateShield());
+            }
+            healthBarForeground.fillAmount = unitHP / upgrade.getLightTroopScalingCoef();
+            shieldForeground.fillAmount = shieldHealth / upgrade.getLightTroopShieldScalingCoef();
+            if (unitHP <= 0)
+            {
+                Destroy(gameObject);
                 playerBase.addPlayerTroopsAmount(-TroopWeight);
-                var var = upgrade.getTroopLevel ();
-                if (var == 0) {
-                    FindObjectOfType<GameSession> ().AddEnemyScorePoints (scoreForEnemy);
-                } else if (var == 1) {
-                    FindObjectOfType<GameSession> ().AddEnemyScorePoints (2 * scoreForEnemy);
-                } else {
-                    FindObjectOfType<GameSession> ().AddEnemyScorePoints (3 * scoreForEnemy);
+                var var = upgrade.getTroopLevel();
+                if (var == 0)
+                {
+                    FindObjectOfType<GameSession>().AddEnemyScorePoints(scoreForEnemy);
+                }
+                else if (var == 1)
+                {
+                    FindObjectOfType<GameSession>().AddEnemyScorePoints(2 * scoreForEnemy);
+                }
+                else
+                {
+                    FindObjectOfType<GameSession>().AddEnemyScorePoints(3 * scoreForEnemy);
                 }
             }
         }
-                else {
-                if (unitHP < upgrade.getMaxHP ()) {
-                    health.SetActive (true);
-                    StartCoroutine (RegenerateHealth ());
-                }
-                if (unitHP >= upgrade.getMaxHP ()) {
-                    health.SetActive (false);
-                }
-                healthBarForeground.fillAmount = unitHP/upgrade.getLightTroopScalingCoef ();
-                if (unitHP <= 0) {
-                    Destroy (gameObject);
-                    playerBase.addPlayerTroopsAmount(-TroopWeight);
-                }
+        else
+        {
+            if (unitHP < upgrade.getMaxHP())
+            {
+                health.SetActive(true);
+                StartCoroutine(RegenerateHealth());
             }
+            if (unitHP >= upgrade.getMaxHP())
+            {
+                health.SetActive(false);
+            }
+            if (shieldHealth < maxShield && canShield)
+            {
+                health.SetActive(true);
+                StartCoroutine(GenerateShield());
+            }
+            healthBarForeground.fillAmount = unitHP / upgrade.getLightTroopScalingCoef();
+            shieldForeground.fillAmount = shieldHealth / upgrade.getLightTroopShieldScalingCoef();
+            if (unitHP <= 0)
+            {
+                Destroy(gameObject);
+                playerBase.addPlayerTroopsAmount(-TroopWeight);
+            }
+        }
     }
     /* Health bar is hidden by default, it only appears when the units, structures HP is not full and after some time, if not attacked again,
     Health starts to regenerate slowly and when HP is full, the Health Bar again hides itself. Also, if HP decreases down to 0, the Health holder
     is destroyed (death) */
-    public void decreaseHealth (int damage) {
-        unitHP -= damage;
-        if (FindObjectOfType<Research> () != null) {
-            healthBarForeground.fillAmount = unitHP / upgrade.getLightTroopScalingCoef ();
+    public void decreaseHealth(int damage)
+    {
+        if (shieldHealth <= 0)
+        {
+            unitHP -= damage;
         }
-        else {
+        else
+        {
+            shieldHealth -= damage;
+        }
+        if (FindObjectOfType<Research>() != null)
+        {
+            healthBarForeground.fillAmount = unitHP / upgrade.getLightTroopScalingCoef();
+            shieldForeground.fillAmount = shieldHealth / upgrade.getLightTroopShieldScalingCoef();
+        }
+        else
+        {
             healthBarForeground.fillAmount = unitHP / upgrade.getDamage();
+            shieldForeground.fillAmount = shieldHealth / upgrade.getDamage();
         }
         isShot = true;
     }
-    public void setHP (int HP) {
+    public void setHP(int HP)
+    {
         unitHP += HP;
     }
-    IEnumerator RegenerateHealth () {
+    public void setCanShield(bool can)
+    {
+        canShield = can;
+    }
+    IEnumerator RegenerateHealth()
+    {
         int x = unitHP;
-        yield return new WaitForSeconds (15);
-        if (x == unitHP) {
+        yield return new WaitForSeconds(15);
+        if (x == unitHP)
+        {
             isShot = false;
-            if (FindObjectOfType<Research> () != null) {
-                while (unitHP < upgrade.getMaxHP () && !isShot) {
+            if (FindObjectOfType<Research>() != null)
+            {
+                while (unitHP < upgrade.getMaxHP() && !isShot)
+                {
                     unitHP += regenerationAmount;
-                    yield return new WaitForSeconds (0.3f);
+                    yield return new WaitForSeconds(0.3f);
                 }
             }
-            else {
-                while (unitHP < upgrade.getMaxHP() && !isShot) {
+            else
+            {
+                while (unitHP < upgrade.getMaxHP() && !isShot)
+                {
                     unitHP += regenerationAmount;
-                    yield return new WaitForSeconds (0.3f);
-                 }
+                    yield return new WaitForSeconds(0.3f);
+                }
+            }
+        }
+    }
+
+    IEnumerator GenerateShield()
+    {
+        int x = shieldHealth;
+        yield return new WaitForSeconds(2);
+        if (x == shieldHealth)
+        {
+            isShot = false;
+            while (shieldHealth < maxShield && !isShot && canShield)
+            {
+                shieldHealth += regenerationAmount;
+                yield return new WaitForSeconds(0.3f);
             }
         }
     }

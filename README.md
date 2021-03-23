@@ -1,2 +1,3 @@
-# CubexV2
-Backup game project repo
+# Cubex V2 
+
+Realaus laiko strateginis žaidimas V2
