@@ -998,8 +998,8 @@ MonoBehaviour:
   changePos: {fileID: 6286941532634426773}
   changePosBtnText: {fileID: 5068725186712105235}
   errorWorkerIssue1: {fileID: 4734247675599238696}
-  errorWorkerIssue2: {fileID: 0}
-  errorForChangingPos: {fileID: 0}
+  errorWorkerIssue2: {fileID: 1256390105813336878}
+  errorForChangingPos: {fileID: 4964921764610476559}
   btnIndex: 2
 --- !u!1 &1977407095962541481
 GameObject:
