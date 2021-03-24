@@ -7,23 +7,31 @@ public class move : MonoBehaviour
     ClickOn click;
     [SerializeField] GameObject unitPosition;
     [SerializeField] bool onItsWay;
+    [SerializeField] bool isHero = false;
+    [SerializeField] GameObject mainModel;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.Warp(transform.position);
         click = GetComponent<ClickOn>();
-        FindObjectOfType<GameSession>().addTroopAmount(1);
-        var camps = GameObject.FindGameObjectsWithTag("Camp");
-        if (camps.Length > 0)
+        var gs = FindObjectOfType<GameSession>();
+        if (gs)
+            gs.addTroopAmount(1);
+        
+        if (!isHero)
         {
-            foreach (var item in camps)
+            var camps = GameObject.FindGameObjectsWithTag("Camp");
+            if (camps.Length > 0)
             {
-                var army = item.GetComponent<ArmyCamp>();
-                if (army.Occupied < army.Capacity)
+                foreach (var item in camps)
                 {
-                    agent.destination = item.transform.position;
-                    onItsWay = true;
-                    break;
+                    var army = item.GetComponent<ArmyCamp>();
+                    if (army.Occupied < army.Capacity)
+                    {
+                        agent.destination = item.transform.position;
+                        onItsWay = true;
+                        break;
+                    }
                 }
             }
         }
@@ -33,11 +41,21 @@ public class move : MonoBehaviour
         unitMove();
     }
     private void unitMove()
-    {
+    {        
         if (!click.GetSelected())
         {
             return;
         }
+        // Checking when to stop the moving unit
+        if (agent.velocity.magnitude > 0f)
+        {
+           // print("Unit is moving");
+            if (agent.remainingDistance < 1f)
+                agent.isStopped = true;
+            //print(agent.remainingDistance);
+        }
+        
+       
         if (Input.GetMouseButtonDown(0))
         {
             if (!EventSystem.current.IsPointerOverGameObject())
@@ -48,7 +66,10 @@ public class move : MonoBehaviour
                     if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground") || hit.transform.gameObject.layer == LayerMask.NameToLayer("LvlMap"))
                     {
                         agent.isStopped = false;
-                        agent.destination = hit.point;
+                        agent.SetDestination(hit.point);
+                        if (mainModel)
+                            mainModel.transform.position = transform.position;
+                            //mainModel.transform.position = hit.point;
                     }
                     else
                     {

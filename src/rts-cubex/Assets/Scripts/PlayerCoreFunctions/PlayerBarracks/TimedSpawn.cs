@@ -21,7 +21,7 @@ public class TimedSpawn : MonoBehaviour {
     [SerializeField] GameObject TroopSpawningPanel;
     [SerializeField] int lightTroopWeight=1;
     [SerializeField] int heavyTroopWeight=2;
-    [SerializeField] UnitBuildTimer lightTroopTimer;
+    [SerializeField] LightTroopTimer lightTroopTimer;
     [SerializeField] HeavyTroopTimer heavyTroopTimer;
     [SerializeField] ResearchConf oBGResearch;
     private void Start() {
