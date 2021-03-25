@@ -21,9 +21,17 @@ public class TroopHealth : MonoBehaviour
     [SerializeField] Image shieldForeground;
     [SerializeField] Image shieldBackground;
     [SerializeField] bool canShield;
+    [SerializeField] bool isHero = false;
     void Start()
     {
-        shieldHealth = 0;
+        if (isHero)
+        {
+            shieldHealth = maxShield;
+        }
+        else
+        {
+            shieldHealth = 0;
+        }
         health.SetActive(false);
         if (FindObjectOfType<Base>() == null)
         {
@@ -40,7 +48,7 @@ public class TroopHealth : MonoBehaviour
     }
     void Update()
     {
-        if (FindObjectOfType<Research>() != null)
+        if ((FindObjectOfType<Research>() != null) && !isHero)
         {
             if (!oneTimeGetHP)
             {
@@ -55,6 +63,10 @@ public class TroopHealth : MonoBehaviour
             if (unitHP >= upgrade.getMaxHP())
             {
                 health.SetActive(false);
+            }
+            if (shieldHealth <= 0) //For hero. If there are problems pls contact me!!:) Pls check if it works with troop
+            {
+                canShield = false;
             }
             if (shieldHealth < maxShield && canShield)
             {
@@ -84,12 +96,12 @@ public class TroopHealth : MonoBehaviour
         }
         else
         {
-            if (unitHP < upgrade.getMaxHP())
+            if (unitHP < (isHero ? upgrade.SHeroMaxHP : upgrade.getMaxHP()))
             {
                 health.SetActive(true);
                 StartCoroutine(RegenerateHealth());
             }
-            if (unitHP >= upgrade.getMaxHP())
+            if (unitHP >=  (isHero ? upgrade.SHeroMaxHP : upgrade.getMaxHP()))
             {
                 health.SetActive(false);
             }
@@ -103,7 +115,8 @@ public class TroopHealth : MonoBehaviour
             if (unitHP <= 0)
             {
                 Destroy(gameObject);
-                playerBase.addPlayerTroopsAmount(-TroopWeight);
+                if (playerBase)
+                    playerBase.addPlayerTroopsAmount(-TroopWeight);
             }
         }
     }
@@ -149,7 +162,7 @@ public class TroopHealth : MonoBehaviour
             isShot = false;
             if (FindObjectOfType<Research>() != null)
             {
-                while (unitHP < upgrade.getMaxHP() && !isShot)
+                while (unitHP < (isHero ? upgrade.SHeroMaxHP : upgrade.getMaxHP()) && !isShot)
                 {
                     unitHP += regenerationAmount;
                     yield return new WaitForSeconds(0.3f);
@@ -157,7 +170,7 @@ public class TroopHealth : MonoBehaviour
             }
             else
             {
-                while (unitHP < upgrade.getMaxHP() && !isShot)
+                while (unitHP < (isHero ? upgrade.SHeroMaxHP : upgrade.getMaxHP()) && !isShot)
                 {
                     unitHP += regenerationAmount;
                     yield return new WaitForSeconds(0.3f);

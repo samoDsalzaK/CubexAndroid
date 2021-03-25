@@ -39,7 +39,8 @@ public class AIwanderer : MonoBehaviour
         agent = GetComponent<UnityEngine.AI.NavMeshAgent> ();
         scanner = gameObject.transform.GetChild(transform.childCount - locIndexInChildList).gameObject;
         scanArea = scanner.GetComponent<ScanArea>();
-        eBase = eTagMgr.getCurrentEnemyBaseByTag(enemyTag.getEnemyTag(), "EnemyBase").GetComponent<EnemyAIBase>();
+        if(eTagMgr)
+            eBase = eTagMgr.getCurrentEnemyBaseByTag(enemyTag.getEnemyTag(), "EnemyBase").GetComponent<EnemyAIBase>();
         patrolAction = GetComponent<TroopPatrollAction>();
         hadArrived = false;
 

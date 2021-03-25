@@ -19,15 +19,30 @@ MonoBehaviour:
   sHeavyMaxHP: 300
   sDamage: 10
   sHeavyTroopScalingCoef: 300
+  sHeavyTroopShieldScalingCoef: 300
   sLightTroopScalingCoef: 100
+  sLightTroopShieldScalingCoef: 100
   sTroopResearchHealth: 250
   sBarrackHealth: 350
+  sHeroMaxHP: 200
   researchLevel: 0
+  researchCost: 100
+  spawnDelay: 1
   troopLevel: 1
   heavyTroopLevel: 1
+  LightLevelCost: 200
+  heavyLevelCost: 200
   maxHP: 100
   heavyMaxHP: 300
+  lightHealthIncrease: 30
+  heavyHealthIncrease: 35
+  lightDamageIncrease: 3
+  heavyDamageIncrease: 2
   damage: 10
+  heavyDamage: 10
+  maxLightTroopLevel: 10
+  maxHeavyTroopLevel: 10
+  maxResearchLevel: 3
   heavyTroopScalingCoef: 300
   lightTroopScalingCoef: 100
   troopResearchHealth: 250

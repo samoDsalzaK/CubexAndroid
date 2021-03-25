@@ -28,24 +28,27 @@ public class SearchForPlayerBase : MonoBehaviour
     void Update()
     {
         //Main loop for searching for the energon deposit
-        if (aiSearcher.searchingForPlayerBase() || fAction.SearchingForBase())
+        if (aiSearcher || fAction)
         {
-            //Debug.Log("Is searching for player base: " + aiSearcher.searchingForPlayerBase());
-            rotateScanner();
-
-            if (!isPlayerAreaFound)
+            if (aiSearcher.searchingForPlayerBase() || fAction.SearchingForBase())
             {
-                emitSearchRay();
+                //Debug.Log("Is searching for player base: " + aiSearcher.searchingForPlayerBase());
+                rotateScanner();
+
+                if (!isPlayerAreaFound)
+                {
+                    emitSearchRay();
+                }
+                else
+                {
+                return;
+                }
             }
             else
             {
-            return;
-            }
+                return;
+            } 
         }
-        else
-        {
-            return;
-        } 
     }
     private void emitSearchRay()
     {
