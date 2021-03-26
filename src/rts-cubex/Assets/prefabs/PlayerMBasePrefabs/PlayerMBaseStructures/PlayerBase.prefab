@@ -1976,6 +1976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f5455eb738a95499aeb0ce2c7a3fa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorForWorker: {fileID: 0}
   canBuildTurret: 0
   structureBuilt: 1
   buildTurretBtn: {fileID: 3197914709382344537}
@@ -3318,6 +3319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df9b46c20a65004da6e20252b8451ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorForWorker: {fileID: 0}
   btnCollectorClicked: 0
   collectorStructureBuilt: 0
   buildButton: {fileID: 755612447415153198}
@@ -3755,6 +3757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c95c83047af56499e31f363108e2c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorForWorker: {fileID: 0}
   canBuildResearchCentre: 0
   structureBuilt: 0
   buildResearchCentreBtn: {fileID: 2779801082709158381}
@@ -4403,6 +4406,7 @@ MonoBehaviour:
   buildWorkerBtn: {fileID: 4515906290759543866}
   buildPlayerWallBtn: {fileID: 2779801082962874823}
   timerStart: {fileID: 755612447165250646}
+  creditsMiningStationBtn: {fileID: 0}
   buildWorkerStartTime: 5
 --- !u!54 &755612446071557019
 Rigidbody:
@@ -5606,6 +5610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3041fb070ad3af648a2f521c871ed914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorForWorker: {fileID: 0}
   canBuildWall: 0
   structureBuilt: 0
   buildPlayerWallBtn: {fileID: 2779801082962874821}
@@ -8002,6 +8007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eae5811713fd564ca98baeee14a0602, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorForWorker: {fileID: 0}
   canBuildTroopsResearchCentre: 0
   structureBuilt: 0
   buildTroopsResearchCentreBtn: {fileID: 2779801081688202360}
@@ -8681,6 +8687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b3fd1ce2dd64e41a584a3296399999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  errorForWorker: {fileID: 0}
   canBuildBarrack: 0
   structureBuilt: 0
   buildBarrackBtn: {fileID: 755612446848692063}
@@ -9378,7 +9385,7 @@ GameObject:
   - component: {fileID: 755612447165250644}
   - component: {fileID: 871032535}
   - component: {fileID: 1902801621}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: PlayerBase
   m_TagString: PlayerBase
   m_Icon: {fileID: 0}
@@ -9542,6 +9549,10 @@ MonoBehaviour:
   healthBarForeground: {fileID: 755612445487073040}
   healthBarBackground: {fileID: 755612446873995170}
   regenerateHpAmount: 1
+  maxShield: 1000
+  shieldHealth: 0
+  shieldForeground: {fileID: 0}
+  shieldBackground: {fileID: 0}
 --- !u!114 &755612447165250644
 MonoBehaviour:
   m_ObjectHideFlags: 0
