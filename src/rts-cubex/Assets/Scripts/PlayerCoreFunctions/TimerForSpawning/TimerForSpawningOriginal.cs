@@ -21,7 +21,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
     [SerializeField] GameObject collector;
     [SerializeField] GameObject researchCenter;
     [SerializeField] GameObject troopsResearchCenter;
-    [SerializeField] GameObject playerDefenceWall;
+    //[SerializeField] GameObject playerDefenceWall;
     [SerializeField] GameObject creditsMiningStation;
     float startingTime = 0;
     //float startingTime1 = 0;
@@ -219,7 +219,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						workerLife.decreaseWorkerLife();
 						//playerworker.setWorkerState(false);
 					break;
-					case 5:
+					/*case 5:
 						Instantiate(playerDefenceWall, pozition, Quaternion.identity);
 						if(playerScorePoints != null)
 						{
@@ -229,7 +229,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 						workerLife.decreaseWorkerLife();
 						playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
-					break;
+					break;*/
 					case 6:
 						if(pressedBtnIndex != 0){
 							var changePosBuildings = FindObjectsOfType<changePosition>();

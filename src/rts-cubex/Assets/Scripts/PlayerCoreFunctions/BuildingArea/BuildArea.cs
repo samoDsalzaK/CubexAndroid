@@ -14,7 +14,7 @@ public class BuildArea : MonoBehaviour
     [SerializeField] ResearchCentreBuild researchCenterBtn;
     [SerializeField] BuildTroopsResearchCenter troopsCenterBtn;
     [SerializeField] BuildWorker buildWorkerBtn;
-    [SerializeField] BuildPlayerWall buildPlayerWallBtn;
+    //[SerializeField] BuildPlayerWall buildPlayerWallBtn;
     [SerializeField] WorkerSpawningTimer timerStart;
     [SerializeField] MiningStationBuild creditsMiningStationBtn; // for credits mining station
     [SerializeField] float buildWorkerStartTime = 5f;
@@ -171,7 +171,7 @@ public class BuildArea : MonoBehaviour
 					timerStart.startTimer(buildWorkerStartTime);
 					buildWorkerBtn.canBuildAgain(true);
 				}
-				if((buildPlayerWallBtn.buildPlayerWall()) && (canBuild))
+				/*if((buildPlayerWallBtn.buildPlayerWall()) && (canBuild))
 				{
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-buildPlayerWallBtn.getMinNeededCreditsAmountForDefensiveWall()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-buildPlayerWallBtn.getMinNeededEnergonAmountForDefensiveWall()); // uzsetiname naujas reksmes
@@ -193,7 +193,7 @@ public class BuildArea : MonoBehaviour
 						return;
 						}    
 					}
-				}
+				}*/
 				if((creditsMiningStationBtn.buildMiningStation()) && (canBuild)){
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation()); // uzsetiname naujas reksmes

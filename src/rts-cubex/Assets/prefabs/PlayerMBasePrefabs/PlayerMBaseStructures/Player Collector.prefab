@@ -1240,6 +1240,7 @@ GameObject:
   - component: {fileID: 4772332213184350012}
   - component: {fileID: 6753416723767533610}
   - component: {fileID: 8698244020213426800}
+  - component: {fileID: 7863305349756506639}
   m_Layer: 11
   m_Name: Body
   m_TagString: energonFactory
@@ -1344,6 +1345,26 @@ MonoBehaviour:
   healthBarForeground: {fileID: 4890433975942564628}
   healthBarBackground: {fileID: 7683850475591880092}
   regenerateHpAmount: 1
+  maxShield: 1000
+  shieldHealth: 0
+  shieldForeground: {fileID: 0}
+  shieldBackground: {fileID: 0}
+--- !u!114 &7863305349756506639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4101529652087659166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa7b340f35ef0340a8c88640ca9dec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels:
+  - {fileID: 3078307937021806249}
+  - {fileID: 8334146038308130517}
+  - {fileID: 1543420013458330184}
 --- !u!1 &4255749153864533475
 GameObject:
   m_ObjectHideFlags: 0

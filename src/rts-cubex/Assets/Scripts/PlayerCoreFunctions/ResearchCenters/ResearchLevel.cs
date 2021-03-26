@@ -13,21 +13,23 @@ public class ResearchLevel : MonoBehaviour
     private Base playerbase;
     private HealthOfRegBuilding researchHealth;
     [SerializeField] ResearchConf oBGResearch;
+	PanelManager panelManager;
     // Start is called before the first frame update
     void Start()
     {
-      if(FindObjectOfType<Base>() == null)
-      {
-         return;
-      }
-      else
-      {
-         playerbase = FindObjectOfType<Base>();
-      }
-      researchCenterUpgradePanel.SetActive(false);
-      researchHealth = GetComponent<HealthOfRegBuilding>();
-      researchHealth.setHealthOfStructureOriginal(oBGResearch.getBuildingResearchHealth());
-      researchHealth.setHealth(oBGResearch.getBuildingResearchHealth());
+		if(FindObjectOfType<Base>() == null)
+		{
+			return;
+		}
+		else
+		{
+			playerbase = FindObjectOfType<Base>();
+		}
+		researchCenterUpgradePanel.SetActive(false);
+		researchHealth = GetComponent<HealthOfRegBuilding>();
+		researchHealth.setHealthOfStructureOriginal(oBGResearch.getBuildingResearchHealth());
+		researchHealth.setHealth(oBGResearch.getBuildingResearchHealth());
+	 	panelManager = GetComponent<PanelManager>();
     }
 
     // Update is called once per frame
@@ -51,9 +53,19 @@ public class ResearchLevel : MonoBehaviour
     }
     void OnMouseDown()
     { 
-    researchCenterUpgradePanel.SetActive(true);  
-    researchCenterLevelText.text = "Research Center Level : " + oBGResearch.getBuildingResearchLevel();   
-    researchUpgradeBtnText.text = "Upgrade Research Center to level " + (oBGResearch.getBuildingResearchLevel()+ 1) + "\n" + "(" + oBGResearch.getMinNeededCreditsAmountForResearch() + " credits & " + oBGResearch.getMinNeededEnergonAmountForResearch()  + " energon)"; 
+      	// check for active panels in this building hierarchy if yes do not trigger on mouse click
+        var status = panelManager.checkForActivePanels();
+        if (status){
+            return;
+        }  
+        else{
+            // set main window
+			researchCenterUpgradePanel.SetActive(true);  
+			researchCenterLevelText.text = "Research Center Level : " + oBGResearch.getBuildingResearchLevel();   
+			researchUpgradeBtnText.text = "Upgrade Research Center to level " + (oBGResearch.getBuildingResearchLevel()+ 1) + "\n" + "(" + oBGResearch.getMinNeededCreditsAmountForResearch() + " credits & " + oBGResearch.getMinNeededEnergonAmountForResearch()  + " energon)"; 
+            // deactivate other building panels
+            panelManager.changeStatusOfAllPanels();
+        }
     }
     public void upgradeBaseResearchLevel() // cia apskritai visos bazes, o ne playerio tawn holo!
     {

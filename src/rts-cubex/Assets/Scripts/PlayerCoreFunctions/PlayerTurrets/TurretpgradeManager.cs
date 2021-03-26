@@ -23,6 +23,7 @@ public class TurretpgradeManager : MonoBehaviour
     private ResearchLevel researchLevel;
     private TurretFire turretFire;
     [SerializeField] int playerScoreEarned = 5;
+    PanelManager panelManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,7 @@ public class TurretpgradeManager : MonoBehaviour
         turretUpgradePanel.SetActive(false);
         turretHealth = GetComponent<TurretHealth>();
         turretFire = GetComponent<TurretFire>(); 
+        panelManager = GetComponent<PanelManager>();
     }
     // Update is called once per frame
     void Update()
@@ -55,11 +57,22 @@ public class TurretpgradeManager : MonoBehaviour
 
     void OnMouseDown()
     { 
-    turretUpgradePanel.SetActive(true);    
-    turretLevelText.text = "Turret Level : " + turretLevel;
-    turretUpgrageBtText.text = "Upgrade Turret to level" + (turretLevel + 1) + "(" + minNeedCreditsAmountForTurretUpgrade + " credits & " + minNeedEnergonAmountForTurretUpgrade + " energon)";
-    turretHealthPoins.text = "Health " + turretHealth.getCurrentTurretHealth() + " / " + turretHealth.getTurretHealth();
-    turretDamagePoints.text = "Damage Points : " + turretFire.getDamage();
+        // check for active panels in this building hierarchy if yes do not trigger on mouse click
+        var status = panelManager.checkForActivePanels();
+        if (status){
+            return;
+        }  
+        else{
+            // set main window
+            turretUpgradePanel.SetActive(true);    
+            turretLevelText.text = "Turret Level : " + turretLevel;
+            turretUpgrageBtText.text = "Upgrade Turret to level" + (turretLevel + 1) + "(" + minNeedCreditsAmountForTurretUpgrade + " credits & " + minNeedEnergonAmountForTurretUpgrade + " energon)";
+            turretHealthPoins.text = "Health " + turretHealth.getCurrentTurretHealth() + " / " + turretHealth.getTurretHealth();
+            turretDamagePoints.text = "Damage Points : " + turretFire.getDamage();
+            // deactivate other building panels
+            panelManager.changeStatusOfAllPanels();
+        }
+        
     }
     public void checkingUpgradeBtnLevel()
     { 
