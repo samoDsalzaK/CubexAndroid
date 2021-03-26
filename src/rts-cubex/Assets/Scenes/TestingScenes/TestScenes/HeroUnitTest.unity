@@ -839,16 +839,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 173462018714466714, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4067620509256819265, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6105856491519104929, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -904,66 +894,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6123775542041191274, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_Name
-      value: Canon
-      objectReference: {fileID: 0}
-    - target: {fileID: 6270915404991712426, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6270915404991712426, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6270915404991712426, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6270915404991712426, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6270915404991712426, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6270915404991712426, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.46
-      objectReference: {fileID: 0}
-    - target: {fileID: 6836085061552536644, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: Troop
-      value: 
-      objectReference: {fileID: 7969846009624817177}
-    - target: {fileID: 7054000741850849786, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7054000741850849786, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.67825866
-      objectReference: {fileID: 0}
-    - target: {fileID: 7054000741850849786, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8006995814896700110, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 9098030794844778249, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
         type: 3}
       propertyPath: m_Name
@@ -971,32 +901,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04da9c4a38e9de24ba0b07be482e7dc0, type: 3}
---- !u!1 &7969846009624817177 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9098030794844778249, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-    type: 3}
-  m_PrefabInstance: {fileID: 7969846009624817176}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7969846009624817178 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6270915404991712426, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-    type: 3}
-  m_PrefabInstance: {fileID: 7969846009624817176}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7969846009624817179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7969846009624817177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69f2275d02f662c469f8cead7e047316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 7969846009624817178}
-  projectilePrefab: {fileID: 6053705760785091143, guid: d8bf847321ef346408421d36ff6abcd8,
-    type: 3}
-  launchForce: 700
-  fireRate: 0.5

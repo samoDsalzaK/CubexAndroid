@@ -66,6 +66,7 @@ public class TroopHealth : MonoBehaviour
             }
             if (shieldHealth <= 0) //For hero. If there are problems pls contact me!!:) Pls check if it works with troop
             {
+                shieldHealth = 0;
                 canShield = false;
             }
             if (shieldHealth < maxShield && canShield)
