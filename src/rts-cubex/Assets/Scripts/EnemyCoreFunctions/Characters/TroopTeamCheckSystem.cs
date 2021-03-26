@@ -40,27 +40,30 @@ public class TroopTeamCheckSystem : MonoBehaviour
             enemyBase.GetComponent<AITroopManager>().receiveSignalForRespawn(true);
             return;
         }
-        if (teamLeader.amILeader() || teamFollower.FollowerOfTheLeader())
+        if (teamLeader)
         {
-            enemyTroops = GameObject.FindGameObjectsWithTag(enemyTroopTag);
-            if (enemyTroops != null && troopCode != null) 
+            if (teamLeader.amILeader() || teamFollower.FollowerOfTheLeader())
             {
-                 
-               
-                //Send info to class troopmanager  to spawn new gameobjects
-                var currentTroopCode = gameObject.GetComponent<TroopTCode>().getTroopCode();
-
-                currentTeamSize = countTroopsByCode(enemyTroops, currentTroopCode);
-                Debug.Log("Current team size: " + currentTeamSize);
-
-                if (currentTeamSize >= maxTeamMembers)
+                enemyTroops = GameObject.FindGameObjectsWithTag(enemyTroopTag);
+                if (enemyTroops != null && troopCode != null) 
                 {
-                     maxTeamMembers = currentTeamSize;
-                     isTeamFull = true;
-                     return;
-                }  
+                    
                 
+                    //Send info to class troopmanager  to spawn new gameobjects
+                    var currentTroopCode = gameObject.GetComponent<TroopTCode>().getTroopCode();
 
+                    currentTeamSize = countTroopsByCode(enemyTroops, currentTroopCode);
+                    Debug.Log("Current team size: " + currentTeamSize);
+
+                    if (currentTeamSize >= maxTeamMembers)
+                    {
+                        maxTeamMembers = currentTeamSize;
+                        isTeamFull = true;
+                        return;
+                    }  
+                    
+
+                }
             }
         }
     }

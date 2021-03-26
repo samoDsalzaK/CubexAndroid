@@ -10,9 +10,12 @@ public class Click : MonoBehaviour {
         if (Input.GetMouseButtonDown (0)) {
             RaycastHit rayHit;
             if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out rayHit, Mathf.Infinity, clickablesLayer)) {
-                ClickOn clickOnScript = rayHit.collider.GetComponent<ClickOn> ();
-                clickOnScript.SetSelected (!clickOnScript.GetSelected ()); //---------------------------------------------------
-                clickOnScript.ClickMe ();
+                if (rayHit.collider.GetComponent<ClickOn> ())
+                {
+                    var clickOnScript = rayHit.collider.GetComponent<ClickOn> ();
+                    clickOnScript.SetSelected (!clickOnScript.GetSelected ()); //---------------------------------------------------
+                    clickOnScript.ClickMe ();
+                }
                 /* if the unit is clicked by player, its select state is changed. Color changing method in the script "ClickOn" is invoked */
             }
         }

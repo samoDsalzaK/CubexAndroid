@@ -24,7 +24,7 @@ public class Base : MonoBehaviour
     [SerializeField] GameObject worker; // GameObject variable which holds worker object
     [SerializeField] Button createBuilding;
     [SerializeField] Button addcreditstobase;
-    Text currentPlayerTroopsAmount;
+    [SerializeField] Text currentPlayerTroopsAmount;
     bool resourceAmountScreenState;// screen state variable
     bool resourceAmountScreenStateForUpgrade;
     bool errorStateForResearchCenter;
@@ -33,12 +33,18 @@ public class Base : MonoBehaviour
     bool errorStateForPlayerCollector;
     bool buildingArea;
     bool createWorkerAmountState;
+    [SerializeField] Button createEnergonCollector; // Button type variables needed to save buttons
+    [SerializeField] Button createBarrackBuilding;
+    [SerializeField] Button createTurret;
+    [SerializeField] Button createResearchCentre;
+    [SerializeField] Button createTroopsResearchCenter;
+    [SerializeField] Button createPlayerWalls;
     int researchCentreUnitAmount; // variable for building research center amount 
     int troopsResearchCenterAmount; // varibale for troops research amount
     int workersAmountOriginal; // variable which holds only free workers amount in the player's baze
     [SerializeField] int conversionAmount; // needed min amount of enrgon to exchange it to credits
     [SerializeField] int existingWorkerAmount; // variable which holds amount of all workers which are spawned on the player base (free and not free)
-    Text existingAndMaxWorkersAmount; // text fieldas for workers
+    [SerializeField] Text existingAndMaxWorkersAmount; // text fieldas for workers
     [SerializeField] int maxWorkerAmountInLevel;
     [SerializeField] Button createworker;
     [SerializeField] int fixedPriceOfOneAdditionalWorker;
@@ -68,10 +74,6 @@ public class Base : MonoBehaviour
     [SerializeField] bool isTutorialChecked = false;
     private int index = 0; // parameter needed for worker indexing
     string workerIndex;  // string value which holds unique index of each spawned worker
-
-    public Canvas gameHood;
-
-    PanelManager panelManager;
     
     // Start is called before the first frame update
     void Start()
@@ -88,26 +90,17 @@ public class Base : MonoBehaviour
        errorStateForPlayerCollector = false; 
        buildingArea = false; // make the object of biulding area be inactive
        createWorkerAmountState = false;
+       createBarrackBuilding.interactable = false; // make button be interactable
+       createEnergonCollector.interactable = false;
+       createTurret.interactable = false; 
+       createResearchCentre.interactable = false;
+       createTroopsResearchCenter.interactable = false;
+       createPlayerWalls.interactable = false;
        healthOfTheBase = GetComponent<HealthOfRegBuilding>();
        researchCenterLevel = FindObjectOfType<ResearchLevel>();
        BuildingArea.SetActive(false);
        additionalWorkerText.text = "Additional \n Worker (" + fixedPriceOfOneAdditionalWorker + " credits)";
        addCreditsToBase.text = "Add Credits\n" + "(" + conversionAmount + " energon)";
-
-        gameHood = GameObject.Find("GameHood").GetComponent<Canvas>();
-        Transform[] ts = gameHood.transform.GetComponentsInChildren<Transform>();
-        foreach (Transform t in ts) {
-            if(t.gameObject.GetComponent<Text>() != null && t.gameObject.GetComponent<Text>().name == "maxandavailableworkeramount")
-            {
-                existingAndMaxWorkersAmount = t.gameObject.GetComponent<Text>();
-            }
-            else if (t.gameObject.GetComponent<Text>() != null && t.gameObject.GetComponent<Text>().name == "playerTroopsAmount"){
-                currentPlayerTroopsAmount = t.gameObject.GetComponent<Text>();
-            }
-        }
-
-		panelManager = GetComponent<PanelManager>();
-
     }
     // Update is called once per frame
     void Update()
@@ -199,6 +192,39 @@ public class Base : MonoBehaviour
         {
         BuildingArea.SetActive(false);
         }
+
+        if( workersAmountOriginal <=0 ) // condition which check free workers amount in player's baze and makes particular changes in button's behaviour;
+        {
+        createBarrackBuilding.interactable = false;
+        createEnergonCollector.interactable = false;
+        createTurret.interactable = false;
+        createPlayerWalls.interactable = false;
+        }
+        else
+        {
+        createEnergonCollector.interactable = true;
+        createBarrackBuilding.interactable = true;
+        createTurret.interactable = true;
+        createPlayerWalls.interactable = true;
+        }
+        // condition for biulding research center
+        if(workersAmountOriginal <= 0 || researchCentreUnitAmount == 1)
+        {
+          createResearchCentre.interactable = false;
+        }
+        else
+        {
+          createResearchCentre.interactable = true;
+        }
+        // condition for troops research center
+        if(workersAmountOriginal <= 0 || troopsResearchCenterAmount == 1)
+        {
+        createTroopsResearchCenter.interactable = false;
+        }
+        else
+        {
+        createTroopsResearchCenter.interactable = true;
+        }
         // condiion to ckech if the player has needed zmount of resources to convert them
         if(energon < conversionAmount)
         {
@@ -215,23 +241,12 @@ public class Base : MonoBehaviour
     }
     void OnMouseDown()
     {
-      	// check for active panels in this building hierarchy if yes do not trigger on mouse click
-        var status = panelManager.checkForActivePanels();
-        if (status){
-            return;
-        }  
-        else{
-            // set main window
-            Screen.SetActive(true);
-            addCredits.text = "Credits left : " + credits;  
-            addEnergon.text = "Energon left : " + energon;  
-            // deactivate other building panels
-            panelManager.changeStatusOfAllPanels();
-        }
-		// check for active panels in this building hierarchy and deactivate them
-		//panelManager.deactivateParentPanels(Screen);
-		/* check for active panels in other building and deactivate them all */
-		//panelManager.changeStatusOfAllPanels();
+      if(!GetComponent<InteractiveBuild>().OpenBMode)
+      {
+        Screen.SetActive(true);
+        addCredits.text = "Credits left : " + credits;  
+        addEnergon.text = "Energon left : " + energon;  
+      }
     }
     //workers spawning method
     public void Spawning()

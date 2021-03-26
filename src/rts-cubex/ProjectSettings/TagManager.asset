@@ -43,7 +43,10 @@ TagManager:
   - Ground
   - EBColBody
   - EWRA
-  - Camp
+  - WallIcon
+  - PlayerWall
+  - WallHolo
+  - _PlayerWall
   layers:
   - Default
   - TransparentFX
@@ -68,7 +71,7 @@ TagManager:
   - TroopArrow
   - enemyRange
   - AreaScanner
-  - 
+  - HoloTools
   - 
   - 
   - 

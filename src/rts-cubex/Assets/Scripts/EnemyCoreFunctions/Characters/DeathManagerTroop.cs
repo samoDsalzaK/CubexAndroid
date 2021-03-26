@@ -14,7 +14,7 @@ public class DeathManagerTroop : MonoBehaviour
    }
 
    private void Update() {
-       if (health.getHealth() <= 0)
+       if (health.getHealth() <= 0 && gs)
        {
            gs.AddPlayerScorePoints(killPointsForPlayer);
            if (isTroop)

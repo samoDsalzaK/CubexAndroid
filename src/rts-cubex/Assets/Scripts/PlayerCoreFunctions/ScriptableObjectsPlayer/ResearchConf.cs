@@ -17,6 +17,7 @@ public class ResearchConf : ScriptableObject
     [SerializeField] private float sLightTroopShieldScalingCoef = 100f;
     [SerializeField] private int sTroopResearchHealth = 250;
     [SerializeField] private int sBarrackHealth = 350;
+    [SerializeField] int sHeroMaxHP = 1000;
     [Header("Troop Research and Barracks varying values")]
     [SerializeField] int researchLevel = 0;
     [SerializeField] int researchCost = 100;
@@ -56,6 +57,8 @@ public class ResearchConf : ScriptableObject
     [SerializeField] private int upgradeBuildingResearchLevelHP;
     [SerializeField] private int playerScoreEarned;
     [SerializeField] private int buildingResearchHealth;
+    // Hero code
+    public int SHeroMaxHP { set { sHeroMaxHP = value; } get { return sHeroMaxHP; }}
     public int getResearchCost(){
         return researchCost;
     }

@@ -1,0 +1,206 @@
+// if (CheckBuildings)
+        // {
+        //     RaycastHit hit;  
+        //    if(!IsRotated)
+        //    {               
+        //         var directionX = Vector3.forward;  
+        //             if (Physics.Raycast(transform.position, transform.TransformDirection(directionX), out hit, Mathf.Infinity))
+        //             {                        
+        //                 if (hit.transform.tag == "WallIcon")
+        //                 {
+        //                     var d = Mathf.Round(hit.distance);                           
+                            
+        //                     if (sBuilding && d - transform.localScale.z > 0f)
+        //                     {
+        //                             if (isValuesSet && d - transform.localScale.z > 0f)
+        //                             {
+        //                                 isValuesSet = false;
+        //                             }
+        //                             if (!isValuesSet)
+        //                             {
+        //                                 if (d - transform.localScale.z > 0)
+        //                                 {    
+        //                                     maxIndex++;
+        //                                     //print("Max wall spawn amount: " + maxIndex);
+        //                                     isValuesSet = true;
+        //                                     stoppedPos = gameObject.transform.parent.gameObject.transform.position;
+        //                                 }
+        //                             }
+        //                             if (sbIndex >= maxIndex)
+        //                             {
+        //                                 sbIndex = 0;
+        //                                 return;
+        //                             }
+        //                             if (d - transform.localScale.z > 0)
+        //                             {                     
+                                        
+        //                                 var newSBPos = sBuilding.transform.position - new Vector3(transform.localScale.z, 0f, 0f); 
+        //                                 var nBuilding = Instantiate(sBuilding, newSBPos, sBuilding.transform.rotation);
+        //                                 var nBModel = helperTools.getChildGameObjectByName(nBuilding, "Wall_1");
+        //                                 nBModel.GetComponent<BuildRayField>().IsStartBuilding = false;
+        //                                 nBModel.GetComponent<WallBuildCheck>().IsTemp = true;
+        //                                 var cName = nBuilding.name.Replace("_s", "");
+        //                                 nBuilding.name = cName;
+        //                                 sBuilding = nBuilding;
+
+        //                                 spawnedShiftBuilds.Add(nBuilding);
+        //                                 // Counting spend fund amount
+        //                                 allBEnergonPrice += nBModel.GetComponent<WallBuildCheck>().EnergonPrice;
+        //                                 allBCreditsPrice += nBModel.GetComponent<WallBuildCheck>().CreditsPrice;
+        //                                 sbIndex++;
+
+        //                             }
+        //                         }
+        //                        else
+        //                        {
+        //                            sBuilding = _SBuilding;                      
+        //                        }
+        //                 }    
+        //             }
+        //             if (Physics.Raycast(transform.position, transform.TransformDirection(-directionX), out hit, Mathf.Infinity))
+        //             {
+        //                 if (hit.transform.tag == "WallIcon")
+        //                 {
+        //                     var d = Mathf.Round(hit.distance);                            
+                            
+        //                     if (sBuilding && d - transform.localScale.z > 0)
+        //                     {
+        //                             if (isValuesSet && d - transform.localScale.z > 0f)
+        //                             {
+        //                                 isValuesSet = false;
+        //                             }
+        //                             if (!isValuesSet)
+        //                             {
+        //                                 if (d - transform.localScale.z > 0)
+        //                                 {    
+        //                                     maxIndex++;
+        //                                     //print("Max wall spawn amount: " + maxIndex);
+        //                                     isValuesSet = true;
+        //                                     stoppedPos = gameObject.transform.parent.gameObject.transform.position;
+        //                                 }
+        //                             }
+        //                             if (sbIndex >= maxIndex)
+        //                             {
+        //                                 sbIndex = 0;
+        //                                 return;
+        //                             }
+        //                             if (d - transform.localScale.z > 0)
+        //                             {                     
+                                        
+        //                                 var newSBPos = sBuilding.transform.position + new Vector3(transform.localScale.z, 0f, 0f); 
+        //                                 var nBuilding = Instantiate(sBuilding, newSBPos, sBuilding.transform.rotation);
+        //                                 helperTools.getChildGameObjectByName(nBuilding, "Wall_1").GetComponent<BuildRayField>().IsStartBuilding = false;
+        //                                 var cName = nBuilding.name.Replace("_s", "");
+        //                                 nBuilding.name = cName;
+        //                                 sBuilding = nBuilding;
+        //                                 spawnedShiftBuilds.Add(nBuilding);                      
+        //                                 sbIndex++;
+        //                             }
+        //                     }
+        //                     else
+        //                     {
+        //                         sBuilding = _SBuilding;                      
+        //                     }
+        //                 }    
+        //             }
+        //     }
+        //     else
+        //     {
+        //         var directionZ = Vector3.forward;  
+        //             if (Physics.Raycast(transform.position, transform.TransformDirection(directionZ), out hit, Mathf.Infinity))
+        //             {
+        //                 if (hit.transform.tag == "WallIcon")
+        //                 {
+        //                     var d = Mathf.Round(hit.distance);
+
+        //                     if (sBuilding && d - transform.localScale.z > 0)
+        //                     {
+        //                             if (isValuesSet && d - transform.localScale.z > 0f)
+        //                             {
+        //                                 isValuesSet = false;
+        //                             }
+        //                             if (!isValuesSet)
+        //                             {
+        //                                 if (d - transform.localScale.z > 0)
+        //                                 {    
+        //                                     maxIndex++;
+        //                                     //print("Max wall spawn amount: " + maxIndex);
+        //                                     isValuesSet = true;
+        //                                     stoppedPos = gameObject.transform.parent.gameObject.transform.position;
+        //                                 }
+        //                             }
+        //                             if (sbIndex >= maxIndex)
+        //                             {
+        //                                 sbIndex = 0;
+        //                                 return;
+        //                             }
+        //                             if (d - transform.localScale.z > 0)
+        //                             {                     
+                                        
+        //                                 var newSBPos = sBuilding.transform.position + new Vector3(0f, 0f, transform.localScale.z); 
+        //                                 var nBuilding = Instantiate(sBuilding, newSBPos, sBuilding.transform.rotation);
+        //                                 helperTools.getChildGameObjectByName(nBuilding, "Wall_1").GetComponent<BuildRayField>().IsStartBuilding = false;
+        //                                 var cName = nBuilding.name.Replace("_s", "");
+        //                                 nBuilding.name = cName;
+        //                                 sBuilding = nBuilding; 
+        //                                 spawnedShiftBuilds.Add(nBuilding);                     
+        //                                 sbIndex++;
+        //                             }
+        //                     }
+        //                     else
+        //                     {
+        //                         sBuilding = _SBuilding;                      
+        //                     }
+        //                 }    
+        //             }
+        //             if (Physics.Raycast(transform.position, transform.TransformDirection(-directionZ), out hit, Mathf.Infinity))
+        //             {
+        //                 if (hit.transform.tag == "WallIcon")
+        //                 {
+        //                     var d = Mathf.Round(hit.distance);
+                            
+        //                     if (sBuilding && d - transform.localScale.z > 0)
+        //                     {
+        //                             if (isValuesSet && d - transform.localScale.z > 0f)
+        //                             {
+        //                                 isValuesSet = false;
+        //                             }
+        //                             if (!isValuesSet)
+        //                             {
+        //                                 if (d - transform.localScale.z > 0)
+        //                                 {    
+        //                                     maxIndex++;
+        //                                     isValuesSet = true;
+        //                                     stoppedPos = gameObject.transform.parent.gameObject.transform.position;
+        //                                 }
+        //                             }
+        //                             if (sbIndex >= maxIndex)
+        //                             {
+        //                                 sbIndex = 0;
+        //                                 return;
+        //                             }
+        //                             if (d - transform.localScale.z > 0)
+        //                             {                     
+                                        
+        //                                 var newSBPos = sBuilding.transform.position - new Vector3(0f, 0f, transform.localScale.z); 
+        //                                 var nBuilding = Instantiate(sBuilding, newSBPos, sBuilding.transform.rotation);
+        //                                 helperTools.getChildGameObjectByName(nBuilding, "Wall_1").GetComponent<BuildRayField>().IsStartBuilding = false;
+        //                                 var cName = nBuilding.name.Replace("_s", "");
+        //                                 nBuilding.name = cName;
+        //                                 sBuilding = nBuilding; 
+        //                                 spawnedShiftBuilds.Add(nBuilding);                     
+        //                                 sbIndex++;
+        //                             }
+        //                     }
+        //                     else
+        //                     {                            
+        //                        sBuilding = _SBuilding;                      
+        //                     }
+        //                 }    
+        //             }
+        //     }
+        // }
+        // else
+        // {
+        //     return;
+        // }

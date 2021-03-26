@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 4327653936803709077}
   m_Layer: 0
   m_Name: Wall_1
-  m_TagString: PlayerBase
+  m_TagString: WallIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -452,13 +452,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 632747773362660625}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f019b9a7c4a112b47af5f85570da9cbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnEnergonAmount: 7
-  returnCreditsAmount: 2
+  returnEnergonAmount: 15
+  returnCreditsAmount: 15
 --- !u!1 &1284337493404673377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,7 +1503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6314607205097740630
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2081,13 +2081,14 @@ GameObject:
   - component: {fileID: 8819832159723082746}
   - component: {fileID: 8819832159723082747}
   - component: {fileID: 8819832159723082744}
-  - component: {fileID: 5466195968462071363}
   - component: {fileID: 7811606459430574062}
   - component: {fileID: 8702278569365685714}
   - component: {fileID: 6888370447678445499}
-  m_Layer: 0
+  - component: {fileID: 3445306305503638909}
+  - component: {fileID: 3459979089498477650}
+  m_Layer: 2
   m_Name: Wall_1
-  m_TagString: PlayerBase
+  m_TagString: WallIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2100,8 +2101,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8819832159723082742}
   m_LocalRotation: {x: -0, y: 0.71597207, z: -0, w: 0.698129}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 2.3536997, z: 10}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 4.0707855, z: 10}
   m_Children: []
   m_Father: {fileID: 632747773362660634}
   m_RootOrder: 0
@@ -2132,7 +2133,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: adf2b95d884a12a4f80e01ef452affdf, type: 2}
+  - {fileID: 2100000, guid: b0e8fe597397d2849b927609648a3683, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2166,19 +2167,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5466195968462071363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8819832159723082742}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2017b8c24e50ec94fa464788a7fb0c03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  menu: {fileID: 6132397431484551939}
 --- !u!208 &7811606459430574062
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -2227,8 +2215,47 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
-  m_CollisionDetection: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
+--- !u!114 &3445306305503638909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8819832159723082742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04f4792a6d2a544bb138b995fe25334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energonPrice: 15
+  creditsPrice: 15
+  spaceOccupied: 0
+  wallBuiltMat: {fileID: 2100000, guid: adf2b95d884a12a4f80e01ef452affdf, type: 2}
+  isBuilt: 0
+  isTemp: 0
+--- !u!114 &3459979089498477650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8819832159723082742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe605bb5e205144a82972994e604240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkBuildings: 0
+  isStartBuilding: 0
+  isValuesSet: 0
+  sBuilding: {fileID: 0}
+  targetTag: Wall
+  maxIndex: 0
+  sbIndex: 0
+  spacing: 10
+  tOffset: 0
 --- !u!1 &8853525286028726742
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,7 +2555,7 @@ PrefabInstance:
     - target: {fileID: 5254381520875220041, guid: 80226e40071c55541ac1083468e2d494,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.32
+      value: 4.55
       objectReference: {fileID: 0}
     - target: {fileID: 5254381520875220041, guid: 80226e40071c55541ac1083468e2d494,
         type: 3}

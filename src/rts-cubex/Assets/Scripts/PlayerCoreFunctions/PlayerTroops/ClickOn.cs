@@ -6,20 +6,44 @@ public class ClickOn : MonoBehaviour {
     [Header ("Unit color")]
     [SerializeField] private Material not_selected;
     [SerializeField] private Material selected;
-    [SerializeField] private GameObject[] figures;
+    [SerializeField] GameObject[] figures;
     [SerializeField] public bool isSelected = false;
+    [SerializeField] bool hero = false;
+    [SerializeField] GameObject selectionIcon;
     void Start () {
+        
         isSelected = false;
     }
     public void ClickMe () {
         if (isSelected == false) {
-            for (int i = 0; i < figures.Length; i++) {
-                figures[i].GetComponent<MeshRenderer> ().material = not_selected;
+            if (hero)
+            {
+                selectionIcon.SetActive(false);
+            }
+            else
+            {
+                if (figures.Length > 0)
+                {
+                    for (int i = 0; i < figures.Length; i++) {
+                        figures[i].GetComponent<MeshRenderer> ().material = not_selected;
+                    }
+                }
             }
         } else {
-            for (int i = 0; i < figures.Length; i++) {
-                figures[i].GetComponent<MeshRenderer> ().material = selected;
-                isSelected = true;
+            if (hero)
+            {
+                selectionIcon.SetActive(true);
+            }
+            else
+            {
+                if (figures.Length > 0)
+                {
+                    for (int i = 0; i < figures.Length; i++) {
+                        figures[i].GetComponent<MeshRenderer> ().material = selected;
+                        
+                    }
+                    isSelected = true;
+                }
             }
         }
     }
