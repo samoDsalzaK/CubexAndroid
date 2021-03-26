@@ -9,6 +9,8 @@ public class CollectorBuild : MonoBehaviour
    //This script is attached on the build collector button 
     //************************UPDATE****************************************** */
     [Header("Main collector button configuration parameters ")]
+
+    [SerializeField] GameObject errorForWorker;
     //State variable for checking when the user clicked on the button
     [SerializeField] bool btnCollectorClicked = false;
      //State variable for checking if the user's chosen collector object is constructed
@@ -58,6 +60,11 @@ public class CollectorBuild : MonoBehaviour
             playerbase.setResourceAMountScreenState(true);
             return;
         }
+        if (playerbase.getworkersAmount() <= 0){
+            Debug.Log("Build worker first"); 
+			      errorForWorker.SetActive(true);  
+            return;
+         }
         var playerWorkers = GameObject.FindGameObjectsWithTag("Worker");
         for(int i = 0; i < playerWorkers.Length; i++)
         {
