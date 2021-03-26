@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4107117622418731997}
   - component: {fileID: 5993212445945131782}
   - component: {fileID: 2013983559976918744}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: errorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 5972634754177827449}
   - component: {fileID: 5141663483904110320}
   - component: {fileID: 2479057955210089452}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: errorWorkerIssue2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 7878634376757345972}
   - component: {fileID: 4484008228359138999}
   - component: {fileID: 3172829259917350029}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: errorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 1774960677498273672}
   - component: {fileID: 1774960677498273674}
   - component: {fileID: 1774960677498273673}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 1774960677538202068}
   - component: {fileID: 1774960677538202075}
   - component: {fileID: 1774960677538202074}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: UpgradeMiningStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 1774960677542873864}
   - component: {fileID: 1774960677542873866}
   - component: {fileID: 1774960677542873865}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: PriceToMine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 1774960677584316031}
   - component: {fileID: 1774960677584316030}
   - component: {fileID: 1774960677584316029}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: 'MainMiningStationPanel '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 1774960677586263355}
   - component: {fileID: 1774960677586263349}
   - component: {fileID: 1774960677586263348}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -692,7 +692,7 @@ GameObject:
   - component: {fileID: 1774960677586803750}
   - component: {fileID: 1774960677586803749}
   - component: {fileID: 6676090623400280629}
-  m_Layer: 23
+  m_Layer: 24
   m_Name: CreditsMiningStation
   m_TagString: cryptominingstation
   m_Icon: {fileID: 0}
@@ -809,6 +809,10 @@ MonoBehaviour:
   healthBarForeground: {fileID: 1774960679295582983}
   healthBarBackground: {fileID: 1774960677869795471}
   regenerateHpAmount: 1
+  maxShield: 1000
+  shieldHealth: 0
+  shieldForeground: {fileID: 0}
+  shieldBackground: {fileID: 0}
 --- !u!114 &1774960677586803748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -976,8 +980,6 @@ MonoBehaviour:
   - {fileID: 4344088314154362526}
   - {fileID: 957758751146392450}
   - {fileID: 2543603021893377440}
-  structureIndex: 6
-  structureCanvas: {fileID: 1774960679071769198}
 --- !u!1 &1774960677640377337
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,7 +991,7 @@ GameObject:
   - component: {fileID: 1774960677640377338}
   - component: {fileID: 1774960677640377332}
   - component: {fileID: 1774960677640377339}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1067,7 +1069,7 @@ GameObject:
   - component: {fileID: 1774960677675774625}
   - component: {fileID: 1774960677675774627}
   - component: {fileID: 1774960677675774626}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: InfoAboutMiningStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1145,7 +1147,7 @@ GameObject:
   - component: {fileID: 1774960677691550029}
   - component: {fileID: 1774960677691550031}
   - component: {fileID: 1774960677691550030}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Slot1text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1224,7 +1226,7 @@ GameObject:
   - component: {fileID: 1774960677702815525}
   - component: {fileID: 1774960677702815524}
   - component: {fileID: 1774960677702815531}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1353,7 +1355,7 @@ GameObject:
   - component: {fileID: 1774960677703537451}
   - component: {fileID: 1774960677703537445}
   - component: {fileID: 1774960677703537444}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1432,7 +1434,7 @@ GameObject:
   - component: {fileID: 1774960677705746109}
   - component: {fileID: 1774960677705746108}
   - component: {fileID: 1774960677705746083}
-  m_Layer: 5
+  m_Layer: 24
   m_Name: Yes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1572,7 +1574,7 @@ GameObject:
   - component: {fileID: 1774960677757978765}
   - component: {fileID: 1774960677757978767}
   - component: {fileID: 1774960677757978766}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Mining Station Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1650,7 +1652,7 @@ GameObject:
   - component: {fileID: 1774960677869795470}
   - component: {fileID: 1774960677869795464}
   - component: {fileID: 1774960677869795471}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1726,7 +1728,7 @@ GameObject:
   - component: {fileID: 1774960677906205257}
   - component: {fileID: 1774960677906205256}
   - component: {fileID: 1774960677906205263}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Slot3Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1846,7 +1848,7 @@ GameObject:
   - component: {fileID: 1774960677906635041}
   - component: {fileID: 1774960677906635040}
   - component: {fileID: 1774960677906635047}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: InfoAboutMiningStationButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1975,7 +1977,7 @@ GameObject:
   - component: {fileID: 1774960677929618531}
   - component: {fileID: 1774960677929618557}
   - component: {fileID: 1774960677929618556}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: NameOfTheBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2053,7 +2055,7 @@ GameObject:
   - component: {fileID: 1774960677962024879}
   - component: {fileID: 1774960677962024873}
   - component: {fileID: 1774960677962024872}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: InfoAboutMIningStationPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2129,7 +2131,7 @@ GameObject:
   - component: {fileID: 1774960678015602885}
   - component: {fileID: 1774960678015602887}
   - component: {fileID: 1774960678015602886}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: TimeToMineText (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2207,7 +2209,7 @@ GameObject:
   - component: {fileID: 1774960678040834591}
   - component: {fileID: 1774960678040834585}
   - component: {fileID: 1774960678040834584}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: 'Energon Left '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2285,7 +2287,7 @@ GameObject:
   - component: {fileID: 1774960678055980309}
   - component: {fileID: 1774960678055980311}
   - component: {fileID: 1774960678055980310}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Mining Station Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2363,7 +2365,7 @@ GameObject:
   - component: {fileID: 1774960678071605918}
   - component: {fileID: 1774960678071605912}
   - component: {fileID: 1774960678071605919}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2441,7 +2443,7 @@ GameObject:
   - component: {fileID: 1774960678306601793}
   - component: {fileID: 1774960678306601795}
   - component: {fileID: 1774960678306601794}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: ErrorResourceAmountPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2517,7 +2519,7 @@ GameObject:
   - component: {fileID: 1774960678309704545}
   - component: {fileID: 1774960678309704547}
   - component: {fileID: 1774960678309704546}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: TimeToMineText2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2597,7 +2599,7 @@ GameObject:
   - component: {fileID: 1774960678349228724}
   - component: {fileID: 1774960678349228731}
   - component: {fileID: 1774960678349228730}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2713,7 +2715,7 @@ GameObject:
   - component: {fileID: 1774960678381714695}
   - component: {fileID: 1774960678381714689}
   - component: {fileID: 1774960678381714688}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2791,7 +2793,7 @@ GameObject:
   - component: {fileID: 1774960678415949587}
   - component: {fileID: 1774960678415949613}
   - component: {fileID: 1774960678415949612}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: ErrorMiningStationCapasity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2867,7 +2869,7 @@ GameObject:
   - component: {fileID: 1774960678448838994}
   - component: {fileID: 1774960678448839020}
   - component: {fileID: 1774960678448838995}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: ErrorMessageCryptoAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2947,7 +2949,7 @@ GameObject:
   - component: {fileID: 1774960678453863637}
   - component: {fileID: 1774960678453863636}
   - component: {fileID: 1774960678453863643}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: changePosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3065,7 +3067,7 @@ GameObject:
   - component: {fileID: 1774960678459326646}
   - component: {fileID: 1774960678459326640}
   - component: {fileID: 1774960678459326647}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: ErrorMessageResourcesAmount1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3177,7 +3179,7 @@ GameObject:
   - component: {fileID: 1774960678504965730}
   - component: {fileID: 1774960678504965729}
   - component: {fileID: 1774960678504965728}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: RedeemCreditsReward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3306,7 +3308,7 @@ GameObject:
   - component: {fileID: 1774960678572079827}
   - component: {fileID: 1774960678572079826}
   - component: {fileID: 1774960678572079825}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: PlayerMinedCreditsAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3386,7 +3388,7 @@ GameObject:
   - component: {fileID: 1774960678583053766}
   - component: {fileID: 1774960678583053765}
   - component: {fileID: 1774960678583053764}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: HealthBarCanvasMiningStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3497,7 +3499,7 @@ GameObject:
   - component: {fileID: 1774960678584100286}
   - component: {fileID: 1774960678584100285}
   - component: {fileID: 1774960678584100284}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: 'Return back '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3637,7 +3639,7 @@ GameObject:
   - component: {fileID: 1774960678587416283}
   - component: {fileID: 1774960678587416277}
   - component: {fileID: 1774960678587416276}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: TimeToMineText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3716,7 +3718,7 @@ GameObject:
   - component: {fileID: 1774960678703198160}
   - component: {fileID: 1774960678703198167}
   - component: {fileID: 1774960678703198166}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Slot1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3835,7 +3837,7 @@ GameObject:
   - component: {fileID: 1774960678739167659}
   - component: {fileID: 1774960678739167658}
   - component: {fileID: 1774960678739167657}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3965,7 +3967,7 @@ GameObject:
   - component: {fileID: 1774960678742008664}
   - component: {fileID: 1774960678742008671}
   - component: {fileID: 1774960678742008670}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4094,7 +4096,7 @@ GameObject:
   - component: {fileID: 1774960678743748110}
   - component: {fileID: 1774960678743748104}
   - component: {fileID: 1774960678743748111}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: PriceToMine2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4172,7 +4174,7 @@ GameObject:
   - component: {fileID: 1774960678773047374}
   - component: {fileID: 1774960678773047368}
   - component: {fileID: 1774960678773047375}
-  m_Layer: 5
+  m_Layer: 24
   m_Name: DestroymentDecisionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4250,7 +4252,7 @@ GameObject:
   - component: {fileID: 1774960678795871358}
   - component: {fileID: 1774960678795871352}
   - component: {fileID: 1774960678795871359}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: LockedSlot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4328,7 +4330,7 @@ GameObject:
   - component: {fileID: 1774960678807703454}
   - component: {fileID: 1774960678807703448}
   - component: {fileID: 1774960678807703455}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4406,7 +4408,7 @@ GameObject:
   - component: {fileID: 1774960678932952962}
   - component: {fileID: 1774960678932952988}
   - component: {fileID: 1774960678932952963}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4485,7 +4487,7 @@ GameObject:
   - component: {fileID: 1774960678969525014}
   - component: {fileID: 1774960678969525013}
   - component: {fileID: 1774960678969525012}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: DestroyBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4614,7 +4616,7 @@ GameObject:
   - component: {fileID: 1774960679002996486}
   - component: {fileID: 1774960679002996480}
   - component: {fileID: 1774960679002996487}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4693,7 +4695,7 @@ GameObject:
   - component: {fileID: 1774960679011430818}
   - component: {fileID: 1774960679011430817}
   - component: {fileID: 1774960679011430816}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: UpgradeMiningStationButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4834,7 +4836,7 @@ GameObject:
   - component: {fileID: 1774960679039588830}
   - component: {fileID: 1774960679039588829}
   - component: {fileID: 1774960679039588828}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4963,7 +4965,7 @@ GameObject:
   - component: {fileID: 1774960679061592150}
   - component: {fileID: 1774960679061592144}
   - component: {fileID: 1774960679061592151}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: RewardSlot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5041,7 +5043,7 @@ GameObject:
   - component: {fileID: 1774960679063122939}
   - component: {fileID: 1774960679063122933}
   - component: {fileID: 1774960679063122932}
-  m_Layer: 5
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5120,7 +5122,7 @@ GameObject:
   - component: {fileID: 1774960679071769198}
   - component: {fileID: 1774960679071769197}
   - component: {fileID: 1774960679071769196}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: MainMiningStationCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5227,7 +5229,7 @@ GameObject:
   - component: {fileID: 1774960679076511961}
   - component: {fileID: 1774960679076511963}
   - component: {fileID: 1774960679076511962}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5305,7 +5307,7 @@ GameObject:
   - component: {fileID: 1774960679091545726}
   - component: {fileID: 1774960679091545720}
   - component: {fileID: 1774960679091545727}
-  m_Layer: 5
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5385,7 +5387,7 @@ GameObject:
   - component: {fileID: 1774960679184157271}
   - component: {fileID: 1774960679184157270}
   - component: {fileID: 1774960679184157269}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5502,7 +5504,7 @@ GameObject:
   - component: {fileID: 1774960679186851861}
   - component: {fileID: 1774960679186851860}
   - component: {fileID: 1774960679186851867}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Return back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5642,7 +5644,7 @@ GameObject:
   - component: {fileID: 1774960679237546145}
   - component: {fileID: 1774960679237546147}
   - component: {fileID: 1774960679237546146}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5720,7 +5722,7 @@ GameObject:
   - component: {fileID: 1774960679261426343}
   - component: {fileID: 1774960679261426337}
   - component: {fileID: 1774960679261426336}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: RewardSlot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5798,7 +5800,7 @@ GameObject:
   - component: {fileID: 1774960679283976384}
   - component: {fileID: 1774960679283976386}
   - component: {fileID: 1774960679283976385}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5876,7 +5878,7 @@ GameObject:
   - component: {fileID: 1774960679295582982}
   - component: {fileID: 1774960679295582976}
   - component: {fileID: 1774960679295582983}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5951,7 +5953,7 @@ GameObject:
   - component: {fileID: 1774960679307628655}
   - component: {fileID: 1774960679307628654}
   - component: {fileID: 1774960679307628653}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: ViewSlotsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6092,7 +6094,7 @@ GameObject:
   - component: {fileID: 1774960679328868120}
   - component: {fileID: 1774960679328868127}
   - component: {fileID: 1774960679328868126}
-  m_Layer: 5
+  m_Layer: 24
   m_Name: No
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6221,7 +6223,7 @@ GameObject:
   - component: {fileID: 1774960679335985591}
   - component: {fileID: 1774960679335985585}
   - component: {fileID: 1774960679335985584}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: MiningStationUpgradePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6301,7 +6303,7 @@ GameObject:
   - component: {fileID: 1774960679388046841}
   - component: {fileID: 1774960679388046843}
   - component: {fileID: 1774960679388046842}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: 'EnergonAmountTextFieldSlots '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6379,7 +6381,7 @@ GameObject:
   - component: {fileID: 1774960679390944779}
   - component: {fileID: 1774960679390944773}
   - component: {fileID: 1774960679390944772}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: RewardSlot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6459,7 +6461,7 @@ GameObject:
   - component: {fileID: 1774960679401463307}
   - component: {fileID: 1774960679401463306}
   - component: {fileID: 1774960679401463305}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6575,7 +6577,7 @@ GameObject:
   - component: {fileID: 1774960679453750029}
   - component: {fileID: 1774960679453750031}
   - component: {fileID: 1774960679453750030}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: 'Credits Left '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6653,7 +6655,7 @@ GameObject:
   - component: {fileID: 1774960679468498349}
   - component: {fileID: 1774960679468498351}
   - component: {fileID: 1774960679468498350}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Slot2text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6731,7 +6733,7 @@ GameObject:
   - component: {fileID: 1774960679475225813}
   - component: {fileID: 1774960679475225815}
   - component: {fileID: 1774960679475225814}
-  m_Layer: 5
+  m_Layer: 24
   m_Name: PanelForDestroyingGameStrucuture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6809,7 +6811,7 @@ GameObject:
   - component: {fileID: 1774960679476539889}
   - component: {fileID: 1774960679476539888}
   - component: {fileID: 1774960679476539895}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Slot2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6928,7 +6930,7 @@ GameObject:
   - component: {fileID: 1774960679494228466}
   - component: {fileID: 1774960679494228492}
   - component: {fileID: 1774960679494228467}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7006,7 +7008,7 @@ GameObject:
   - component: {fileID: 1774960679499825883}
   - component: {fileID: 1774960679499825877}
   - component: {fileID: 1774960679499825876}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: LockedSlot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7084,7 +7086,7 @@ GameObject:
   - component: {fileID: 1774960679504592051}
   - component: {fileID: 1774960679504592077}
   - component: {fileID: 1774960679504592076}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Slot3text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7162,7 +7164,7 @@ GameObject:
   - component: {fileID: 1774960679606702654}
   - component: {fileID: 1774960679606702648}
   - component: {fileID: 1774960679606702655}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: PriceToMine (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7240,7 +7242,7 @@ GameObject:
   - component: {fileID: 1774960679625961831}
   - component: {fileID: 1774960679625961825}
   - component: {fileID: 1774960679625961824}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SlotsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7322,7 +7324,7 @@ GameObject:
   - component: {fileID: 2223412568219409998}
   - component: {fileID: 2007167259023904954}
   - component: {fileID: 1250104215330051682}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: errorChangePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7398,7 +7400,7 @@ GameObject:
   - component: {fileID: 4628603750087800448}
   - component: {fileID: 8200486788975815204}
   - component: {fileID: 8856226812363942071}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7476,7 +7478,7 @@ GameObject:
   - component: {fileID: 7931967637567607855}
   - component: {fileID: 4736992213458423039}
   - component: {fileID: 4914939538940565053}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7554,7 +7556,7 @@ GameObject:
   - component: {fileID: 8344908445571077163}
   - component: {fileID: 7763882457817001546}
   - component: {fileID: 7189397015611872417}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: errorWorkerIssue1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7631,7 +7633,7 @@ GameObject:
   - component: {fileID: 7559473997410678215}
   - component: {fileID: 9051384745145760939}
   - component: {fileID: 478640070732332165}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7761,7 +7763,7 @@ GameObject:
   - component: {fileID: 514996341796037331}
   - component: {fileID: 7705834240585012852}
   - component: {fileID: 720732262975177669}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7891,7 +7893,7 @@ GameObject:
   - component: {fileID: 371010093521020386}
   - component: {fileID: 304368449695874310}
   - component: {fileID: 4168996838899100389}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8020,7 +8022,7 @@ GameObject:
   - component: {fileID: 1458409215050327197}
   - component: {fileID: 6092551687285535526}
   - component: {fileID: 2766549059612313131}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8098,7 +8100,7 @@ GameObject:
   - component: {fileID: 5441004301107790118}
   - component: {fileID: 1776162616264076302}
   - component: {fileID: 8412851444349837919}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: errorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

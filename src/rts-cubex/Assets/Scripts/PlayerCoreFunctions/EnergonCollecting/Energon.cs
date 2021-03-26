@@ -14,6 +14,7 @@ public class Energon : MonoBehaviour
     [SerializeField] int takenEnergonAmount;
     bool savedIndex = false;
     private Base playerbase;
+    PanelManager panelManager;
     void Start()
     {
         energonCollectorHealth = GetComponent<HealthOfRegBuilding>();
@@ -26,6 +27,7 @@ public class Energon : MonoBehaviour
         {
            playerbase = FindObjectOfType<Base>();
         }
+        panelManager = GetComponent<PanelManager>();
     }
     void Update()
     {
@@ -47,7 +49,17 @@ public class Energon : MonoBehaviour
     }
     void OnMouseDown()
     {
-        CollectorScreen.SetActive(true);
+        // check for active panels in this building hierarchy if yes do not trigger on mouse click
+        var status = panelManager.checkForActivePanels();
+        if (status){
+            return;
+        }  
+        else{
+            // set main window
+			CollectorScreen.SetActive(true);
+            // deactivate other building panels
+            panelManager.changeStatusOfAllPanels();
+        }
     }
     private void OnTriggerEnter(Collider other) 
     {

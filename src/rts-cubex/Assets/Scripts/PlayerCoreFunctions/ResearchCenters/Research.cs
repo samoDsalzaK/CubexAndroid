@@ -43,6 +43,8 @@ public class Research : MonoBehaviour {
     private TroopHealth lightHealth;
     private HeavyHealth heavyHealth;
     private HealthOfRegBuilding troopsResearchHealth;
+    PanelManager panelManager;
+    
     private void Start() {
     researchLevel = oBGResearch.getResearchLevel();
     researchCost = oBGResearch.getResearchCost();
@@ -75,6 +77,7 @@ public class Research : MonoBehaviour {
         troopsResearchHealth = GetComponent<HealthOfRegBuilding>();
         troopsResearchHealth.setHealthOfStructureOriginal(oBGResearch.getTroopResearchHealth());
         troopsResearchHealth.setHealth(oBGResearch.getTroopResearchHealth());
+        panelManager = GetComponent<PanelManager>();
     }
     void Update () {
         if (!menu.activeSelf) {
@@ -104,7 +107,17 @@ public class Research : MonoBehaviour {
     }
 
     void OnMouseDown () {
-            openMenu ();            
+        // check for active panels in this building hierarchy if yes do not trigger on mouse click
+        var status = panelManager.checkForActivePanels();
+        if (status){
+            return;
+        }  
+        else{
+            // set main window
+            openMenu ();    
+            // deactivate other building panels
+            panelManager.changeStatusOfAllPanels();
+        }  
     }
     public void openMenu () {
         menu.SetActive (true);

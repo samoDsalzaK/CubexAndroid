@@ -28,7 +28,7 @@ public class Worker : MonoBehaviour
         CheckingDistanceForTurret();
         CheckingDistanceForResearchCenter();
         CheckingDistanceForTroopsResearchCenter();
-        CheckingDistanceForPLayerWall();
+        //CheckingDistanceForPLayerWall();
         CheckingDistanceForMiningStation();
     }
     public void SetDestination(Vector3 energonPos) // method which which sets the destination of particular buildigs for worker
@@ -92,7 +92,7 @@ public class Worker : MonoBehaviour
             }
         }
     }
-    private void CheckingDistanceForPLayerWall()
+    /*private void CheckingDistanceForPLayerWall()
     {
         if(!workerNav.pathPending && buildingType == "wall")  // reikia pakeisti build type;
         {
@@ -105,7 +105,7 @@ public class Worker : MonoBehaviour
                }
             }
         }
-    }
+    }*/
     private void CheckingDistanceForMiningStation()
     {
         if(!workerNav.pathPending && buildingType == "miningStation")  // reikia pakeisti build type;

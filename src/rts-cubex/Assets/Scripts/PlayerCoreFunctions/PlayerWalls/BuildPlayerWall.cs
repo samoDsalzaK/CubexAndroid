@@ -12,6 +12,7 @@ public class BuildPlayerWall : MonoBehaviour
     //[SerializeField] GameObject barrack;
     [Header("Main configuration parameters")]
     [SerializeField] GameObject errorForWorker;
+    [SerializeField] GameObject errorForWorker2;
     //boolean variable for indicating when the user can build a barracks structure
     [SerializeField] bool canBuildWall = false;
      //boolean variable for indicating if the barracks structure is built
@@ -50,18 +51,32 @@ public class BuildPlayerWall : MonoBehaviour
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
     public void buildPLayersWallsAction()
     {
+        // checks for workers on the map
+        if (playerbase.getworkersAmount() <= 0){
+            Debug.Log("Build worker first"); 
+		   errorForWorker.SetActive(true);  
+            return;
+        }
+        // check if there are free workers on the map
+        var playerWorkers = FindObjectsOfType<Worker>(); // find all the workers on the map
+        var count = 0;
+		for (int y = 0; y < playerWorkers.Length; y++)
+			{
+				if(!playerWorkers[y].isWorkerAssigned()){ // find first free worker on the map
+               count ++;
+            }
+         }
+        if (count == 0){
+            errorForWorker2.SetActive(true);
+        }
+        // check for available resources
         if (playerbase.getEnergonAmount() < minNeededEnergonAmount || playerbase.getCreditsAmount() < minNeededCreditsAmount) // patikrina esamus zaidejo resursus
         {
         playerbase.setResourceAMountScreenState(true);    
         return; 
         }
-        if (playerbase.getworkersAmount() <= 0){
-            Debug.Log("Build worker first"); 
-			errorForWorker.SetActive(true);  
-            return;
-         }
         playerbase.setBuildingArea(true);
-    //    clickUndo.SetActive(true);
+        //clickUndo.SetActive(true);
         //State variable is setted to true, which means that the button is clicked
         canBuildWall = true;
         //Button interaction state is setted to false

@@ -1817,6 +1817,7 @@ GameObject:
   - component: {fileID: 4284366985295507224}
   - component: {fileID: 1812910221272301757}
   - component: {fileID: 837818339019936593}
+  - component: {fileID: 2108771956614347596}
   m_Layer: 0
   m_Name: ResearchCenterBody
   m_TagString: Untagged
@@ -1988,6 +1989,25 @@ MonoBehaviour:
   errorWorkerIssue2: {fileID: 749130672388656043}
   errorForChangingPos: {fileID: 8498303372920500628}
   btnIndex: 3
+--- !u!114 &2108771956614347596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462856044865562789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa7b340f35ef0340a8c88640ca9dec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panels:
+  - {fileID: 3136561511565197089}
+  - {fileID: 7406823056436476523}
+  - {fileID: 2529972061766685279}
+  - {fileID: 8547452706185785535}
+  - {fileID: 749130672388656043}
+  - {fileID: 8498303372920500628}
 --- !u!1 &5462856045666505025
 GameObject:
   m_ObjectHideFlags: 0
