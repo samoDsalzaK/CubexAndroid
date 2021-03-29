@@ -64,14 +64,7 @@ public class HeroUnit : MonoBehaviour
     private void Update() {
         shieldText.text = "Auto boost shield by\n(+" + boostShieldPoints + ")";
 
-        // Checking barracade animation build
-        // if (barracadeWall.active)
-        // {
-        //     if (barracadeWall.transform.localScale.x >= 20)
-        //     {
-        //        barracadeBuild.SetBool("ButtonClicked", false);
-        //     }
-        // }
+        
         //Scanner to see near by player troops
         detectionSphere(); 
         
