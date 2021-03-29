@@ -22,6 +22,11 @@ public class TroopHealth : MonoBehaviour
     [SerializeField] Image shieldBackground;
     [SerializeField] bool canShield;
     [SerializeField] bool isHero = false;
+    [SerializeField] bool nearHero = false;
+    [SerializeField] GameObject heroEffectParticles;
+    public bool NearHero { set { nearHero = value; } get { return nearHero; }}
+    public int ShieldHealth { set { shieldHealth = value; } get { return shieldHealth; }}
+    public int MaxShield { set { maxShield = value; } get { return maxShield; }}
     void Start()
     {
         if (isHero)
@@ -31,6 +36,7 @@ public class TroopHealth : MonoBehaviour
         else
         {
             shieldHealth = 0;
+            
         }
         health.SetActive(false);
         if (FindObjectOfType<Base>() == null)
@@ -48,6 +54,18 @@ public class TroopHealth : MonoBehaviour
     }
     void Update()
     {
+        if(nearHero && !isHero)
+        {            
+            if (heroEffectParticles)
+                heroEffectParticles.SetActive(true);
+            health.SetActive(true);
+        }
+        else
+        {
+             if (heroEffectParticles)
+                heroEffectParticles.SetActive(false);
+            health.SetActive(false);
+        }
         if ((FindObjectOfType<Research>() != null) && !isHero)
         {
             if (!oneTimeGetHP)
@@ -99,12 +117,14 @@ public class TroopHealth : MonoBehaviour
         {
             if (unitHP < (isHero ? upgrade.SHeroMaxHP : upgrade.getMaxHP()))
             {
-                health.SetActive(true);
+                if (!nearHero)
+                    health.SetActive(true);
                 StartCoroutine(RegenerateHealth());
             }
             if (unitHP >=  (isHero ? upgrade.SHeroMaxHP : upgrade.getMaxHP()))
             {
-                health.SetActive(false);
+                if (!nearHero)
+                     health.SetActive(false);
             }
             if (shieldHealth < maxShield && canShield)
             {

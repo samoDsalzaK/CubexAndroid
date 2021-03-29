@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 // class Hero{
 //     private string heroType;
 //     private int hp;
@@ -21,75 +22,75 @@ using UnityEngine;
 public class UpgradeTask : System.Object //Required for managing current upgraded units
 {
     [SerializeField] GameObject unit;
-    [SerializeField] bool isUpgraded;
+    [SerializeField] string uType = "none";
+    [SerializeField] bool isShieldBoosted;
 
     public UpgradeTask(GameObject g)
     {
         this.unit = g;
     }
-
+    public string UType { set { uType = value; } get { return uType; }}
     public GameObject Unit { set { unit = value; } get {return unit;}}
-    public bool IsUpgraded { set { isUpgraded = value; } get {return isUpgraded;}}
+    public bool IsShieldBoosted { set { isShieldBoosted = value; } get {return isShieldBoosted;}}
 }
 public class HeroUnit : MonoBehaviour
 {
     [Header("Object detection")]
     [SerializeField] float scannerRadius = 10f;
+    //[SerializeField] Image detectionRange;
     [Header("General param")]
+    [SerializeField] Text shieldText;
+    [SerializeField] string playerTroopTag = "Unit";
     [SerializeField] string heroType;
-    [SerializeField] int hp;
-    [SerializeField] int shield;
-    [SerializeField] float movementSpeed;
+    // [SerializeField] int hp;
+    [SerializeField] int boostShieldPoints = 10;
+    [SerializeField] int boostedShTroopsCount = 0;
+    // [SerializeField] float movementSpeed;
     [SerializeField] GameObject heroToolbar;
     //For debuging
     [SerializeField] List<UpgradeTask> upgradeTasks = new List<UpgradeTask>();
-    public int Hp { set {hp = value;} get { return hp; }}
-    public int Shield { set {shield = value;} get { return shield; }}
+    //private List<string> inRangeObjNames = new List<string>();
+    // public int Hp { set {hp = value;} get { return hp; }}
+    // public int Shield { set {shield = value;} get { return shield; }}
     public string HeroType { set { heroType = value; } get { return heroType; }}
-    public float MovementSpeed { set {movementSpeed = value;} get { return movementSpeed; }}
+    private int clickCount = 0;
+    // public float MovementSpeed { set {movementSpeed = value;} get { return movementSpeed; }}
 
     private void Start() {
         
     }
     private void Update() {
-
-        // Ally detection system
-        RaycastHit hit;
-
-        Vector3 p1 = transform.position;
-        float distanceToObstacle = 0;
-        detectionSphere(transform.position, scannerRadius); //Scanner to see near by player troops
-
-        if (Input.GetMouseButtonDown(0))
+        shieldText.text = "Auto boost shield by\n(+" + boostShieldPoints + ")";
+        //Scanner to see near by player troops
+        detectionSphere(); 
+        
+       
+    }
+    private void OnMouseDown() {
+        
+        if (clickCount < 1)
         {
             heroToolbar.SetActive(true);
+            clickCount++;
         }
-        // if (Physics.SphereCast(p1, scannerRadius / 2, transform.forward, out hit, scannerRadius))
-        // {
-        //     distanceToObstacle = hit.distance;
-        //     print("Object detected: " + hit.collider.gameObject.name + ", " + hit.collider.gameObject.tag + " distance to it is " + distanceToObstacle);
-        //     if (!isInUList(hit.collider.gameObject.name) && (hit.collider.tag == "Unit" && Mathf.Round(distanceToObstacle) < 4f))
-        //     {
-        //         upgradeTasks.Add(new UpgradeTask(hit.collider.gameObject));
-        //     }
-        // }
-        // if (Physics.SphereCast(p1, scannerRadius, -transform.forward, out hit, scannerRadius))
-        // {
-        //     distanceToObstacle = hit.distance;
-        //     print("Object detected: " + hit.collider.gameObject.name + " distance to it is " + distanceToObstacle);
-        // }
-    }
-    private void detectionSphere(Vector3 center, float radius)
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(center, radius);
-        foreach (var hitCollider in hitColliders)
+        else
         {
-           var detectedDis = Vector3.Distance(hitCollider.gameObject.transform.position, transform.position);
-           print("Detected: " + hitCollider.gameObject.name + " at distance: " + detectedDis);
-           if (!isInUList(hitCollider.gameObject.name) && (hitCollider.tag == "Unit" && hitCollider.gameObject.name.Contains("Troop")))
-                 upgradeTasks.Add(new UpgradeTask(hitCollider.gameObject));
+            heroToolbar.SetActive(false);
+            clickCount = 0;
         }
     }
+    private void detectionSphere()
+    {
+        //To check if player troops are in range
+        detectIfObjectsInRange();
+
+        //To check if player troops are out of range
+        detectIfObjectsOutOfRange();
+
+        //Boost shields to near by troops
+        autoBoostTroopShields();
+    }
+    //To check if player troop is in upgrade list
     private bool isInUList(string gname)
     {
         if (upgradeTasks == null)
@@ -103,18 +104,73 @@ public class HeroUnit : MonoBehaviour
 
         return false;
     }
-    // private void OnTriggerEnter(Collider other) {
-    //     switch(heroType)
-    //     {
-    //         case "defender":
-    //             if (other.gameObject.tag == "Unit")
-    //             {
-    //                 upgradeTasks.Add(new UpgradeTask(other.gameObject));
-    //             }
-    //         break;
-    //     }
-        
-  //  }
+    //Shield boosting method, which gives starting shield if it is 0 value
+    private void autoBoostTroopShields()
+    {
+        if (upgradeTasks.Count > 0)
+        {
+            foreach(var uitem in upgradeTasks)
+            {
+                if (!uitem.IsShieldBoosted)
+                {
+                   var tHealth = uitem.Unit.GetComponent<TroopHealth>();
+                   var cShieldAmount = tHealth.ShieldHealth;
+                   var mShieldAmount = tHealth.MaxShield;
+                   boostShieldPoints = mShieldAmount / 2;
+                   if (cShieldAmount == 0)
+                   {
+                       tHealth.ShieldHealth += boostShieldPoints;
+                       uitem.IsShieldBoosted = true;             
+                   }
+                }
+            }
+        }
+    }
+    // To check if player troops are out of range
+    private void detectIfObjectsOutOfRange()
+    {
+        if (upgradeTasks.Count > 0)
+        {
+            foreach (var uitem in upgradeTasks)
+            {
+                var currentDistance = Mathf.Round(Vector3.Distance(uitem.Unit.transform.position, transform.position));
+                if (currentDistance > scannerRadius)
+                {
+                    var troopHealth = uitem.Unit.GetComponent<TroopHealth>();
+                    if (troopHealth)
+                        troopHealth.NearHero = false;
+                    upgradeTasks.Remove(uitem);
+                    break;
+                }
+            }
+        }
+    }
+     // To check if player troops are in range
+    private void detectIfObjectsInRange()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, scannerRadius);
+        foreach (var hitCollider in hitColliders)
+        {  
+           var detectedDis = Vector3.Distance(hitCollider.gameObject.transform.position, transform.position);
+      
+           //Adding player troops if detected in the scanner range    
+           var playerTroopInRange = !isInUList(hitCollider.gameObject.name) && (hitCollider.tag == playerTroopTag && (hitCollider.gameObject.name.ToLower()).Contains("troop"));
+           if (playerTroopInRange)
+           {               
+               //print("Detected: " + hitCollider.gameObject.name + " at distance: " + detectedDis);
+            
+               var detectedTroop = hitCollider.gameObject;
+               //Turining on troop health bars near hero    
+               var troopHealth = detectedTroop.GetComponent<TroopHealth>();
+               if (troopHealth)
+               {
+                   troopHealth.NearHero = true;
+               }
+
+               upgradeTasks.Add(new UpgradeTask(hitCollider.gameObject));
+           }
+        }
+    }
    
     
 }
