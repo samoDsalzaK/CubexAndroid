@@ -12,6 +12,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
     // 4 - troop research center;
     // 5 - walls;
     // 6 - credits mining station;
+	// 7 - army camp
      [Header("Main Timer configuration parameters")]
     [SerializeField] float[] timereferencetasks; // masyvas skirtas saugoti timerio laika skirtingiems buildingams.
 	//[SerializeField] float[] timereferencetasksForChangePos; // array used to store time needed to build building afer position change
@@ -23,6 +24,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
     [SerializeField] GameObject troopsResearchCenter;
     //[SerializeField] GameObject playerDefenceWall;
     [SerializeField] GameObject creditsMiningStation;
+	[SerializeField] GameObject armyCamp;
     float startingTime = 0;
     //float startingTime1 = 0;
     float fillingvariable;
@@ -31,9 +33,6 @@ public class TimerForSpawningOriginal : MonoBehaviour
     Vector3 pozition;
 	//Vector3 pozitionFinal;
     private Base playerbase;
-    [SerializeField] BarrackBuild barrackbuild;
-    [SerializeField] TurretBuild turretbuild;
-    [SerializeField] CollectorBuild coollectorbuild;
     [SerializeField] Text timeLeft;
 
     [SerializeField] int playerEarnedPoints = 10;
@@ -230,7 +229,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						workerLife.decreaseWorkerLife();
 						playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
 					break;*/
-					case 6:
+					case 6/*credits mining station*/:
 						if(pressedBtnIndex != 0){
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
@@ -251,7 +250,35 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							if(playerScorePoints != null)
 							{
 								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
-								playerScorePoints.addPlayerWallsAmount(1);
+								//playerScorePoints.addPlayerWallsAmount(1);
+							}
+							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
+							workerLife.decreaseWorkerLife();
+							playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
+						}
+					break;
+					case 7:
+						if(pressedBtnIndex != 0){
+							var changePosBuildings = FindObjectsOfType<changePosition>();
+							if(changePosBuildings != null){
+								for (int i = 0; i < changePosBuildings.Length; i++){
+									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+										changePosBuildings[i].destroyGameObject();
+										Instantiate(armyCamp, pozition, Quaternion.identity);
+										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
+										workerLife.decreaseWorkerLife();
+										playerworker.setWorkerState(false); // reiskia kas workeris yra laisvas
+										return;
+									}
+								}
+							}
+						}
+						else{
+							Instantiate(armyCamp, pozition, Quaternion.identity);
+							if(playerScorePoints != null)
+							{
+								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
+								//playerScorePoints.addPlayerWallsAmount(1);
 							}
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 							workerLife.decreaseWorkerLife();
@@ -299,6 +326,9 @@ public class TimerForSpawningOriginal : MonoBehaviour
 				startingTime = timereferencetasks[timeArrayPozition]; 
 			break;
 			case 6:
+				startingTime = timereferencetasks[timeArrayPozition];
+			break;
+			case 7:
 				startingTime = timereferencetasks[timeArrayPozition];
 			break;
         }
