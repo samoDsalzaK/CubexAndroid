@@ -47,6 +47,7 @@ public class HeroUnit : MonoBehaviour
     [SerializeField] int boostedShTroopsCount = 0;
     // [SerializeField] float movementSpeed;
     [SerializeField] GameObject heroToolbar;
+    [SerializeField] GameObject barracadeWall;
     //For debuging
     [SerializeField] List<UpgradeTask> upgradeTasks = new List<UpgradeTask>();
     //private List<string> inRangeObjNames = new List<string>();
@@ -54,16 +55,34 @@ public class HeroUnit : MonoBehaviour
     // public int Shield { set {shield = value;} get { return shield; }}
     public string HeroType { set { heroType = value; } get { return heroType; }}
     private int clickCount = 0;
+    private Animator barracadeBuild;
     // public float MovementSpeed { set {movementSpeed = value;} get { return movementSpeed; }}
 
     private void Start() {
-        
+        barracadeBuild = barracadeWall.GetComponent<Animator>();
     }
     private void Update() {
         shieldText.text = "Auto boost shield by\n(+" + boostShieldPoints + ")";
+
+        // Checking barracade animation build
+        // if (barracadeWall.active)
+        // {
+        //     if (barracadeWall.transform.localScale.x >= 20)
+        //     {
+        //        barracadeBuild.SetBool("ButtonClicked", false);
+        //     }
+        // }
         //Scanner to see near by player troops
         detectionSphere(); 
         
+       
+    }
+    public void spawnBarracde()
+    {
+        barracadeWall.SetActive(true);
+        barracadeBuild.SetBool("ButtonClicked", true);
+        //After timer is finished reset animation parameter
+       //  barracadeBuild.SetBool("ButtonClicked", false);
        
     }
     private void OnMouseDown() {
