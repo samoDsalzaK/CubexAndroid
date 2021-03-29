@@ -47,6 +47,8 @@ TagManager:
   - PlayerWall
   - WallHolo
   - _PlayerWall
+  - cryptominingstation
+  - Camp
   layers:
   - Default
   - TransparentFX
@@ -72,7 +74,7 @@ TagManager:
   - enemyRange
   - AreaScanner
   - HoloTools
-  - 
+  - creditsMiningStation
   - 
   - 
   - 

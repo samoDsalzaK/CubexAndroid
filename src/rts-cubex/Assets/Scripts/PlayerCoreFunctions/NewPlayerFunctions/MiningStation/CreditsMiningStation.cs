@@ -109,9 +109,7 @@ public class CreditsMiningStation : MonoBehaviour
             panelManager.changeStatusOfAllPanels();
         }
         // check for active panels in this building hierarchy and deactivate them
-        //panelManager.deactivateParentPanels(MainMiningStationPanel);
-
-       
+        //panelManager.deactivateParentPanels(MainMiningStationPanel)
     }
 
     public void miningAction(int slotIndex)
