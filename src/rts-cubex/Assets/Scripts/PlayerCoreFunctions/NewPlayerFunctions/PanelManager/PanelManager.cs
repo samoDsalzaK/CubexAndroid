@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PanelManager : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PanelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        checkIfClickedOnTheMap();
     }
 
     public void deactivatePanels(){
@@ -47,14 +48,7 @@ public class PanelManager : MonoBehaviour
         }
     }
 
-    /*public void deactivateParentPanels(GameObject mainPanel){
-        foreach(GameObject panel in panels){
-            if(panel != mainPanel){
-                panel.SetActive(false);
-            }
-        }
-    }*/
-
+    // this function ignores player click on the object if another panel of this object is currently active
     public bool checkForActivePanels(){
         foreach(GameObject panel in panels){
             if(panel.activeInHierarchy){
@@ -62,5 +56,28 @@ public class PanelManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    // this function will deactive active panel on the building if player has clicked elsewhere on the map
+    public void checkIfClickedOnTheMap(){
+        if (Input.GetMouseButtonDown(0))
+        {
+            // checks mouse click is over UI panel, if not will process futher and deactivate panels
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+                {
+                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground") || hit.transform.gameObject.layer == LayerMask.NameToLayer("LvlMap"))
+                    {
+                        deactivatePanels();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+        }
     }
 }

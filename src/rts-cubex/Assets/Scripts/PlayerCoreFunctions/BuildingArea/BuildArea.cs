@@ -17,6 +17,7 @@ public class BuildArea : MonoBehaviour
     //[SerializeField] BuildPlayerWall buildPlayerWallBtn;
     [SerializeField] WorkerSpawningTimer timerStart;
     [SerializeField] MiningStationBuild creditsMiningStationBtn; // for credits mining station
+	[SerializeField] buildArmyCamp armyCampBuildBtn;
     [SerializeField] float buildWorkerStartTime = 5f;
   //  [SerializeField] GameObject buildRegWorker;
   //  [SerializeField] GameObject buildDefensive;
@@ -68,7 +69,7 @@ public class BuildArea : MonoBehaviour
 
           	if (( hittedObject.transform.gameObject.layer == LayerMask.NameToLayer("BuildArea")))
           	{ 
-              if((barrackBtn.buildBarrack()) && (canBuild))
+              	if((barrackBtn.buildBarrack()) && (canBuild))
               	{
                     playerbase.setCreditsAmount(playerbase.getCreditsAmount()-barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // uzsetiname naujas reksmes 
                     playerbase.setEnergonAmount(playerbase.getEnergonAmount()-barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // uzsetiname naujas reksmes
@@ -211,6 +212,28 @@ public class BuildArea : MonoBehaviour
 						Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
 						playerWorkers[i].SetDestination(buildpozition);
 						playerWorkers[i].SetBuildingOrder(buildingTypes[5]); // nusiunciama buildingo tipa i workerio klase;
+						playerWorkers[i].setWorkerState(true); // workeris yra uzimtas
+						return;
+						}    
+					}
+				}
+				if((armyCampBuildBtn.armyCampBuildState()) && (canBuild)){
+					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // uzsetiname naujas reksmes 
+					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp()); // uzsetiname naujas reksmes
+					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					armyCampBuildBtn.canBuildAgain(true);
+					playerbase.setBuildingArea(false);
+					// buildDefensive.SetActive(false);
+					var playerWorkers = FindObjectsOfType<Worker>(); 
+
+					for (int i = 0; i < playerWorkers.Length; i++)
+					{
+						if (!playerWorkers[i].isWorkerAssigned()) // jeigu workeris yra laisvas tai jo reiksme yra false, kitu atveju bus true
+						{
+						//Variable for knowing, what's the current position of this object, which has this class
+						Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
+						playerWorkers[i].SetDestination(buildpozition);
+						playerWorkers[i].SetBuildingOrder(buildingTypes[6]); // nusiunciama buildingo tipa i workerio klase;
 						playerWorkers[i].setWorkerState(true); // workeris yra uzimtas
 						return;
 						}    

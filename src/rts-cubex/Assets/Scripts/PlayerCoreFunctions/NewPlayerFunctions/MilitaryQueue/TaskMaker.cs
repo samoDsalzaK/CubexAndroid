@@ -10,7 +10,7 @@ public class TaskMaker : MonoBehaviour
     [SerializeField] string taskName = "LightTroop";
     [SerializeField] Text priceDisplayText;
     private void Start() {
-       priceDisplayText.text = "Train " + taskName + " ("+ creditsPrice + " credits)";
+       priceDisplayText.text = "Train " + taskName + "\n" + " ("+ creditsPrice + " credits)";
     }
     public void train()
     {
