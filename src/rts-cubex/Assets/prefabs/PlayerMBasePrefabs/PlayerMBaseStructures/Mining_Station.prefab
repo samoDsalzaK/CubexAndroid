@@ -832,14 +832,14 @@ MonoBehaviour:
   upgradePaneCredits: {fileID: 1774960679453750030}
   upgradePaneEnergon: {fileID: 1774960678040834584}
   slotsPanelEnergonTextField: {fileID: 1774960679388046842}
-  minNeededEnergonAmount: 050000000600000007000000
+  minNeededEnergonAmount: 030000000600000007000000
   timeNeedForMining:
   - 5
   - 6
   - 7
   rewards: 050000000600000007000000
   timeNeedForSlotCoolDown:
-  - 15
+  - 65
   - 20
   - 25
   minedCreditsAmount: 0
