@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class LightTroopTTimer : MonoBehaviour
+public class TaskTimer : MonoBehaviour
 {
     /*
      Timer countdown system V2
@@ -42,6 +42,7 @@ public class LightTroopTTimer : MonoBehaviour
     //[SerializeField] Text btnWorkersAmountText;
     //[SerializeField] BuildWorker buildRegWorker;
     [SerializeField] float timeStart = 5;
+    public float TimeStart { get { return timeStart; }} 
     private float oldTime = 0;
 	// Use this for initialization
 	void Start () 
@@ -62,7 +63,7 @@ public class LightTroopTTimer : MonoBehaviour
             //When it subracts, then the system rounds up the value when it will try to outputthe current time's values.
            // textBox.text = Mathf.Round(timeStart).ToString();
             //btnText.text = Mathf.Round(timeStart).ToString();
-            Debug.Log(Mathf.Round(timeStart).ToString());
+           // Debug.Log(Mathf.Round(timeStart).ToString());
             //Checks if the timeStart value reached 0, when true then the timer button becomes interactable, a message is printed, which indicates 
             //that the time coundown is done and resets the current timeStart variable's value and text. As well, it returns nothing, so it could cancel
             //the system for continuing any further.. 
@@ -86,20 +87,13 @@ public class LightTroopTTimer : MonoBehaviour
             }
         }
 	}
-    public void startTimer()
+    public void startTimer(float t)
     {
+        timeStart = t;
+        oldTime = timeStart;
         startCountdown = true;
         StartCountdown = startCountdown;
     }
-    //public function, which will be used for the timer button. It is used for starting the current timer.
-    // public void startTimer(float buildingStartTime)
-    // {       
-    //     timeStart = buildingStartTime;  
-    //     //Gives the signal to start the coundown timer by setting the current startCountdown value to true.
-    //     startCountdown = true; 
-    //     //Makes the current timer button to be not interactable
-    //     startBtn.interactable = false;
-    //     additionalWorker.interactable = false;
-    // }
+
 
 }

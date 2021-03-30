@@ -24,6 +24,8 @@ public class TimedSpawn : MonoBehaviour {
     [SerializeField] LightTroopTimer lightTroopTimer;
     [SerializeField] HeavyTroopTimer heavyTroopTimer;
     [SerializeField] ResearchConf oBGResearch;
+
+    [SerializeField] int unitCodeIndex = 0;
     private void Start() {
         if(FindObjectOfType<Base>() == null)
         {
@@ -92,6 +94,8 @@ public class TimedSpawn : MonoBehaviour {
     public void spawnObject () {
         //if(playerBase.getPlayerTroopsAmount()<=playerBase.getPlayerMaxTroopsAmount()){
         GameObject spawnTrooper = Instantiate (spawnee, unitPosition.position, Quaternion.identity);
+        spawnTrooper.name = spawnTrooper.name + unitCodeIndex;
+        unitCodeIndex++;
         //FindObjectOfType<FogOfWar> ().AppendList (spawnTrooper);
         playerBase.addPlayerTroopsAmount(lightTroopWeight); 
 
@@ -99,6 +103,8 @@ public class TimedSpawn : MonoBehaviour {
     public void spawnHeavyObject () {
         //if(playerBase.getPlayerTroopsAmount()<=playerBase.getPlayerMaxTroopsAmount()){
         GameObject spawnTrooper = Instantiate (heavySpawnee, unitPosition.position, Quaternion.identity);
+        spawnTrooper.name = spawnTrooper.name + unitCodeIndex;
+        unitCodeIndex++;
         //FindObjectOfType<FogOfWar> ().AppendList (spawnTrooper);
         playerBase.addPlayerTroopsAmount(heavyTroopWeight); 
 
