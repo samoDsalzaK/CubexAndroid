@@ -17,8 +17,9 @@ using UnityEngine.AI;
 // class Defender : Hero{
 
 // }
-// NOTE: Add index to spawned troop names from barracks
-// NOTE:  Fix spherecast detection system
+
+//FIX Troop fire
+//Create Rogue
 [System.Serializable]
 public class UpgradeTask : System.Object //Required for managing current upgraded units
 {
@@ -68,11 +69,13 @@ public class HeroUnit : MonoBehaviour
     private bool barracadeWallSpawned = false;
     private TaskTimer timer;
     private float coolDownTime = 0;
+    private TroopFire tfire;
     // public float MovementSpeed { set {movementSpeed = value;} get { return movementSpeed; }}
 
     private void Start() {
         timer = GetComponent<TaskTimer>();
         movement = GetComponent<NavMeshAgent>();
+        tfire = GetComponent<TroopFire>();
         barracadeBuild = barracadeWall.GetComponent<Animator>();
     }
     private void Update() {
@@ -106,7 +109,7 @@ public class HeroUnit : MonoBehaviour
                barracadeWall.SetActive(false);
                barracadeBuild.SetBool("ButtonClicked", false);
                barracadeWallSpawned = false;
-
+               tfire.LockFire = false; 
                coolDownTime = (taskTime * 2) - diffCooldown;
                startAbilityColdown = true; 
                timer.startTimer(coolDownTime); 
@@ -135,6 +138,7 @@ public class HeroUnit : MonoBehaviour
         barracadeBuild.SetBool("ButtonClicked", true);
         barracadeWallSpawned = true;
         shieldWallBtn.interactable = false;
+        tfire.LockFire = true;
         timer.startTimer(taskTime);
         //After timer is finished reset animation parameter
        //  barracadeBuild.SetBool("ButtonClicked", false);
