@@ -14,11 +14,15 @@ public class ArmyCamp : MonoBehaviour
     public int Capacity { get { return capacity; } }
     public int Occupied { set { occupied = value; } get { return occupied; } }
     private List<GameObject> group;
+    [SerializeField] GameObject armyCampMainPanel;
+    // panel Manager type variable
+    PanelManager panelManager;
 
     void Start()
     {
         group = new List<GameObject>();
         textBar.SetActive(false);
+        panelManager = GetComponent<PanelManager>();
     }
     void Update()
     {
@@ -93,6 +97,20 @@ public class ArmyCamp : MonoBehaviour
                     occupied--;
                 }
             }
+        }
+    }
+
+    private void OnMouseDown(){
+        // check for active panels in this building hierarchy if yes do not trigger on mouse click
+        var status = panelManager.checkForActivePanels();
+        if (status){
+            return;
+        }  
+        else{
+            // set main window
+            armyCampMainPanel.SetActive(true);
+            // deactivate other building panels
+            panelManager.changeStatusOfAllPanels();
         }
     }
 }

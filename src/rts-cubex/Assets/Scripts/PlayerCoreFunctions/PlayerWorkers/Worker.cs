@@ -30,6 +30,7 @@ public class Worker : MonoBehaviour
         CheckingDistanceForTroopsResearchCenter();
         //CheckingDistanceForPLayerWall();
         CheckingDistanceForMiningStation();
+        CheckingDistanceForArmyCamp();
     }
     public void SetDestination(Vector3 energonPos) // method which which sets the destination of particular buildigs for worker
     {
@@ -115,6 +116,19 @@ public class Worker : MonoBehaviour
                if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
                {
                timerspawn.startTimer(transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z),6, pressedButtonIndex); 
+               buildingType = "none";
+               }
+            }
+        }
+    }
+    private void CheckingDistanceForArmyCamp(){
+        if(!workerNav.pathPending && buildingType == "armyCamp")  // reikia pakeisti build type;
+        {
+            if(workerNav.remainingDistance <= workerNav.stoppingDistance)
+            {
+               if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
+               {
+               timerspawn.startTimer(transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z),7, pressedButtonIndex); 
                buildingType = "none";
                }
             }
