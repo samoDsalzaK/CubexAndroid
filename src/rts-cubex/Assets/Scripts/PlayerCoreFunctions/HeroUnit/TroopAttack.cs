@@ -5,6 +5,7 @@ using UnityEngine;
 public class TroopAttack : MonoBehaviour
 {
     [SerializeField] Transform fireGun;
+    [SerializeField] Transform secondFireGun;
     [SerializeField] float scannerRadius = 20f;    
     [SerializeField] GameObject projectile;
     [SerializeField] float launchForce = 700f;
@@ -82,6 +83,12 @@ public class TroopAttack : MonoBehaviour
         {
             var sProjectile = Instantiate(projectile, fireGun.position, fireGun.rotation);
             sProjectile.GetComponent<Rigidbody>().AddForce (fireGun.right * launchForce);
+
+            if (secondFireGun)
+            {
+                 var _sProjectile = Instantiate(projectile, secondFireGun.position, secondFireGun.rotation);
+                 _sProjectile.GetComponent<Rigidbody>().AddForce (secondFireGun.right * launchForce);
+            }
         }
         else
         {

@@ -9,6 +9,7 @@ public class TroopLaserMovement : MonoBehaviour {
     [SerializeField] int defaultDamage=10;
     [SerializeField] ResearchConf oBGResearch;
     [SerializeField] string [] enemyTags;
+    //public ResearchConf OBGResearch { get {}}
     void Start () {
         laserMove = GetComponent<Rigidbody> ();
         //if (FindObjectOfType<Research> () != null) {

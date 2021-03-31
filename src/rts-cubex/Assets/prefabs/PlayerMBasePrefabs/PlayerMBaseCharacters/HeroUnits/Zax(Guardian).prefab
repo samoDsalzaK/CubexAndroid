@@ -286,6 +286,85 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1626299161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1626299162}
+  - component: {fileID: 1626299164}
+  - component: {fileID: 1626299163}
+  m_Layer: 13
+  m_Name: fireGun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1626299162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626299161}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.25, y: 0, z: 0.612}
+  m_LocalScale: {x: 2, y: 2, z: 0.4}
+  m_Children: []
+  m_Father: {fileID: 6270915404991712426}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &1626299164
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626299161}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1626299163
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626299161}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &173462018714466714
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +818,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6053705760785091143, guid: 77ef53da12353e342b06c0d87ea4a8ae,
     type: 3}
   launchForce: 700
+  lockFire: 0
   fireRate: 0.5
 --- !u!114 &3075969667885005925
 MonoBehaviour:
@@ -803,7 +883,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 63.5, y: 32.6}
-  m_SizeDelta: {x: 80, y: 20}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7637945145998672712
 CanvasRenderer:
@@ -834,8 +914,8 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 608e5ea19297c764ea73d354b544f471, type: 3}
-    m_FontSize: 10
-    m_FontStyle: 1
+    m_FontSize: 15
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
@@ -1514,7 +1594,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.068752214, g: 0.7167487, b: 0.9716981, a: 0.12156863}
+      maxColor: {r: 0.62144, g: 0.8862479, b: 0.990566, a: 0.12156863}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -6073,9 +6153,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6123775542041191274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 0.2, z: 1.46}
+  m_LocalPosition: {x: -0.05, y: -0.17, z: 1.46}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1626299162}
   m_Father: {fileID: 3543992076096334702}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6345,11 +6426,11 @@ GameObject:
   - component: {fileID: 3060408540437884989}
   - component: {fileID: 1261447121}
   - component: {fileID: 7969846009624817183}
-  - component: {fileID: 7969846009624817179}
   - component: {fileID: 6943527274652134136}
   - component: {fileID: 808697392120643843}
+  - component: {fileID: 1040304016}
   m_Layer: 13
-  m_Name: Zax(Guardian) 1
+  m_Name: Zax(Guardian)
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6425,6 +6506,7 @@ MonoBehaviour:
   onItsWay: 0
   isHero: 1
   mainModel: {fileID: 0}
+  lockMove: 0
 --- !u!114 &3060408540437884989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6492,23 +6574,6 @@ MonoBehaviour:
   isHero: 1
   nearHero: 0
   heroEffectParticles: {fileID: 0}
---- !u!114 &7969846009624817179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9098030794844778249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69f2275d02f662c469f8cead7e047316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 6270915404991712426}
-  projectilePrefab: {fileID: 6053705760785091143, guid: d8bf847321ef346408421d36ff6abcd8,
-    type: 3}
-  launchForce: 700
-  fireRate: 0.5
 --- !u!114 &6943527274652134136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6526,7 +6591,8 @@ MonoBehaviour:
   diffCooldown: 5
   explosionDelay: 2
   shieldText: {fileID: 5990176737886358031}
-  shieldWallBtn: {fileID: 1761741280}
+  shieldBoostBtn: {fileID: 2710572234607218565}
+  shieldWallBtn: {fileID: 1761741278}
   shieldWallText: {fileID: 1114397416}
   playerTroopTag: Unit
   heroType: defender
@@ -6553,6 +6619,26 @@ MonoBehaviour:
   startCountdown: 0
   finishedTask: 0
   timeStart: 5
+--- !u!114 &1040304016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9098030794844778249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20753e51dd4510c428d4a449702068fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireGun: {fileID: 1626299162}
+  scannerRadius: 20
+  projectile: {fileID: 833446331802415920, guid: d8bf847321ef346408421d36ff6abcd8,
+    type: 3}
+  launchForce: 80
+  startAttacking: 0
+  fireRate: 0.5
+  targetName: enemy
 --- !u!1 &9211446750141508259
 GameObject:
   m_ObjectHideFlags: 0
@@ -6654,6 +6740,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311747227279066838, guid: f05460a03a30a744e986ac37bf88679f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6311747227279066856, guid: f05460a03a30a744e986ac37bf88679f,
         type: 3}
@@ -6770,6 +6861,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8217441767441055885, guid: f05460a03a30a744e986ac37bf88679f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f05460a03a30a744e986ac37bf88679f, type: 3}
 --- !u!1 &1362107464911375372 stripped
@@ -6781,6 +6877,12 @@ GameObject:
 --- !u!224 &5345826739144503389 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2136929098234773333, guid: f05460a03a30a744e986ac37bf88679f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6311747229040545544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2710572234607218565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8217441767441055885, guid: f05460a03a30a744e986ac37bf88679f,
     type: 3}
   m_PrefabInstance: {fileID: 6311747229040545544}
   m_PrefabAsset: {fileID: 0}
@@ -6814,15 +6916,9 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6311747229040545544}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1761741280 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6311747227279066856, guid: f05460a03a30a744e986ac37bf88679f,
+--- !u!1 &1761741278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6311747227279066838, guid: f05460a03a30a744e986ac37bf88679f,
     type: 3}
   m_PrefabInstance: {fileID: 6311747229040545544}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

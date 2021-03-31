@@ -45,14 +45,15 @@ public class HeroUnit : MonoBehaviour
     [SerializeField] float diffCooldown = 2f; //For hero cooldown variation
     [SerializeField] float explosionDelay = 2f; 
     [SerializeField] Text shieldText;
-    [SerializeField] Button shieldWallBtn;
+    [SerializeField] GameObject shieldBoostBtn;
+    [SerializeField] GameObject shieldWallBtn;
     [SerializeField] Text shieldWallText;
     [SerializeField] string playerTroopTag = "Unit";
     [SerializeField] string heroType;
     [SerializeField] bool startAbilityColdown = false;
     // [SerializeField] int hp;
     [SerializeField] int boostShieldPoints = 10;
-    // [SerializeField] float movementSpeed;
+    //[SerializeField] Vector3 movementVelocity;
     [SerializeField] GameObject heroToolbar;
     [SerializeField] GameObject barracadeWall;
     [SerializeField] GameObject explosion;
@@ -70,60 +71,80 @@ public class HeroUnit : MonoBehaviour
     private TaskTimer timer;
     private float coolDownTime = 0;
     private TroopAttack tfire;
-    // public float MovementSpeed { set {movementSpeed = value;} get { return movementSpeed; }}
+    private move troopMoveControl;
+   // public Vector3 MovementVelocity { set {movementVelocity = value;} get { return movementVelocity; }}
 
     private void Start() {
         timer = GetComponent<TaskTimer>();
         movement = GetComponent<NavMeshAgent>();
         tfire = GetComponent<TroopAttack>();
-        barracadeBuild = barracadeWall.GetComponent<Animator>();
+        if (heroType == "defender")
+            barracadeBuild = barracadeWall.GetComponent<Animator>();
+        troopMoveControl = GetComponent<move>();
+        //MovementVelocity = movement.velocity;
+        // UI control
+        switch(heroType)
+        {
+            case "defender" :
+                shieldBoostBtn.SetActive(true);
+                shieldWallBtn.SetActive(true);
+            break;
+        }
     }
     private void Update() {
-        
-         if (startAbilityColdown)
-         {
-            coolDownParticles.SetActive(true);
-            if (timer.FinishedTask)
-            {
-                shieldWallText.text = "Holo shield";
-                coolDownParticles.SetActive(false);
-                startAbilityColdown = false;
-                shieldWallBtn.interactable = true;
-            }
-            else 
-            {
-                shieldWallText.text = "Cooldown\nHolo shield\n(" + Mathf.Round(timer.TimeStart) + ")";
-            }
-         }
-        shieldText.text = "Auto boost shield by\n(+" + boostShieldPoints + ")";        
-       
+       switch (heroType) 
+       {
+           case "defender":
+                if (startAbilityColdown)
+                {
+                    coolDownParticles.SetActive(true);
+                    if (timer.FinishedTask)
+                    {
+                        shieldWallText.text = "Holo shield";
+                        coolDownParticles.SetActive(false);
+                        startAbilityColdown = false;
+                        shieldWallBtn.GetComponent<Button>().interactable = true;
+                    }
+                    else 
+                    {
+                        shieldWallText.text = "Cooldown\nHolo shield\n(" + Mathf.Round(timer.TimeStart) + ")";
+                    }
+                }
+                shieldText.text = "Auto boost shield by\n(+" + boostShieldPoints + ")";        
+            
 
-        // Handle second defender ability
-        if(barracadeWallSpawned)
-        {
-           movement.isStopped = true;
-           if (timer.FinishedTask)
-           {
-               StartCoroutine(spawnExplosion());              
-               movement.isStopped = false;
-               barracadeWall.SetActive(false);
-               barracadeBuild.SetBool("ButtonClicked", false);
-               barracadeWallSpawned = false;
-               tfire.LockFire = false; 
-               coolDownTime = (taskTime * 2) - diffCooldown;
-               startAbilityColdown = true; 
-               timer.startTimer(coolDownTime); 
-               //shieldWallText.text = "Holo shield";
-           }
-           else
-           {
-               shieldWallText.text = "Holo shield\n(" + Mathf.Round(timer.TimeStart) + ")";
-           }
-        }
-        //Scanner to see near by player troops
-        detectionSphere(); 
-        
-       
+                // Handle second defender ability
+                if(barracadeWallSpawned)
+                {
+                    
+                    movement.isStopped = true;
+                    troopMoveControl.LockMove = true;
+                    tfire.LockFire = true;
+                    //movement.velocity = Vector3.zero;
+                    if (timer.FinishedTask)
+                    {
+                        StartCoroutine(spawnExplosion());              
+                        movement.isStopped = false;
+                        troopMoveControl.LockMove = false;
+                        //movement.velocity = MovementVelocity;
+                        barracadeWall.SetActive(false);
+                        barracadeBuild.SetBool("ButtonClicked", false);
+                        barracadeWallSpawned = false;
+                        tfire.LockFire = false; 
+                        coolDownTime = (taskTime * 2) - diffCooldown;
+                        startAbilityColdown = true; 
+                        timer.startTimer(coolDownTime); 
+                        //shieldWallText.text = "Holo shield";
+                    }
+                    else
+                    {
+                        shieldWallText.text = "Holo shield\n(" + Mathf.Round(timer.TimeStart) + ")";
+                    }
+                }
+                //Scanner to see near by player troops
+                detectionSphere(); 
+            break;
+       }
     }
     IEnumerator spawnExplosion()
     {
@@ -137,8 +158,8 @@ public class HeroUnit : MonoBehaviour
         barracadeWall.SetActive(true);
         barracadeBuild.SetBool("ButtonClicked", true);
         barracadeWallSpawned = true;
-        shieldWallBtn.interactable = false;
-        tfire.LockFire = true;
+        shieldWallBtn.GetComponent<Button>().interactable = false;
+        
         timer.startTimer(taskTime);
         //After timer is finished reset animation parameter
        //  barracadeBuild.SetBool("ButtonClicked", false);

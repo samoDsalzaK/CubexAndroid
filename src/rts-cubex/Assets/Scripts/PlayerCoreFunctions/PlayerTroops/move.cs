@@ -9,8 +9,12 @@ public class move : MonoBehaviour
     [SerializeField] bool onItsWay;
     [SerializeField] bool isHero = false;
     [SerializeField] GameObject mainModel;
+    [SerializeField] bool lockMove = false;
+    private TroopAttack ta;
+    public bool LockMove { set {lockMove = value; } get {return lockMove; }}
     void Start()
     {
+        ta = GetComponent<TroopAttack>();
         agent = GetComponent<NavMeshAgent>();
         agent.Warp(transform.position);
         click = GetComponent<ClickOn>();
@@ -38,7 +42,8 @@ public class move : MonoBehaviour
     }
     void Update()
     {
-        unitMove();
+        if (!lockMove)
+            unitMove();
     }
     private void unitMove()
     {        
@@ -49,9 +54,13 @@ public class move : MonoBehaviour
         // Checking when to stop the moving unit
         if (agent.velocity.magnitude > 0f)
         {
+           // ta.LockFire = true;
            // print("Unit is moving");
             if (agent.remainingDistance < 1f)
+            {
+                //ta.LockFire = false;
                 agent.isStopped = true;
+            }
             //print(agent.remainingDistance);
         }
         
@@ -94,6 +103,6 @@ public class move : MonoBehaviour
         onItsWay = isOnWay;
     }
 
-
+    
 
 }
