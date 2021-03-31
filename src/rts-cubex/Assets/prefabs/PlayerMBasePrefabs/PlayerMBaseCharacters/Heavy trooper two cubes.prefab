@@ -1,5 +1,84 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &11273016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 11273017}
+  - component: {fileID: 11273019}
+  - component: {fileID: 11273018}
+  m_Layer: 13
+  m_Name: fireGun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &11273017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11273016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.8}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 4350613679145975106}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &11273019
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11273016}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &11273018
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11273016}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &781605252490452071
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,9 +548,9 @@ GameObject:
   - component: {fileID: 4350613679145975113}
   - component: {fileID: 4350613679145975112}
   - component: {fileID: 4350613679145975111}
-  - component: {fileID: 4350613679145975110}
   - component: {fileID: 4350613679145975107}
   - component: {fileID: 5588905401440357351}
+  - component: {fileID: 1744945461}
   m_Layer: 13
   m_Name: Heavy trooper two cubes
   m_TagString: Unit
@@ -493,6 +572,7 @@ Transform:
   - {fileID: 545054602330717668}
   - {fileID: 4350613679165483802}
   - {fileID: 1527275293081236556}
+  - {fileID: 11273017}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -591,6 +671,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitPosition: {fileID: 4350613679145975105}
+  onItsWay: 0
+  isHero: 0
+  mainModel: {fileID: 0}
 --- !u!114 &4350613679145975111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,23 +692,8 @@ MonoBehaviour:
   - {fileID: 4350613679145975105}
   - {fileID: 7611597576570320876}
   isSelected: 0
---- !u!114 &4350613679145975110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4350613679145975105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c866371c80a6a484e9cd2cd307e9cde3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 4350613680351980103}
-  projectilePrefab: {fileID: 6053705760785091143, guid: 2b130e3b48ea01940b60db362c0c107e,
-    type: 3}
-  launchForce: 700
-  fireRate: 0.5
+  hero: 0
+  selectionIcon: {fileID: 0}
 --- !u!114 &4350613679145975107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -650,6 +718,7 @@ MonoBehaviour:
   shieldHealth: 1
   shieldForeground: {fileID: 7136887731383880838}
   shieldBackground: {fileID: 5365927997875079694}
+  canShield: 0
 --- !u!54 &5588905401440357351
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -666,6 +735,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1744945461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350613679145975105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20753e51dd4510c428d4a449702068fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireGun: {fileID: 11273017}
+  scannerRadius: 20
+  spottedEnemy: {fileID: 0}
+  projectile: {fileID: 833446331802415920, guid: 2b130e3b48ea01940b60db362c0c107e,
+    type: 3}
+  launchForce: 100
+  startAttacking: 0
+  fireRate: 0.5
+  targetName: enemy
 --- !u!1 &4350613679165483801
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,7 +775,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4350613679165483802
 Transform:
   m_ObjectHideFlags: 0

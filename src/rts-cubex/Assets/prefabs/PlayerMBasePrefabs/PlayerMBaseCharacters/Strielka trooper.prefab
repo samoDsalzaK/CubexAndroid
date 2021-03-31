@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 833446331802415920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.493052, y: 0.40893266, z: -3.516172}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1.8}
   m_Children:
   - {fileID: 917717550356460666}
   m_Father: {fileID: 0}
@@ -58,6 +58,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -173,9 +174,10 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7614149247643207518}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Shape: 0
+  m_Color: {r: 0.041484185, g: 0.9622642, b: 0.013616921, a: 1}
   m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30

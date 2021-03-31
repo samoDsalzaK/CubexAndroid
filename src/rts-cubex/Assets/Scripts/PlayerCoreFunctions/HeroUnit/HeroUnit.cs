@@ -18,7 +18,7 @@ using UnityEngine.AI;
 
 // }
 
-//FIX Troop fire
+//FIX Troop fire, create new system
 //Create Rogue
 [System.Serializable]
 public class UpgradeTask : System.Object //Required for managing current upgraded units
@@ -69,13 +69,13 @@ public class HeroUnit : MonoBehaviour
     private bool barracadeWallSpawned = false;
     private TaskTimer timer;
     private float coolDownTime = 0;
-    private TroopFire tfire;
+    private TroopAttack tfire;
     // public float MovementSpeed { set {movementSpeed = value;} get { return movementSpeed; }}
 
     private void Start() {
         timer = GetComponent<TaskTimer>();
         movement = GetComponent<NavMeshAgent>();
-        tfire = GetComponent<TroopFire>();
+        tfire = GetComponent<TroopAttack>();
         barracadeBuild = barracadeWall.GetComponent<Animator>();
     }
     private void Update() {

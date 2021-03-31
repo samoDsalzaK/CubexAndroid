@@ -1,5 +1,84 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &864074274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 864074275}
+  - component: {fileID: 864074277}
+  - component: {fileID: 864074276}
+  m_Layer: 13
+  m_Name: fireGun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &864074275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864074274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.761}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 6896241092319077038}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &864074277
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864074274}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &864074276
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864074274}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &109217776430809870
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &109217776430809865
 Transform:
   m_ObjectHideFlags: 0
@@ -5324,8 +5403,8 @@ GameObject:
   - component: {fileID: 6896241092319077039}
   - component: {fileID: 6262681847201353907}
   - component: {fileID: 9216765147727073550}
-  - component: {fileID: 5871152983238961629}
   - component: {fileID: 4911912778824775077}
+  - component: {fileID: 1483587779}
   m_Layer: 13
   m_Name: Trooper
   m_TagString: Unit
@@ -5347,6 +5426,7 @@ Transform:
   - {fileID: 109217776430809865}
   - {fileID: 5112743623003934516}
   - {fileID: 622046262148957265}
+  - {fileID: 864074275}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.113000005, y: -129.389, z: 0}
@@ -5483,23 +5563,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5871152983238961629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6896241092319077033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69f2275d02f662c469f8cead7e047316, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 6262681846229190285}
-  projectilePrefab: {fileID: 6053705760785091143, guid: 77ef53da12353e342b06c0d87ea4a8ae,
-    type: 3}
-  launchForce: 700
-  fireRate: 0.5
 --- !u!114 &4911912778824775077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5528,6 +5591,27 @@ MonoBehaviour:
   isHero: 0
   nearHero: 0
   heroEffectParticles: {fileID: 1665479752516486356}
+--- !u!114 &1483587779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896241092319077033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20753e51dd4510c428d4a449702068fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireGun: {fileID: 864074275}
+  scannerRadius: 20
+  spottedEnemy: {fileID: 0}
+  projectile: {fileID: 833446331802415920, guid: 77ef53da12353e342b06c0d87ea4a8ae,
+    type: 3}
+  launchForce: 100
+  startAttacking: 0
+  fireRate: 1
+  targetName: enemy
 --- !u!1 &7698980596658233804
 GameObject:
   m_ObjectHideFlags: 0
