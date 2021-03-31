@@ -5,18 +5,22 @@ public class TroopFire : MonoBehaviour {
     [SerializeField] private Transform firePoint;
     [SerializeField] private Rigidbody projectilePrefab;
     [SerializeField] private float launchForce = 700f;
+    [SerializeField] bool lockFire = false;
     private LookAtEnemy inRange;
     public float fireRate = 0.5F;
     private float nextFire = 0.0F;
+    public bool LockFire { set { lockFire = value; } get { return lockFire; }}
     private void Start () {
         inRange = FindObjectOfType<LookAtEnemy> ();
     }
     public void Update () {
-
-        if (inRange.getIsEnemyNear ()) {
-            if (Time.time > nextFire) {
-                nextFire = Time.time + fireRate;
-                Shoot ();
+        if (!LockFire)
+        {
+            if (inRange.getIsEnemyNear ()) {
+                if (Time.time > nextFire) {
+                    nextFire = Time.time + fireRate;
+                    Shoot ();
+                }
             }
         }
     }

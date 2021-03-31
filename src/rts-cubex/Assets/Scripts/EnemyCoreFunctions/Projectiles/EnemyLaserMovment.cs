@@ -23,11 +23,11 @@ public class EnemyLaserMovment : MonoBehaviour
         switch(other.gameObject.tag)
         {
             case "Unit":
-            if(other.gameObject.GetComponent<TroopHealth>()!=null) {
+            if(other.gameObject.GetComponent<TroopHealth>()) {
             other.gameObject.GetComponent<TroopHealth>().decreaseHealth(damagePoints);
             }
-            else
-            {
+            else if (other.gameObject.GetComponent<HeavyHealth>())
+            {                
                 other.gameObject.GetComponent<HeavyHealth>().decreaseHealth(damagePoints);
             }
             Destroy(gameObject);
