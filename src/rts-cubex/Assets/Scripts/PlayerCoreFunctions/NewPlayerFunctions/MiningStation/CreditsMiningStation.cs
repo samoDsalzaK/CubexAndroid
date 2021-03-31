@@ -30,6 +30,8 @@ public class CreditsMiningStation : MonoBehaviour
     [SerializeField] int minedCreditsAmount; // current mined Credits value
     [SerializeField] private int maxMinedCreditsAmount; // capasity limit
 
+    [SerializeField] GameObject addCreditsPopUp;
+
     public int[] changeMinNeededEnergonAmount
     {
         get
@@ -136,6 +138,17 @@ public class CreditsMiningStation : MonoBehaviour
 
 
     public void reedemCreditsAction(){
+        // creating object
+        GameObject addCreditsPopUpObject = Instantiate(addCreditsPopUp, addCreditsPopUp.transform.position, Quaternion.identity) as GameObject;
+        Transform[] ts = addCreditsPopUpObject.transform.GetComponentsInChildren<Transform>();
+        //minedCreditsAmount = 1000;
+            foreach (Transform t in ts) {
+                if(t.gameObject.GetComponent<Text>() != null)
+                {
+                    t.gameObject.GetComponent<Text>().text = "+" + minedCreditsAmount + " credits ↑ ";
+                }
+            }
+        Destroy(addCreditsPopUpObject, 2f);
         playerbase.setCreditsAmount(playerbase.getCreditsAmount() + minedCreditsAmount);
         minedCreditsAmount = 0;
     }

@@ -524,7 +524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1774960677584316031
 RectTransform:
   m_ObjectHideFlags: 0
@@ -844,6 +844,8 @@ MonoBehaviour:
   - 25
   minedCreditsAmount: 0
   maxMinedCreditsAmount: 1000
+  addCreditsPopUp: {fileID: 7897977874180260859, guid: 875e60d25f44f8f409becbe1caa84512,
+    type: 3}
 --- !u!114 &1774960677586803745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5175,7 +5177,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

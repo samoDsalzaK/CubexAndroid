@@ -80,4 +80,20 @@ public class PanelManager : MonoBehaviour
             }
         }
     }
+
+    // this function will be used for pause manager
+    public void onGamePauseDisableAllPanels(){
+        var activePanels = FindObjectsOfType<PanelManager>();
+        if (activePanels != null){  
+            for (int i = 0; i < activePanels.Length; i++){
+                if(activePanels[i].changeStatus){
+                    activePanels[i].changeStatus = false;
+                }
+                activePanels[i].deactivatePanels();
+            }
+        }
+        else{
+            return;
+        }
+    }
 }
