@@ -30,7 +30,7 @@ public class CreditsMiningStation : MonoBehaviour
     [SerializeField] int minedCreditsAmount; // current mined Credits value
     [SerializeField] private int maxMinedCreditsAmount; // capasity limit
 
-    [SerializeField] GameObject addCreditsPopUp;
+    createAnimatedPopUp animatedPopUps;
 
     public int[] changeMinNeededEnergonAmount
     {
@@ -87,6 +87,7 @@ public class CreditsMiningStation : MonoBehaviour
         }
 
         panelManager = GetComponent<PanelManager>();
+        animatedPopUps = GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()
@@ -129,6 +130,7 @@ public class CreditsMiningStation : MonoBehaviour
         Debug.Log("First redeem and then mine again");
         return;
         }
+        animatedPopUps.createDecreaseEnergonPopUp(minNeededEnergonAmount[slotIndex-1]);
         // set new value for energon
         playerbase.setEnergonAmount(playerbase.getEnergonAmount() - minNeededEnergonAmount[slotIndex-1]);
         // addition check for resources
@@ -139,16 +141,17 @@ public class CreditsMiningStation : MonoBehaviour
 
     public void reedemCreditsAction(){
         // creating object
-        GameObject addCreditsPopUpObject = Instantiate(addCreditsPopUp, addCreditsPopUp.transform.position, Quaternion.identity) as GameObject;
+        /*GameObject addCreditsPopUpObject = Instantiate(addCreditsPopUp, addCreditsPopUp.transform.position, Quaternion.identity) as GameObject;
         Transform[] ts = addCreditsPopUpObject.transform.GetComponentsInChildren<Transform>();
-        //minedCreditsAmount = 1000;
+        minedCreditsAmount = 1000;
             foreach (Transform t in ts) {
                 if(t.gameObject.GetComponent<Text>() != null)
                 {
                     t.gameObject.GetComponent<Text>().text = "+" + minedCreditsAmount + " credits ↑ ";
                 }
             }
-        Destroy(addCreditsPopUpObject, 2f);
+        Destroy(addCreditsPopUpObject, 2f);*/
+        animatedPopUps.createAddCreditsPopUp(minedCreditsAmount);
         playerbase.setCreditsAmount(playerbase.getCreditsAmount() + minedCreditsAmount);
         minedCreditsAmount = 0;
     }
