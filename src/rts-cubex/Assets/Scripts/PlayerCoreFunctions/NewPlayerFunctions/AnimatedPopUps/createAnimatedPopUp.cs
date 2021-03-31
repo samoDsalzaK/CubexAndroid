@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class createAnimatedPopUp : MonoBehaviour
 {
-    [SerializeField] GameObject addCreditsPopUp, decreaseCreditsPopUp, addEnergonPopUp, decreaseEnergonPopUp;
+    [SerializeField] GameObject addCreditsPopUp, decreaseCreditsPopUp, addEnergonPopUp, decreaseEnergonPopUp, decreaseEnergonPopUpPosition1, addEnergonPopUpPosition1;
     // Start is called before the first frame update
 
     // addCreditsPopUp - done
@@ -48,29 +48,61 @@ public class createAnimatedPopUp : MonoBehaviour
     }
 
     // create adding energon pop up
-    public void createAddEnergonPopUp(int energonAmountToAdd){
-        GameObject addEnergonPopUpObject = Instantiate(addEnergonPopUp, addEnergonPopUp.transform.position, Quaternion.identity) as GameObject;
-        Transform[] ts = addEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
+    public void createAddEnergonPopUp(int energonAmountToAdd, int position){
+        if (position == 1){
+            GameObject addEnergonPopUpObject = Instantiate(addEnergonPopUpPosition1, addEnergonPopUpPosition1.transform.position, Quaternion.identity) as GameObject;
+            Transform[] ts = addEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
                 if(t.gameObject.GetComponent<Text>() != null)
                 {
                     t.gameObject.GetComponent<Text>().text = "+" + energonAmountToAdd + " energon ↑ ";
                 }
             }
-        Destroy(addEnergonPopUpObject, 2f);
+            Destroy(addEnergonPopUpObject, 2f); 
+        }
+        else if (position == 2){
+            GameObject addEnergonPopUpObject = Instantiate(addEnergonPopUp, addEnergonPopUp.transform.position, Quaternion.identity) as GameObject;
+            Transform[] ts = addEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
+            foreach (Transform t in ts) {
+                if(t.gameObject.GetComponent<Text>() != null)
+                {
+                    t.gameObject.GetComponent<Text>().text = "+" + energonAmountToAdd + " energon ↑ ";
+                }
+            }
+            Destroy(addEnergonPopUpObject, 2f); 
+        }
+        else{
+            return;
+        }
     }
 
     // create decreasing energon pop up
-    public void createDecreaseEnergonPopUp(int energonAmountToDecrease){
-        GameObject decreaseEnergonPopUpObject = Instantiate(decreaseEnergonPopUp, decreaseEnergonPopUp.transform.position, Quaternion.identity) as GameObject;
-        Transform[] ts = decreaseEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
+    public void createDecreaseEnergonPopUp(int energonAmountToDecrease, int position){
+        if (position == 1){
+            GameObject decreaseEnergonPopUpObject = Instantiate(decreaseEnergonPopUpPosition1, decreaseEnergonPopUpPosition1.transform.position, Quaternion.identity) as GameObject;
+            Transform[] ts = decreaseEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
                 if(t.gameObject.GetComponent<Text>() != null)
                 {
                     t.gameObject.GetComponent<Text>().text = "-" + energonAmountToDecrease + " energon ↓ ";
                 }
             }
-        Destroy(decreaseEnergonPopUpObject, 2f);
+            Destroy(decreaseEnergonPopUpObject, 2f);
+        }
+        else if (position == 2) {
+            GameObject decreaseEnergonPopUpObject = Instantiate(decreaseEnergonPopUp, decreaseEnergonPopUp.transform.position, Quaternion.identity) as GameObject;
+            Transform[] ts = decreaseEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
+            foreach (Transform t in ts) {
+                if(t.gameObject.GetComponent<Text>() != null)
+                {
+                    t.gameObject.GetComponent<Text>().text = "-" + energonAmountToDecrease + " energon ↓ ";
+                }
+            }
+            Destroy(decreaseEnergonPopUpObject, 2f);
+        }
+        else{
+            return;
+        }
     }
 }
 

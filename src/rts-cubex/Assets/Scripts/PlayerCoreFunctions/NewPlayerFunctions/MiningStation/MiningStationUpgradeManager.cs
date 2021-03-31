@@ -100,7 +100,7 @@ public class MiningStationUpgradeManager : MonoBehaviour
                 playerbase.setResourceAMountScreenStateForUpgrade(true); 
                 return;
             }
-            animatedPopUps.createDecreaseEnergonPopUp(energonNeededForUpgrade[miningStationLevel-1]); // creating pop up window
+            animatedPopUps.createDecreaseEnergonPopUp(energonNeededForUpgrade[miningStationLevel-1],2); // creating pop up window
             animatedPopUps.createDecreaseCreditsPopUp(creditsNeededForUpgrade[miningStationLevel-1]); // creating pop up window
             // change credits/energon values after upgrade
             playerbase.setCreditsAmount(playerbase.getCreditsAmount() - creditsNeededForUpgrade[miningStationLevel-1]);
