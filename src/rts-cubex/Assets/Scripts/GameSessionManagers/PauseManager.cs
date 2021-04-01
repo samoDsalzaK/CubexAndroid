@@ -19,7 +19,7 @@ public class PauseManager : MonoBehaviour
     public void pauseGame()
     {
         panelManager = GetComponent<PanelManager>();
-        panelManager.onGamePauseDisableAllPanels();
+        panelManager.changeStatusOfAllPanels();
         Time.timeScale = 0;
         //diabling all active panels when game is paused
         //float seconds = (int)(Time.timeSinceLevelLoad % 60f);
@@ -30,5 +30,6 @@ public class PauseManager : MonoBehaviour
     public void unpauseGame()
     {
         Time.timeScale = 1;
+        panelManager.changeStatus = false;
     }
 }

@@ -24,6 +24,7 @@ public class TurretpgradeManager : MonoBehaviour
     private TurretFire turretFire;
     [SerializeField] int playerScoreEarned = 5;
     PanelManager panelManager;
+    createAnimatedPopUp animatedPopUps;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +41,7 @@ public class TurretpgradeManager : MonoBehaviour
         turretHealth = GetComponent<TurretHealth>();
         turretFire = GetComponent<TurretFire>(); 
         panelManager = GetComponent<PanelManager>();
+        animatedPopUps = GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()
@@ -184,6 +186,8 @@ public class TurretpgradeManager : MonoBehaviour
     private void turretUpgrade()
     {
     turretLevel++;
+    animatedPopUps.createDecreaseCreditsPopUp(minNeedCreditsAmountForTurretUpgrade);
+    animatedPopUps.createDecreaseEnergonPopUp(minNeedEnergonAmountForTurretUpgrade,2);
     playerbase.setCreditsAmount(playerbase.getCreditsAmount() - minNeedCreditsAmountForTurretUpgrade);
     playerbase.setEnergonAmount(playerbase.getEnergonAmount() - minNeedEnergonAmountForTurretUpgrade);
     turretHealth.setTurretHealth(turretHealth.getTurretHealth() + turretUpgradeHPAmount);

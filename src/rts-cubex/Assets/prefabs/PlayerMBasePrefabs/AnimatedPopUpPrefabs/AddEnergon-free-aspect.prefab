@@ -70,7 +70,22 @@ PrefabInstance:
     - target: {fileID: 5766830479915231795, guid: 904a8c87dbd5dad468155437e12091e9,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -44
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766830479915231795, guid: 904a8c87dbd5dad468155437e12091e9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766830479915231795, guid: 904a8c87dbd5dad468155437e12091e9,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5766830479915231795, guid: 904a8c87dbd5dad468155437e12091e9,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7927347075482962030, guid: 904a8c87dbd5dad468155437e12091e9,
         type: 3}

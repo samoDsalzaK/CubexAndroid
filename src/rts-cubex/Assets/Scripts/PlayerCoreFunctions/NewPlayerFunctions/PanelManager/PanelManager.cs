@@ -31,21 +31,19 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    // this function is used by every single building in the map, here is not good to enter with state as true, because that could couse loop and your panels will be dactivate every time you click on structure 
     public void changeStatusOfAllPanels(){
         var activePanels = FindObjectsOfType<PanelManager>();
 		if (activePanels != null){  
 			for (int i = 0; i < activePanels.Length; i++){
 				if(activePanels[i].changeStatus){
 					activePanels[i].changeStatus = false;
+                    activePanels[i].deactivatePanels();
 				}
 			}
 		}
+        // make yourself to be visible
         isActive = true;
-        for (int i = 0; i < activePanels.Length; i++){
-            if(!activePanels[i].changeStatus){
-                activePanels[i].deactivatePanels();
-            }
-        }
     }
 
     // this function ignores player click on the object if another panel of this object is currently active
@@ -70,6 +68,7 @@ public class PanelManager : MonoBehaviour
                 {
                     if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground") || hit.transform.gameObject.layer == LayerMask.NameToLayer("LvlMap"))
                     {
+                        isActive = false;
                         deactivatePanels();
                     }
                     else
@@ -81,19 +80,34 @@ public class PanelManager : MonoBehaviour
         }
     }
 
-    // this function will be used for pause manager
-    public void onGamePauseDisableAllPanels(){
+    // this function will be useful for objects with big colliders, to ignore clicking
+    public bool checkIfWhereAreActivePanelsOnTheMap(){
         var activePanels = FindObjectsOfType<PanelManager>();
-        if (activePanels != null){  
-            for (int i = 0; i < activePanels.Length; i++){
+        if(activePanels != null){
+            for (int i = 0; i < activePanels.Length; i++){ 
                 if(activePanels[i].changeStatus){
-                    activePanels[i].changeStatus = false;
+                   return true;
                 }
-                activePanels[i].deactivatePanels();
+            }
+            return false;
+        }
+        return false;
+    }
+
+    // function will be useful for exit butttons on panels, to fix bug, when building remains to be active in panel usage, and can not be clicked once again 
+    public void deactivatePanelsOnExit(){
+        var activePanels = FindObjectsOfType<PanelManager>();
+        if(activePanels != null){
+            for (int i = 0; i < activePanels.Length; i++){ 
+                activePanels[i].changeStatus = false;
             }
         }
-        else{
-            return;
-        }
+    }
+
+    // function needed to deactivate playerbase panels, because several panel management is on another building and we can not deactivate them as child objects
+    public void onExitDeactivatePlayerBasePanels(){
+        var playerbase = FindObjectOfType<Base>();
+        playerbase.setResourceAMountScreenStateForUpgrade(false); 
+        playerbase.setErrorStateToBuildStructure(false);
     }
 }

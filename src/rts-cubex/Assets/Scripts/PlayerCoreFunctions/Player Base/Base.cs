@@ -70,6 +70,8 @@ public class Base : MonoBehaviour
     public Canvas gameHood;
 
 	PanelManager panelManager;
+
+	LocalPanelManager localPanelManager;
     
     // Start is called before the first frame update
     void Start()
@@ -102,6 +104,7 @@ public class Base : MonoBehaviour
         }
 
 		panelManager = GetComponent<PanelManager>();
+		localPanelManager = GetComponent<LocalPanelManager>();
     }
     // Update is called once per frame
     void Update()
@@ -217,13 +220,13 @@ public class Base : MonoBehaviour
         	// deactivate other building panels
         	panelManager.changeStatusOfAllPanels();
       	}	
-
-		if(!GetComponent<InteractiveBuild>().OpenBMode)
+		// purpose //
+		/*if(!GetComponent<InteractiveBuild>().OpenBMode)
 		{
 			Screen.SetActive(true);
 			addCredits.text = "Credits left : " + credits;  
 			addEnergon.text = "Energon left : " + energon;  
-		}
+		}*/
       
     }
     //workers spawning method
@@ -251,20 +254,21 @@ public class Base : MonoBehaviour
     
     public void addAdditionalWorker() 
     {
-      if(credits < fixedPriceOfOneAdditionalWorker)
-      {
-      resourceAmountScreenState = true;
-      return;   
-      }
-      credits -= fixedPriceOfOneAdditionalWorker;
-      maxWorkerAmountInLevel++;
-       
-      if(existingWorkerAmount < maxWorkerAmountInLevel)
-      {
-        createworker.interactable = true;
-      }
-     
-      } 
+		if(credits < fixedPriceOfOneAdditionalWorker)
+		{
+		localPanelManager.deactivatePanels();
+		resourceAmountScreenState = true;
+		return;   
+		}
+		BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(fixedPriceOfOneAdditionalWorker);
+		credits -= fixedPriceOfOneAdditionalWorker;
+		maxWorkerAmountInLevel++;
+		
+		if(existingWorkerAmount < maxWorkerAmountInLevel)
+		{
+			createworker.interactable = true;
+		}
+	} 
 
     public void upgradeBaseMethod()
     {
@@ -274,10 +278,13 @@ public class Base : MonoBehaviour
       }
       if(credits < minCreditsAmountNeededForUpgrading || energon < minEnergonAmounNeededForUpgrading) // per update tikrinsiu ar pakanka resursu tobulinti baze. Kai neuztenks resursu tai uzdisabliname
       {
+		  localPanelManager.deactivatePanels();
         setResourceAMountScreenStateForUpgrade(true);  
         return;
       }
       playerBaselevel++;
+      BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(minCreditsAmountNeededForUpgrading);
+      BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(minEnergonAmounNeededForUpgrading,2);
       energon -= minEnergonAmounNeededForUpgrading; // numinusuojame resursus uz viena updata.
       credits -= minCreditsAmountNeededForUpgrading; // numinusuojame resursus uz viena update.
       minCreditsAmountNeededForUpgrading += 10; // kas kita leveli upgradinant reikes vis daugiau resursu.

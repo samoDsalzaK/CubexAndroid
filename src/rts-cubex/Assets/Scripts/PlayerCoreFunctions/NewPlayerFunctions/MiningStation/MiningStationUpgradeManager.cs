@@ -160,4 +160,9 @@ public class MiningStationUpgradeManager : MonoBehaviour
         }
         return false;
     }
+
+    public void onExitDeactivatePlayerBasePanels(){
+        playerbase.setResourceAMountScreenStateForUpgrade(false); 
+        playerbase.setErrorStateToBuildStructure(false);
+    }
 }

@@ -49,6 +49,8 @@ public class Energon : MonoBehaviour
     }
     void OnMouseDown()
     {
+        //panelManager = GetComponent<PanelManager>();
+        //CollectorScreen.SetActive(true);
         // check for active panels in this building hierarchy if yes do not trigger on mouse click
         var status = panelManager.checkForActivePanels();
         if (status){

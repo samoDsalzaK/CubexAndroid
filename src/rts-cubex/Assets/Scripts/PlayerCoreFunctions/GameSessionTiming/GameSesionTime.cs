@@ -40,6 +40,7 @@ public class GameSesionTime : MonoBehaviour
                     counterText.text = ((int)startingTime / 60).ToString("00") + ":" + (startingTime % 60).ToString("00");
                 }
                 else{
+                    counterText.color = Color.red;
                     counterText.text = (startingTime % 60).ToString("00");
                 }
                 yield return new WaitForSeconds(1.0f);
