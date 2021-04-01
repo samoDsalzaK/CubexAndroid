@@ -906,7 +906,7 @@ PrefabInstance:
     - target: {fileID: 6129008054146050237, guid: f6587865567ae57459ddca58fd05bfe0,
         type: 3}
       propertyPath: m_Name
-      value: Striker(Rogue)
+      value: Jet(Rogue)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6587865567ae57459ddca58fd05bfe0, type: 3}
@@ -1165,36 +1165,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 241247164405305159, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_Text
-      value: Defender abilities
-      objectReference: {fileID: 0}
-    - target: {fileID: 973587990160816737, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1362107464911375372, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2710572234607218565, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883517167815830491, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2883517167815830491, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 67.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6105856491519104929, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1254,11 +1224,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Zax(Guardian)
-      objectReference: {fileID: 0}
-    - target: {fileID: 9098030794844778249, guid: 04da9c4a38e9de24ba0b07be482e7dc0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04da9c4a38e9de24ba0b07be482e7dc0, type: 3}

@@ -20,12 +20,13 @@ using UnityEngine.AI;
 
 //FIX Troop fire, create new system
 //Create Rogue
+//IsShieldBoosted
 [System.Serializable]
 public class UpgradeTask : System.Object //Required for managing current upgraded units
 {
     [SerializeField] GameObject unit;
     [SerializeField] string uType = "none";
-    [SerializeField] bool isShieldBoosted;
+    [SerializeField] bool isStatsBoosted;
 
     public UpgradeTask(GameObject g)
     {
@@ -33,7 +34,7 @@ public class UpgradeTask : System.Object //Required for managing current upgrade
     }
     public string UType { set { uType = value; } get { return uType; }}
     public GameObject Unit { set { unit = value; } get {return unit;}}
-    public bool IsShieldBoosted { set { isShieldBoosted = value; } get {return isShieldBoosted;}}
+    public bool IsStatsBoosted { set { isStatsBoosted = value; } get {return isStatsBoosted;}}
 }
 public class HeroUnit : MonoBehaviour
 {
@@ -45,7 +46,6 @@ public class HeroUnit : MonoBehaviour
     [SerializeField] float diffCooldown = 2f; //For hero cooldown variation
     [SerializeField] float explosionDelay = 2f; 
     [SerializeField] Text shieldText;
-    [SerializeField] GameObject shieldBoostBtn;
     [SerializeField] GameObject shieldWallBtn;
     [SerializeField] Text shieldWallText;
     [SerializeField] string playerTroopTag = "Unit";
@@ -64,7 +64,7 @@ public class HeroUnit : MonoBehaviour
     // public int Hp { set {hp = value;} get { return hp; }}
     // public int Shield { set {shield = value;} get { return shield; }}
     public string HeroType { set { heroType = value; } get { return heroType; }}
-    private int clickCount = 0;
+    //private int clickCount = 0;
     private Animator barracadeBuild;
     private NavMeshAgent movement;
     private bool barracadeWallSpawned = false;
@@ -72,6 +72,14 @@ public class HeroUnit : MonoBehaviour
     private float coolDownTime = 0;
     private TroopAttack tfire;
     private move troopMoveControl;
+    //For firing upgrades
+    private float newFireRate = 0f;
+    private float oldFireRate = 0f;
+    private float fireRateOffet = 0f;
+    private int heroDmgPoints = 0;
+    private int newDamagePoints = 0;
+    private int oldDamagePoints = 0;
+    private int dmgOffset = 0;
    // public Vector3 MovementVelocity { set {movementVelocity = value;} get { return movementVelocity; }}
 
     private void Start() {
@@ -81,17 +89,26 @@ public class HeroUnit : MonoBehaviour
         if (heroType == "defender")
             barracadeBuild = barracadeWall.GetComponent<Animator>();
         troopMoveControl = GetComponent<move>();
-        //MovementVelocity = movement.velocity;
-        // UI control
-        switch(heroType)
+        
+        if (heroType == "rogue")
         {
-            case "defender" :
-                shieldBoostBtn.SetActive(true);
-                shieldWallBtn.SetActive(true);
-            break;
+            var projectileData =  gameObject
+                                 .GetComponent<TroopAttack>().Projectile
+                                 .GetComponent<TroopLaserMovement>();
+            projectileData.HeroFire = true;
+            var troopData = projectileData.OBGResearch;
+            
+            //Setting initial data for damage upgrades
+            heroDmgPoints = troopData.HeroMakeDamagePoints;   
+            fireRateOffet = (gameObject.GetComponent<TroopAttack>().FireRate / 2);  
+            dmgOffset = (heroDmgPoints / 2);         
+            shieldText.text = "Auto boost firerate(+" + fireRateOffet + ")\ndamage (+" + dmgOffset + ")";
         }
+        
     }
     private void Update() {
+       //Scaning for near by troops
+       detectionTroopSphere(); 
        switch (heroType) 
        {
            case "defender":
@@ -141,9 +158,11 @@ public class HeroUnit : MonoBehaviour
                         shieldWallText.text = "Holo shield\n(" + Mathf.Round(timer.TimeStart) + ")";
                     }
                 }
-                //Scanner to see near by player troops
-                detectionSphere(); 
+                //Scanner to see near by player troops               
             break;
+            // case "rogue" :
+                 
+            // break;
        }
     }
     IEnumerator spawnExplosion()
@@ -153,8 +172,7 @@ public class HeroUnit : MonoBehaviour
         Destroy(e);
     }
     public void spawnBarracde()
-    {
-        
+    {        
         barracadeWall.SetActive(true);
         barracadeBuild.SetBool("ButtonClicked", true);
         barracadeWallSpawned = true;
@@ -165,20 +183,8 @@ public class HeroUnit : MonoBehaviour
        //  barracadeBuild.SetBool("ButtonClicked", false);
        
     }
-    private void OnMouseDown() {
-        
-        if (clickCount < 1)
-        {
-            heroToolbar.SetActive(true);
-            clickCount++;
-        }
-        else
-        {
-            heroToolbar.SetActive(false);
-            clickCount = 0;
-        }
-    }
-    private void detectionSphere()
+   
+    private void detectionTroopSphere()
     {
         //To check if player troops are in range
         detectIfObjectsInRange();
@@ -187,7 +193,37 @@ public class HeroUnit : MonoBehaviour
         detectIfObjectsOutOfRange();
 
         //Boost shields to near by troops
-        autoBoostTroopShields();
+        if (heroType == "defender")
+            autoBoostTroopShields();
+        else if (heroType == "rogue")
+            autoBoostAttack();
+    }
+    private void autoBoostAttack() //For boosting auto attack
+    {
+        if (upgradeTasks == null || upgradeTasks.Count > 0)
+        {
+            foreach (var utask in upgradeTasks)
+            {
+                if (!utask.IsStatsBoosted)
+                {
+                    var troopAttackController = utask.Unit.GetComponent<TroopAttack>();
+                    //Boosting fire rate                   
+                    newFireRate = troopAttackController.FireRate - fireRateOffet;
+                    oldFireRate = troopAttackController.FireRate;
+                    troopAttackController.FireRate = newFireRate;
+                   
+                    //Boosing projectile damage points
+                    var ctProjectile = troopAttackController.Projectile;
+                    var projectileController = ctProjectile.GetComponent<TroopLaserMovement>();
+                    var proData = projectileController.OBGResearch;
+                    oldDamagePoints = proData.SDamage;                    
+                    newDamagePoints = proData.SDamage + dmgOffset;
+                    proData.SDamage = newDamagePoints;
+
+                     utask.IsStatsBoosted = true;
+                }
+            }
+        }
     }
     //To check if player troop is in upgrade list
     private bool isInUList(string gname)
@@ -210,7 +246,7 @@ public class HeroUnit : MonoBehaviour
         {
             foreach(var uitem in upgradeTasks)
             {
-                if (!uitem.IsShieldBoosted)
+                if (!uitem.IsStatsBoosted)
                 {
                    var tHealth = uitem.Unit.GetComponent<TroopHealth>();
                    var cShieldAmount = tHealth.ShieldHealth;
@@ -219,7 +255,7 @@ public class HeroUnit : MonoBehaviour
                    if (cShieldAmount < boostShieldPoints)
                    {
                        tHealth.ShieldHealth = boostShieldPoints;
-                       uitem.IsShieldBoosted = true;             
+                       uitem.IsStatsBoosted = true;             
                    }
                 }
             }
@@ -235,9 +271,18 @@ public class HeroUnit : MonoBehaviour
                 var currentDistance = Mathf.Round(Vector3.Distance(uitem.Unit.transform.position, transform.position));
                 if (currentDistance > scannerRadius)
                 {
-                    var troopHealth = uitem.Unit.GetComponent<TroopHealth>();
-                    if (troopHealth)
-                        troopHealth.NearHero = false;
+                    if (heroType == "defender")
+                    {
+                        var troopHealth = uitem.Unit.GetComponent<TroopHealth>();
+                        if (troopHealth)
+                            troopHealth.NearHero = false;
+                    }
+                    else if (heroType == "rogue")
+                    {
+                        var troopAttackController = uitem.Unit.GetComponent<TroopAttack>();
+                        troopAttackController.FireRate = oldFireRate; 
+                        troopAttackController.Projectile.GetComponent<TroopLaserMovement>().OBGResearch.SDamage = oldDamagePoints;
+                    }
                     upgradeTasks.Remove(uitem);
                     break;
                 }

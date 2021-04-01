@@ -882,8 +882,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 63.5, y: 32.6}
-  m_SizeDelta: {x: 100, y: 30}
+  m_AnchoredPosition: {x: 67.5, y: 32.6}
+  m_SizeDelta: {x: 200, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7637945145998672712
 CanvasRenderer:
@@ -925,7 +925,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: abilities
+  m_Text: Defender abilities
 --- !u!1 &4293064004427755345
 GameObject:
   m_ObjectHideFlags: 0
@@ -6435,7 +6435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6105856491519104929
 Transform:
   m_ObjectHideFlags: 0
@@ -6530,6 +6530,7 @@ MonoBehaviour:
   isSelected: 0
   hero: 1
   selectionIcon: {fileID: 34149229}
+  heroToolbar: {fileID: 1362107464911375372}
 --- !u!54 &1261447121
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6591,7 +6592,6 @@ MonoBehaviour:
   diffCooldown: 5
   explosionDelay: 2
   shieldText: {fileID: 5990176737886358031}
-  shieldBoostBtn: {fileID: 2710572234607218565}
   shieldWallBtn: {fileID: 1761741278}
   shieldWallText: {fileID: 1114397416}
   playerTroopTag: Unit
@@ -6632,6 +6632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireGun: {fileID: 1626299162}
+  secondFireGun: {fileID: 0}
   scannerRadius: 20
   projectile: {fileID: 833446331802415920, guid: d8bf847321ef346408421d36ff6abcd8,
     type: 3}
@@ -6877,12 +6878,6 @@ GameObject:
 --- !u!224 &5345826739144503389 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2136929098234773333, guid: f05460a03a30a744e986ac37bf88679f,
-    type: 3}
-  m_PrefabInstance: {fileID: 6311747229040545544}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2710572234607218565 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8217441767441055885, guid: f05460a03a30a744e986ac37bf88679f,
     type: 3}
   m_PrefabInstance: {fileID: 6311747229040545544}
   m_PrefabAsset: {fileID: 0}
