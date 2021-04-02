@@ -52,7 +52,8 @@ public class buildArmyCamp : MonoBehaviour
         // checks for workers on the map
         if (playerbase.getworkersAmount() <= 0){
             Debug.Log("Build worker first"); 
-		   errorForWorker.SetActive(true);  
+            playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
+		    errorForWorker.SetActive(true);  
             return;
         }
         // check if there are free workers on the map
@@ -65,13 +66,15 @@ public class buildArmyCamp : MonoBehaviour
             }
          }
         if (count == 0){
+            playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
             errorForWorker2.SetActive(true);
         }
         // check for available resources
         if (playerbase.getEnergonAmount() < minNeededEnergonAmount || playerbase.getCreditsAmount() < minNeededCreditsAmount) // patikrina esamus zaidejo resursus
         {
-        playerbase.setResourceAMountScreenState(true);    
-        return; 
+            playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
+            playerbase.setResourceAMountScreenState(true);    
+            return; 
         }
         playerbase.setBuildingArea(true);
         //State variable is setted to true, which means that the button is clicked

@@ -19,11 +19,12 @@ public class BuildArea : MonoBehaviour
     [SerializeField] MiningStationBuild creditsMiningStationBtn; // for credits mining station
 	[SerializeField] buildArmyCamp armyCampBuildBtn;
     [SerializeField] float buildWorkerStartTime = 5f;
-  //  [SerializeField] GameObject buildRegWorker;
-  //  [SerializeField] GameObject buildDefensive;
+  	//  [SerializeField] GameObject buildRegWorker;
+  	//  [SerializeField] GameObject buildDefensive;
+	createAnimatedPopUp animatedPopUps;
     //Main build area system
     void Start() 
-      {
+    {
         if(FindObjectOfType<Base>() == null)
         {
           return;
@@ -32,7 +33,8 @@ public class BuildArea : MonoBehaviour
         {
           playerbase = FindObjectOfType<Base>();
         }
-      }
+		animatedPopUps = GetComponent<createAnimatedPopUp>();
+    }
     void Update()
     {
         //Checks if there aare there any workers in the base area
@@ -71,6 +73,8 @@ public class BuildArea : MonoBehaviour
           	{ 
               	if((barrackBtn.buildBarrack()) && (canBuild))
               	{
+					animatedPopUps.createDecreaseEnergonPopUp(barrackBtn.getMinNeededEnergonAmountForTroopsBarrack(),2); // creating pop up window
+            		animatedPopUps.createDecreaseCreditsPopUp(barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // creating pop up window
                     playerbase.setCreditsAmount(playerbase.getCreditsAmount()-barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // uzsetiname naujas reksmes 
                     playerbase.setEnergonAmount(playerbase.getEnergonAmount()-barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // uzsetiname naujas reksmes
                     playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
@@ -94,6 +98,8 @@ public class BuildArea : MonoBehaviour
               	}
 				if((turretBtn.buildTurret()) && (canBuild))
 				{
+					animatedPopUps.createDecreaseEnergonPopUp(turretBtn.getMinNeededEnergonAmountForTurret(),2); // creating pop up window
+            		animatedPopUps.createDecreaseCreditsPopUp(turretBtn.getMinNeededCreditsAmountForTurret()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-turretBtn.getMinNeededCreditsAmountForTurret()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-turretBtn.getMinNeededEnergonAmountForTurret()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
@@ -118,6 +124,8 @@ public class BuildArea : MonoBehaviour
 				}
 				if((researchCenterBtn.buildResearchCentre()) && (canBuild))
 				{
+					animatedPopUps.createDecreaseEnergonPopUp(researchCenterBtn.getMinNeededEnergonAmountForResearchCentre(),2); // creating pop up window
+            		animatedPopUps.createDecreaseCreditsPopUp(researchCenterBtn.getMinNeededCreditsAmountForResearchCentre()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-researchCenterBtn.getMinNeededCreditsAmountForResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-researchCenterBtn.getMinNeededEnergonAmountForResearchCentre()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
@@ -141,6 +149,8 @@ public class BuildArea : MonoBehaviour
 				}
 				if((troopsCenterBtn.buildResearchCentre()) && (canBuild))
 				{
+					animatedPopUps.createDecreaseEnergonPopUp(troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre(),2); // creating pop up window
+            		animatedPopUps.createDecreaseCreditsPopUp(troopsCenterBtn.getMinNeededCreditsAmountForTroopsResearchCentre()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-troopsCenterBtn.getMinNeededCreditsAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
@@ -168,7 +178,8 @@ public class BuildArea : MonoBehaviour
 					// buildRegWorker.SetActive(false);
 					Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
 					playerbase.setPosition(buildpozition);
-					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-buildWorkerBtn.getMinNeededEnergonAmount()); // uzsetiname naujas reksmes 
+					animatedPopUps.createDecreaseEnergonPopUp(buildWorkerBtn.getMinNeededEnergonAmount(),1);
+					playerbase.setCreditsAmount(playerbase.getEnergonAmount()-buildWorkerBtn.getMinNeededEnergonAmount()); // uzsetiname naujas reksmes 
 					timerStart.startTimer(buildWorkerStartTime);
 					buildWorkerBtn.canBuildAgain(true);
 				}
@@ -196,6 +207,8 @@ public class BuildArea : MonoBehaviour
 					}
 				}*/
 				if((creditsMiningStationBtn.buildMiningStation()) && (canBuild)){
+					animatedPopUps.createDecreaseEnergonPopUp(creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation(),2); // creating pop up window
+            		animatedPopUps.createDecreaseCreditsPopUp(creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
@@ -218,6 +231,8 @@ public class BuildArea : MonoBehaviour
 					}
 				}
 				if((armyCampBuildBtn.armyCampBuildState()) && (canBuild)){
+					animatedPopUps.createDecreaseEnergonPopUp(armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp(),2); // creating pop up window
+            		animatedPopUps.createDecreaseCreditsPopUp(armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta

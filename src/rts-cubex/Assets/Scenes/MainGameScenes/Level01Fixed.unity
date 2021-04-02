@@ -695,7 +695,7 @@ PrefabInstance:
     - target: {fileID: 8464270302268954950, guid: 1eccc5b53412de64998bf03e28cc18c5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8464270302268954968, guid: 1eccc5b53412de64998bf03e28cc18c5,
         type: 3}
@@ -756,7 +756,7 @@ PrefabInstance:
         type: 3}
       propertyPath: counterText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1635353959}
     - target: {fileID: 8464270302268954969, guid: 1eccc5b53412de64998bf03e28cc18c5,
         type: 3}
       propertyPath: maxMinutes
@@ -766,6 +766,16 @@ PrefabInstance:
         type: 3}
       propertyPath: isTimeUnlimited
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8464270302268954969, guid: 1eccc5b53412de64998bf03e28cc18c5,
+        type: 3}
+      propertyPath: seconds
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8464270302268954969, guid: 1eccc5b53412de64998bf03e28cc18c5,
+        type: 3}
+      propertyPath: minutes
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1eccc5b53412de64998bf03e28cc18c5, type: 3}
@@ -1200,6 +1210,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 261986206, guid: 7c798978728a8b345a589b5e1ca29966, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 261986206, guid: 7c798978728a8b345a589b5e1ca29966, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.2000122
+      objectReference: {fileID: 0}
     - target: {fileID: 227149829198828348, guid: 7c798978728a8b345a589b5e1ca29966,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -1799,6 +1817,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8c1f43318652d409a105dec85be809, type: 3}
+--- !u!114 &1635353959 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9083938033716378134, guid: efd3a56b59baffb40bf21d431e1af268,
+    type: 3}
+  m_PrefabInstance: {fileID: 1769049332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1681354562
 PrefabInstance:
   m_ObjectHideFlags: 0
