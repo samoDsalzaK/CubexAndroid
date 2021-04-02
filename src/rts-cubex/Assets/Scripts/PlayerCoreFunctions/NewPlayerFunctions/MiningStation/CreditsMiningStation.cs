@@ -30,6 +30,8 @@ public class CreditsMiningStation : MonoBehaviour
     [SerializeField] int minedCreditsAmount; // current mined Credits value
     [SerializeField] private int maxMinedCreditsAmount; // capasity limit
 
+    createAnimatedPopUp animatedPopUps;
+
     public int[] changeMinNeededEnergonAmount
     {
         get
@@ -85,6 +87,7 @@ public class CreditsMiningStation : MonoBehaviour
         }
 
         panelManager = GetComponent<PanelManager>();
+        animatedPopUps = GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()
@@ -127,6 +130,7 @@ public class CreditsMiningStation : MonoBehaviour
         Debug.Log("First redeem and then mine again");
         return;
         }
+        animatedPopUps.createDecreaseEnergonPopUp(minNeededEnergonAmount[slotIndex-1], 1);
         // set new value for energon
         playerbase.setEnergonAmount(playerbase.getEnergonAmount() - minNeededEnergonAmount[slotIndex-1]);
         // addition check for resources
@@ -136,6 +140,7 @@ public class CreditsMiningStation : MonoBehaviour
 
 
     public void reedemCreditsAction(){
+        animatedPopUps.createAddCreditsPopUp(minedCreditsAmount);
         playerbase.setCreditsAmount(playerbase.getCreditsAmount() + minedCreditsAmount);
         minedCreditsAmount = 0;
     }

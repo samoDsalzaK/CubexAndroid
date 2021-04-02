@@ -101,16 +101,21 @@ public class ArmyCamp : MonoBehaviour
     }
 
     private void OnMouseDown(){
-        // check for active panels in this building hierarchy if yes do not trigger on mouse click
-        var status = panelManager.checkForActivePanels();
-        if (status){
+        if(panelManager.checkIfWhereAreActivePanelsOnTheMap()){
             return;
-        }  
+        }
         else{
-            // set main window
-            armyCampMainPanel.SetActive(true);
-            // deactivate other building panels
-            panelManager.changeStatusOfAllPanels();
+            // check for active panels in this building hierarchy if yes do not trigger on mouse click
+            var status = panelManager.checkForActivePanels();
+            if (status){
+                return;
+            }  
+            else{
+                // set main window
+                armyCampMainPanel.SetActive(true);
+                // deactivate other building panels
+                panelManager.changeStatusOfAllPanels();
+            }
         }
     }
 }

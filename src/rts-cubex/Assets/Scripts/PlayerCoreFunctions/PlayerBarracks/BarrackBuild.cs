@@ -52,7 +52,8 @@ public class BarrackBuild : MonoBehaviour
         // checks for workers on the map
         if (playerbase.getworkersAmount() <= 0){
             Debug.Log("Build worker first"); 
-		   errorForWorker.SetActive(true);  
+            playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
+		    errorForWorker.SetActive(true);  
             return;
         }
         // check if there are free workers on the map
@@ -65,11 +66,13 @@ public class BarrackBuild : MonoBehaviour
             }
          }
         if (count == 0){
+            playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
             errorForWorker2.SetActive(true);
         }
         // check for available resources
         if (playerbase.getEnergonAmount() < minNeededEnergonAmount || playerbase.getCreditsAmount() < minNeededCreditsAmount) // patikrina esamus zaidejo resursus
         {
+        playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
         playerbase.setResourceAMountScreenState(true);    
         return; 
         }

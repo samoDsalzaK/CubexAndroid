@@ -11,7 +11,8 @@ public class InteractiveBuild : MonoBehaviour
     [SerializeField] Button buildButton;
     [Header("System cnf.")]
     [SerializeField] GameObject buildingIcon;
-    [SerializeField] GameObject buildingArea;
+    [SerializeField] GameObject buildingArea; 
+    [SerializeField] GameObject buildArea; // needed to create animated pop ups
     [SerializeField] float rotationSpeed = 60f;
     private GameObject sBuildingIcon; //appeared in game
     private Base playerBase;
@@ -201,6 +202,7 @@ public class InteractiveBuild : MonoBehaviour
                         rayBuilder.CheckBuildings = false;
                         rayBuilder.SpawnedShiftBuilds = new List<GameObject>(); 
                         cleanShiftBuildings();
+                        playerBase.GetComponent<LocalPanelManager>().deactivatePanels();
                         errorWindow.SetActive(true);                        
                         errorMsg.text = (bIChecker.SpaceOccupied ? "Obstacle nearby! can't construct buildings!" : "Not enought funds to build these buildings!");
                         openBMode = false; 
@@ -232,7 +234,8 @@ public class InteractiveBuild : MonoBehaviour
                             }
                         }  
                         rayBuilder.SpawnedShiftBuilds = new List<GameObject>();  
-                        
+                        buildArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(creditsPriceToBuild); // creating animated pop ups
+                        buildArea.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild,2); // creating animated  pop ups
                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - AllBEnergonPrice);
                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - AllBCreditsPrice);                     
                     }
@@ -304,7 +307,9 @@ public class InteractiveBuild : MonoBehaviour
                                         buildModel.tag = "PlayerWall";
                                         buildModel.layer = LayerMask.NameToLayer("PlayerBase");
                                         //bData.IsBuilt = true;
-                                       
+                                        //var buildArea = GameObject.FindGameObjectWithTag("BuildArea");
+                                        buildArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(creditsPriceToBuild);
+                                        buildArea.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild,2);
                                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - energonPriceToBuild);
                                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - creditsPriceToBuild);
                                         openBMode = false;
@@ -317,6 +322,7 @@ public class InteractiveBuild : MonoBehaviour
                                 else
                                 {
                                     print("Error: Not enough funds to build!");
+                                    playerBase.GetComponent<LocalPanelManager>().deactivatePanels();
                                     errorWindow.SetActive(true);
                                     errorMsg.text = "Not enough funds to build a wall here!";
                                     openBMode = false;  
@@ -326,6 +332,7 @@ public class InteractiveBuild : MonoBehaviour
                             else
                             {
                                 print("ERROR: Can't place building here! Space occupied!");
+                                playerBase.GetComponent<LocalPanelManager>().deactivatePanels();
                                 errorWindow.SetActive(true);
                                 errorMsg.text = "Can't place building here! Space occupied!";
                                 openBMode = false; 

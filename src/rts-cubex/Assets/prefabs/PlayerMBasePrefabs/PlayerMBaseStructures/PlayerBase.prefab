@@ -205,7 +205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -39}
+  m_AnchoredPosition: {x: 2.2, y: -45}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &261986209
@@ -1824,6 +1824,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 755612445532395402}
         m_MethodName: closeWindow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2940134455390689103}
+        m_MethodName: deactivatePanelsOnExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3848,6 +3859,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2940134455390689103}
+        m_MethodName: deactivatePanelsOnExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &755612445813540433
 GameObject:
   m_ObjectHideFlags: 0
@@ -4253,6 +4275,7 @@ GameObject:
   - component: {fileID: 755612446071557021}
   - component: {fileID: 755612446071557018}
   - component: {fileID: 755612446071557019}
+  - component: {fileID: 3178355424899188239}
   m_Layer: 10
   m_Name: BuildingArea
   m_TagString: BuildArea
@@ -4379,6 +4402,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &3178355424899188239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755612446071557016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07006342557b54947a3ddfb6899ccdf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addCreditsPopUp: {fileID: 4421074121516192137, guid: 904a8c87dbd5dad468155437e12091e9,
+    type: 3}
+  decreaseCreditsPopUp: {fileID: 7295552002849207534, guid: b326f498495bf48428cfedf375789c9c,
+    type: 3}
+  addEnergonPopUp: {fileID: 2774100950941833843, guid: c174eacb676faa34eaf11ae2304ca025,
+    type: 3}
+  decreaseEnergonPopUp: {fileID: 4651664005368949993, guid: 455c83e9855eaa94d9fe7528e5695eac,
+    type: 3}
+  decreaseEnergonPopUpPosition1: {fileID: 2844654607186071547, guid: 73394ff3c2a583c458d07456668a6b77,
+    type: 3}
+  addEnergonPopUpPosition1: {fileID: 2845317473034779527, guid: ebee799efa87c2a4d82deced17338c4b,
+    type: 3}
 --- !u!1 &755612446104543943
 GameObject:
   m_ObjectHideFlags: 0
@@ -7732,9 +7779,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2779801082835378931}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2940134455390689103}
+        m_MethodName: deactivatePanelsOnExit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2940134455390689103}
+        m_MethodName: deactivatePanels
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9269,6 +9327,7 @@ GameObject:
   - component: {fileID: 871032535}
   - component: {fileID: 1902801621}
   - component: {fileID: 2940134455390689103}
+  - component: {fileID: 4129635825287624145}
   m_Layer: 9
   m_Name: PlayerBase
   m_TagString: PlayerBase
@@ -9478,6 +9537,7 @@ MonoBehaviour:
   buildingIcon: {fileID: 632747773362660625, guid: db621ff232524104aa6d1a966b1f058b,
     type: 3}
   buildingArea: {fileID: 249258890}
+  buildArea: {fileID: 755612446071557016}
   rotationSpeed: 60
   allBEnergonPrice: 0
   allBCreditsPrice: 0
@@ -9513,6 +9573,30 @@ MonoBehaviour:
   - {fileID: 3383218237799460678}
   - {fileID: 4151721863395136587}
   - {fileID: 1591605241223972045}
+  - {fileID: 227149827459504720}
+--- !u!114 &4129635825287624145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755612447165250645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f451f660febe1b469729c3a1366eb61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localPanels:
+  - {fileID: 6822470893548989748}
+  - {fileID: 2779801081869381299}
+  - {fileID: 2779801081397216717}
+  - {fileID: 2779801082657068220}
+  - {fileID: 2779801083341050793}
+  - {fileID: 2779801081412616576}
+  - {fileID: 6984373241141650189}
+  - {fileID: 371433230}
+  - {fileID: 3438070219045794215}
+  - {fileID: 3383218237799460678}
   - {fileID: 227149827459504720}
 --- !u!1 &755612447314088123
 GameObject:
@@ -12308,11 +12392,11 @@ RectTransform:
   m_Father: {fileID: 755612445600239079}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 47}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 136}
   m_SizeDelta: {x: 400, y: 280}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &6652922463953615784
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12384,11 +12468,11 @@ RectTransform:
   m_Father: {fileID: 755612445600239079}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 47}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 136}
   m_SizeDelta: {x: 400, y: 280}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5246924413279903360
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12852,6 +12936,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 4129635825287624145}
+        m_MethodName: deactivatePanels
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 6984373241141650189}
         m_MethodName: SetActive
         m_Mode: 6
@@ -14433,6 +14528,81 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 755612447165250651}
     m_Modifications:
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2940134455390689103}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: deactivatePanels
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 227149827459504720}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2940134455390689103}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: deactivatePanelsOnExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1304173368687723812, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6741142362056695541, guid: a52726d5e7e9cb141adfc7e8d24a129b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14543,14 +14713,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Error Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 6741142363253905305, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52726d5e7e9cb141adfc7e8d24a129b, type: 3}
---- !u!224 &227149829198828348 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6741142362056695541, guid: a52726d5e7e9cb141adfc7e8d24a129b,
-    type: 3}
-  m_PrefabInstance: {fileID: 6821729489753853385}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &227149827459504720 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6741142363253905305, guid: a52726d5e7e9cb141adfc7e8d24a129b,
@@ -14569,3 +14738,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &227149829198828348 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6741142362056695541, guid: a52726d5e7e9cb141adfc7e8d24a129b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6821729489753853385}
+  m_PrefabAsset: {fileID: 0}

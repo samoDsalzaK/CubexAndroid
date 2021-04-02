@@ -1,37 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
-    [SerializeField] bool isGamePaused = false;
-    [Range(0f, 2f)]
-    [SerializeField] float gameSpeed = 1f;
-    private float originalSpeed;
-
+    PanelManager panelManager;
     private void Start() {
-        originalSpeed = gameSpeed;
+        
     }
     // Update is called once per frame
     void Update()
     {
-        Time.timeScale = gameSpeed;
-        if (isGamePaused)
-        {
-            gameSpeed = 0f;
-        }
-        else
-        {
-            gameSpeed = originalSpeed;
-        }
+
     }
 
+    // game pause 
     public void pauseGame()
     {
-        isGamePaused = true;
+        panelManager = GetComponent<PanelManager>();
+        panelManager.changeStatusOfAllPanels();
+        Time.timeScale = 0;
+        //diabling all active panels when game is paused
+        //float seconds = (int)(Time.timeSinceLevelLoad % 60f);
+        //float minutes = (int)(Time.timeSinceLevelLoad / 60f) % 60;
+        //Debug.Log(minutes.ToString("00") + ":" + seconds.ToString("00"));
     }
+    // game resume
     public void unpauseGame()
     {
-        isGamePaused = false;
+        Time.timeScale = 1;
     }
 }

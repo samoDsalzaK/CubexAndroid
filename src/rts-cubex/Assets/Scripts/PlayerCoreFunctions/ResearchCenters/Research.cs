@@ -44,6 +44,8 @@ public class Research : MonoBehaviour {
     private HeavyHealth heavyHealth;
     private HealthOfRegBuilding troopsResearchHealth;
     PanelManager panelManager;
+    createAnimatedPopUp animatedPopUps;
+    LocalPanelManager localPanelManager;
     
     private void Start() {
     researchLevel = oBGResearch.getResearchLevel();
@@ -78,6 +80,8 @@ public class Research : MonoBehaviour {
         troopsResearchHealth.setHealthOfStructureOriginal(oBGResearch.getTroopResearchHealth());
         troopsResearchHealth.setHealth(oBGResearch.getTroopResearchHealth());
         panelManager = GetComponent<PanelManager>();
+        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        localPanelManager = GetComponent<LocalPanelManager>();
     }
     void Update () {
         if (!menu.activeSelf) {
@@ -145,6 +149,7 @@ public class Research : MonoBehaviour {
                 return;
             }
             if (oBGResearch.getTroopLevel() < 3) {
+                animatedPopUps.createDecreaseCreditsPopUp(troopLevelCost);
                 StartCoroutine (Increase ());
                 playerBase.setCreditsAmount (playerBase.getCreditsAmount () - troopLevelCost);
                 oBGResearch.setTroopLevel(1);
@@ -164,6 +169,7 @@ public class Research : MonoBehaviour {
                 error.setText("Not enough research level");
             }
             else {
+                animatedPopUps.createDecreaseCreditsPopUp(troopLevelCost);
                 StartCoroutine (Increase ());
                 playerBase.setCreditsAmount (playerBase.getCreditsAmount () - troopLevelCost);
                 oBGResearch.setTroopLevel(1);
@@ -229,6 +235,7 @@ public class Research : MonoBehaviour {
     }
     public void increaseResearch () {
         if ((playerBase.getCreditsAmount () >= researchCost)&&(oBGResearch.getResearchLevel()<maxResearchLevel)) {
+            animatedPopUps.createDecreaseCreditsPopUp(researchCost);
             StartCoroutine (Increase ());
             playerBase.setCreditsAmount (playerBase.getCreditsAmount () - researchCost);
             oBGResearch.setResearchLevel(1);

@@ -38,6 +38,7 @@ public class BuildWorker : MonoBehaviour
     {
         if (playerbase.getEnergonAmount() < minNeededEnergonAmount ) // patikrina esamus zaidejo resursus
         {
+        playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
         playerbase.setResourceAMountScreenState(true);    
         return; 
         }
