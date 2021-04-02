@@ -5605,7 +5605,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireGun: {fileID: 864074275}
   scannerRadius: 20
-  spottedEnemy: {fileID: 0}
   projectile: {fileID: 833446331802415920, guid: 77ef53da12353e342b06c0d87ea4a8ae,
     type: 3}
   launchForce: 100
