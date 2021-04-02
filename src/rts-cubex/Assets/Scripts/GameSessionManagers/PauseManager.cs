@@ -30,6 +30,5 @@ public class PauseManager : MonoBehaviour
     public void unpauseGame()
     {
         Time.timeScale = 1;
-        panelManager.changeStatus = false;
     }
 }

@@ -6,7 +6,7 @@ using System.Net.Mime;
 public class CubexWindowManager : MonoBehaviour
 {
     [SerializeField] int levelindex;
-    public int returnLevelIndex {get{return levelindex;}}
+    public int returnLevelIndex {get{return levelindex;} set{levelindex = value;}}
     public void LoadLevel()
     {
         SceneManager.LoadScene(levelindex);

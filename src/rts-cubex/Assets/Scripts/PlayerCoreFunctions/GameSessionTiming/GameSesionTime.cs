@@ -12,6 +12,7 @@ public class GameSesionTime : MonoBehaviour
     //[SerializeField] float maxMinutes;
     [SerializeField] bool isTimeUnlimited = false;
     float startingTime;
+    CubexWindowManager cubexWindowManager;
     // Update is called once per frame
     void Start(){
         if (!isTimeUnlimited){
@@ -46,6 +47,9 @@ public class GameSesionTime : MonoBehaviour
                 yield return new WaitForSeconds(1.0f);
                 startingTime--;
             }
+        //cubexWindowManager = GetComponent<CubexWindowManager>();
+        //cubexWindowManager.returnLevelIndex = 5;
+        //cubexWindowManager.LoadLevel();
         // add level compliation lines
         yield break;
     }
