@@ -4,23 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
-// class Hero{
-//     private string heroType;
-//     private int hp;
-//     private int shield;
-//     private float movementSpeed;
-//     public int Hp { set {hp = value;} get { return hp; }}
-//     public int Shield { set {shield = value;} get { return shield; }}
-//     public string HeroType { set { heroType = value; } get { return heroType; }}
 
-// }
-// class Defender : Hero{
 
-// }
-
-//FIX Troop fire, create new system
-//Create Rogue
-//IsShieldBoosted
+//NOTE: Seperate heroUnit script into two scripts: DefenderHero, RogueHero
+//NOTE: Create hero spawner on player base
 [System.Serializable]
 public class UpgradeTask : System.Object //Required for managing current upgraded units
 {
@@ -40,6 +27,7 @@ public class HeroUnit : MonoBehaviour
 {
     [Header("Object detection")]
     [SerializeField] float scannerRadius = 10f;
+    [SerializeField] List<UpgradeTask> upgradeTasks = new List<UpgradeTask>();
     //[SerializeField] Image detectionRange;
     [Header("General param")]
     [SerializeField] float taskTime = 5f;    
@@ -50,29 +38,39 @@ public class HeroUnit : MonoBehaviour
     [SerializeField] Text shieldWallText;
     [SerializeField] string playerTroopTag = "Unit";
     [SerializeField] string heroType;
-    [SerializeField] bool startAbilityColdown = false;
+    [SerializeField] bool startAbilityColdown = false;    
     // [SerializeField] int hp;
+    [Header("Defender cnf param")]
     [SerializeField] int boostShieldPoints = 10;
     //[SerializeField] Vector3 movementVelocity;
     [SerializeField] GameObject heroToolbar;
     [SerializeField] GameObject barracadeWall;
+    [SerializeField] Transform wallSpawnPoint;
     [SerializeField] GameObject explosion;
-    [SerializeField] GameObject coolDownParticles;
-    //For debuging
-    [SerializeField] List<UpgradeTask> upgradeTasks = new List<UpgradeTask>();
+    [SerializeField] GameObject coolDownParticles;    
+    //For debuging    
+    [Header("Rogue cnf param")]
+    [SerializeField] List<Transform> bombSpawnPoints;
+    [SerializeField] GameObject bomb;    
+    [SerializeField] float fireBombRate = 0.5f;
+    [SerializeField] float launchForce = 100f;
+    [SerializeField] float errorMessageDelay = 1f;
+    private float nextBombFire = 0.0f;
+    private bool spawnBombs = false;
+    private int nextBombIndex = 0;
     //private List<string> inRangeObjNames = new List<string>();
     // public int Hp { set {hp = value;} get { return hp; }}
     // public int Shield { set {shield = value;} get { return shield; }}
     public string HeroType { set { heroType = value; } get { return heroType; }}
     //private int clickCount = 0;
-    private Animator barracadeBuild;
     private NavMeshAgent movement;
     private bool barracadeWallSpawned = false;
+    private GameObject spawnedBarracdeWall;
     private TaskTimer timer;
     private float coolDownTime = 0;
     private TroopAttack tfire;
     private move troopMoveControl;
-    //For firing upgrades
+    //For Rogue fire upgrades to troops
     private float newFireRate = 0f;
     private float oldFireRate = 0f;
     private float fireRateOffet = 0f;
@@ -80,14 +78,17 @@ public class HeroUnit : MonoBehaviour
     private int newDamagePoints = 0;
     private int oldDamagePoints = 0;
     private int dmgOffset = 0;
+    private Helper tool = new Helper();
+    private Color originalBombBtnColor;
+    //Rogue bomb ability 
+    private Animator heroAnimator;
    // public Vector3 MovementVelocity { set {movementVelocity = value;} get { return movementVelocity; }}
 
     private void Start() {
         timer = GetComponent<TaskTimer>();
         movement = GetComponent<NavMeshAgent>();
         tfire = GetComponent<TroopAttack>();
-        if (heroType == "defender")
-            barracadeBuild = barracadeWall.GetComponent<Animator>();
+        
         troopMoveControl = GetComponent<move>();
         
         if (heroType == "rogue")
@@ -103,30 +104,34 @@ public class HeroUnit : MonoBehaviour
             fireRateOffet = (gameObject.GetComponent<TroopAttack>().FireRate / 2);  
             dmgOffset = (heroDmgPoints / 2);         
             shieldText.text = "Auto boost firerate(+" + fireRateOffet + ")\ndamage (+" + dmgOffset + ")";
+            heroAnimator = GetComponent<Animator>();
         }
         
     }
     private void Update() {
        //Scaning for near by troops
        detectionTroopSphere(); 
+
+        if (startAbilityColdown)
+        {
+                coolDownParticles.SetActive(true);
+               if (timer.FinishedTask)
+               {
+                  shieldWallText.text = heroType == "defender" ? "Holo shield" : "Bomb storm";
+                  coolDownParticles.SetActive(false);
+                  startAbilityColdown = false;
+                  shieldWallBtn.GetComponent<Button>().interactable = true;
+               }
+               else 
+               {
+                    shieldWallText.text = "Cooldown\n(" + Mathf.Round(timer.TimeStart) + ")";
+               }
+        }
+
        switch (heroType) 
        {
            case "defender":
-                if (startAbilityColdown)
-                {
-                    coolDownParticles.SetActive(true);
-                    if (timer.FinishedTask)
-                    {
-                        shieldWallText.text = "Holo shield";
-                        coolDownParticles.SetActive(false);
-                        startAbilityColdown = false;
-                        shieldWallBtn.GetComponent<Button>().interactable = true;
-                    }
-                    else 
-                    {
-                        shieldWallText.text = "Cooldown\nHolo shield\n(" + Mathf.Round(timer.TimeStart) + ")";
-                    }
-                }
+                
                 shieldText.text = "Auto boost shield by\n(+" + boostShieldPoints + ")";        
             
 
@@ -140,12 +145,13 @@ public class HeroUnit : MonoBehaviour
                     //movement.velocity = Vector3.zero;
                     if (timer.FinishedTask)
                     {
-                        StartCoroutine(spawnExplosion());              
+                        StartCoroutine(spawnExplosion());                                      
                         movement.isStopped = false;
                         troopMoveControl.LockMove = false;
                         //movement.velocity = MovementVelocity;
                         barracadeWall.SetActive(false);
-                        barracadeBuild.SetBool("ButtonClicked", false);
+                        //barracadeBuild.SetBool("ButtonClicked", false);
+                       
                         barracadeWallSpawned = false;
                         tfire.LockFire = false; 
                         coolDownTime = (taskTime * 2) - diffCooldown;
@@ -160,21 +166,42 @@ public class HeroUnit : MonoBehaviour
                 }
                 //Scanner to see near by player troops               
             break;
-            // case "rogue" :
-                 
-            // break;
+            case "rogue" :
+                 if (spawnBombs)
+                 {
+                     shieldWallText.text = "Spawning bombs\n(" + Mathf.Round(timer.TimeStart) + ")";
+                     if(timer.FinishedTask)
+                     {
+                         shieldWallText.text = "Bomb storm";
+                         spawnBombs = false;
+                         //shieldWallBtn.GetComponent<Button>().interactable = true;
+                         heroAnimator.SetBool("ready", false);
+                         startAbilityColdown = true;
+                         coolDownTime = (taskTime * 2) - diffCooldown;
+                         startAbilityColdown = true; 
+                         timer.startTimer(coolDownTime); 
+                     }
+                   
+                 }
+            break;
        }
     }
     IEnumerator spawnExplosion()
     {
-        var e = Instantiate(explosion, barracadeWall.transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(explosionDelay);
+        Destroy(spawnedBarracdeWall);
+        var e = Instantiate(explosion, wallSpawnPoint.position, transform.rotation);
+        yield return new WaitForSeconds(explosionDelay);       
         Destroy(e);
     }
     public void spawnBarracde()
-    {        
-        barracadeWall.SetActive(true);
-        barracadeBuild.SetBool("ButtonClicked", true);
+    {    
+        var spawnBarracde = Instantiate(barracadeWall, wallSpawnPoint.position, transform.rotation);  
+        spawnBarracde.transform.parent = transform;  
+        //spawnBarracde.transform.position = new Vector3(0f, 0f, 10f);
+        spawnBarracde.SetActive(true);
+        spawnedBarracdeWall = spawnBarracde;
+        //barracadeWall.SetActive(true);
+        //barracadeBuild.SetBool("ButtonClicked", true);
         barracadeWallSpawned = true;
         shieldWallBtn.GetComponent<Button>().interactable = false;
         
@@ -183,7 +210,55 @@ public class HeroUnit : MonoBehaviour
        //  barracadeBuild.SetBool("ButtonClicked", false);
        
     }
-   
+    public void doBombardment()
+    {
+        if (tfire.SpottedEnemy)
+        {
+            spawnBombs = true;
+            shieldWallBtn.GetComponent<Button>().interactable = false;
+            //timer.startTimer(taskTime);
+            heroAnimator.SetBool("ready", true);
+            timer.startTimer(taskTime);
+        }
+        else
+        {
+            //print("No enemy spotted!");
+            StartCoroutine(displayErrorMessageBomb());
+            
+        }
+    }
+    IEnumerator displayErrorMessageBomb()
+    {
+        shieldWallText.text = "No enemy spotted";
+        originalBombBtnColor = shieldWallBtn.GetComponent<Image>().color;
+        shieldWallBtn.GetComponent<Image>().color = Color.red;
+        yield return new WaitForSeconds(errorMessageDelay);
+        shieldWallText.text = "Bomb storm";
+        shieldWallBtn.GetComponent<Image>().color = originalBombBtnColor;
+    }
+    public void spawnBombsOnEvent()
+    {
+        if (tfire.SpottedEnemy)
+        {
+            if (nextBombIndex >= bombSpawnPoints.Count)
+            {
+                nextBombIndex = 0;
+            }
+            var spawnedBomb = Instantiate(bomb, bombSpawnPoints[nextBombIndex].position, bombSpawnPoints[nextBombIndex].rotation);           
+            var bombDirection = tfire.SpottedEnemy.transform.position - transform.position;
+            spawnedBomb.GetComponent<Rigidbody>().AddForce(bombDirection.normalized * launchForce, ForceMode.Impulse);
+            //spawnedBomb.GetComponent<Rigidbody>().AddForce((Vector3.forward + Vector3.up) * launchForce);
+            nextBombIndex++;
+        }
+        else
+        {
+            nextBombIndex = 0;
+            heroAnimator.SetBool("ready", false);
+            timer.FinishedTask = true;
+            timer.StartCountdown = false;
+        }
+    }
+    
     private void detectionTroopSphere()
     {
         //To check if player troops are in range
@@ -219,8 +294,9 @@ public class HeroUnit : MonoBehaviour
                     oldDamagePoints = proData.SDamage;                    
                     newDamagePoints = proData.SDamage + dmgOffset;
                     proData.SDamage = newDamagePoints;
-
-                     utask.IsStatsBoosted = true;
+                    
+                   
+                    utask.IsStatsBoosted = true;
                 }
             }
         }
@@ -282,6 +358,7 @@ public class HeroUnit : MonoBehaviour
                         var troopAttackController = uitem.Unit.GetComponent<TroopAttack>();
                         troopAttackController.FireRate = oldFireRate; 
                         troopAttackController.Projectile.GetComponent<TroopLaserMovement>().OBGResearch.SDamage = oldDamagePoints;
+                        
                     }
                     upgradeTasks.Remove(uitem);
                     break;

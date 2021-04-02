@@ -18,6 +18,7 @@ public class TroopAttack : MonoBehaviour
     public float FireRate { set { fireRate = value; } get { return fireRate; }}
     public bool LockFire { set {lockFire = value; } get { return lockFire; }}
     public GameObject Projectile { get { return projectile; }}
+    public GameObject SpottedEnemy { get { return spottedEnemy; }}
     // Update is called once per frame
     void Update()
     {
