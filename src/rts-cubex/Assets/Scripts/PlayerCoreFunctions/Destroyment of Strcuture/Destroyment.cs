@@ -22,7 +22,7 @@ public class Destroyment : MonoBehaviour
       }
       
       buildingHealth = GetComponent<HealthOfRegBuilding>();
-      animatedPopUps = GetComponent<createAnimatedPopUp>();
+      animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
     }
 
     // Update is called once per frame

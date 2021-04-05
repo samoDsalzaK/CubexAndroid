@@ -80,8 +80,7 @@ public class Base : MonoBehaviour
 
 	LocalPanelManager localPanelManager;
 
-	
-    
+	createAnimatedPopUp animatedPopUps;    
     // Start is called before the first frame update
     void Start()
     {
@@ -114,6 +113,7 @@ public class Base : MonoBehaviour
 
 		panelManager = GetComponent<PanelManager>();
 		localPanelManager = GetComponent<LocalPanelManager>();
+    animatedPopUps = GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()
@@ -275,7 +275,7 @@ public class Base : MonoBehaviour
 		resourceAmountScreenState = true;
 		return;   
 		}
-		BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(fixedPriceOfOneAdditionalWorker);
+		animatedPopUps.createDecreaseCreditsPopUp(fixedPriceOfOneAdditionalWorker);
 		credits -= fixedPriceOfOneAdditionalWorker;
 		maxWorkerAmountInLevel++;
 		
@@ -298,8 +298,8 @@ public class Base : MonoBehaviour
         return;
       }
       playerBaselevel++;
-      BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(minCreditsAmountNeededForUpgrading);
-      BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(minEnergonAmounNeededForUpgrading,2);
+      animatedPopUps.createDecreaseCreditsPopUp(minCreditsAmountNeededForUpgrading);
+      animatedPopUps.createDecreaseEnergonPopUp(minEnergonAmounNeededForUpgrading,2);
       energon -= minEnergonAmounNeededForUpgrading; // numinusuojame resursus uz viena updata.
       credits -= minCreditsAmountNeededForUpgrading; // numinusuojame resursus uz viena update.
       minCreditsAmountNeededForUpgrading += 10; // kas kita leveli upgradinant reikes vis daugiau resursu.

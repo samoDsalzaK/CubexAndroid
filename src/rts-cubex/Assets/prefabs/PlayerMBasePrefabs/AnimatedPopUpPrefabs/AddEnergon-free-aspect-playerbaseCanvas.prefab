@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!95 &7108814721978195612
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6914233027051387835}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 75170938b17f4d74f83622462eec67f2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1001 &8758336153559359944
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1231042524634862608, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2015572748597840552, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2774100950941833843, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_Name
+      value: AddEnergon-free-aspect-playerbaseCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414097118210892233, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -92
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414097118210892233, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414097118210892233, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414097118210892233, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414097118210892233, guid: c174eacb676faa34eaf11ae2304ca025,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 233
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8441647077812323220, guid: c174eacb676faa34eaf11ae2304ca025, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: c174eacb676faa34eaf11ae2304ca025, type: 3}
+--- !u!1 &6914233027051387835 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2774100950941833843, guid: c174eacb676faa34eaf11ae2304ca025,
+    type: 3}
+  m_PrefabInstance: {fileID: 8758336153559359944}
+  m_PrefabAsset: {fileID: 0}

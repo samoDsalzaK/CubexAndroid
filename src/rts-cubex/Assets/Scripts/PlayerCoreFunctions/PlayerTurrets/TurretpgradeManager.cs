@@ -41,7 +41,7 @@ public class TurretpgradeManager : MonoBehaviour
         turretHealth = GetComponent<TurretHealth>();
         turretFire = GetComponent<TurretFire>(); 
         panelManager = GetComponent<PanelManager>();
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()

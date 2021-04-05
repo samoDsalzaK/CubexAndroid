@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class createAnimatedPopUp : MonoBehaviour
 {
     [SerializeField] GameObject addCreditsPopUp, decreaseCreditsPopUp, addEnergonPopUp, decreaseEnergonPopUp, decreaseEnergonPopUpPosition1, addEnergonPopUpPosition1;
+    [SerializeField] GameObject addCreditsPopUpPLCanvas, decreaseCreditsPopUpPLCanvas, addEnergonPopUpPLCanvas, decreaseEnergonPopUpPLCanvas;
     // Start is called before the first frame update
 
     // addCreditsPopUp - done
@@ -23,7 +24,7 @@ public class createAnimatedPopUp : MonoBehaviour
 
     // create adding credits pop up
     public void createAddCreditsPopUp(int creditsAmountToAdd){  
-        GameObject addCreditsPopUpObject = Instantiate(addCreditsPopUp, addCreditsPopUp.transform.position, Quaternion.identity) as GameObject;
+        GameObject addCreditsPopUpObject = Instantiate(addCreditsPopUpPLCanvas, addCreditsPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
         Transform[] ts = addCreditsPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
                 if(t.gameObject.GetComponent<Text>() != null)
@@ -36,7 +37,7 @@ public class createAnimatedPopUp : MonoBehaviour
 
     // create decreasing credits pop up
     public void createDecreaseCreditsPopUp(int creditsAmountToDecrease){
-        GameObject decreaseCreditsPopUpObject = Instantiate(decreaseCreditsPopUp, decreaseCreditsPopUp.transform.position, Quaternion.identity) as GameObject;
+        GameObject decreaseCreditsPopUpObject = Instantiate(decreaseCreditsPopUpPLCanvas, decreaseCreditsPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
         Transform[] ts = decreaseCreditsPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
                 if(t.gameObject.GetComponent<Text>() != null)
@@ -50,7 +51,7 @@ public class createAnimatedPopUp : MonoBehaviour
     // create adding energon pop up
     public void createAddEnergonPopUp(int energonAmountToAdd, int position){
         if (position == 1){
-            GameObject addEnergonPopUpObject = Instantiate(addEnergonPopUpPosition1, addEnergonPopUpPosition1.transform.position, Quaternion.identity) as GameObject;
+            GameObject addEnergonPopUpObject = Instantiate(addEnergonPopUpPLCanvas, addEnergonPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
             Transform[] ts = addEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
                 if(t.gameObject.GetComponent<Text>() != null)
@@ -61,7 +62,7 @@ public class createAnimatedPopUp : MonoBehaviour
             Destroy(addEnergonPopUpObject, 2f); 
         }
         else if (position == 2){
-            GameObject addEnergonPopUpObject = Instantiate(addEnergonPopUp, addEnergonPopUp.transform.position, Quaternion.identity) as GameObject;
+            GameObject addEnergonPopUpObject = Instantiate(addEnergonPopUpPLCanvas, addEnergonPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
             Transform[] ts = addEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
                 if(t.gameObject.GetComponent<Text>() != null)
@@ -79,7 +80,7 @@ public class createAnimatedPopUp : MonoBehaviour
     // create decreasing energon pop up
     public void createDecreaseEnergonPopUp(int energonAmountToDecrease, int position){
         if (position == 1){
-            GameObject decreaseEnergonPopUpObject = Instantiate(decreaseEnergonPopUpPosition1, decreaseEnergonPopUpPosition1.transform.position, Quaternion.identity) as GameObject;
+            GameObject decreaseEnergonPopUpObject = Instantiate(decreaseEnergonPopUpPLCanvas, decreaseEnergonPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
             Transform[] ts = decreaseEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
                 if(t.gameObject.GetComponent<Text>() != null)
@@ -90,7 +91,7 @@ public class createAnimatedPopUp : MonoBehaviour
             Destroy(decreaseEnergonPopUpObject, 2f);
         }
         else if (position == 2) {
-            GameObject decreaseEnergonPopUpObject = Instantiate(decreaseEnergonPopUp, decreaseEnergonPopUp.transform.position, Quaternion.identity) as GameObject;
+            GameObject decreaseEnergonPopUpObject = Instantiate(decreaseEnergonPopUpPLCanvas, decreaseEnergonPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
             Transform[] ts = decreaseEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
                 if(t.gameObject.GetComponent<Text>() != null)

@@ -62,7 +62,7 @@ public class TaskManager : MonoBehaviour
         taskCards = new List<GameObject>();
         troopTimer = GetComponent<UnitBuildTimer>(); 
         playerBase = FindObjectOfType<Base>();      
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerBase.GetComponent<createAnimatedPopUp>();
         if (playerBase)
         {
             print("Building " + gameObject.name + " task manager ready!");

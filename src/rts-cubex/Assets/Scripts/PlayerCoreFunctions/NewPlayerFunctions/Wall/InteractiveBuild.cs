@@ -234,8 +234,8 @@ public class InteractiveBuild : MonoBehaviour
                             }
                         }  
                         rayBuilder.SpawnedShiftBuilds = new List<GameObject>();  
-                        buildArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(creditsPriceToBuild); // creating animated pop ups
-                        buildArea.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild,2); // creating animated  pop ups
+                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(creditsPriceToBuild); // creating animated pop ups
+                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild,2); // creating animated  pop ups
                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - AllBEnergonPrice);
                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - AllBCreditsPrice);                     
                     }
@@ -308,8 +308,8 @@ public class InteractiveBuild : MonoBehaviour
                                         buildModel.layer = LayerMask.NameToLayer("PlayerBase");
                                         //bData.IsBuilt = true;
                                         //var buildArea = GameObject.FindGameObjectWithTag("BuildArea");
-                                        buildArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(creditsPriceToBuild);
-                                        buildArea.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild,2);
+                                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(creditsPriceToBuild);
+                                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild,2);
                                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - energonPriceToBuild);
                                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - creditsPriceToBuild);
                                         openBMode = false;

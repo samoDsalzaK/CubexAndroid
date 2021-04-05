@@ -31,7 +31,7 @@ public class ResearchLevel : MonoBehaviour
 		researchHealth.setHealthOfStructureOriginal(oBGResearch.getBuildingResearchHealth());
 		researchHealth.setHealth(oBGResearch.getBuildingResearchHealth());
 	 	panelManager = GetComponent<PanelManager>();
-		animatedPopUps = GetComponent<createAnimatedPopUp>();
+		animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
     }
 
     // Update is called once per frame
@@ -88,7 +88,7 @@ public class ResearchLevel : MonoBehaviour
         } 
         
       oBGResearch.setBuildingResearchLevel(oBGResearch.getBuildingResearchLevel() + 1); // scriptable object change value
-	  animatedPopUps = GetComponent<createAnimatedPopUp>();
+	  animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
 	  animatedPopUps.createDecreaseCreditsPopUp(oBGResearch.getMinNeededCreditsAmountForResearch()); // creating pop ups
 	  animatedPopUps.createDecreaseEnergonPopUp(oBGResearch.getMinNeededEnergonAmountForResearch(),2); // creating pop ups
       playerbase.setCreditsAmount(playerbase.getCreditsAmount() - oBGResearch.getMinNeededCreditsAmountForResearch());
