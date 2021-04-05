@@ -393,5 +393,23 @@ public class HeroUnit : MonoBehaviour
         }
     }
    
-    
+    private void OnDestroy() {
+        var shrine = FindObjectOfType<Shrine>();
+        if (shrine)
+        {
+            var heroList = shrine.HToTrain;
+            if (heroList.Count > 0)
+            {
+                foreach(var hero in heroList)
+                {
+                    if (gameObject.name.Contains(hero.Hero.name))
+                    {
+                        hero.ReadyToTrain = false;
+                        hero.SpawnButton.interactable = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }

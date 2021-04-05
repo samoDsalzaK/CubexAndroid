@@ -438,7 +438,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882839181549195547}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6105856491519104929}
@@ -6506,7 +6506,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scannerRadius: 20
-  taskTime: 8
+  upgradeTasks: []
+  taskTime: 7
   diffCooldown: 5
   explosionDelay: 2
   shieldText: {fileID: 5990176737886358031}
@@ -6519,11 +6520,15 @@ MonoBehaviour:
   heroToolbar: {fileID: 1362107464911375372}
   barracadeWall: {fileID: 7413322914481931658, guid: 026328be2cf40e24992c846ace912b7e,
     type: 3}
-  wallSpawnPoint: {fileID: 0}
+  wallSpawnPoint: {fileID: 6521642239791828061}
   explosion: {fileID: 6472218506274694185, guid: 05fcf6a02f5e62043887af7f28c41827,
     type: 3}
   coolDownParticles: {fileID: 5477920081084280024}
-  upgradeTasks: []
+  bombSpawnPoints: []
+  bomb: {fileID: 0}
+  fireBombRate: 0.5
+  launchForce: 100
+  errorMessageDelay: 1
 --- !u!114 &808697392120643843
 MonoBehaviour:
   m_ObjectHideFlags: 0
