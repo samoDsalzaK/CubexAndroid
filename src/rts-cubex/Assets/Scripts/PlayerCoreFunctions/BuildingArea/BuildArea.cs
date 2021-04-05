@@ -33,7 +33,7 @@ public class BuildArea : MonoBehaviour
         {
           playerbase = FindObjectOfType<Base>();
         }
-		animatedPopUps = GetComponent<createAnimatedPopUp>();
+		animatedPopUps =  playerbase.GetComponent<createAnimatedPopUp>();
     }
     void Update()
     {

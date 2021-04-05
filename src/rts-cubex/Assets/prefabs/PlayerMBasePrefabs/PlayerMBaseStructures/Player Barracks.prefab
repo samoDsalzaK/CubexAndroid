@@ -2670,7 +2670,6 @@ GameObject:
   - component: {fileID: 8482177429192784836}
   - component: {fileID: 2484412062247554669}
   - component: {fileID: 2800309741515257981}
-  - component: {fileID: 3820618206405963244}
   m_Layer: 0
   m_Name: Player Barracks
   m_TagString: PlayerBase
@@ -2928,30 +2927,6 @@ MonoBehaviour:
   - {fileID: 71575229}
   - {fileID: 1732169542}
   - {fileID: 8557999507916054588}
---- !u!114 &3820618206405963244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3982760522625839459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07006342557b54947a3ddfb6899ccdf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  addCreditsPopUp: {fileID: 4421074121516192137, guid: 904a8c87dbd5dad468155437e12091e9,
-    type: 3}
-  decreaseCreditsPopUp: {fileID: 7295552002849207534, guid: b326f498495bf48428cfedf375789c9c,
-    type: 3}
-  addEnergonPopUp: {fileID: 2774100950941833843, guid: c174eacb676faa34eaf11ae2304ca025,
-    type: 3}
-  decreaseEnergonPopUp: {fileID: 4651664005368949993, guid: 455c83e9855eaa94d9fe7528e5695eac,
-    type: 3}
-  decreaseEnergonPopUpPosition1: {fileID: 2844654607186071547, guid: 73394ff3c2a583c458d07456668a6b77,
-    type: 3}
-  addEnergonPopUpPosition1: {fileID: 2845317473034779527, guid: ebee799efa87c2a4d82deced17338c4b,
-    type: 3}
 --- !u!1 &3982760522912578664
 GameObject:
   m_ObjectHideFlags: 0
@@ -11169,9 +11144,9 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5267978248504422030}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5161700858381452753 stripped
+--- !u!114 &7989035083094279001 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1061043956901538655, guid: 80226e40071c55541ac1083468e2d494,
+  m_CorrespondingSourceObject: {fileID: 2865801581455011287, guid: 80226e40071c55541ac1083468e2d494,
     type: 3}
   m_PrefabInstance: {fileID: 5267978248504422030}
   m_PrefabAsset: {fileID: 0}
@@ -11181,9 +11156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7989035083094279001 stripped
+--- !u!114 &5161700858381452753 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2865801581455011287, guid: 80226e40071c55541ac1083468e2d494,
+  m_CorrespondingSourceObject: {fileID: 1061043956901538655, guid: 80226e40071c55541ac1083468e2d494,
     type: 3}
   m_PrefabInstance: {fileID: 5267978248504422030}
   m_PrefabAsset: {fileID: 0}

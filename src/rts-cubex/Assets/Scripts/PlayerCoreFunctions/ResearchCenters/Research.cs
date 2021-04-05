@@ -80,7 +80,7 @@ public class Research : MonoBehaviour {
         troopsResearchHealth.setHealthOfStructureOriginal(oBGResearch.getTroopResearchHealth());
         troopsResearchHealth.setHealth(oBGResearch.getTroopResearchHealth());
         panelManager = GetComponent<PanelManager>();
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerBase.GetComponent<createAnimatedPopUp>();
         localPanelManager = GetComponent<LocalPanelManager>();
     }
     void Update () {
