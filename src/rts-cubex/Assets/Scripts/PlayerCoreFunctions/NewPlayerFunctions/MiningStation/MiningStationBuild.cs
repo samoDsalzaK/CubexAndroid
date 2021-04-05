@@ -62,6 +62,7 @@ public class MiningStationBuild : MonoBehaviour
         // checks for workers on the map
         if (playerbase.getworkersAmount() <= 0){
             //Debug.Log("Build worker first"); 
+            playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
 		    errorForWorker.SetActive(true);
             return;
         }
@@ -75,11 +76,13 @@ public class MiningStationBuild : MonoBehaviour
                 }
             }
         if (count == 0){
+            playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
             errorWorkerIssue2.SetActive(true);
         }
         // check available resources
         if (playerbase.getEnergonAmount() < minNeededEnergonAmountForMiningStation || playerbase.getCreditsAmount() < minNeededCreditsAmountForMiningStation) // patikrina esamus zaidejo resursus
         {
+            playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
             playerbase.setResourceAMountScreenState(true);    
             return; 
         }

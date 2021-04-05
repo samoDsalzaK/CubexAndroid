@@ -54,7 +54,8 @@ public class ResearchCentreBuild : MonoBehaviour
 		// checks for workers on the map
         if (playerbase.getworkersAmount() <= 0){
             Debug.Log("Build worker first"); 
-		   errorForWorker.SetActive(true);  
+			playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
+		   	errorForWorker.SetActive(true);  
             return;
         }
         // check if there are free workers on the map with at least 2/3 of life cycle bar
@@ -67,13 +68,15 @@ public class ResearchCentreBuild : MonoBehaviour
             }
          }
         if (count == 0){
+			playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
             errorForWorker2.SetActive(true);
         }
         // check for available resources
         if (playerbase.getEnergonAmount() < minNeededEnergonAmountForResearchCentre || playerbase.getCreditsAmount() < minNeededCreditsAmountForResearchCentre) // patikrina esamus zaidejo resursus
         {
-          playerbase.setResourceAMountScreenState(true);    
-          return; 
+			playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
+			playerbase.setResourceAMountScreenState(true);    
+			return; 
         }
         playerbase.setBuildingArea(true);
         //State variable is setted to true, which means that the button is clicked

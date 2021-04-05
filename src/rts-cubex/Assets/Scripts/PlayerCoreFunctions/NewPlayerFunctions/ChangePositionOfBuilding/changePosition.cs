@@ -21,6 +21,10 @@ public class changePosition : MonoBehaviour
     public int returnBtnIndex {get{return btnIndex;}}
 
     private Base playerbase;
+
+    private LocalPanelManager localPanelManager;
+
+    private PanelManager panelManager; 
    
     void Start (){
         //
@@ -35,9 +39,17 @@ public class changePosition : MonoBehaviour
     public void changePosAction(){
         // find playerbase object on the game map
         playerbase = FindObjectOfType<Base>();
+        if(GetComponent<LocalPanelManager>() != null){
+            localPanelManager = GetComponent<LocalPanelManager>();
+        }
+        panelManager = GetComponent<PanelManager>();
         // checks for workers on the map
         if (playerbase.getworkersAmount() <= 0){
             //Debug.Log("Build worker first"); 
+            if(localPanelManager != null){
+                localPanelManager.deactivatePanels();
+            }
+            panelManager.onExitDeactivatePlayerBasePanels();
 		    errorWorkerIssue1.SetActive(true);
             return;
         }
@@ -51,6 +63,10 @@ public class changePosition : MonoBehaviour
                 }
             }
         if (count == 0){
+            if(localPanelManager != null){
+                localPanelManager.deactivatePanels();
+            }
+            panelManager.onExitDeactivatePlayerBasePanels();
             errorWorkerIssue2.SetActive(true);
         }
         // checks if there are other buildings on the map in position change mode
@@ -59,6 +75,10 @@ public class changePosition : MonoBehaviour
             for (int i = 0; i < changePosBuildings.Length; i++){
                 if(changePosBuildings[i].canChange){
                     Debug.Log("Can not change, because other building is in change position mode");
+                    if(localPanelManager != null){
+                        localPanelManager.deactivatePanels();
+                    }
+                    panelManager.onExitDeactivatePlayerBasePanels();
                     errorForChangingPos.SetActive(true);
                     return;
                 }

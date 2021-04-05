@@ -28,7 +28,7 @@ public class Destroyment : MonoBehaviour
     {
         
     }
-    public void destroyGameStrucuture() // destroy turret // desroy defensive wall // destroy barrack // destroy mining station
+    public void destroyGameStrucuture() // destroy turret // desroy defensive wall // destroy barrack // destroy mining station // army camp
     {
         Destroy(gameObject);
         playerbase.setEnergonAmount(playerbase.getEnergonAmount() + returnEnergonAmount);

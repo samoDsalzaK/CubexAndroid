@@ -38,10 +38,10 @@ public class MiningStationCoolDownTimer : MonoBehaviour
                 if(currCountdownValueSlot1 >= 60.00f)
                 {
                     // here will be slot time text 
-                    slot1TimeText.text = Mathf.Round(currCountdownValueSlot1 / 60f) % 60 + " min " + Mathf.Round(currCountdownValueSlot1 % 60f ).ToString() + " sec";
+                    slot1TimeText.text = (int)(currCountdownValueSlot1 / 60)+ " min " + (currCountdownValueSlot1 % 60).ToString() + " sec";
                 }
                 else{
-                    slot1TimeText.text = Mathf.Round(currCountdownValueSlot1 % 60f ).ToString() + " sec";
+                    slot1TimeText.text = (currCountdownValueSlot1 % 60).ToString() + " sec";
                 }
                 Debug.Log("Countdown: " + currCountdownValueSlot1);
                 yield return new WaitForSeconds(1.0f);
@@ -61,10 +61,10 @@ public class MiningStationCoolDownTimer : MonoBehaviour
                 if(currCountdownValueSlot2 >= 60.00f)
                 {
                     // here will be slot time text 
-                    slot2TimeText.text = Mathf.Round(currCountdownValueSlot2 / 60f) % 60 + " min " + Mathf.Round(currCountdownValueSlot2 % 60f ).ToString() + " sec";
+                    slot2TimeText.text = (int)(currCountdownValueSlot2 / 60) + " min " + (currCountdownValueSlot2 % 60).ToString() + " sec";
                 }
                 else{
-                    slot2TimeText.text = Mathf.Round(currCountdownValueSlot2 % 60f ).ToString() + " sec";
+                    slot2TimeText.text = (currCountdownValueSlot2 % 60).ToString() + " sec";
                 }
                 Debug.Log("Countdown: " + currCountdownValueSlot2);
                 yield return new WaitForSeconds(1.0f);
@@ -84,10 +84,10 @@ public class MiningStationCoolDownTimer : MonoBehaviour
                 if(currCountdownValueSlot3 >= 60.00f)
                 {
                     // here will be slot time text 
-                    slot3TimeText.text = Mathf.Round(currCountdownValueSlot3 / 60f) % 60 + " min " + Mathf.Round(currCountdownValueSlot3 % 60f ).ToString() + " sec";
+                    slot3TimeText.text = (int)(currCountdownValueSlot3 / 60) + " min " + (currCountdownValueSlot3 % 60).ToString() + " sec";
                 }
                 else{
-                    slot3TimeText.text = Mathf.Round(currCountdownValueSlot3 % 60f ).ToString() + " sec";
+                    slot3TimeText.text = (currCountdownValueSlot3 % 60).ToString() + " sec";
                 }
                 Debug.Log("Countdown: " + currCountdownValueSlot3);
                 yield return new WaitForSeconds(1.0f);

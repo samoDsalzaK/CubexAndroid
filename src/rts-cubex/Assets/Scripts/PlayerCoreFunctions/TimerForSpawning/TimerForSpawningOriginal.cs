@@ -73,11 +73,11 @@ public class TimerForSpawningOriginal : MonoBehaviour
             startingTime -= Time.deltaTime;
              if(startingTime >= 60.00f)
               {
-                 timeLeft.text = Mathf.Round(startingTime / 60f) % 60 + " min " + Mathf.Round(startingTime % 60f ).ToString() + " sec";
+                 timeLeft.text = ((int)(startingTime / 60)).ToString() + " min " + ((int)(startingTime % 60)).ToString() + " sec";
               }
              else
               {
-                 timeLeft.text = Mathf.Round(startingTime % 60f ).ToString() + " sec";
+                 timeLeft.text = ((int)(startingTime % 60)).ToString() + " sec";
               }
 
             if (startingTime <= 0)
