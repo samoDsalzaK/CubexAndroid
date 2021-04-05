@@ -1327,6 +1327,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Eraser
       objectReference: {fileID: 0}
+    - target: {fileID: 2692000343178575008, guid: a260c0e1c2522f145a1cae90ceb75874,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2692000343178575015, guid: a260c0e1c2522f145a1cae90ceb75874,
         type: 3}
       propertyPath: m_LocalPosition.x

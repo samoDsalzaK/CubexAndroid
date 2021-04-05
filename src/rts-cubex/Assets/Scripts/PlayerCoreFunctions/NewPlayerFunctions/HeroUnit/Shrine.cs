@@ -12,6 +12,8 @@ public class HeroUnitToTrain  : System.Object
     [SerializeField] GameObject hero;
     [SerializeField] Button spawnButton;
     [SerializeField] Text buttonText;
+    [SerializeField] bool trainingLocked = false;
+    //[SerializeField] bool avaialbleInMenu = false;
     private string oldButtonText;
     public int EnergonPrice { get {return energonPrice;}}
     public int CreditsPrice { get {return creditsPrice;}}    
@@ -21,6 +23,8 @@ public class HeroUnitToTrain  : System.Object
     public Button SpawnButton { get {return spawnButton; }}
     public Text ButtonText { get {return buttonText;}}
     public string OldButtonText { set {oldButtonText = value; } get {return oldButtonText; }} 
+    public bool TrainingLocked { set {trainingLocked = value; } get {return trainingLocked; }}
+    //public bool AvaialbleInMenu { set {avaialbleInMenu = value; } get {return avaialbleInMenu; }} 
 }
 
 public class Shrine : MonoBehaviour
@@ -29,6 +33,7 @@ public class Shrine : MonoBehaviour
     [SerializeField] int researchLevel = 1; //Use player military research building    
     [SerializeField] List<HeroUnitToTrain> hToTrain = new List<HeroUnitToTrain>();
     [SerializeField] Transform spawnPoint;
+    [SerializeField] Text mrlevel;
     [Header("Testing data")]
     [SerializeField] bool isTesting = false;
     [SerializeField] int credits = 1000;
@@ -56,17 +61,40 @@ public class Shrine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Update Shrine data GUI text
+        updateText();
+        //Checking hero availability
+        if (researchLevel != 3)
+        {
+            var currentBtnText = hToTrain[(int)HeroClasses.Rogue].ButtonText.text;
+            if (!hToTrain[(int)HeroClasses.Rogue].TrainingLocked)
+            {
+                hToTrain[(int)HeroClasses.Rogue].OldButtonText = currentBtnText;
+                hToTrain[(int)HeroClasses.Rogue].ButtonText.text = currentBtnText + "\n(Required MRLevel 3)";
+                hToTrain[(int)HeroClasses.Rogue].TrainingLocked = true;
+                hToTrain[(int)HeroClasses.Rogue].SpawnButton.interactable = false;
+            }
+           
+        }
+        else
+        { 
+            
+            if (hToTrain[(int)HeroClasses.Rogue].TrainingLocked)
+                hToTrain[(int)HeroClasses.Rogue].SpawnButton.interactable = true;
+            
+            hToTrain[(int)HeroClasses.Rogue].TrainingLocked = false;
+        }
+        //Main hero training logic
         if (trainingHero)
         {
            heroToTrain.ButtonText.text = "Training\n("+Mathf.Round(timer.TimeStart)+")";
            if (timer.FinishedTask) 
            {
                 var spawnedHero = Instantiate(heroToTrain.Hero, spawnPoint.position, heroToTrain.Hero.transform.rotation);
-                trainingHero = false;
-                
+                trainingHero = false;                
                 //Lock button 
                  print((cIndex > 1 ? "Rogue" : "Defender") + " spawned!");
-                 heroToTrain.ButtonText.text = heroToTrain.OldButtonText;                 
+                 heroToTrain.ButtonText.text = heroToTrain.OldButtonText;   
                  return;
            }
         }
@@ -124,7 +152,7 @@ public class Shrine : MonoBehaviour
 
             case 2:
                 if (isTesting)
-                {
+                {                    
                     var heroToTrainUnit = hToTrain[(int)HeroClasses.Rogue];
                     if (credits < heroToTrainUnit.CreditsPrice || 
                         energon < heroToTrainUnit.EnergonPrice)
@@ -170,5 +198,9 @@ public class Shrine : MonoBehaviour
     private void printError(HeroUnitToTrain unit)
     {
         print("Error: Not enough energon and credits!");
+    }
+    private void updateText()
+    {
+        mrlevel.text = "Military Research Level(MRLevel) " + researchLevel;
     }
 }
