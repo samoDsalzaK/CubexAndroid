@@ -1428,6 +1428,7 @@ GameObject:
   - component: {fileID: 522062015827597543}
   - component: {fileID: 4287787477462452463}
   - component: {fileID: 7484226736955348664}
+  - component: {fileID: 6933800452885780427}
   m_Layer: 25
   m_Name: Army Camp
   m_TagString: Camp
@@ -1529,6 +1530,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   returnEnergonAmount: 20
   returnCreditsAmount: 20
+--- !u!114 &6933800452885780427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614507205875969898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07006342557b54947a3ddfb6899ccdf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addCreditsPopUp: {fileID: 4421074121516192137, guid: 904a8c87dbd5dad468155437e12091e9,
+    type: 3}
+  decreaseCreditsPopUp: {fileID: 7295552002849207534, guid: b326f498495bf48428cfedf375789c9c,
+    type: 3}
+  addEnergonPopUp: {fileID: 2774100950941833843, guid: c174eacb676faa34eaf11ae2304ca025,
+    type: 3}
+  decreaseEnergonPopUp: {fileID: 4651664005368949993, guid: 455c83e9855eaa94d9fe7528e5695eac,
+    type: 3}
+  decreaseEnergonPopUpPosition1: {fileID: 2844654607186071547, guid: 73394ff3c2a583c458d07456668a6b77,
+    type: 3}
+  addEnergonPopUpPosition1: {fileID: 2845317473034779527, guid: ebee799efa87c2a4d82deced17338c4b,
+    type: 3}
 --- !u!1 &5703329079917210052
 GameObject:
   m_ObjectHideFlags: 0
