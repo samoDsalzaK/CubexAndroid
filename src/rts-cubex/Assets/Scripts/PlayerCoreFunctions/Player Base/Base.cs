@@ -62,6 +62,13 @@ public class Base : MonoBehaviour
     [SerializeField] int playerScoreEarned;
     [SerializeField] int powerNumber;
     [SerializeField] int playerTroopsAmount;
+	[SerializeField] Image EnergonAmountScreen;
+	[SerializeField] Text EnergonAmountScreenText;
+	[SerializeField] Image CreditsAmountScreen; 
+	[SerializeField] Text CreditsAmountScreenText;
+
+	[SerializeField] int maxBaseEnergonAmount;
+	[SerializeField] int maxBaseCreditsAmount;
     [Header("Tutorial manager parameters")]
     [SerializeField] bool isTutorialChecked = false;
     private int index = 0; // parameter needed for worker indexing
@@ -72,6 +79,8 @@ public class Base : MonoBehaviour
 	PanelManager panelManager;
 
 	LocalPanelManager localPanelManager;
+
+	
     
     // Start is called before the first frame update
     void Start()
@@ -127,6 +136,12 @@ public class Base : MonoBehaviour
         energonLeft3.text = "Energon left : " + energon; // reserach center build panel
         existingAndMaxWorkersAmount.text = " Workers: " + workersAmountOriginal +"/"+ maxWorkerAmountInLevel; 
         currentPlayerTroopsAmount.text = "Troops: " + playerTroopsAmount + "/" + maxPlayerTroopsAmount;
+
+		// fill in credits and energon amount image
+		EnergonAmountScreenText.text = energon + " / " + maxBaseEnergonAmount + " energon";
+		CreditsAmountScreenText.text = credits + " / " + maxBaseCreditsAmount + " credits";
+		EnergonAmountScreen.fillAmount = (float)energon / (float)maxBaseEnergonAmount; 
+		CreditsAmountScreen.fillAmount = (float)credits / (float)maxBaseCreditsAmount;
 
         if(getWorkersAmountState())
         {
@@ -200,10 +215,10 @@ public class Base : MonoBehaviour
         upgradeBaseButtonText.text = "Upgrade Base to level " + (playerBaselevel + 1) + " (" + minCreditsAmountNeededForUpgrading + " credits & " + minEnergonAmounNeededForUpgrading + " energon)";
         baseLevel.text = "Base level : " + playerBaselevel;
         baseHealth.text = "Health : " + healthOfTheBase.getHealth() + " / " + healthOfTheBase.getHealthOfStructureOriginal();
-          if(playerBaselevel == maxPlayerBaseLevel) // then the player reaches max level then the buttons text changes
-           {
-             upgradeBaseButtonText.text = "You have reached max level";
-           }
+        if(playerBaselevel == maxPlayerBaseLevel) // then the player reaches max level then the buttons text changes
+        {
+            upgradeBaseButtonText.text = "You have reached max level";
+        }
     }
     void OnMouseDown()
     {

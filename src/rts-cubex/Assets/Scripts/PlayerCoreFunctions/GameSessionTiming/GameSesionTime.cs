@@ -47,9 +47,9 @@ public class GameSesionTime : MonoBehaviour
                 yield return new WaitForSeconds(1.0f);
                 startingTime--;
             }
-        //cubexWindowManager = GetComponent<CubexWindowManager>();
-        //cubexWindowManager.returnLevelIndex = 5;
-        //cubexWindowManager.LoadLevel();
+        cubexWindowManager = GetComponent<CubexWindowManager>();
+        cubexWindowManager.returnLevelIndex = 9;
+        cubexWindowManager.LoadLevel();
         // add level compliation lines
         yield break;
     }
