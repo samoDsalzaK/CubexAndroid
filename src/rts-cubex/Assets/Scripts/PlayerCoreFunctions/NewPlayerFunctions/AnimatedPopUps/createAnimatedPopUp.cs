@@ -49,8 +49,8 @@ public class createAnimatedPopUp : MonoBehaviour
     }
 
     // create adding energon pop up
-    public void createAddEnergonPopUp(int energonAmountToAdd, int position){
-        if (position == 1){
+    public void createAddEnergonPopUp(int energonAmountToAdd /*int position*/){
+        /*if (position == 1){*/
             GameObject addEnergonPopUpObject = Instantiate(addEnergonPopUpPLCanvas, addEnergonPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
             Transform[] ts = addEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
@@ -60,8 +60,8 @@ public class createAnimatedPopUp : MonoBehaviour
                 }
             }
             Destroy(addEnergonPopUpObject, 2f); 
-        }
-        else if (position == 2){
+        //}
+        /*else if (position == 2){
             GameObject addEnergonPopUpObject = Instantiate(addEnergonPopUpPLCanvas, addEnergonPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
             Transform[] ts = addEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
@@ -74,12 +74,12 @@ public class createAnimatedPopUp : MonoBehaviour
         }
         else{
             return;
-        }
+        }*/
     }
 
     // create decreasing energon pop up
-    public void createDecreaseEnergonPopUp(int energonAmountToDecrease, int position){
-        if (position == 1){
+    public void createDecreaseEnergonPopUp(int energonAmountToDecrease /*int position*/){
+        /*if (position == 1){*/
             GameObject decreaseEnergonPopUpObject = Instantiate(decreaseEnergonPopUpPLCanvas, decreaseEnergonPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
             Transform[] ts = decreaseEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
@@ -89,8 +89,8 @@ public class createAnimatedPopUp : MonoBehaviour
                 }
             }
             Destroy(decreaseEnergonPopUpObject, 2f);
-        }
-        else if (position == 2) {
+        //}
+        /*else if (position == 2) {
             GameObject decreaseEnergonPopUpObject = Instantiate(decreaseEnergonPopUpPLCanvas, decreaseEnergonPopUpPLCanvas.transform.position, Quaternion.identity) as GameObject;
             Transform[] ts = decreaseEnergonPopUpObject.transform.GetComponentsInChildren<Transform>();
             foreach (Transform t in ts) {
@@ -103,7 +103,7 @@ public class createAnimatedPopUp : MonoBehaviour
         }
         else{
             return;
-        }
+        }*/
     }
 }
 
