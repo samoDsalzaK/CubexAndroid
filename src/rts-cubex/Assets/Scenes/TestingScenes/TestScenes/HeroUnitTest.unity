@@ -440,6 +440,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 143132f0bb86f8344ab534ed5dcd8a53, type: 3}
+--- !u!1 &666361098 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5170385730594764207, guid: 0078971d3918a134fb57209989fa30d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 361770774394246088}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &945434263 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 63960049317849638, guid: 0078971d3918a134fb57209989fa30d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 361770774394246088}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &949138160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -751,6 +763,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 143132f0bb86f8344ab534ed5dcd8a53, type: 3}
+--- !u!1 &1635480509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5371723316539042211, guid: 0078971d3918a134fb57209989fa30d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 361770774394246088}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1825801847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1172,6 +1190,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2122217597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3405024823889207536, guid: 0078971d3918a134fb57209989fa30d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 361770774394246088}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &361770774394246088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1179,6 +1203,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 734239284, guid: 0078971d3918a134fb57209989fa30d3, type: 3}
+      propertyPath: level01btns.Array.data[0]
+      value: 
+      objectReference: {fileID: 2122217597}
+    - target: {fileID: 734239284, guid: 0078971d3918a134fb57209989fa30d3, type: 3}
+      propertyPath: level02btns.Array.data[0]
+      value: 
+      objectReference: {fileID: 666361098}
+    - target: {fileID: 734239284, guid: 0078971d3918a134fb57209989fa30d3, type: 3}
+      propertyPath: level02btns.Array.data[1]
+      value: 
+      objectReference: {fileID: 945434263}
+    - target: {fileID: 734239284, guid: 0078971d3918a134fb57209989fa30d3, type: 3}
+      propertyPath: level01btns.Array.data[1]
+      value: 
+      objectReference: {fileID: 1635480509}
     - target: {fileID: 821075822440033730, guid: 0078971d3918a134fb57209989fa30d3,
         type: 3}
       propertyPath: m_LocalPosition.x

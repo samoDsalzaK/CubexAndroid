@@ -24,9 +24,11 @@ public class TroopHealth : MonoBehaviour
     [SerializeField] bool isHero = false;
     [SerializeField] bool nearHero = false;
     [SerializeField] GameObject heroEffectParticles;
+    [SerializeField] float shieldRegTime = 0.3f;
     public bool NearHero { set { nearHero = value; } get { return nearHero; }}
     public int ShieldHealth { set { shieldHealth = value; } get { return shieldHealth; }}
     public int MaxShield { set { maxShield = value; } get { return maxShield; }}
+    public float ShieldRegTime { set {shieldRegTime = value; } get {return shieldRegTime;}}
     void Start()
     {
         if (isHero)
@@ -210,7 +212,7 @@ public class TroopHealth : MonoBehaviour
             while (shieldHealth < maxShield && !isShot && canShield)
             {
                 shieldHealth += regenerationAmount;
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(shieldRegTime);
             }
         }
     }

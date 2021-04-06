@@ -47,7 +47,8 @@ public class HeroUnit : MonoBehaviour
     [SerializeField] GameObject barracadeWall;
     [SerializeField] Transform wallSpawnPoint;
     [SerializeField] GameObject explosion;
-    [SerializeField] GameObject coolDownParticles;    
+    [SerializeField] GameObject coolDownParticles;  
+    [SerializeField] int wallBarrackExistTime = 5;  
     //For debuging    
     [Header("Rogue cnf param")]
     [SerializeField] List<Transform> bombSpawnPoints;
@@ -75,6 +76,7 @@ public class HeroUnit : MonoBehaviour
     private float oldFireRate = 0f;
     private float fireRateOffet = 0f;
     private int heroDmgPoints = 0;
+    //Troop damage boosting
     private int newDamagePoints = 0;
     private int oldDamagePoints = 0;
     private int dmgOffset = 0;
@@ -82,6 +84,9 @@ public class HeroUnit : MonoBehaviour
     private Color originalBombBtnColor;
     //Rogue bomb ability 
     private Animator heroAnimator;
+    public int WallBarrackExistTime {set { wallBarrackExistTime = value; } get { return wallBarrackExistTime; }}
+    public GameObject Bomb {set { bomb = value; } get { return bomb; }}
+    
    // public Vector3 MovementVelocity { set {movementVelocity = value;} get { return movementVelocity; }}
 
     private void Start() {
@@ -205,7 +210,7 @@ public class HeroUnit : MonoBehaviour
         barracadeWallSpawned = true;
         shieldWallBtn.GetComponent<Button>().interactable = false;
         
-        timer.startTimer(taskTime);
+        timer.startTimer(wallBarrackExistTime);
         //After timer is finished reset animation parameter
        //  barracadeBuild.SetBool("ButtonClicked", false);
        

@@ -7,6 +7,7 @@ public class Bomb : MonoBehaviour
     [SerializeField] GameObject explosionEffect;
     [SerializeField] GameObject mainModel;
     [SerializeField] int damagePoints = 30;
+    public int DamagePoints { set {damagePoints = value; } get { return damagePoints; }}
     private bool explosionSpawned = false;
     GameObject createEffect;
     private void OnTriggerEnter(Collider other) {
