@@ -36,7 +36,7 @@ public class Destroyment : MonoBehaviour
         Destroy(gameObject);
         // creating animated pop ups
         animatedPopUps.createAddCreditsPopUp(returnCreditsAmount);
-        animatedPopUps.createAddEnergonPopUp(returnEnergonAmount,2);
+        animatedPopUps.createAddEnergonPopUp(returnEnergonAmount);
         playerbase.setEnergonAmount(playerbase.getEnergonAmount() + returnEnergonAmount);
         playerbase.setCreditsAmount(playerbase.getCreditsAmount() + returnCreditsAmount);
     }  
@@ -47,7 +47,7 @@ public class Destroyment : MonoBehaviour
         Destroy(gameObject, 1f);
         // creating animated pop ups
         animatedPopUps.createAddCreditsPopUp(returnCreditsAmount);
-        animatedPopUps.createAddEnergonPopUp(returnEnergonAmount,2);
+        animatedPopUps.createAddEnergonPopUp(returnEnergonAmount);
         playerbase.setEnergonAmount(playerbase.getEnergonAmount() + returnEnergonAmount);
         playerbase.setCreditsAmount(playerbase.getCreditsAmount() + returnCreditsAmount);
         playerbase.setworkersAmount(playerbase.getworkersAmount() + 1);
@@ -58,7 +58,7 @@ public class Destroyment : MonoBehaviour
         buildingHealth.setHealth(0);
         // creating animated pop ups
         animatedPopUps.createAddCreditsPopUp(returnCreditsAmount);
-        animatedPopUps.createAddEnergonPopUp(returnEnergonAmount,2);
+        animatedPopUps.createAddEnergonPopUp(returnEnergonAmount);
         playerbase.setEnergonAmount(playerbase.getEnergonAmount() + returnEnergonAmount);
         playerbase.setCreditsAmount(playerbase.getCreditsAmount() + returnCreditsAmount);
     } 

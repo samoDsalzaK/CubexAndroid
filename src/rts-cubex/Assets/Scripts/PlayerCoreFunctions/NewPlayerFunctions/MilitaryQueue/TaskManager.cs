@@ -97,7 +97,7 @@ public class TaskManager : MonoBehaviour
                                     if (playerBase && !isTesting) 
                                     {
                                         //animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
-                                        animatedPopUps.createDecreaseEnergonPopUp(task.Energon,1);
+                                        animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
                                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - task.Energon);
                                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - task.Credits);
                                         
@@ -121,7 +121,7 @@ public class TaskManager : MonoBehaviour
                                         if (playerBase && !isTesting)
                                         {
                                             //animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
-                                            animatedPopUps.createDecreaseEnergonPopUp(task.Energon,1);
+                                            animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
                                             playerBase.setEnergonAmount(playerBase.getEnergonAmount() - task.Energon);
                                             playerBase.setCreditsAmount(playerBase.getCreditsAmount() - task.Credits);
                                         }

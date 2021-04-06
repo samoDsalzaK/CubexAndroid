@@ -235,7 +235,7 @@ public class InteractiveBuild : MonoBehaviour
                         }  
                         rayBuilder.SpawnedShiftBuilds = new List<GameObject>();  
                         playerBase.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(creditsPriceToBuild); // creating animated pop ups
-                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild,2); // creating animated  pop ups
+                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild); // creating animated  pop ups
                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - AllBEnergonPrice);
                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - AllBCreditsPrice);                     
                     }
@@ -309,7 +309,7 @@ public class InteractiveBuild : MonoBehaviour
                                         //bData.IsBuilt = true;
                                         //var buildArea = GameObject.FindGameObjectWithTag("BuildArea");
                                         playerBase.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(creditsPriceToBuild);
-                                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild,2);
+                                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild);
                                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - energonPriceToBuild);
                                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - creditsPriceToBuild);
                                         openBMode = false;

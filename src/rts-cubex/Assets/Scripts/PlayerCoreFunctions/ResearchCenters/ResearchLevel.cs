@@ -90,7 +90,7 @@ public class ResearchLevel : MonoBehaviour
       oBGResearch.setBuildingResearchLevel(oBGResearch.getBuildingResearchLevel() + 1); // scriptable object change value
 	  animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
 	  animatedPopUps.createDecreaseCreditsPopUp(oBGResearch.getMinNeededCreditsAmountForResearch()); // creating pop ups
-	  animatedPopUps.createDecreaseEnergonPopUp(oBGResearch.getMinNeededEnergonAmountForResearch(),2); // creating pop ups
+	  animatedPopUps.createDecreaseEnergonPopUp(oBGResearch.getMinNeededEnergonAmountForResearch()); // creating pop ups
       playerbase.setCreditsAmount(playerbase.getCreditsAmount() - oBGResearch.getMinNeededCreditsAmountForResearch());
       playerbase.setEnergonAmount(playerbase.getEnergonAmount() - oBGResearch.getMinNeededEnergonAmountForResearch());
       researchHealth.setHealthOfStructureOriginal(researchHealth.getHealthOfStructureOriginal() + oBGResearch.getUpgradeBuildingResearchLevelHP());

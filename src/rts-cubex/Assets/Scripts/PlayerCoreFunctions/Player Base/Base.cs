@@ -299,7 +299,7 @@ public class Base : MonoBehaviour
       }
       playerBaselevel++;
       animatedPopUps.createDecreaseCreditsPopUp(minCreditsAmountNeededForUpgrading);
-      animatedPopUps.createDecreaseEnergonPopUp(minEnergonAmounNeededForUpgrading,2);
+      animatedPopUps.createDecreaseEnergonPopUp(minEnergonAmounNeededForUpgrading);
       energon -= minEnergonAmounNeededForUpgrading; // numinusuojame resursus uz viena updata.
       credits -= minCreditsAmountNeededForUpgrading; // numinusuojame resursus uz viena update.
       minCreditsAmountNeededForUpgrading += 10; // kas kita leveli upgradinant reikes vis daugiau resursu.
