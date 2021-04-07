@@ -246,5 +246,29 @@ public class Shrine : MonoBehaviour
     {
         mrlevel.text = "Military Research Level(MRLevel) " + researchLevel;
     }
-   
+    private void OnDestroy() {
+        var existingHeroUnits = GameObject.FindGameObjectsWithTag("Unit");
+        if (existingHeroUnits.Length > 0)
+        {
+            foreach (var unit in existingHeroUnits)
+            {
+                if (unit.GetComponent<HeroUnit>())
+                {
+                    var heroUnit = unit.GetComponent<HeroUnit>();
+                    if (heroUnit.HeroType == "defender")
+                    {
+                        var originalHero = hToTrain[0].Hero;
+                        unit.GetComponent<TroopHealth>().ShieldRegTime = originalHero.GetComponent<TroopHealth>().ShieldRegTime;
+                        heroUnit.WallBarrackExistTime = originalHero.GetComponent<HeroUnit>().WallBarrackExistTime;
+                    }
+                    if (heroUnit.HeroType == "rogue")
+                    {
+                        var originalHero = hToTrain[1].Hero;
+                        unit.GetComponent<NavMeshAgent>().speed = originalHero.GetComponent<NavMeshAgent>().speed;
+                        heroUnit.Bomb.GetComponent<Bomb>().DamagePoints = originalHero.GetComponent<HeroUnit>().Bomb.GetComponent<Bomb>().DamagePoints;
+                    }
+                }
+            }
+        }
+    }
 }

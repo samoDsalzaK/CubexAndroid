@@ -6185,8 +6185,8 @@ MonoBehaviour:
   scoreForEnemy: 10
   regenerationAmount: 1
   TroopWeight: 1
-  maxShield: 150
-  shieldHealth: 150
+  maxShield: 200
+  shieldHealth: 200
   shieldForeground: {fileID: 415613278236697134}
   shieldBackground: {fileID: 2827548638118523994}
   canShield: 0
@@ -6255,7 +6255,7 @@ MonoBehaviour:
   - {fileID: 995913289}
   - {fileID: 1870604002}
   bomb: {fileID: 6248195002386932691, guid: 7d253b53a3367b547ad4e158a06e9ded, type: 3}
-  fireBombRate: 0.5
+  fireBombRate: 0.2
   launchForce: 30
   errorMessageDelay: 1
 --- !u!95 &1454462673
