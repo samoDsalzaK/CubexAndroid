@@ -674,6 +674,7 @@ MonoBehaviour:
   onItsWay: 0
   isHero: 0
   mainModel: {fileID: 0}
+  lockMove: 0
 --- !u!114 &4350613679145975111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,6 +695,7 @@ MonoBehaviour:
   isSelected: 0
   hero: 0
   selectionIcon: {fileID: 0}
+  heroToolbar: {fileID: 0}
 --- !u!114 &4350613679145975107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,14 +750,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireGun: {fileID: 11273017}
+  secondFireGun: {fileID: 0}
   scannerRadius: 20
-  spottedEnemy: {fileID: 0}
   projectile: {fileID: 833446331802415920, guid: 2b130e3b48ea01940b60db362c0c107e,
     type: 3}
   launchForce: 100
   startAttacking: 0
   fireRate: 0.5
   targetName: enemy
+  targetTagNames:
+  - enemytroop
+  spottedEnemy: {fileID: 0}
 --- !u!1 &4350613679165483801
 GameObject:
   m_ObjectHideFlags: 0

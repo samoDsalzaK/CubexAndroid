@@ -5248,7 +5248,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.0678001, g: 0.9607843, b: 0.06666665, a: 0.23529412}
+      maxColor: {r: 0.0678001, g: 0.9607843, b: 0.06666665, a: 0.7529412}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -10348,6 +10348,8 @@ MonoBehaviour:
   isHero: 0
   nearHero: 0
   heroEffectParticles: {fileID: 1665479752516486356}
+  shieldRegTime: 0.3
+  heroCharText: {fileID: 0}
 --- !u!114 &1483587779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10369,6 +10371,9 @@ MonoBehaviour:
   startAttacking: 0
   fireRate: 1
   targetName: enemy
+  targetTagNames:
+  - enemytroop
+  spottedEnemy: {fileID: 0}
 --- !u!1 &7698980596658233804
 GameObject:
   m_ObjectHideFlags: 0

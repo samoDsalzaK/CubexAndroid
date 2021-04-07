@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TroopHealth : MonoBehaviour
 {
-    [SerializeField] private int unitHP;
+    [SerializeField]  int unitHP;
     public GameObject health;
     [SerializeField] Image healthBarForeground;
     [SerializeField] Image healthBarBackground;
@@ -25,7 +25,9 @@ public class TroopHealth : MonoBehaviour
     [SerializeField] bool nearHero = false;
     [SerializeField] GameObject heroEffectParticles;
     [SerializeField] float shieldRegTime = 0.3f;
+    [SerializeField] Text heroCharText;
     public bool NearHero { set { nearHero = value; } get { return nearHero; }}
+    public int UnitHP { get { return unitHP; }}
     public int ShieldHealth { set { shieldHealth = value; } get { return shieldHealth; }}
     public int MaxShield { set { maxShield = value; } get { return maxShield; }}
     public float ShieldRegTime { set {shieldRegTime = value; } get {return shieldRegTime;}}
@@ -34,6 +36,7 @@ public class TroopHealth : MonoBehaviour
         if (isHero)
         {
             shieldHealth = maxShield;
+            
         }
         else
         {

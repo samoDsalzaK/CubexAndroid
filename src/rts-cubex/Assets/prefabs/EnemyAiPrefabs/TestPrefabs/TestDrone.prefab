@@ -638,14 +638,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireGun: {fileID: 1807836505}
+  secondFireGun: {fileID: 0}
   scannerRadius: 20
-  spottedEnemy: {fileID: 0}
   projectile: {fileID: 1436199296172608777, guid: c34d71eac2baccd488fac5fe6a9ffd4d,
     type: 3}
   launchForce: 100
   startAttacking: 0
   fireRate: 0.5
   targetName: unit
+  targetTagNames:
+  - unit
+  - playerbase
+  - shrine
+  spottedEnemy: {fileID: 0}
 --- !u!1001 &5801190190560038239
 PrefabInstance:
   m_ObjectHideFlags: 0

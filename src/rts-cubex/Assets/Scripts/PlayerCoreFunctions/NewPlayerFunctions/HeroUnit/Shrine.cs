@@ -48,6 +48,9 @@ public class Shrine : MonoBehaviour
     [SerializeField] List<HeroUnitToTrain> hToTrain = new List<HeroUnitToTrain>();
     [SerializeField] Transform spawnPoint;
     [SerializeField] Text mrlevel;
+    [SerializeField] GameObject errorWindow;
+    [SerializeField] Text errorText;
+    [SerializeField] GameObject selectionCanvas;
     [Header("Testing data")]
     [SerializeField] bool isTesting = false;
     [SerializeField] int credits = 1000;
@@ -69,6 +72,7 @@ public class Shrine : MonoBehaviour
 
     private void OnMouseDown() {
         mainUIWindow.SetActive(true);
+        selectionCanvas.SetActive(true);
     }
 
     void Start()
@@ -235,6 +239,8 @@ public class Shrine : MonoBehaviour
     private void printError(HeroUnitToTrain unit)
     {
         print("Error: Not enough energon and credits!");
+        errorWindow.SetActive(true);
+        errorText.text = "Not enough energon and credits!\nRequired: " + unit.EnergonPrice + " e, " + unit.CreditsPrice + " c";
     }
     private void updateText()
     {

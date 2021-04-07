@@ -49,6 +49,7 @@ TagManager:
   - _PlayerWall
   - cryptominingstation
   - Camp
+  - Shrine
   layers:
   - Default
   - TransparentFX

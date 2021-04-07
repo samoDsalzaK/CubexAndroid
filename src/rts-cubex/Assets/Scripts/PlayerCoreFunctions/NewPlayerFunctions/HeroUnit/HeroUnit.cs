@@ -38,7 +38,9 @@ public class HeroUnit : MonoBehaviour
     [SerializeField] Text shieldWallText;
     [SerializeField] string playerTroopTag = "Unit";
     [SerializeField] string heroType;
-    [SerializeField] bool startAbilityColdown = false;    
+    [SerializeField] bool startAbilityColdown = false;
+    [SerializeField] Text heroHealthCharText;
+    [SerializeField] Text abilityStatsText;
     // [SerializeField] int hp;
     [Header("Defender cnf param")]
     [SerializeField] int boostShieldPoints = 10;
@@ -65,6 +67,7 @@ public class HeroUnit : MonoBehaviour
     public string HeroType { set { heroType = value; } get { return heroType; }}
     //private int clickCount = 0;
     private NavMeshAgent movement;
+    private TroopHealth thealth;
     private bool barracadeWallSpawned = false;
     private GameObject spawnedBarracdeWall;
     private TaskTimer timer;
@@ -82,19 +85,23 @@ public class HeroUnit : MonoBehaviour
     private int dmgOffset = 0;
     private Helper tool = new Helper();
     private Color originalBombBtnColor;
-    //Rogue bomb ability 
+    
     private Animator heroAnimator;
     public int WallBarrackExistTime {set { wallBarrackExistTime = value; } get { return wallBarrackExistTime; }}
+    //Rogue bomb ability 
     public GameObject Bomb {set { bomb = value; } get { return bomb; }}
     
    // public Vector3 MovementVelocity { set {movementVelocity = value;} get { return movementVelocity; }}
 
     private void Start() {
+        thealth = GetComponent<TroopHealth>();
         timer = GetComponent<TaskTimer>();
         movement = GetComponent<NavMeshAgent>();
         tfire = GetComponent<TroopAttack>();
         
         troopMoveControl = GetComponent<move>();
+        
+       
         
         if (heroType == "rogue")
         {
@@ -111,9 +118,13 @@ public class HeroUnit : MonoBehaviour
             shieldText.text = "Auto boost firerate(+" + fireRateOffet + ")\ndamage (+" + dmgOffset + ")";
             heroAnimator = GetComponent<Animator>();
         }
-        
+        // else 
+        // {
+        //     heroCharText.text += ("Barracade wall time:" + wallBarrackExistTime + "s");
+        // }
     }
     private void Update() {
+        updateDataText();
        //Scaning for near by troops
        detectionTroopSphere(); 
 
@@ -397,7 +408,12 @@ public class HeroUnit : MonoBehaviour
            }
         }
     }
-   
+    private void updateDataText()
+    {
+          heroHealthCharText.text = ("\nHealth:" +  thealth.UnitHP + ", Shield(SH):" + thealth.ShieldHealth + 
+                             "\nSH regeneration time:" + (Mathf.Round(thealth.MaxShield * thealth.ShieldRegTime)) + " s\nMovement speed:" + movement.speed);
+          abilityStatsText.text = "Ability\ncharacteristics:\n" + (heroType == "rogue" ? ("Bomb damage:" +  bomb.GetComponent<Bomb>().DamagePoints) : ("Holo Shield time:" + wallBarrackExistTime + " s"));
+    }
     private void OnDestroy() {
         var shrine = FindObjectOfType<Shrine>();
         if (shrine)

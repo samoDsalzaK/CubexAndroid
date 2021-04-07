@@ -33,6 +33,11 @@ public class EnemyLaserMovment : MonoBehaviour
             Destroy(gameObject);
             break;
             
+            case "shrine":
+            other.gameObject.GetComponent<HealthOfRegBuilding>().decreaseHealth(damagePoints);
+            Destroy(gameObject);
+            break;
+
             case "PlayerBase":
             other.gameObject.GetComponent<HealthOfRegBuilding>().decreaseHealth(damagePoints);
             Destroy(gameObject);

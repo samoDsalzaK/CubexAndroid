@@ -10,6 +10,9 @@ public class ShrineUpgradeManager : MonoBehaviour
     [Header("Upgrade UI configuration")]
     [SerializeField] List<GameObject> level01btns = new List<GameObject>();
     [SerializeField] List<GameObject> level02btns = new List<GameObject>();
+    [SerializeField] List<GameObject> infoPurchaseBtn = new List<GameObject>();
+    [SerializeField] GameObject errorWindow;
+    [SerializeField] Text errorText;
     //[SerializeField] List<Button> addButtons = new List<Button>();
     private Shrine shrine;
     private List<HeroUnitToTrain> heroChars = new List<HeroUnitToTrain>();
@@ -25,41 +28,21 @@ public class ShrineUpgradeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(shrine.ResearchLevel)
+        if (shrine.ResearchLevel >= 5)
         {
-            case 5:
-                //Unlocks Level 01 upgrades
-                
-                // if (!displayedUpgrades)
-                // {
-                    // foreach (var b in addButtons)
-                    // {
-                    //     b.interactable = true;
-                    // }
-                    foreach(var b in level01btns)
-                    {
-                        b.GetComponent<Button>().interactable = true;
-                    }
-                    //displayedUpgrades = true;
-               // }
-            break;
-
-            case 10: 
-                //Unlocks Level 02 upgrades 
-                // if (!displayedUpgrades)
-                // {
-                    // foreach (var b in addButtons)
-                    // {
-                    //     b.interactable = true;
-                    // }              
-                    foreach(var b in level02btns)
-                    {
-                        b.GetComponent<Button>().interactable = true;
-                    }
-                  //  displayedUpgrades = true;
-              //  }
-            break;
+            foreach(var b in level01btns)
+            {
+                b.GetComponent<Button>().interactable = true;
+            }
         }
+        if (shrine.ResearchLevel >= 10)
+        {
+            foreach(var b in level02btns)
+            {
+                b.GetComponent<Button>().interactable = true;
+            }
+        }
+       
     }
     public void applyUpgrade(int uIndex)
     {
@@ -88,7 +71,8 @@ public class ShrineUpgradeManager : MonoBehaviour
             //Level 01 upgrades
             if (uIndex == 1)
             {
-                if(!canDoTask(50, 60, uIndex))
+                var resourcePrice = level01btns[uIndex - 1].GetComponent<UpgradePrice>();
+                if(!canDoTask(resourcePrice.Energon, resourcePrice.Credits, uIndex))
                 {
                     return;
                 }
@@ -101,13 +85,17 @@ public class ShrineUpgradeManager : MonoBehaviour
                 defenderData.BoostShieldRegTime = (cRegTime * 2) / 3; 
 
                 if (defenderData.BoostShieldRegTime > 0) //Fix it later
+                {
+                    print("Upgrade task("+uIndex+") done!");
+                    infoPurchaseBtn[uIndex - 1].SetActive(true);    
                     level01btns[0].SetActive(false);
-
+                }
 
                 //Apply upgrade to exising spawnedHero
                 if (defenderHero)
                 {
-                    defenderHero.GetComponent<TroopHealth>().ShieldRegTime -= Mathf.Abs(defenderData.BoostShieldRegTime); //Bug with shield reg
+                    print("Current shield: " + defenderHero.GetComponent<TroopHealth>().ShieldRegTime);
+                    defenderHero.GetComponent<TroopHealth>().ShieldRegTime -= defenderData.BoostShieldRegTime; //Bug with shield reg
                 }
 
 
@@ -116,7 +104,8 @@ public class ShrineUpgradeManager : MonoBehaviour
            else if (uIndex == 2) //Rogue speed increase
            {
                 
-                if(!canDoTask(60, 70, uIndex))
+                var resourcePrice = level01btns[uIndex - 1].GetComponent<UpgradePrice>();
+                if(!canDoTask(resourcePrice.Energon, resourcePrice.Credits, uIndex))
                 {
                     return;
                 }
@@ -127,8 +116,11 @@ public class ShrineUpgradeManager : MonoBehaviour
                 rogueData.MovementSpeedBoost = (cMovementSpeedBoost * 2) /4;
 
                 if (rogueData.MovementSpeedBoost > 0)
+                {
+                    print("Upgrade task("+uIndex+") done!");
+                    infoPurchaseBtn[uIndex - 1].SetActive(true); 
                     level01btns[1].SetActive(false);
-
+                }
                 if(rogueHero)
                     rogueHero.GetComponent<NavMeshAgent>().speed += rogueData.MovementSpeedBoost;
             }
@@ -137,7 +129,8 @@ public class ShrineUpgradeManager : MonoBehaviour
             else if (uIndex == 3)
             {
                 //Boost wall time               
-                if(!canDoTask(80, 50, uIndex))
+                var resourcePrice = level02btns[uIndex - uIndex].GetComponent<UpgradePrice>();
+                if(!canDoTask(resourcePrice.Energon, resourcePrice.Credits, uIndex))
                 {
                     return;
                 }
@@ -148,7 +141,11 @@ public class ShrineUpgradeManager : MonoBehaviour
                 defenderData.WallTimeBoost = cWallTime * 2;
 
                  if (defenderData.WallTimeBoost > 0)  //Fix it later
+                 {
+                     print("Upgrade task("+uIndex+") done!");
+                    infoPurchaseBtn[uIndex - 1].SetActive(true); 
                     level02btns[0].SetActive(false);
+                 }
 
                 if (defenderHero)
                     defenderHero.GetComponent<HeroUnit>().WallBarrackExistTime += defenderData.WallTimeBoost;
@@ -159,7 +156,8 @@ public class ShrineUpgradeManager : MonoBehaviour
             else if (uIndex == 4) //Stronger bombs upgrades
             {
                 
-                if(!canDoTask(90, 80, uIndex))
+                var resourcePrice = level02btns[(uIndex - uIndex) + 1].GetComponent<UpgradePrice>();
+                if(!canDoTask(resourcePrice.Energon, resourcePrice.Credits, uIndex))
                 {
                     return;
                 }
@@ -172,7 +170,11 @@ public class ShrineUpgradeManager : MonoBehaviour
                 rogueData.BombDamagePoints = (cDamagePoints * 2) / 4;
 
                 if (rogueData.BombDamagePoints > 0)
+                {
+                    print("Upgrade task("+uIndex+") done!");
+                    infoPurchaseBtn[uIndex - 1].SetActive(true); 
                     level02btns[1].SetActive(false);
+                }
 
                 if (rogueHero)
                     rogueHero.GetComponent<HeroUnit>().Bomb.GetComponent<Bomb>().DamagePoints += rogueData.BombDamagePoints;
@@ -183,6 +185,8 @@ public class ShrineUpgradeManager : MonoBehaviour
     {
         if (shrine.Energon < eprice || shrine.Credits < cprice)
         {
+            errorWindow.SetActive(true);
+            errorText.text = "\nNot enough funds for this upgrade!\nRequired:" + eprice + " e, " + cprice + " c";
             print("ERROR not enough funds for this upgrade!");
             return false;
         }
