@@ -40,6 +40,7 @@ public class TaskManager : MonoBehaviour
     [SerializeField] GameObject errorWindow;
     [SerializeField] Text errorMsgWindowText;
     [SerializeField] float cardSpacing = 1f;
+    private createAnimatedPopUp animatedPopUps;
     [Header("Testing data")]
     [SerializeField] bool isTesting = false;
     [SerializeField] int baseEnergon = 1000;
@@ -61,6 +62,7 @@ public class TaskManager : MonoBehaviour
         taskCards = new List<GameObject>();
         troopTimer = GetComponent<UnitBuildTimer>(); 
         playerBase = FindObjectOfType<Base>();      
+        animatedPopUps = playerBase.GetComponent<createAnimatedPopUp>();
         if (playerBase)
         {
             print("Building " + gameObject.name + " task manager ready!");
@@ -94,6 +96,8 @@ public class TaskManager : MonoBehaviour
                                 {
                                     if (playerBase && !isTesting) 
                                     {
+                                        //animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
+                                        animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
                                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - task.Energon);
                                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - task.Credits);
                                         
@@ -116,6 +120,8 @@ public class TaskManager : MonoBehaviour
                                 {
                                         if (playerBase && !isTesting)
                                         {
+                                            //animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
+                                            animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
                                             playerBase.setEnergonAmount(playerBase.getEnergonAmount() - task.Energon);
                                             playerBase.setCreditsAmount(playerBase.getCreditsAmount() - task.Credits);
                                         }

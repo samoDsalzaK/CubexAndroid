@@ -87,7 +87,7 @@ public class CreditsMiningStation : MonoBehaviour
         }
 
         panelManager = GetComponent<PanelManager>();
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()
@@ -130,7 +130,7 @@ public class CreditsMiningStation : MonoBehaviour
         Debug.Log("First redeem and then mine again");
         return;
         }
-        animatedPopUps.createDecreaseEnergonPopUp(minNeededEnergonAmount[slotIndex-1], 1);
+        animatedPopUps.createDecreaseEnergonPopUp(minNeededEnergonAmount[slotIndex-1]);
         // set new value for energon
         playerbase.setEnergonAmount(playerbase.getEnergonAmount() - minNeededEnergonAmount[slotIndex-1]);
         // addition check for resources

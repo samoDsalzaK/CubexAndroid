@@ -33,7 +33,7 @@ public class BuildArea : MonoBehaviour
         {
           playerbase = FindObjectOfType<Base>();
         }
-		animatedPopUps = GetComponent<createAnimatedPopUp>();
+		animatedPopUps =  playerbase.GetComponent<createAnimatedPopUp>();
     }
     void Update()
     {
@@ -73,7 +73,7 @@ public class BuildArea : MonoBehaviour
           	{ 
               	if((barrackBtn.buildBarrack()) && (canBuild))
               	{
-					animatedPopUps.createDecreaseEnergonPopUp(barrackBtn.getMinNeededEnergonAmountForTroopsBarrack(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // creating pop up window
                     playerbase.setCreditsAmount(playerbase.getCreditsAmount()-barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // uzsetiname naujas reksmes 
                     playerbase.setEnergonAmount(playerbase.getEnergonAmount()-barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // uzsetiname naujas reksmes
@@ -98,7 +98,7 @@ public class BuildArea : MonoBehaviour
               	}
 				if((turretBtn.buildTurret()) && (canBuild))
 				{
-					animatedPopUps.createDecreaseEnergonPopUp(turretBtn.getMinNeededEnergonAmountForTurret(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(turretBtn.getMinNeededEnergonAmountForTurret()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(turretBtn.getMinNeededCreditsAmountForTurret()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-turretBtn.getMinNeededCreditsAmountForTurret()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-turretBtn.getMinNeededEnergonAmountForTurret()); // uzsetiname naujas reksmes
@@ -124,7 +124,7 @@ public class BuildArea : MonoBehaviour
 				}
 				if((researchCenterBtn.buildResearchCentre()) && (canBuild))
 				{
-					animatedPopUps.createDecreaseEnergonPopUp(researchCenterBtn.getMinNeededEnergonAmountForResearchCentre(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(researchCenterBtn.getMinNeededEnergonAmountForResearchCentre()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(researchCenterBtn.getMinNeededCreditsAmountForResearchCentre()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-researchCenterBtn.getMinNeededCreditsAmountForResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-researchCenterBtn.getMinNeededEnergonAmountForResearchCentre()); // uzsetiname naujas reksmes
@@ -149,7 +149,7 @@ public class BuildArea : MonoBehaviour
 				}
 				if((troopsCenterBtn.buildResearchCentre()) && (canBuild))
 				{
-					animatedPopUps.createDecreaseEnergonPopUp(troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(troopsCenterBtn.getMinNeededCreditsAmountForTroopsResearchCentre()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-troopsCenterBtn.getMinNeededCreditsAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes
@@ -178,7 +178,7 @@ public class BuildArea : MonoBehaviour
 					// buildRegWorker.SetActive(false);
 					Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
 					playerbase.setPosition(buildpozition);
-					animatedPopUps.createDecreaseEnergonPopUp(buildWorkerBtn.getMinNeededEnergonAmount(),1);
+					animatedPopUps.createDecreaseEnergonPopUp(buildWorkerBtn.getMinNeededEnergonAmount());
 					playerbase.setCreditsAmount(playerbase.getEnergonAmount()-buildWorkerBtn.getMinNeededEnergonAmount()); // uzsetiname naujas reksmes 
 					timerStart.startTimer(buildWorkerStartTime);
 					buildWorkerBtn.canBuildAgain(true);
@@ -207,7 +207,7 @@ public class BuildArea : MonoBehaviour
 					}
 				}*/
 				if((creditsMiningStationBtn.buildMiningStation()) && (canBuild)){
-					animatedPopUps.createDecreaseEnergonPopUp(creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation()); // uzsetiname naujas reksmes
@@ -231,7 +231,7 @@ public class BuildArea : MonoBehaviour
 					}
 				}
 				if((armyCampBuildBtn.armyCampBuildState()) && (canBuild)){
-					animatedPopUps.createDecreaseEnergonPopUp(armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp()); // uzsetiname naujas reksmes

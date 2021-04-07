@@ -62,6 +62,13 @@ public class Base : MonoBehaviour
     [SerializeField] int playerScoreEarned;
     [SerializeField] int powerNumber;
     [SerializeField] int playerTroopsAmount;
+	[SerializeField] Image EnergonAmountScreen;
+	[SerializeField] Text EnergonAmountScreenText;
+	[SerializeField] Image CreditsAmountScreen; 
+	[SerializeField] Text CreditsAmountScreenText;
+
+	[SerializeField] int maxBaseEnergonAmount;
+	[SerializeField] int maxBaseCreditsAmount;
     [Header("Tutorial manager parameters")]
     [SerializeField] bool isTutorialChecked = false;
     private int index = 0; // parameter needed for worker indexing
@@ -72,7 +79,8 @@ public class Base : MonoBehaviour
 	PanelManager panelManager;
 
 	LocalPanelManager localPanelManager;
-    
+
+	createAnimatedPopUp animatedPopUps;    
     // Start is called before the first frame update
     void Start()
     {
@@ -105,6 +113,7 @@ public class Base : MonoBehaviour
 
 		panelManager = GetComponent<PanelManager>();
 		localPanelManager = GetComponent<LocalPanelManager>();
+    animatedPopUps = GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()
@@ -127,6 +136,12 @@ public class Base : MonoBehaviour
         energonLeft3.text = "Energon left : " + energon; // reserach center build panel
         existingAndMaxWorkersAmount.text = " Workers: " + workersAmountOriginal +"/"+ maxWorkerAmountInLevel; 
         currentPlayerTroopsAmount.text = "Troops: " + playerTroopsAmount + "/" + maxPlayerTroopsAmount;
+
+		// fill in credits and energon amount image
+		EnergonAmountScreenText.text = energon + " / " + maxBaseEnergonAmount + " energon";
+		CreditsAmountScreenText.text = credits + " / " + maxBaseCreditsAmount + " credits";
+		EnergonAmountScreen.fillAmount = (float)energon / (float)maxBaseEnergonAmount; 
+		CreditsAmountScreen.fillAmount = (float)credits / (float)maxBaseCreditsAmount;
 
         if(getWorkersAmountState())
         {
@@ -200,10 +215,10 @@ public class Base : MonoBehaviour
         upgradeBaseButtonText.text = "Upgrade Base to level " + (playerBaselevel + 1) + " (" + minCreditsAmountNeededForUpgrading + " credits & " + minEnergonAmounNeededForUpgrading + " energon)";
         baseLevel.text = "Base level : " + playerBaselevel;
         baseHealth.text = "Health : " + healthOfTheBase.getHealth() + " / " + healthOfTheBase.getHealthOfStructureOriginal();
-          if(playerBaselevel == maxPlayerBaseLevel) // then the player reaches max level then the buttons text changes
-           {
-             upgradeBaseButtonText.text = "You have reached max level";
-           }
+        if(playerBaselevel == maxPlayerBaseLevel) // then the player reaches max level then the buttons text changes
+        {
+            upgradeBaseButtonText.text = "You have reached max level";
+        }
     }
     void OnMouseDown()
     {
@@ -260,7 +275,7 @@ public class Base : MonoBehaviour
 		resourceAmountScreenState = true;
 		return;   
 		}
-		BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(fixedPriceOfOneAdditionalWorker);
+		animatedPopUps.createDecreaseCreditsPopUp(fixedPriceOfOneAdditionalWorker);
 		credits -= fixedPriceOfOneAdditionalWorker;
 		maxWorkerAmountInLevel++;
 		
@@ -283,8 +298,8 @@ public class Base : MonoBehaviour
         return;
       }
       playerBaselevel++;
-      BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(minCreditsAmountNeededForUpgrading);
-      BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(minEnergonAmounNeededForUpgrading,2);
+      animatedPopUps.createDecreaseCreditsPopUp(minCreditsAmountNeededForUpgrading);
+      animatedPopUps.createDecreaseEnergonPopUp(minEnergonAmounNeededForUpgrading);
       energon -= minEnergonAmounNeededForUpgrading; // numinusuojame resursus uz viena updata.
       credits -= minCreditsAmountNeededForUpgrading; // numinusuojame resursus uz viena update.
       minCreditsAmountNeededForUpgrading += 10; // kas kita leveli upgradinant reikes vis daugiau resursu.

@@ -1840,7 +1840,6 @@ GameObject:
   - component: {fileID: 1812910221272301757}
   - component: {fileID: 837818339019936593}
   - component: {fileID: 2108771956614347596}
-  - component: {fileID: 4944951017065388359}
   m_Layer: 0
   m_Name: ResearchCenterBody
   m_TagString: Untagged
@@ -2031,30 +2030,6 @@ MonoBehaviour:
   - {fileID: 8547452706185785535}
   - {fileID: 749130672388656043}
   - {fileID: 8498303372920500628}
---- !u!114 &4944951017065388359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5462856044865562789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07006342557b54947a3ddfb6899ccdf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  addCreditsPopUp: {fileID: 4421074121516192137, guid: 904a8c87dbd5dad468155437e12091e9,
-    type: 3}
-  decreaseCreditsPopUp: {fileID: 7295552002849207534, guid: b326f498495bf48428cfedf375789c9c,
-    type: 3}
-  addEnergonPopUp: {fileID: 2774100950941833843, guid: c174eacb676faa34eaf11ae2304ca025,
-    type: 3}
-  decreaseEnergonPopUp: {fileID: 4651664005368949993, guid: 455c83e9855eaa94d9fe7528e5695eac,
-    type: 3}
-  decreaseEnergonPopUpPosition1: {fileID: 2844654607186071547, guid: 73394ff3c2a583c458d07456668a6b77,
-    type: 3}
-  addEnergonPopUpPosition1: {fileID: 2845317473034779527, guid: ebee799efa87c2a4d82deced17338c4b,
-    type: 3}
 --- !u!1 &5462856045666505025
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,7 +2843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &194427334821242969
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2966,7 +2941,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: 0}
+  m_AnchoredPosition: {x: -2, y: -8}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4359646062521859747
@@ -2998,19 +2973,19 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 608e5ea19297c764ea73d354b544f471, type: 3}
-    m_FontSize: 20
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
+    m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "The building research centre \nallows the player to unlock next defensive
-    turret's levels, upgrade it to have more powerful defense. "
+    turret's levels, \nupgrade it to have more \npowerful defense. "
 --- !u!1 &7809605259425861266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3999,18 +3974,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8339174690219663715}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9008086465133431356 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1061043956901538655, guid: 80226e40071c55541ac1083468e2d494,
+--- !u!224 &4274447201362267434 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5254381520875220041, guid: 80226e40071c55541ac1083468e2d494,
     type: 3}
   m_PrefabInstance: {fileID: 8339174690219663715}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6088845154277936308 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2865801581455011287, guid: 80226e40071c55541ac1083468e2d494,
@@ -4023,9 +3992,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &4274447201362267434 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5254381520875220041, guid: 80226e40071c55541ac1083468e2d494,
+--- !u!114 &9008086465133431356 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1061043956901538655, guid: 80226e40071c55541ac1083468e2d494,
     type: 3}
   m_PrefabInstance: {fileID: 8339174690219663715}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

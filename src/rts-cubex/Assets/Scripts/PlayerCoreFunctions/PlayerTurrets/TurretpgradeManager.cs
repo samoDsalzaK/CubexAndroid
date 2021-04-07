@@ -41,7 +41,7 @@ public class TurretpgradeManager : MonoBehaviour
         turretHealth = GetComponent<TurretHealth>();
         turretFire = GetComponent<TurretFire>(); 
         panelManager = GetComponent<PanelManager>();
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()
@@ -187,7 +187,7 @@ public class TurretpgradeManager : MonoBehaviour
     {
     turretLevel++;
     animatedPopUps.createDecreaseCreditsPopUp(minNeedCreditsAmountForTurretUpgrade);
-    animatedPopUps.createDecreaseEnergonPopUp(minNeedEnergonAmountForTurretUpgrade,2);
+    animatedPopUps.createDecreaseEnergonPopUp(minNeedEnergonAmountForTurretUpgrade);
     playerbase.setCreditsAmount(playerbase.getCreditsAmount() - minNeedCreditsAmountForTurretUpgrade);
     playerbase.setEnergonAmount(playerbase.getEnergonAmount() - minNeedEnergonAmountForTurretUpgrade);
     turretHealth.setTurretHealth(turretHealth.getTurretHealth() + turretUpgradeHPAmount);
