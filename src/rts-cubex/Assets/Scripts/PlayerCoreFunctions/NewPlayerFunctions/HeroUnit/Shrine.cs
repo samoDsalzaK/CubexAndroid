@@ -68,6 +68,10 @@ public class Shrine : MonoBehaviour
     private int existingHeroAmount = 0;
     public int Energon { set {energon = value; } get { return energon;}}
     public int Credits { set {credits = value; } get { return credits;}}
+    private Base playerBase;
+    private Research troopRes;
+    public bool IsTesting { get { return isTesting; }}
+    public Base PlayerBase { get { return playerBase; }}
     //HeroClasses hClass = HeroClasses.Defender;
 
     private void OnMouseDown() {
@@ -78,12 +82,25 @@ public class Shrine : MonoBehaviour
     void Start()
     {
         timer = GetComponent<TaskTimer>();
+        if (!isTesting)
+        {
+            playerBase = FindObjectOfType<Base>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         //Update Shrine data GUI text
+        if (!isTesting)
+        {
+            var builtResearch = FindObjectOfType<Research>();
+            if (builtResearch)
+            {
+                researchLevel = builtResearch.OBGResearch.ResearchLevel;
+               // print(researchLevel);
+            }
+        }
         updateText();
         //Check existing heroes in scene
         //manageHeroUpgradesInScene();
@@ -149,62 +166,119 @@ public class Shrine : MonoBehaviour
     }
     public void train(int unitClassIndex) // 1 - defender, 2 - rogue, 
     {
+        HeroUnitToTrain heroToTrainUnit;
         switch(unitClassIndex)
         {
             case 1:
+                // if (isTesting)
+                // {
+                heroToTrainUnit = hToTrain[(int)HeroClasses.Defender];
                 if (isTesting)
-                {
-                    var heroToTrainUnit = hToTrain[(int)HeroClasses.Defender];
+                {                    
+                    
                     if (credits < heroToTrainUnit.CreditsPrice || 
                         energon < heroToTrainUnit.EnergonPrice)
                     {
                         //Print error msg
-                        printError(heroToTrainUnit);                        
+                        printError(heroToTrainUnit);   
+                        break;                     
                     }
                     else
                     {
-                        // Start training hero
-                        //timer.startTimer(heroToTrain.TimeToTrain);
                         credits -= heroToTrainUnit.CreditsPrice;
                         energon -= heroToTrainUnit.EnergonPrice;
-                        heroToTrainUnit.SpawnButton.interactable = false;
-                        print("Prearing to train hero unit!");
-                        heroToTrainUnit.OldButtonText = heroToTrainUnit.ButtonText.text;
-                        if(trainingHero)
-                        {
-                            print("Waiting to train!");
-                            heroToTrainUnit.ButtonText.text = "Waiting to\ntrain!";
-                        }
-
-                        trainIndexes.Add((int)HeroClasses.Defender + 1);
-                        heroToTrainUnit.ReadyToTrain = true;
-                        
-                        
                     }
                 }
                 else
                 {
-                    //Add player base resources checking logic
-                    break;
+                    if (playerBase.getCreditsAmount() < heroToTrainUnit.CreditsPrice || 
+                        playerBase.getEnergonAmount() < heroToTrainUnit.EnergonPrice)
+                    {
+                        //Print error msg
+                        printError(heroToTrainUnit);   
+                        break;                     
+                    }
+                    else
+                    {
+                          playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
+                          playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
+                    }
                 }
+                    // else
+                    // {
+                        // Start training hero
+                        //timer.startTimer(heroToTrain.TimeToTrain);
+                        // credits -= heroToTrainUnit.CreditsPrice;
+                        // energon -= heroToTrainUnit.EnergonPrice;
+                heroToTrainUnit.SpawnButton.interactable = false;
+                print("Prearing to train hero unit!");
+                heroToTrainUnit.OldButtonText = heroToTrainUnit.ButtonText.text;
+                if(trainingHero)
+                {
+                   print("Waiting to train!");
+                   heroToTrainUnit.ButtonText.text = "Waiting to\ntrain!";
+                }
+
+                trainIndexes.Add((int)HeroClasses.Defender + 1);
+                heroToTrainUnit.ReadyToTrain = true;
+                        
+                        
+                //     }
+                // }
+                // else
+                // {
+                //     //Add player base resources checking logic
+                //     break;
+                // }
             break;
 
             case 2:
+                heroToTrainUnit = hToTrain[(int)HeroClasses.Rogue];
                 if (isTesting)
                 {                    
-                    var heroToTrainUnit = hToTrain[(int)HeroClasses.Rogue];
+                    
                     if (credits < heroToTrainUnit.CreditsPrice || 
                         energon < heroToTrainUnit.EnergonPrice)
                     {
                         //Print error msg
-                        printError(heroToTrainUnit);                        
+                        printError(heroToTrainUnit);   
+                        break;                     
                     }
                     else
                     {
-                        // Start training hero
-                        //timer.startTimer(heroToTrain.TimeToTrain);
                         credits -= heroToTrainUnit.CreditsPrice;
                         energon -= heroToTrainUnit.EnergonPrice;
+                    }
+                }
+                else
+                {
+                    if (playerBase.getCreditsAmount() < heroToTrainUnit.CreditsPrice || 
+                        playerBase.getEnergonAmount() < heroToTrainUnit.EnergonPrice)
+                    {
+                        //Print error msg
+                        printError(heroToTrainUnit);   
+                        break;                     
+                    }
+                    else
+                    {
+                          playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
+                          playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
+                    }
+                }
+                    // else
+                    // {
+                        // Start training hero
+                        //timer.startTimer(heroToTrain.TimeToTrain);
+                        // if (!isTesting)
+                        // {
+                        //     playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
+                        //     playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
+                        // }
+                        // else
+                        // {
+                            
+                        //}
+                        
                         heroToTrainUnit.SpawnButton.interactable = false;
                         print("Prearing to train hero unit!");
                         heroToTrainUnit.OldButtonText = heroToTrainUnit.ButtonText.text;
@@ -218,13 +292,13 @@ public class Shrine : MonoBehaviour
                         heroToTrainUnit.ReadyToTrain = true;
                         
                         
-                    }
-                }
-                else
-                {
-                    //Add player base resources checking logic
-                    break;
-                }
+                   // }
+                // }
+                // else
+                // {
+                //     //Add player base resources checking logic
+                //     break;
+                // }
             break;
         }
     }

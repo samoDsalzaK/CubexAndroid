@@ -183,19 +183,43 @@ public class ShrineUpgradeManager : MonoBehaviour
     }
     private bool canDoTask(int eprice, int cprice, int uindex)
     {
-        if (shrine.Energon < eprice || shrine.Credits < cprice)
+        if (shrine.IsTesting)
         {
-            errorWindow.SetActive(true);
-            errorText.text = "\nNot enough funds for this upgrade!\nRequired:" + eprice + " e, " + cprice + " c";
-            print("ERROR not enough funds for this upgrade!");
-            return false;
+            if (shrine.Energon < eprice || shrine.Credits < cprice)
+            {
+                errorWindow.SetActive(true);
+                errorText.text = "\nNot enough funds for this upgrade!\nRequired:" + eprice + " e, " + cprice + " c";
+                print("ERROR not enough funds for this upgrade!");
+                return false;
+            }
+            else
+            {
+              
+                    shrine.Energon -= eprice;
+                    shrine.Credits -= cprice;
+               
+                   
+                
+                print("Doing upgrade task(" + uindex + ")");
+                return true;
+            }
         }
         else
         {
-            shrine.Energon -= eprice;
-            shrine.Credits -= cprice;
-            print("Doing upgrade task(" + uindex + ")");
-            return true;
+            if (shrine.PlayerBase.getEnergonAmount() < eprice || shrine.PlayerBase.getCreditsAmount() < cprice)
+            {
+                errorWindow.SetActive(true);
+                errorText.text = "\nNot enough funds for this upgrade!\nRequired:" + eprice + " e, " + cprice + " c";
+                print("ERROR not enough funds for this upgrade!");
+                return false;
+            }
+            else
+            {
+                shrine.PlayerBase.setEnergonAmount(shrine.PlayerBase.getEnergonAmount() - eprice);
+                shrine.PlayerBase.setCreditsAmount(shrine.PlayerBase.getCreditsAmount() -  cprice);
+                print("Doing upgrade task(" + uindex + ")");
+                return true;
+            }
         }
     }
 }

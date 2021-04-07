@@ -62,6 +62,7 @@ public class ResearchConf : ScriptableObject
     public int SHeroMaxHP { set { sHeroMaxHP = value; } get { return sHeroMaxHP; }}
     public int SDamage { set {sDamage = value; } get {return sDamage; }}
     public int HeroMakeDamagePoints { set {heroMakeDamagePoints = value; } get {return heroMakeDamagePoints;}}
+    public int ResearchLevel { get { return researchLevel; }}
     public int getResearchCost(){
         return researchCost;
     }
