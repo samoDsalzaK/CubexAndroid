@@ -72,11 +72,23 @@ public class Shrine : MonoBehaviour
     private Research troopRes;
     public bool IsTesting { get { return isTesting; }}
     public Base PlayerBase { get { return playerBase; }}
+    private int clickIndex = 0;
     //HeroClasses hClass = HeroClasses.Defender;
 
     private void OnMouseDown() {
-        mainUIWindow.SetActive(true);
-        selectionCanvas.SetActive(true);
+        
+        if (clickIndex >= 1)
+        {
+            mainUIWindow.SetActive(false);
+            selectionCanvas.SetActive(false);
+            clickIndex = 0;
+        }
+        else
+        {
+            mainUIWindow.SetActive(true);
+            selectionCanvas.SetActive(true);
+            clickIndex++;
+        }
     }
 
     void Start()
