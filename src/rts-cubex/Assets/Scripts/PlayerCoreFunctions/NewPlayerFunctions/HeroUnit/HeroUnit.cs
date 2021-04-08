@@ -118,10 +118,7 @@ public class HeroUnit : MonoBehaviour
             shieldText.text = "Auto boost firerate(+" + fireRateOffet + ")\ndamage (+" + dmgOffset + ")";
             heroAnimator = GetComponent<Animator>();
         }
-        // else 
-        // {
-        //     heroCharText.text += ("Barracade wall time:" + wallBarrackExistTime + "s");
-        // }
+        
     }
     private void Update() {
         updateDataText();
@@ -415,6 +412,7 @@ public class HeroUnit : MonoBehaviour
                              "\nSH regeneration time:" + (Mathf.Round(thealth.MaxShield * thealth.ShieldRegTime)) + " s\nMovement speed:" + movement.speed);
           abilityStatsText.text = "Ability\ncharacteristics:\n" + (heroType == "rogue" ? ("Bomb damage:" +  bomb.GetComponent<Bomb>().DamagePoints) : ("Holo Shield time:" + wallBarrackExistTime + " s"));
     }
+    //Reseting Shrine, restoring the ability to spawn heroes from shrine
     private void OnDestroy() {
         var shrine = FindObjectOfType<Shrine>();
         if (shrine)

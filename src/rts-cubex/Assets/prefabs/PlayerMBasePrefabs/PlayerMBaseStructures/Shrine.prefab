@@ -1359,13 +1359,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainUIWindow: {fileID: 53697978039777680}
-  researchLevel: 1
+  researchLevel: 10
   hToTrain:
   - energonPrice: 15
     creditsPrice: 5
     timeToTrain: 5
     readyToTrain: 0
-    hero: {fileID: 6398442191126425989, guid: 96c612f9dd4378141b65fbd58645cd0d, type: 3}
+    hero: {fileID: 9161153662228955245, guid: 45004875a9223ba4c948bb4a0627970d, type: 3}
     spawnButton: {fileID: 1221928334237858193}
     buttonText: {fileID: 7752662676021579334}
     trainingLocked: 0
@@ -1377,7 +1377,7 @@ MonoBehaviour:
     creditsPrice: 10
     timeToTrain: 8
     readyToTrain: 0
-    hero: {fileID: 6129008054146050237, guid: f6587865567ae57459ddca58fd05bfe0, type: 3}
+    hero: {fileID: 4817006056702736435, guid: d2d9cd5db5fca2a43ad70950938cfb5a, type: 3}
     spawnButton: {fileID: 5801636002849963200}
     buttonText: {fileID: 5523551335513847529}
     trainingLocked: 0
@@ -1390,7 +1390,7 @@ MonoBehaviour:
   errorWindow: {fileID: 5402146532982974628}
   errorText: {fileID: 4019027711762985045}
   selectionCanvas: {fileID: 361646686}
-  isTesting: 0
+  isTesting: 1
   credits: 1000
   energon: 1000
   trainIndexes: 

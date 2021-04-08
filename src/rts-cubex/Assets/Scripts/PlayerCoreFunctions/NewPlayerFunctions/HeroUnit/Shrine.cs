@@ -134,17 +134,19 @@ public class Shrine : MonoBehaviour
                //Add upgrade logic to spawned hero
                 var spawnedHero = Instantiate(heroToTrain.Hero, spawnPoint.position, heroToTrain.Hero.transform.rotation);
                 //Adding upgrades
-                var heroData = spawnedHero.GetComponent<HeroUnit>();
-                if (heroData.HeroType == "defender")
-                {                    
+               // var heroData = spawnedHero.GetComponent<HeroUnit>();
+                if (spawnedHero.GetComponent<DefenderHero>())
+                {    
+                    var defenderHero = spawnedHero.GetComponent<DefenderHero>();                
                     spawnedHero.GetComponent<TroopHealth>().ShieldRegTime -= heroToTrain.BoostShieldRegTime;
-                    heroData.WallBarrackExistTime += heroToTrain.WallTimeBoost;
-                    print(heroData.WallBarrackExistTime);
+                    defenderHero.WallBarrackExistTime += heroToTrain.WallTimeBoost;
+                    //print(heroData.WallBarrackExistTime);
                 }
-                else if (heroData.HeroType == "rogue")
+                else if (spawnedHero.GetComponent<RogueHero>())
                 {
+                    var rogueHero = spawnedHero.GetComponent<RogueHero>();
                     spawnedHero.GetComponent<NavMeshAgent>().speed += heroToTrain.MovementSpeedBoost;
-                    heroData.Bomb.GetComponent<Bomb>().DamagePoints += heroToTrain.BombDamagePoints;
+                    rogueHero.Bomb.GetComponent<Bomb>().DamagePoints += heroToTrain.BombDamagePoints;
                 }
                 trainingHero = false;                
                 //Lock button 
@@ -205,12 +207,7 @@ public class Shrine : MonoBehaviour
                           playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
                     }
                 }
-                    // else
-                    // {
-                        // Start training hero
-                        //timer.startTimer(heroToTrain.TimeToTrain);
-                        // credits -= heroToTrainUnit.CreditsPrice;
-                        // energon -= heroToTrainUnit.EnergonPrice;
+                
                 heroToTrainUnit.SpawnButton.interactable = false;
                 print("Prearing to train hero unit!");
                 heroToTrainUnit.OldButtonText = heroToTrainUnit.ButtonText.text;
@@ -221,16 +218,8 @@ public class Shrine : MonoBehaviour
                 }
 
                 trainIndexes.Add((int)HeroClasses.Defender + 1);
-                heroToTrainUnit.ReadyToTrain = true;
-                        
-                        
-                //     }
-                // }
-                // else
-                // {
-                //     //Add player base resources checking logic
-                //     break;
-                // }
+                heroToTrainUnit.ReadyToTrain = true;                        
+                
             break;
 
             case 2:
@@ -266,20 +255,7 @@ public class Shrine : MonoBehaviour
                           playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
                     }
                 }
-                    // else
-                    // {
-                        // Start training hero
-                        //timer.startTimer(heroToTrain.TimeToTrain);
-                        // if (!isTesting)
-                        // {
-                        //     playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
-                        //     playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
-                        // }
-                        // else
-                        // {
-                            
-                        //}
-                        
+                                            
                         heroToTrainUnit.SpawnButton.interactable = false;
                         print("Prearing to train hero unit!");
                         heroToTrainUnit.OldButtonText = heroToTrainUnit.ButtonText.text;
@@ -293,13 +269,7 @@ public class Shrine : MonoBehaviour
                         heroToTrainUnit.ReadyToTrain = true;
                         
                         
-                   // }
-                // }
-                // else
-                // {
-                //     //Add player base resources checking logic
-                //     break;
-                // }
+              
             break;
         }
     }
@@ -327,22 +297,24 @@ public class Shrine : MonoBehaviour
         {
             foreach (var unit in existingHeroUnits)
             {
-                if (unit.GetComponent<HeroUnit>())
-                {
-                    var heroUnit = unit.GetComponent<HeroUnit>();
-                    if (heroUnit.HeroType == "defender")
-                    {
+                // if (unit.GetComponent<HeroUnit>())
+                // {
+                    //var heroUnit = unit.GetComponent<HeroUnit>();
+                    if (unit.GetComponent<DefenderHero>())
+                    {    
+                        var dH = unit.GetComponent<DefenderHero>();                  
                         var originalHero = hToTrain[0].Hero;
                         unit.GetComponent<TroopHealth>().ShieldRegTime = originalHero.GetComponent<TroopHealth>().ShieldRegTime;
-                        heroUnit.WallBarrackExistTime = originalHero.GetComponent<HeroUnit>().WallBarrackExistTime;
+                        dH.WallBarrackExistTime = originalHero.GetComponent<DefenderHero>().WallBarrackExistTime;
                     }
-                    if (heroUnit.HeroType == "rogue")
+                    if (unit.GetComponent<RogueHero>())
                     {
+                        var rH = unit.GetComponent<RogueHero>();
                         var originalHero = hToTrain[1].Hero;
                         unit.GetComponent<NavMeshAgent>().speed = originalHero.GetComponent<NavMeshAgent>().speed;
-                        heroUnit.Bomb.GetComponent<Bomb>().DamagePoints = originalHero.GetComponent<HeroUnit>().Bomb.GetComponent<Bomb>().DamagePoints;
+                        rH.Bomb.GetComponent<Bomb>().DamagePoints = originalHero.GetComponent<RogueHero>().Bomb.GetComponent<Bomb>().OriginalDP;
                     }
-                }
+               // }
             }
         }
     }

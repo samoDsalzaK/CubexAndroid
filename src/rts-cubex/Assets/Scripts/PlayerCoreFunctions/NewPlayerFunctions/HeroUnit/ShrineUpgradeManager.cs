@@ -54,18 +54,18 @@ public class ShrineUpgradeManager : MonoBehaviour
             {
                 foreach(var h in existingHeroes)
                 {
-                    var heroCont = h.GetComponent<HeroUnit>();
-                    if (heroCont)
-                    {
-                        if (heroCont.HeroType == "defender")
+                    //var heroCont = h.GetComponent<HeroUnit>();
+                    // if (heroCont)
+                    // {
+                        if (h.GetComponent<DefenderHero>())
                         {
                             defenderHero = h;
                         }
-                        else if (heroCont.HeroType == "rogue")
+                        else if (h.GetComponent<RogueHero>())
                         {
                             rogueHero = h;
                         }
-                    }
+                   // }
                 }
             }
             //Level 01 upgrades
@@ -137,7 +137,7 @@ public class ShrineUpgradeManager : MonoBehaviour
                 var defenderData = heroChars[0];
                 var defenderModel = defenderData.Hero;
 
-                var cWallTime = defenderData.Hero.GetComponent<HeroUnit>().WallBarrackExistTime;
+                var cWallTime = defenderData.Hero.GetComponent<DefenderHero>().WallBarrackExistTime;
                 defenderData.WallTimeBoost = cWallTime * 2;
 
                  if (defenderData.WallTimeBoost > 0)  //Fix it later
@@ -148,7 +148,7 @@ public class ShrineUpgradeManager : MonoBehaviour
                  }
 
                 if (defenderHero)
-                    defenderHero.GetComponent<HeroUnit>().WallBarrackExistTime += defenderData.WallTimeBoost;
+                    defenderHero.GetComponent<DefenderHero>().WallBarrackExistTime += defenderData.WallTimeBoost;
             }
 
           
@@ -165,7 +165,7 @@ public class ShrineUpgradeManager : MonoBehaviour
                 var rogueModel = rogueData.Hero;
 
                 var cDamagePoints = rogueData
-                                    .Hero.GetComponent<HeroUnit>()
+                                    .Hero.GetComponent<RogueHero>()
                                     .Bomb.GetComponent<Bomb>().DamagePoints;
                 rogueData.BombDamagePoints = (cDamagePoints * 2) / 4;
 
@@ -177,7 +177,7 @@ public class ShrineUpgradeManager : MonoBehaviour
                 }
 
                 if (rogueHero)
-                    rogueHero.GetComponent<HeroUnit>().Bomb.GetComponent<Bomb>().DamagePoints += rogueData.BombDamagePoints;
+                    rogueHero.GetComponent<RogueHero>().Bomb.GetComponent<Bomb>().DamagePoints += rogueData.BombDamagePoints;
             }
         
     }

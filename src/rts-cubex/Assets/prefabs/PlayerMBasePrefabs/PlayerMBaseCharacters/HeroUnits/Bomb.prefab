@@ -4819,7 +4819,8 @@ MonoBehaviour:
   explosionEffect: {fileID: 5266160784675850527, guid: bb2ec1aa590e3b646a5ec2675a1c2aec,
     type: 3}
   mainModel: {fileID: 7014153323736267439}
-  damagePoints: 40
+  originalDP: 30
+  damagePoints: 30
 --- !u!65 &8575094441224558990
 BoxCollider:
   m_ObjectHideFlags: 0
