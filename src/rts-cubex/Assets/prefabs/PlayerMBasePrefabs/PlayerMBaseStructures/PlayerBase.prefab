@@ -4468,6 +4468,7 @@ MonoBehaviour:
   - wall
   - miningStation
   - armyCamp
+  - shrine
   turretBtn: {fileID: 4963204158530761019}
   barrackBtn: {fileID: 755612446848692060}
   researchCenterBtn: {fileID: 2779801082709158382}
@@ -4476,7 +4477,7 @@ MonoBehaviour:
   timerStart: {fileID: 755612447165250646}
   creditsMiningStationBtn: {fileID: 5761809996557747084}
   armyCampBuildBtn: {fileID: 836257447157874587}
-  shrineBuildBtn: {fileID: 0}
+  shrineBuildBtn: {fileID: 1848395313398495698}
   buildWorkerStartTime: 5
 --- !u!54 &755612446071557019
 Rigidbody:

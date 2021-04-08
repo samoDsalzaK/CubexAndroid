@@ -525,6 +525,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shrine
       objectReference: {fileID: 0}
+    - target: {fileID: 1334640026855581189, guid: 0078971d3918a134fb57209989fa30d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298554058826207175, guid: 0078971d3918a134fb57209989fa30d3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0078971d3918a134fb57209989fa30d3, type: 3}
 --- !u!4 &337425662 stripped
