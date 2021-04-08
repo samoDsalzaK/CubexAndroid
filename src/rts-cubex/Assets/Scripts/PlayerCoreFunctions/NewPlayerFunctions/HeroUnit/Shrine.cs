@@ -139,6 +139,7 @@ public class Shrine : MonoBehaviour
                 {                    
                     spawnedHero.GetComponent<TroopHealth>().ShieldRegTime -= heroToTrain.BoostShieldRegTime;
                     heroData.WallBarrackExistTime += heroToTrain.WallTimeBoost;
+                    print(heroData.WallBarrackExistTime);
                 }
                 else if (heroData.HeroType == "rogue")
                 {

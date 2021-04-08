@@ -165,12 +165,13 @@ public class HeroUnit : MonoBehaviour
                         movement.isStopped = false;
                         troopMoveControl.LockMove = false;
                         //movement.velocity = MovementVelocity;
-                        barracadeWall.SetActive(false);
+                        //barracadeWall.SetActive(false);
                         //barracadeBuild.SetBool("ButtonClicked", false);
                        
                         barracadeWallSpawned = false;
                         tfire.LockFire = false; 
-                        coolDownTime = (taskTime * 2) - diffCooldown;
+                        var coolDownOffset = (wallBarrackExistTime / 4);
+                        coolDownTime = wallBarrackExistTime - coolDownOffset + diffCooldown;
                         startAbilityColdown = true; 
                         timer.startTimer(coolDownTime); 
                         //shieldWallText.text = "Holo shield";
@@ -214,13 +215,13 @@ public class HeroUnit : MonoBehaviour
         var spawnBarracde = Instantiate(barracadeWall, wallSpawnPoint.position, transform.rotation);  
         spawnBarracde.transform.parent = transform;  
         //spawnBarracde.transform.position = new Vector3(0f, 0f, 10f);
-        spawnBarracde.SetActive(true);
+        //spawnBarracde.SetActive(true);
         spawnedBarracdeWall = spawnBarracde;
         //barracadeWall.SetActive(true);
         //barracadeBuild.SetBool("ButtonClicked", true);
         barracadeWallSpawned = true;
         shieldWallBtn.GetComponent<Button>().interactable = false;
-        
+        //print(wallBarrackExistTime);
         timer.startTimer(wallBarrackExistTime);
         //After timer is finished reset animation parameter
        //  barracadeBuild.SetBool("ButtonClicked", false);

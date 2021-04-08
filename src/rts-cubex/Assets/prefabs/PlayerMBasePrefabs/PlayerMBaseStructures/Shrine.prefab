@@ -1365,7 +1365,7 @@ MonoBehaviour:
     creditsPrice: 5
     timeToTrain: 5
     readyToTrain: 0
-    hero: {fileID: 9098030794844778249, guid: 04da9c4a38e9de24ba0b07be482e7dc0, type: 3}
+    hero: {fileID: 6398442191126425989, guid: 96c612f9dd4378141b65fbd58645cd0d, type: 3}
     spawnButton: {fileID: 1221928334237858193}
     buttonText: {fileID: 7752662676021579334}
     trainingLocked: 0
@@ -1390,7 +1390,7 @@ MonoBehaviour:
   errorWindow: {fileID: 5402146532982974628}
   errorText: {fileID: 4019027711762985045}
   selectionCanvas: {fileID: 361646686}
-  isTesting: 1
+  isTesting: 0
   credits: 1000
   energon: 1000
   trainIndexes: 
