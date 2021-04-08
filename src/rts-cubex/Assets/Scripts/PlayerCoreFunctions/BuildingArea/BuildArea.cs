@@ -301,6 +301,7 @@ public class BuildArea : MonoBehaviour
 								playerWorkers[y].setWorkerState(true); // workeris yra uzimtas
 							}
 						}
+						playerbase.setBuildingArea(false);
 					}
 					else {
 						for (int i = 0; i < changePosBuildings.Length; i++){
