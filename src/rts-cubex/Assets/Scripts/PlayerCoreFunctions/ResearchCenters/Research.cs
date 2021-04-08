@@ -47,6 +47,9 @@ public class Research : MonoBehaviour {
     createAnimatedPopUp animatedPopUps;
     LocalPanelManager localPanelManager;
     
+    public int ResearchLevel { get { return researchLevel; }}
+    public ResearchConf OBGResearch {get { return oBGResearch; }}
+
     private void Start() {
     researchLevel = oBGResearch.getResearchLevel();
     researchCost = oBGResearch.getResearchCost();

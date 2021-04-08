@@ -10,6 +10,7 @@ public class ResearchConf : ScriptableObject
     [SerializeField] int sHeavyTroopLevel = 1;
     [SerializeField] private int sMaxHP = 100;
     [SerializeField] private int sHeavyMaxHP = 300;
+    [SerializeField] int heroMakeDamagePoints = 15;
     [SerializeField] int sDamage = 10;
     [SerializeField] private float sHeavyTroopScalingCoef = 300f;
     [SerializeField] private float sHeavyTroopShieldScalingCoef = 300f;
@@ -59,6 +60,9 @@ public class ResearchConf : ScriptableObject
     [SerializeField] private int buildingResearchHealth;
     // Hero code
     public int SHeroMaxHP { set { sHeroMaxHP = value; } get { return sHeroMaxHP; }}
+    public int SDamage { set {sDamage = value; } get {return sDamage; }}
+    public int HeroMakeDamagePoints { set {heroMakeDamagePoints = value; } get {return heroMakeDamagePoints;}}
+    public int ResearchLevel { get { return researchLevel; }}
     public int getResearchCost(){
         return researchCost;
     }

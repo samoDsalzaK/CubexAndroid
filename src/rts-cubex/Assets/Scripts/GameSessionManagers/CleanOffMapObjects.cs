@@ -7,7 +7,7 @@ public class CleanOffMapObjects : MonoBehaviour
    private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "enemyTroop" || other.gameObject.tag == "Unit")
         {
-            Destroy(gameObject);
+            Destroy(other.gameObject);
         }    
    }
 }

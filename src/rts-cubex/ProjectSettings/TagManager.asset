@@ -49,6 +49,7 @@ TagManager:
   - _PlayerWall
   - cryptominingstation
   - Camp
+  - Shrine
   layers:
   - Default
   - TransparentFX
@@ -76,7 +77,7 @@ TagManager:
   - HoloTools
   - creditsMiningStation
   - armyCamp
-  - 
+  - UI_minimap
   - 
   - 
   - 

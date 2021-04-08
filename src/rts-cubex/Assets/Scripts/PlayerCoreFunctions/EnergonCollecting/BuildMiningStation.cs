@@ -9,6 +9,7 @@ public class BuildMiningStation : MonoBehaviour
     private Base playerbase;
     private CollectorBuild collectorBuild;
     private string index = ""; // indexing each deposit unit
+    private createAnimatedPopUp animatedPopUps;
     private void Start() {
         if(FindObjectOfType<Base>() == null)
         {
@@ -17,6 +18,7 @@ public class BuildMiningStation : MonoBehaviour
         else
         {
            playerbase = FindObjectOfType<Base>();
+           animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
         }
         
        
@@ -44,9 +46,10 @@ public class BuildMiningStation : MonoBehaviour
            // Debug.Log("No workers found or build button was not clicked. So can't build a mining station here!");
             return;
         }
-
         playerbase.setCreditsAmount(playerbase.getCreditsAmount()-collectorBuild.getMinNeededCreditsAmountForCreditsCollector()); // uzsetiname naujas reksmes 
         playerbase.setEnergonAmount(playerbase.getEnergonAmount()-collectorBuild.getMinNeededEnergonAmountForEnergonCollector()); // uzsetiname naujas reksmes
+        animatedPopUps.createDecreaseEnergonPopUp(collectorBuild.getMinNeededEnergonAmountForEnergonCollector()); // creating pop up window
+        animatedPopUps.createDecreaseCreditsPopUp(collectorBuild.getMinNeededCreditsAmountForCreditsCollector()); // creating pop up window
         playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
         collectorBuild.setCollectorStructureBuilt(true); 
         //Since there are workers and the button was clicked 

@@ -5,16 +5,21 @@ using UnityEngine;
 public class TroopAttack : MonoBehaviour
 {
     [SerializeField] Transform fireGun;
+    [SerializeField] Transform secondFireGun;
     [SerializeField] float scannerRadius = 20f;    
     [SerializeField] GameObject projectile;
     [SerializeField] float launchForce = 700f;
     [SerializeField] bool startAttacking = false;
     [SerializeField] float fireRate = 0.5f;
     [SerializeField] string targetName = "enemy";
+    [SerializeField] List<string> targetTagNames;
     private bool lockFire = false;
     private float nextFire = 0.0f;
-    private GameObject spottedEnemy;
+    [SerializeField] GameObject spottedEnemy;
+    public float FireRate { set { fireRate = value; } get { return fireRate; }}
     public bool LockFire { set {lockFire = value; } get { return lockFire; }}
+    public GameObject Projectile { get { return projectile; }}
+    public GameObject SpottedEnemy { get { return spottedEnemy; }}
     // Update is called once per frame
     void Update()
     {
@@ -52,7 +57,7 @@ public class TroopAttack : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, scannerRadius);
             foreach (var hitCollider in hitColliders)
             {
-                if ((hitCollider.tag.ToLower()).Contains(targetName) && !(hitCollider.tag.ToLower()).Contains("arrow"))
+                if (matchingTarget(hitCollider.tag.ToLower()))
                 {
                     print("Enemy troop spotted!");
                     spottedEnemy = hitCollider.gameObject;
@@ -82,10 +87,27 @@ public class TroopAttack : MonoBehaviour
         {
             var sProjectile = Instantiate(projectile, fireGun.position, fireGun.rotation);
             sProjectile.GetComponent<Rigidbody>().AddForce (fireGun.right * launchForce);
+
+            if (secondFireGun)
+            {
+                 var _sProjectile = Instantiate(projectile, secondFireGun.position, secondFireGun.rotation);
+                 _sProjectile.GetComponent<Rigidbody>().AddForce (secondFireGun.right * launchForce);
+            }
         }
         else
         {
             startAttacking = false;
         }
+    }
+    private bool matchingTarget(string spottedTargetTag)
+    {
+        foreach(var tag in targetTagNames)
+        {
+            if ((spottedTargetTag).Contains(tag))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

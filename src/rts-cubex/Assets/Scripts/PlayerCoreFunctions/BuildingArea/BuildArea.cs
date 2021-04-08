@@ -18,6 +18,7 @@ public class BuildArea : MonoBehaviour
     [SerializeField] WorkerSpawningTimer timerStart;
     [SerializeField] MiningStationBuild creditsMiningStationBtn; // for credits mining station
 	[SerializeField] buildArmyCamp armyCampBuildBtn;
+	[SerializeField] buildShrine shrineBuildBtn;
     [SerializeField] float buildWorkerStartTime = 5f;
   	//  [SerializeField] GameObject buildRegWorker;
   	//  [SerializeField] GameObject buildDefensive;
@@ -249,6 +250,30 @@ public class BuildArea : MonoBehaviour
 						Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
 						playerWorkers[i].SetDestination(buildpozition);
 						playerWorkers[i].SetBuildingOrder(buildingTypes[6]); // nusiunciama buildingo tipa i workerio klase;
+						playerWorkers[i].setWorkerState(true); // workeris yra uzimtas
+						return;
+						}    
+					}
+				}
+				if((shrineBuildBtn.shrineBuildState()) && (canBuild)){
+					animatedPopUps.createDecreaseEnergonPopUp(shrineBuildBtn.getMinNeededEnergonAmountForShrine()); // creating pop up window
+            		animatedPopUps.createDecreaseCreditsPopUp(shrineBuildBtn.getMinNeededCreditsAmountForShrine()); // creating pop up window
+					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-shrineBuildBtn.getMinNeededCreditsAmountForShrine()); // uzsetiname naujas reksmes 
+					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-shrineBuildBtn.getMinNeededEnergonAmountForShrine()); // uzsetiname naujas reksmes
+					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					shrineBuildBtn.canBuildAgain(true);
+					playerbase.setBuildingArea(false);
+					// buildDefensive.SetActive(false);
+					var playerWorkers = FindObjectsOfType<Worker>(); 
+
+					for (int i = 0; i < playerWorkers.Length; i++)
+					{
+						if (!playerWorkers[i].isWorkerAssigned()) // jeigu workeris yra laisvas tai jo reiksme yra false, kitu atveju bus true
+						{
+						//Variable for knowing, what's the current position of this object, which has this class
+						Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
+						playerWorkers[i].SetDestination(buildpozition);
+						playerWorkers[i].SetBuildingOrder(buildingTypes[7]); // nusiunciama buildingo tipa i workerio klase;
 						playerWorkers[i].setWorkerState(true); // workeris yra uzimtas
 						return;
 						}    

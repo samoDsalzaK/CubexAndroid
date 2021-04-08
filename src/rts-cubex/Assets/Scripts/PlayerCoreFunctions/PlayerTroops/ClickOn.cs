@@ -10,6 +10,7 @@ public class ClickOn : MonoBehaviour {
     [SerializeField] public bool isSelected = false;
     [SerializeField] bool hero = false;
     [SerializeField] GameObject selectionIcon;
+    [SerializeField] GameObject heroToolbar;
     void Start () {
         
         isSelected = false;
@@ -19,6 +20,7 @@ public class ClickOn : MonoBehaviour {
             if (hero)
             {
                 selectionIcon.SetActive(false);
+                heroToolbar.SetActive(false);
             }
             else
             {
@@ -33,6 +35,7 @@ public class ClickOn : MonoBehaviour {
             if (hero)
             {
                 selectionIcon.SetActive(true);
+                heroToolbar.SetActive(true);
             }
             else
             {
