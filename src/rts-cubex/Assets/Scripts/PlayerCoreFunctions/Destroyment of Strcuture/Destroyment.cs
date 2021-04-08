@@ -32,7 +32,7 @@ public class Destroyment : MonoBehaviour
     }
     public void destroyGameStrucuture() // destroy turret // desroy defensive wall // destroy barrack // destroy mining station // army camp
     {
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
         Destroy(gameObject);
         // creating animated pop ups
         animatedPopUps.createAddCreditsPopUp(returnCreditsAmount);
@@ -42,7 +42,7 @@ public class Destroyment : MonoBehaviour
     }  
     public void destroyCollecotor() // destroy collector
     {   
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
         buildingHealth.setHealth(0);
         Destroy(gameObject, 1f);
         // creating animated pop ups
@@ -54,7 +54,7 @@ public class Destroyment : MonoBehaviour
     } 
     public void destroyResearchCenters() // destroy building/troops research centre
     {   
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
         buildingHealth.setHealth(0);
         // creating animated pop ups
         animatedPopUps.createAddCreditsPopUp(returnCreditsAmount);

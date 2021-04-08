@@ -31,6 +31,7 @@ public class Worker : MonoBehaviour
         //CheckingDistanceForPLayerWall();
         CheckingDistanceForMiningStation();
         CheckingDistanceForArmyCamp();
+        CheckingDistanceForShrine();
     }
     public void SetDestination(Vector3 energonPos) // method which which sets the destination of particular buildigs for worker
     {
@@ -51,7 +52,7 @@ public class Worker : MonoBehaviour
         }
       
     }
-   private void CheckingDistanceForTurret()
+    private void CheckingDistanceForTurret()
     {
         if(!workerNav.pathPending && buildingType == "turret")  // reikia pakeisti build type;
         {
@@ -129,6 +130,19 @@ public class Worker : MonoBehaviour
                if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
                {
                timerspawn.startTimer(transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z),7, pressedButtonIndex); 
+               buildingType = "none";
+               }
+            }
+        }
+    }
+    private void CheckingDistanceForShrine(){
+        if(!workerNav.pathPending && buildingType == "shrine")  // reikia pakeisti build type;
+        {
+            if(workerNav.remainingDistance <= workerNav.stoppingDistance)
+            {
+               if(!workerNav.hasPath || workerNav.velocity.sqrMagnitude == 0f)
+               {
+               timerspawn.startTimer(transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z),8, pressedButtonIndex); 
                buildingType = "none";
                }
             }

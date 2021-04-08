@@ -75,9 +75,22 @@ public class Shrine : MonoBehaviour
     private int clickIndex = 0;
     //HeroClasses hClass = HeroClasses.Defender;
 
+    PanelManager panelManager;
+
     private void OnMouseDown() {
         
-        if (clickIndex >= 1)
+        panelManager = GetComponent<PanelManager>();
+        var status = panelManager.checkForActivePanels();
+      	if (status){
+          	return;
+      	}  
+      	else{
+        	mainUIWindow.SetActive(true);
+            selectionCanvas.SetActive(true);
+        	panelManager.changeStatusOfAllPanels();
+      	}	
+
+        /*if (clickIndex >= 1)
         {
             mainUIWindow.SetActive(false);
             selectionCanvas.SetActive(false);
@@ -88,7 +101,7 @@ public class Shrine : MonoBehaviour
             mainUIWindow.SetActive(true);
             selectionCanvas.SetActive(true);
             clickIndex++;
-        }
+        }*/
     }
 
     void Start()

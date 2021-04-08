@@ -13,6 +13,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
     // 5 - walls;
     // 6 - credits mining station;
 	// 7 - army camp
+	// 8 - hero shrine
      [Header("Main Timer configuration parameters")]
     [SerializeField] float[] timereferencetasks; // masyvas skirtas saugoti timerio laika skirtingiems buildingams.
 	//[SerializeField] float[] timereferencetasksForChangePos; // array used to store time needed to build building afer position change
@@ -25,6 +26,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
     //[SerializeField] GameObject playerDefenceWall;
     [SerializeField] GameObject creditsMiningStation;
 	[SerializeField] GameObject armyCamp;
+	[SerializeField] GameObject shrine;
     float startingTime = 0;
     //float startingTime1 = 0;
     float fillingvariable;
@@ -209,6 +211,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						}
 					break;
 					case 1/*"Depo"*/:
+						Debug.Log("Collector created");
 						Instantiate(collector, pozition, Quaternion.identity);
 						if(playerScorePoints != null)
 						{
@@ -285,6 +288,34 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
 						}
 					break;
+					case 8:
+						if(pressedBtnIndex != 0){
+							var changePosBuildings = FindObjectsOfType<changePosition>();
+							if(changePosBuildings != null){
+								for (int i = 0; i < changePosBuildings.Length; i++){
+									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+										changePosBuildings[i].destroyGameObject();
+										Instantiate(shrine, pozition, Quaternion.identity);
+										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
+										workerLife.decreaseWorkerLife();
+										playerworker.setWorkerState(false); // reiskia kas workeris yra laisvas
+										return;
+									}
+								}
+							}
+						}
+						else{
+							Instantiate(shrine, pozition, Quaternion.identity);
+							if(playerScorePoints != null)
+							{
+								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
+								//playerScorePoints.addPlayerWallsAmount(1);
+							}
+							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
+							workerLife.decreaseWorkerLife();
+							playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
+						}
+					break;
                 }
                 //Once the timer has finished counting, a message appear swhich says that the timer has finished counting
                 //displayText.text = "Hurray! it is done!";
@@ -329,6 +360,9 @@ public class TimerForSpawningOriginal : MonoBehaviour
 				startingTime = timereferencetasks[timeArrayPozition];
 			break;
 			case 7:
+				startingTime = timereferencetasks[timeArrayPozition];
+			break;
+			case 8:
 				startingTime = timereferencetasks[timeArrayPozition];
 			break;
         }

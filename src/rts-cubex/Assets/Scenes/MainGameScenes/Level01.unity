@@ -263,6 +263,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 755612446071557018, guid: 7c798978728a8b345a589b5e1ca29966,
+        type: 3}
+      propertyPath: buildingTypes.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 755612446071557018, guid: 7c798978728a8b345a589b5e1ca29966,
+        type: 3}
+      propertyPath: buildingTypes.Array.data[7]
+      value: shrine
+      objectReference: {fileID: 0}
+    - target: {fileID: 755612446071557018, guid: 7c798978728a8b345a589b5e1ca29966,
+        type: 3}
+      propertyPath: shrineBuildBtn
+      value: 
+      objectReference: {fileID: 586179920}
     - target: {fileID: 755612447165250645, guid: 7c798978728a8b345a589b5e1ca29966,
         type: 3}
       propertyPath: m_Name
@@ -837,6 +852,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 224265478}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &586179920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1848395313398495698, guid: 7c798978728a8b345a589b5e1ca29966,
+    type: 3}
+  m_PrefabInstance: {fileID: 232131474}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9dacd7378ce324c85e3dffa4d6a94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &608678237 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2398307529220359008, guid: e631baf35d36fe143ac268fe4abf032c,
