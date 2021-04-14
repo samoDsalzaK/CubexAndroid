@@ -18,16 +18,28 @@ public class changeSkinButtonHandler : MonoBehaviour
     [SerializeField] Text IceAssetSkinBtnText;
     [SerializeField] Text EarthAssetSkinBtnText;
 
+    // change skin info buttons
+    [SerializeField] Button StarterAssetSkinInfoBtn;
+    [SerializeField] Button PyroAssetSkinInfoBtn;
+    [SerializeField] Button IceAssetSkinInfoBtn;
+    [SerializeField] Button EarthAssetSkinInfoBtn;
+
+    // change skin info panels
+    [SerializeField] GameObject StarterAssetSkinInfoPanel, PyroAssetSkinInfoPanel, IceAssetSkinInfoPanel, EarthAssetSkinInfoPanel;
+
     // hash table for storong button activity info (pressed or not)
     Hashtable buttonActivityHashMap = new Hashtable();
 
     [SerializeField] int btnID; // previously pressed button
+    [SerializeField] int numberOfAssets; // in our case it is 4
+
+    PanelManager panelManager;
     // Start is called before the first frame update
     void Start()
     {
         // fill in hash table
         // if button is active state is true, otherwise it is false
-        for (int i = 1; i < 5; i++){
+        for (int i = 1; i < numberOfAssets + 1; i++){
             if(i == 1){
                 buttonActivityHashMap.Add(i, true);
             }
@@ -39,6 +51,7 @@ public class changeSkinButtonHandler : MonoBehaviour
         for(int j = 1; j < buttonActivityHashMap.Count + 1; j++){
             setButtonText(j);
         }
+        panelManager = GetComponent<PanelManager>();
     }
 
     // Update is called once per frame
@@ -54,6 +67,10 @@ public class changeSkinButtonHandler : MonoBehaviour
         PyroAssetSkinBtn.onClick.AddListener(() => buttonCallBack(PyroAssetSkinBtn));
         IceAssetSkinBtn.onClick.AddListener(() => buttonCallBack(IceAssetSkinBtn));
         EarthAssetSkinBtn.onClick.AddListener(() => buttonCallBack(EarthAssetSkinBtn));
+        StarterAssetSkinInfoBtn.onClick.AddListener(() => buttonCallBack(StarterAssetSkinInfoBtn));
+        PyroAssetSkinInfoBtn.onClick.AddListener(() => buttonCallBack(PyroAssetSkinInfoBtn));
+        IceAssetSkinInfoBtn.onClick.AddListener(() => buttonCallBack(IceAssetSkinInfoBtn));
+        EarthAssetSkinInfoBtn.onClick.AddListener(() => buttonCallBack(EarthAssetSkinInfoBtn));
     }
 
 
@@ -62,17 +79,37 @@ public class changeSkinButtonHandler : MonoBehaviour
         if (buttonPressed == StarterAssetSkinBtn)
         {
             changeButtonState(1);
+            panelManager.deactivatePanels();
         }
         else if (buttonPressed == PyroAssetSkinBtn)
         {
             changeButtonState(2);
+            panelManager.deactivatePanels();
         }
         else if (buttonPressed == IceAssetSkinBtn)
         {
             changeButtonState(3);
+            panelManager.deactivatePanels();
         }
         else if (buttonPressed == EarthAssetSkinBtn){
             changeButtonState(4);
+            panelManager.deactivatePanels();
+        }
+        else if (buttonPressed == StarterAssetSkinInfoBtn){
+            panelManager.deactivatePanels();
+            panelManager.activatePanel(StarterAssetSkinInfoPanel);
+        }
+        else if (buttonPressed == PyroAssetSkinInfoBtn){
+            panelManager.deactivatePanels();
+            panelManager.activatePanel(PyroAssetSkinInfoPanel);
+        }
+        else if (buttonPressed == IceAssetSkinInfoBtn){
+            panelManager.deactivatePanels();
+            panelManager.activatePanel(IceAssetSkinInfoPanel);
+        }
+        else if (buttonPressed == EarthAssetSkinInfoBtn){
+            panelManager.deactivatePanels();
+            panelManager.activatePanel(EarthAssetSkinInfoPanel);
         }
     }
 
@@ -91,7 +128,7 @@ public class changeSkinButtonHandler : MonoBehaviour
                 }
             }
             btnID = buttonID; // save priviously pressed button index
-        }  
+        } 
     }
     // function for setting text
     public void setButtonText(int buttonID){
@@ -100,39 +137,47 @@ public class changeSkinButtonHandler : MonoBehaviour
             // starter
             case 1:
                 if ((bool)buttonActivityHashMap[buttonID]){ // if button is active its value is true, otherwise is false
-                    Debug.Log("Button 1 is active");
+                    StarterAssetSkinBtnText.text = "Starter" + "\n" + "(selected)";
+                    //Debug.Log("Button 1 is active");
                     // set active text
                 }
                 else{
-                    Debug.Log("Button 1 is not active");
+                    StarterAssetSkinBtnText.text = "Starter";
+                    //Debug.Log("Button 1 is not active");
                     // set not active text
                 }
                 break;
             // pyro
             case 2:
                 if ((bool)buttonActivityHashMap[buttonID]){
-                    Debug.Log("Button 2 is active");
+                    PyroAssetSkinBtnText.text = "Pyro" + "\n" + "(selected)";
+                    //Debug.Log("Button 2 is active");
                 }
                 else{
-                    Debug.Log("Button 2 is not active");
+                    PyroAssetSkinBtnText.text = "Pyro";
+                    //Debug.Log("Button 2 is not active");
                 }
                 break;
             //ice    
             case 3:
                 if ((bool)buttonActivityHashMap[buttonID]){
-                    Debug.Log("Button 3 is active");
+                    IceAssetSkinBtnText.text = "Ice" + "\n" + "(selected)";
+                    //Debug.Log("Button 3 is active");
                 }
                 else{
-                    Debug.Log("Button 3 is not active");
+                    IceAssetSkinBtnText.text = "Ice";
+                    //Debug.Log("Button 3 is not active");
                 }
                 break;
             //earth    
             case 4:
                 if ((bool)buttonActivityHashMap[buttonID]){
-                    Debug.Log("Button 4 is active");
+                    EarthAssetSkinBtnText.text = "Earth" + "\n" + "(selected)";
+                    //Debug.Log("Button 4 is active");
                 }
                 else{
-                    Debug.Log("Button 4 is not active");
+                    EarthAssetSkinBtnText.text = "Earth";
+                    //Debug.Log("Button 4 is not active");
                 }
                 break;
             default:

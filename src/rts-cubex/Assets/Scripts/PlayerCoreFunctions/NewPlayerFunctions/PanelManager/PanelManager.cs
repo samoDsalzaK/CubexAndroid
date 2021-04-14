@@ -110,4 +110,12 @@ public class PanelManager : MonoBehaviour
         playerbase.setResourceAMountScreenStateForUpgrade(false); 
         playerbase.setErrorStateToBuildStructure(false);
     }
+
+    public void activatePanel(GameObject panel){
+        panel.SetActive(true);
+    }
+
+    public void deactivatePanel(GameObject panel){
+        panel.SetActive(false);
+    }
 }

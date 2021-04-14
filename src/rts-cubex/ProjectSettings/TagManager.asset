@@ -50,6 +50,7 @@ TagManager:
   - cryptominingstation
   - Camp
   - Shrine
+  - ChangeSkinPanel
   layers:
   - Default
   - TransparentFX
