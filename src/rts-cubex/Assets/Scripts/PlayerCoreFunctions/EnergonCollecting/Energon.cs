@@ -15,6 +15,7 @@ public class Energon : MonoBehaviour
     bool savedIndex = false;
     private Base playerbase;
     PanelManager panelManager;
+    [SerializeField] GameObject selectionCanvas;
     void Start()
     {
         energonCollectorHealth = GetComponent<HealthOfRegBuilding>();
@@ -58,6 +59,7 @@ public class Energon : MonoBehaviour
         }  
         else{
             // set main window
+            selectionCanvas.SetActive(true);
 			CollectorScreen.SetActive(true);
             // deactivate other building panels
             panelManager.changeStatusOfAllPanels();

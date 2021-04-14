@@ -15,4 +15,9 @@ public class CubexWindowManager : MonoBehaviour
     {
         FindObjectOfType<GameSession>().ResetGame();
     }
+    public void RestartLevel(){
+        // find current level and restart game
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentLevel);
+    }
 }

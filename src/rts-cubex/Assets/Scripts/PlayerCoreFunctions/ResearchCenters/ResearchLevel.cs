@@ -15,6 +15,7 @@ public class ResearchLevel : MonoBehaviour
     [SerializeField] ResearchConf oBGResearch;
 	PanelManager panelManager;
 	createAnimatedPopUp animatedPopUps;
+  [SerializeField] GameObject selectionCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,6 +63,7 @@ public class ResearchLevel : MonoBehaviour
         }  
         else{
             // set main window
+            selectionCanvas.SetActive(true);
 			researchCenterUpgradePanel.SetActive(true);  
 			researchCenterLevelText.text = "Research Center Level : " + oBGResearch.getBuildingResearchLevel();   
 			researchUpgradeBtnText.text = "Upgrade Research Center to level " + (oBGResearch.getBuildingResearchLevel()+ 1) + "\n" + "(" + oBGResearch.getMinNeededCreditsAmountForResearch() + " credits & " + oBGResearch.getMinNeededEnergonAmountForResearch()  + " energon)"; 

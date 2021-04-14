@@ -25,6 +25,7 @@ public class TurretpgradeManager : MonoBehaviour
     [SerializeField] int playerScoreEarned = 5;
     PanelManager panelManager;
     createAnimatedPopUp animatedPopUps;
+    [SerializeField] GameObject selectionCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +67,7 @@ public class TurretpgradeManager : MonoBehaviour
         }  
         else{
             // set main window
+            selectionCanvas.SetActive(true);
             turretUpgradePanel.SetActive(true);    
             turretLevelText.text = "Turret Level : " + turretLevel;
             turretUpgrageBtText.text = "Upgrade Turret to level" + (turretLevel + 1) + "(" + minNeedCreditsAmountForTurretUpgrade + " credits & " + minNeedEnergonAmountForTurretUpgrade + " energon)";

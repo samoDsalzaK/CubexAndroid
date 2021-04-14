@@ -62,13 +62,17 @@ public class Base : MonoBehaviour
     [SerializeField] int playerScoreEarned;
     [SerializeField] int powerNumber;
     [SerializeField] int playerTroopsAmount;
-	[SerializeField] Image EnergonAmountScreen;
-	[SerializeField] Text EnergonAmountScreenText;
-	[SerializeField] Image CreditsAmountScreen; 
-	[SerializeField] Text CreditsAmountScreenText;
+    [SerializeField] Image EnergonAmountScreen;
+    [SerializeField] Text EnergonAmountScreenText;
+    [SerializeField] Image CreditsAmountScreen; 
+    [SerializeField] Text CreditsAmountScreenText;
 
-	[SerializeField] int maxBaseEnergonAmount;
-	[SerializeField] int maxBaseCreditsAmount;
+    [SerializeField] int maxBaseEnergonAmount;
+    [SerializeField] int maxBaseCreditsAmount;
+
+    [SerializeField] GameObject selectionCanvas;
+
+
     [Header("Tutorial manager parameters")]
     [SerializeField] bool isTutorialChecked = false;
     private int index = 0; // parameter needed for worker indexing
@@ -76,11 +80,11 @@ public class Base : MonoBehaviour
 
     public Canvas gameHood;
 
-	PanelManager panelManager;
+    PanelManager panelManager;
 
-	LocalPanelManager localPanelManager;
+    LocalPanelManager localPanelManager;
 
-	createAnimatedPopUp animatedPopUps;    
+    createAnimatedPopUp animatedPopUps;    
     // Start is called before the first frame update
     void Start()
     {
@@ -229,6 +233,7 @@ public class Base : MonoBehaviour
       	}  
       	else{
         	// set main window
+          selectionCanvas.SetActive(true);
         	Screen.SetActive(true);
         	addCredits.text = "Credits left : " + credits;  
         	addEnergon.text = "Energon left : " + energon;  
