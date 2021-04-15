@@ -53,7 +53,10 @@ public class TroopHealth : MonoBehaviour
             playerBase = FindObjectOfType<Base>();
         }
         //upgrade = FindObjectOfType<Research> ();
-        unitHP = upgrade.getMaxHP();
+        if (isHero)
+            unitHP = upgrade.SHeroMaxHP;
+        else
+            unitHP = upgrade.getMaxHP();
         //healthBar.sizeDelta = new Vector2 (unitHP * scalingCoef, healthBar.sizeDelta.y);
         healthBarForeground.fillAmount = unitHP / upgrade.getLightTroopScalingCoef();
     }
