@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pCube: {fileID: 1049119169126351701, guid: 069878fb70b09da4db31c6be3a6e52d8, type: 3}
-  pWidth: 6
-  pHeight: 6
+  pWidth: 60
+  pHeight: 60

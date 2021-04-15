@@ -6,14 +6,19 @@ using UnityEngine.AI;
 //Create a platform, that creates obstacles
 public class MapMaker : MonoBehaviour
 {
+    //[SerializeField] GameObject platform; //platform cube
     [SerializeField] GameObject pCube; //platform cube
     [SerializeField] float pWidth = 6f;   
     [SerializeField] float pHeight = 6f;  
     private float x = 0f, y = 0f, z = 0f;
+    //private GameObject sPlatform;
     private GameObject startCube;
-    //List<NavMeshSurface> pNCubes;
+    private List<GameObject> sCubes = new List<GameObject>(); //list of spawned cubes
     void Start()
     {
+        // sPlatform = Instantiate(platform, Vector3.zero, platform.transform.rotation);
+        // sPlatform.transform.localScale = new Vector3(pWidth, 0f, pHeight);
+        // sPlatform.GetComponent<NavMeshSurface>().BuildNavMesh();
         startCube = Instantiate(pCube, new Vector3(-(pWidth / 2), y, pHeight / 2), pCube.transform.rotation);
 
         var sX = startCube.transform.position.x;
@@ -25,10 +30,18 @@ public class MapMaker : MonoBehaviour
         {
             for(float posXIndex = sX; posXIndex <= (pWidth / 2); posXIndex++)
             {                     
-                Instantiate(startCube, new Vector3(posXIndex, y, posZIndex), startCube.transform.rotation);
-                startCube.SetActive(true);
+                var scube = Instantiate(startCube, new Vector3(posXIndex, y, posZIndex), startCube.transform.rotation);
+                scube.SetActive(true);
+                sCubes.Add(scube);
             }
         }
+        // if(sCubes.Count > 0)
+        // {
+        //     foreach(var cube in sCubes)
+        //     {
+        //         cube.GetComponent<NavMeshSurface>().BuildNavMesh();
+        //     }
+        // }
     }
 
     // Update is called once per frame
