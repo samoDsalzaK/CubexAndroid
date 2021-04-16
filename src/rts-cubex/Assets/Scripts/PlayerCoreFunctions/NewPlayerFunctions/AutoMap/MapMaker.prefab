@@ -44,5 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pCube: {fileID: 1049119169126351701, guid: 069878fb70b09da4db31c6be3a6e52d8, type: 3}
-  pWidth: 60
-  pHeight: 60
+  walls: {fileID: 3278041012353780772, guid: adac1fc2b24493242a9b0f5ed443153e, type: 3}
+  pWidth: 4
+  pHeight: 4
+  tOffset: 50
+  generateNavMesh: 1
+  generateWalls: 1
+  generateGround: 1
