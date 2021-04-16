@@ -37,6 +37,10 @@ public class changeSkinManager : MonoBehaviour
     [SerializeField] int LightTroopsAmountCount = 0; // counting spawned troops amount (Light), reason - one scriptable object
     [SerializeField] int HeavyTroopsAmountCount = 0; // counting spawned troops amount (Heavy)
 
+    // Pop up panel, when player starts new level
+    [SerializeField] GameObject skinSelectionPopUpOnLevelStart;
+    [SerializeField] Text skinSelectionPopUpOnLevelStartText; 
+
     void Start()
     {
 
@@ -272,4 +276,41 @@ public class changeSkinManager : MonoBehaviour
         }
         return;
     }
+
+    // function for pop up window to inform player about skin selection
+    public void onStartSkinSelectionPopUp(){
+        int selectedSkinValue = PlayerPrefs.GetInt("skinSelection"); // grab selected skin value
+        switch(selectedSkinValue){
+            case 1:
+                // Default
+                skinName = PlayerPrefs.GetString("skinName"); // getting selected skin name
+                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + "asset skin"; // setting panel text
+                skinSelectionPopUpOnLevelStart.SetActive(true); // pop uping panel
+                Time.timeScale = 0; // stopping game
+                break;
+            case 2:
+                // Pyro
+                skinName = PlayerPrefs.GetString("skinName");
+                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + "asset skin" + "\n" + "+" + increaseTroopsDamage + " % troops damage" + "\n" + "-" + decreaseTroopsHealth + " % troops health";
+                skinSelectionPopUpOnLevelStart.SetActive(true);
+                Time.timeScale = 0;
+                break;
+            case 3:
+                // Ice
+                skinName = PlayerPrefs.GetString("skinName");
+                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + "asset skin" + "\n" + "-" + decreaseBuildingTime + " % building time" + "\n" + "-" + decreaseBuildingHealth + " % building health";
+                skinSelectionPopUpOnLevelStart.SetActive(true);
+                Time.timeScale = 0;
+                break;
+            case 4:
+                // Earth
+                skinName = PlayerPrefs.GetString("skinName");
+                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + "asset skin" + "\n" + "+" + increaseBuildingTime + " % building time" + "\n" + "+" + increaseBuildingHealth + " % building health";
+                skinSelectionPopUpOnLevelStart.SetActive(true);
+                Time.timeScale = 0;
+                break;
+            default:
+                break;
+        }
+	}
 }
