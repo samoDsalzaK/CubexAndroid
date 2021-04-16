@@ -33,9 +33,13 @@ public class changeSkinManager : MonoBehaviour
     [SerializeField] int increaseBuildingTime;
 
     [SerializeField] ResearchConf oBGResearch;
+
+    [SerializeField] int LightTroopsAmountCount = 0; // counting spawned troops amount (Light), reason - one scriptable object
+    [SerializeField] int HeavyTroopsAmountCount = 0; // counting spawned troops amount (Heavy)
+
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -59,16 +63,30 @@ public class changeSkinManager : MonoBehaviour
                 // Pyro skin changer
                 if (gameObject.tag == "Unit" || gameObject.tag == "bloom"){
                     if(gameObject.GetComponent<TroopSkinManager>().returnTroopType == "Light"){ //to understand where to take troop damage points
+                        if(LightTroopsAmountCount > 0){
+                            int damageDec = PlayerPrefs.GetInt("LightDamage");
+                            oBGResearch.setDamage(-damageDec); // reset damage value
+                        }
+                        LightTroopsAmountCount++;
                         Debug.Log("Previuos damage " + oBGResearch.getDamage());
                         float finalDamageToAdd = ((float)oBGResearch.getDamage() * (float)(increaseTroopsDamage/100f)); // find 15 % of existing troop damage
                         oBGResearch.setDamage((int)finalDamageToAdd); // add this value to troop damage points
+                        PlayerPrefs.DeleteKey("LightDamage"); // delete privious skin selection
+                        PlayerPrefs.SetInt("LightDamage", (int)finalDamageToAdd); // add current skin selection
                         Debug.Log("Troop damage to add " + finalDamageToAdd);
                         Debug.Log("Modified troop damage " + oBGResearch.getDamage());
                     }
                     else if(gameObject.GetComponent<TroopSkinManager>().returnTroopType == "Heavy"){
+                        if (HeavyTroopsAmountCount > 0){
+                            int HeavyDamageDec = PlayerPrefs.GetInt("HeavyDamage");
+                            oBGResearch.setHeavyDamage(-HeavyDamageDec); // reset damage value
+                        }
+                        HeavyTroopsAmountCount++;
                         Debug.Log("Previuos damage " + oBGResearch.getHeavyDamage());
                         float finalDamageToAdd = ((float)oBGResearch.getHeavyDamage() * (float)(increaseTroopsDamage/100f)); // find 15 % of existing troop damage
                         oBGResearch.setHeavyDamage((int)finalDamageToAdd); // add this value to troop damage points
+                        PlayerPrefs.DeleteKey("HeavyDamage"); // delete privious skin selection
+                        PlayerPrefs.SetInt("HeavyDamage", (int)finalDamageToAdd); // add current skin selection
                         Debug.Log("Troop damage to add " + finalDamageToAdd);
                         Debug.Log("Modified troop damage " + oBGResearch.getHeavyDamage());
                     }
@@ -96,7 +114,7 @@ public class changeSkinManager : MonoBehaviour
                 else if (gameObject.tag == "PlayerBase"){
                     //0F29F3
                     //set new color to playerbase
-                    Color changeColour = new Color32(255,181, 0, 231);
+                    Color changeColour = new Color32(255,181, 0, 231); // orange
                     if(gameObject.GetComponent<Renderer>() != null){
                         gameObject.GetComponent<Renderer>().material.SetColor("_Color", changeColour); // change building colour when it is seleted for position change
                     }
@@ -116,7 +134,7 @@ public class changeSkinManager : MonoBehaviour
                 if (gameObject.tag != "Unit" || gameObject.tag != "bloom"){ // check if tag is not player troops
                     if (gameObject.tag == "PlayerBase"){
                         //set new color to playerbase
-                        Color changeColour = new Color32(0,198, 255, 255);
+                        Color changeColour = new Color32(0,198, 255, 255); // light blue
                         if(gameObject.GetComponent<Renderer>() != null){
                             gameObject.GetComponent<Renderer>().material.SetColor("_Color", changeColour); // change building colour when it is seleted for position change
                         }
@@ -185,7 +203,7 @@ public class changeSkinManager : MonoBehaviour
                     // Earth skin changer 
                     if (gameObject.tag == "PlayerBase"){
                         //set new color to playerbase
-                        Color changeColour = new Color32(34,140, 0, 255);
+                        Color changeColour = new Color32(34,140, 0, 255); // green
                         if(gameObject.GetComponent<Renderer>() != null){
                             gameObject.GetComponent<Renderer>().material.SetColor("_Color", changeColour); // change building colour when it is seleted for position change
                         }
@@ -215,6 +233,36 @@ public class changeSkinManager : MonoBehaviour
                     }
                     else{
                         // change building health
+                        if (gameObject.GetComponent<HealthOfRegBuilding>() != null){
+                            Debug.Log(gameObject.tag + " Previuos building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                            float finalHealthToAdd = gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal() * (float)(increaseBuildingHealth/100f);
+                            gameObject.GetComponent<HealthOfRegBuilding>().setHealthOfStructureOriginal(gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal() + (int)finalHealthToAdd);
+                            gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
+                            Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
+                            Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                        }
+                        else{
+                            Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>(); 
+                            foreach (Transform t in ts) {
+                                if(t.gameObject.GetComponent<HealthOfRegBuilding>() != null)
+                                {
+                                    Debug.Log(gameObject.tag + " Previuos building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                                    float finalHealthToAdd = gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal() * (float)(increaseBuildingHealth/100f);
+                                    gameObject.GetComponent<HealthOfRegBuilding>().setHealthOfStructureOriginal(gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal() + (int)finalHealthToAdd);
+                                    gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
+                                    Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
+                                    Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                                }
+                                else if(t.gameObject.GetComponent<TurretHealth>() != null){
+                                    Debug.Log(gameObject.tag + " Previuos building health " + gameObject.GetComponent<TurretHealth>().getTurretHealth());
+                                    float finalHealthToAdd = gameObject.GetComponent<TurretHealth>().getTurretHealth() * (float)(increaseBuildingHealth/100f);
+                                    gameObject.GetComponent<TurretHealth>().setTurretHealth(gameObject.GetComponent<TurretHealth>().getTurretHealth() + (int)finalHealthToAdd);
+                                    gameObject.GetComponent<TurretHealth>().setHP(gameObject.GetComponent<TurretHealth>().getTurretHealth() + (int)finalHealthToAdd);
+                                    Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
+                                    Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<TurretHealth>().getTurretHealth());
+                                }
+                            }
+                        }
                     }
                     Debug.Log("Earth asset skin applied");
                 }
