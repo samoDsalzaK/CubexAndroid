@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 5482508002647911803}
   - component: {fileID: 1376459415308244548}
   - component: {fileID: 4897866384645468663}
+  - component: {fileID: 1134618625512854630}
   m_Layer: 13
   m_Name: PlayerWorker
   m_TagString: Worker
@@ -246,10 +247,10 @@ MonoBehaviour:
   - 10
   - 15
   - 10
-  - 5
+  - 10
   - 15
-  - 5
-  - 5
+  - 10
+  - 10
   - 10
   barrack: {fileID: 3982760522625839459, guid: 6bbee8d24627e634bb9904ceb9f20567, type: 3}
   turret: {fileID: 1977407095747823598, guid: fdfc73abe498751498f835588878f83a, type: 3}
@@ -304,6 +305,18 @@ MonoBehaviour:
   healthBarForeground: {fileID: 5736756649071366199}
   healthBarBackground: {fileID: 5350214310954008306}
   regenerateHpAmount: 1
+--- !u!114 &1134618625512854630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608484017586329166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e48c1f8f0652e943ad161b8ecf80b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1636482243857691862
 GameObject:
   m_ObjectHideFlags: 0

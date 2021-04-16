@@ -118,6 +118,7 @@ public class Base : MonoBehaviour
 		panelManager = GetComponent<PanelManager>();
 		localPanelManager = GetComponent<LocalPanelManager>();
     animatedPopUps = GetComponent<createAnimatedPopUp>();
+    GetComponent<changeSkinManager>().applyChosenSkin(gameObject);
     }
     // Update is called once per frame
     void Update()

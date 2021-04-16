@@ -44,6 +44,7 @@ public class changeSkinButtonHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        btnID = PlayerPrefs.GetInt("previousSelection");
         // fill in hash table
         // if button is active state is true, otherwise it is false
         int skinSelection = PlayerPrefs.GetInt("skinSelection"); // grab previuosly seleceted skin and set as selected on game start
@@ -87,22 +88,22 @@ public class changeSkinButtonHandler : MonoBehaviour
     {
         if (buttonPressed == StarterAssetSkinBtn)
         {
-            changeButtonState(1, skinNames[0]);
             panelManager.deactivatePanels();
+            changeButtonState(1, skinNames[0]);
         }
         else if (buttonPressed == PyroAssetSkinBtn)
         {
-            changeButtonState(2, skinNames[1]);
             panelManager.deactivatePanels();
+            changeButtonState(2, skinNames[1]);
         }
         else if (buttonPressed == IceAssetSkinBtn)
         {
-            changeButtonState(3, skinNames[2]);
             panelManager.deactivatePanels();
+            changeButtonState(3, skinNames[2]);
         }
         else if (buttonPressed == EarthAssetSkinBtn){
-            changeButtonState(4, skinNames[3]);
             panelManager.deactivatePanels();
+            changeButtonState(4, skinNames[3]);
         }
         else if (buttonPressed == StarterAssetSkinInfoBtn){
             panelManager.deactivatePanels();
@@ -138,8 +139,10 @@ public class changeSkinButtonHandler : MonoBehaviour
             }
             PlayerPrefs.DeleteKey("skinSelection"); // delete privious skin selection
             PlayerPrefs.DeleteKey("skinName");
+            PlayerPrefs.DeleteKey("previousSelection");
             PlayerPrefs.SetInt("skinSelection", buttonID); // add current skin selection
             PlayerPrefs.SetString("skinName", skinName);
+            PlayerPrefs.SetInt("previousSelection", buttonID);
             PlayerPrefs.Save(); // save current skin selection to disk
             btnID = buttonID; // save priviously pressed button index
         } 
