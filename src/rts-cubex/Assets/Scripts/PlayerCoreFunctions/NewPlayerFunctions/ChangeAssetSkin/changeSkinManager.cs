@@ -40,7 +40,18 @@ public class changeSkinManager : MonoBehaviour
     // Pop up panel, when player starts new level
     [SerializeField] GameObject skinSelectionPopUpOnLevelStart;
     [SerializeField] Text skinSelectionPopUpOnLevelStartText; 
+    [SerializeField] Button skinSelectionPopUpOnLevelStartButton;
+    [SerializeField] Image skinSelectionPopUpOnLevelStartImage;
+    [SerializeField] Text btnText;
 
+    [SerializeField] Sprite Pyro;
+    [SerializeField] Sprite Ice;
+    [SerializeField] Sprite Earth;
+
+    // getter and setter for troop counters\
+    // when upgrading troop level in research center, set this counter to 0!
+    int changeLightTroopCount {set {LightTroopsAmountCount=value;} get {return LightTroopsAmountCount;}}
+    int changeheavyTroopCount {set {HeavyTroopsAmountCount=value;} get {return HeavyTroopsAmountCount;}}
     void Start()
     {
 
@@ -97,12 +108,18 @@ public class changeSkinManager : MonoBehaviour
                     else if (gameObject.GetComponent<TroopSkinManager>().returnTroopType == "Sniper"){
                         // modify damage points for Sniper Unit
                     }  
+                    /*else{
+                        if (){
+
+                        }
+                    }*/
                     if (gameObject.GetComponent<TroopHealth>() != null){
                         Debug.Log("Previuos health " + gameObject.GetComponent<TroopHealth>().UnitHP);
                         float finalTroopHealthToAdd = (-1)*(gameObject.GetComponent<TroopHealth>().UnitHP * (float)(decreaseTroopsHealth/100f));
                         gameObject.GetComponent<TroopHealth>().setHP((int)finalTroopHealthToAdd);
                         Debug.Log("Troop health to add " + finalTroopHealthToAdd);
                         Debug.Log("Modified troop health " + gameObject.GetComponent<TroopHealth>().UnitHP);
+                        break;
                     }
                     else if (gameObject.GetComponent<HeavyHealth>() != null){
                         Debug.Log("Previuos health " + gameObject.GetComponent<HeavyHealth>().UnitHP);
@@ -110,8 +127,21 @@ public class changeSkinManager : MonoBehaviour
                         gameObject.GetComponent<HeavyHealth>().setHP((int)finalTroopHealthToAdd);
                         Debug.Log("Troop health to add " + finalTroopHealthToAdd);
                         Debug.Log("Modified troop health " + gameObject.GetComponent<HeavyHealth>().UnitHP);
+                        break;
                     }
                     else{
+                        Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
+                        foreach (Transform t in ts) {
+                            if(t.gameObject.GetComponent<TroopHealth>() != null)
+                            {
+                                Debug.Log("Previuos health " + gameObject.GetComponent<TroopHealth>().UnitHP);
+                                float finalTroopHealthToAdd = (-1)*(gameObject.GetComponent<TroopHealth>().UnitHP * (float)(decreaseTroopsHealth/100f));
+                                gameObject.GetComponent<TroopHealth>().setHP((int)finalTroopHealthToAdd);
+                                Debug.Log("Troop health to add " + finalTroopHealthToAdd);
+                                Debug.Log("Modified troop health " + gameObject.GetComponent<TroopHealth>().UnitHP);
+                                break;
+                            }
+                        }
                         Debug.Log("There is no health component assigned to troop");
                     }
                 }
@@ -158,6 +188,7 @@ public class changeSkinManager : MonoBehaviour
                         gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
                         Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                         Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                        break;
                     }
                     else if (gameObject.tag == "Worker"){
                         // change building time
@@ -165,6 +196,7 @@ public class changeSkinManager : MonoBehaviour
                             float timeToDecrease = gameObject.GetComponent<TimerForSpawningOriginal>().changeBuildingTimers[i] * (float)(decreaseBuildingTime/100f);
                             gameObject.GetComponent<TimerForSpawningOriginal>().changeBuildingTimers[i] = (float)Math.Floor((gameObject.GetComponent<TimerForSpawningOriginal>().changeBuildingTimers[i] - timeToDecrease));
                         }
+                        break;
                     }
                     else{
                         // change other game structures health
@@ -175,6 +207,7 @@ public class changeSkinManager : MonoBehaviour
                             gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
                             Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                             Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                            break;
                         }
                         else{
                             Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>(); 
@@ -187,6 +220,7 @@ public class changeSkinManager : MonoBehaviour
                                     gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
                                     Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                                     Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                                    break;
                                 }
                                 else if(t.gameObject.GetComponent<TurretHealth>() != null){
                                     Debug.Log(gameObject.tag + " Previuos building health " + gameObject.GetComponent<TurretHealth>().getTurretHealth());
@@ -195,6 +229,7 @@ public class changeSkinManager : MonoBehaviour
                                     gameObject.GetComponent<TurretHealth>().setHP(gameObject.GetComponent<TurretHealth>().getTurretHealth() + (int)finalHealthToAdd);
                                     Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                                     Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<TurretHealth>().getTurretHealth());
+                                    break;
                                 }
                             }
                         }
@@ -227,6 +262,7 @@ public class changeSkinManager : MonoBehaviour
                         gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
                         Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                         Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                        break;
                     }
                     else if (gameObject.tag == "Worker"){
                         // change building time
@@ -234,6 +270,7 @@ public class changeSkinManager : MonoBehaviour
                             float timeToIncrease = gameObject.GetComponent<TimerForSpawningOriginal>().changeBuildingTimers[i] * (float)(increaseBuildingTime/100f);
                             gameObject.GetComponent<TimerForSpawningOriginal>().changeBuildingTimers[i] = (float)Math.Floor((gameObject.GetComponent<TimerForSpawningOriginal>().changeBuildingTimers[i] + timeToIncrease));
                         }
+                        break;
                     }
                     else{
                         // change building health
@@ -244,6 +281,7 @@ public class changeSkinManager : MonoBehaviour
                             gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
                             Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                             Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                            break;
                         }
                         else{
                             Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>(); 
@@ -256,6 +294,7 @@ public class changeSkinManager : MonoBehaviour
                                     gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
                                     Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                                     Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                                    break;
                                 }
                                 else if(t.gameObject.GetComponent<TurretHealth>() != null){
                                     Debug.Log(gameObject.tag + " Previuos building health " + gameObject.GetComponent<TurretHealth>().getTurretHealth());
@@ -264,6 +303,7 @@ public class changeSkinManager : MonoBehaviour
                                     gameObject.GetComponent<TurretHealth>().setHP(gameObject.GetComponent<TurretHealth>().getTurretHealth() + (int)finalHealthToAdd);
                                     Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                                     Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<TurretHealth>().getTurretHealth());
+                                    break;
                                 }
                             }
                         }
@@ -280,32 +320,46 @@ public class changeSkinManager : MonoBehaviour
     // function for pop up window to inform player about skin selection
     public void onStartSkinSelectionPopUp(){
         int selectedSkinValue = PlayerPrefs.GetInt("skinSelection"); // grab selected skin value
+        string skinName = PlayerPrefs.GetString("skinName"); // getting selected skin name
+        Color btnColour;
         switch(selectedSkinValue){
             case 1:
                 // Default
-                skinName = PlayerPrefs.GetString("skinName"); // getting selected skin name
-                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + "asset skin"; // setting panel text
+                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin"; // setting panel text
+                btnColour = new Color32(15,41, 243, 255);
+                skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().color  = btnColour;
+                btnText.text = "Okey";
+                //skinSelectionPopUpOnLevelStartButton.GetComponent<UnityEngine.UI.Image>().color = btnColour;
                 skinSelectionPopUpOnLevelStart.SetActive(true); // pop uping panel
                 Time.timeScale = 0; // stopping game
                 break;
             case 2:
                 // Pyro
-                skinName = PlayerPrefs.GetString("skinName");
-                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + "asset skin" + "\n" + "+" + increaseTroopsDamage + " % troops damage" + "\n" + "-" + decreaseTroopsHealth + " % troops health";
+                //btnColour = new Color32(255,181, 0, 231);
+                //skinSelectionPopUpOnLevelStartButton.GetComponent<UnityEngine.UI.Image>().color = btnColour;
+                skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Pyro;
+                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" + "+" + increaseTroopsDamage + " % troops damage" + "\n" + "-" + decreaseTroopsHealth + " % troops health";
+                btnText.text = "Okey";
                 skinSelectionPopUpOnLevelStart.SetActive(true);
                 Time.timeScale = 0;
                 break;
             case 3:
                 // Ice
-                skinName = PlayerPrefs.GetString("skinName");
-                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + "asset skin" + "\n" + "-" + decreaseBuildingTime + " % building time" + "\n" + "-" + decreaseBuildingHealth + " % building health";
+                //btnColour = new Color32(0,198, 255, 255);
+                //skinSelectionPopUpOnLevelStartButton.GetComponent<UnityEngine.UI.Image>().color = btnColour;
+                skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Ice;
+                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" + "-" + decreaseBuildingTime + " % building time" + "\n" + "-" + decreaseBuildingHealth + " % building health";
+                btnText.text = "Okey";
                 skinSelectionPopUpOnLevelStart.SetActive(true);
                 Time.timeScale = 0;
                 break;
             case 4:
                 // Earth
-                skinName = PlayerPrefs.GetString("skinName");
-                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + "asset skin" + "\n" + "+" + increaseBuildingTime + " % building time" + "\n" + "+" + increaseBuildingHealth + " % building health";
+                //btnColour = new Color32(34,140, 0, 255);
+                //skinSelectionPopUpOnLevelStartButton.GetComponent<UnityEngine.UI.Image>().color = btnColour;
+                skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Earth;
+                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" +  "+" + increaseBuildingTime + " % building time" + "\n" + "+" + increaseBuildingHealth + " % building health";
+                btnText.text = "Okey";
                 skinSelectionPopUpOnLevelStart.SetActive(true);
                 Time.timeScale = 0;
                 break;
