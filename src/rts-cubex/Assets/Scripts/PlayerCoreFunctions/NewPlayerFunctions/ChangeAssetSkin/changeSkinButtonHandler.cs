@@ -44,6 +44,11 @@ public class changeSkinButtonHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!PlayerPrefs.HasKey("skinSelection")){ // for the first time it will set default skin
+            PlayerPrefs.SetInt("skinSelection", 1);
+            PlayerPrefs.SetInt("previousSelection", 1);
+            PlayerPrefs.SetString("skinName", skinNames[0]);
+        }
         btnID = PlayerPrefs.GetInt("previousSelection");
         // fill in hash table
         // if button is active state is true, otherwise it is false

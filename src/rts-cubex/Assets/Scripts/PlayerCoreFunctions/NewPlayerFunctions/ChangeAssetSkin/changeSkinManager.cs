@@ -65,6 +65,11 @@ public class changeSkinManager : MonoBehaviour
 
     // function for player skin management
     public void applyChosenSkin(GameObject gameObject){
+        if(!PlayerPrefs.HasKey("skinSelection")){   // for the first time it will set default skin
+            PlayerPrefs.SetInt("skinSelection", 1);
+            PlayerPrefs.SetInt("previousSelection", 1);
+            PlayerPrefs.SetString("skinName", "Starter");
+        }
         int selectedSkinValue = PlayerPrefs.GetInt("skinSelection"); // grab selected skin value
         //Debug.Log(PlayerPrefs.GetString("skinName"));
         switch(selectedSkinValue)
@@ -86,8 +91,10 @@ public class changeSkinManager : MonoBehaviour
                         Debug.Log("Previuos damage " + oBGResearch.getDamage());
                         float finalDamageToAdd = ((float)oBGResearch.getDamage() * (float)(increaseTroopsDamage/100f)); // find 15 % of existing troop damage
                         oBGResearch.setDamage((int)finalDamageToAdd); // add this value to troop damage points
-                        PlayerPrefs.DeleteKey("LightDamage"); // delete privious skin selection
-                        PlayerPrefs.SetInt("LightDamage", (int)finalDamageToAdd); // add current skin selection
+                        if (PlayerPrefs.HasKey("LightDamage")){ // check if entry exists
+                            PlayerPrefs.DeleteKey("LightDamage"); // delete entry
+                        }
+                        PlayerPrefs.SetInt("LightDamage", (int)finalDamageToAdd); // add damage
                         Debug.Log("Troop damage to add " + finalDamageToAdd);
                         Debug.Log("Modified troop damage " + oBGResearch.getDamage());
                     }
@@ -100,17 +107,30 @@ public class changeSkinManager : MonoBehaviour
                         Debug.Log("Previuos damage " + oBGResearch.getHeavyDamage());
                         float finalDamageToAdd = ((float)oBGResearch.getHeavyDamage() * (float)(increaseTroopsDamage/100f)); // find 15 % of existing troop damage
                         oBGResearch.setHeavyDamage((int)finalDamageToAdd); // add this value to troop damage points
-                        PlayerPrefs.DeleteKey("HeavyDamage"); // delete privious skin selection
-                        PlayerPrefs.SetInt("HeavyDamage", (int)finalDamageToAdd); // add current skin selection
+                        if (PlayerPrefs.HasKey("HeavyDamage")){ // check if entry exists
+                            PlayerPrefs.DeleteKey("HeavyDamage"); // delete entry
+                        }
+                        PlayerPrefs.SetInt("HeavyDamage", (int)finalDamageToAdd); // add damage
                         Debug.Log("Troop damage to add " + finalDamageToAdd);
                         Debug.Log("Modified troop damage " + oBGResearch.getHeavyDamage());
                     }
-                    else if (gameObject.GetComponent<TroopSkinManager>().returnTroopType == "Sniper"){
+                    /*else if (gameObject.GetComponent<TroopSkinManager>().returnTroopType == "Sniper"){
                         // modify damage points for Sniper Unit
-                    }  
+                    }  */
+                    else{
+                        Debug.Log("No Damage component found!");
+                    }
                     /*else{
-                        if (){
-
+                        Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
+                        foreach (Transform t in ts) {
+                            if(t.gameObject.GetComponent<TroopsDamage>() != null)
+                            {
+                                Debug.Log("Previuos damage " + gameObject.GetComponent<TroopsDamage>().GetDamage());
+                                float finalDamageToAdd = (gameObject.GetComponent<TroopsDamage>().GetDamage() * (float)(increaseTroopsDamage/100f));
+                                gameObject.GetComponent<TroopsDamage>().setDamage((int)finalDamageToAdd);
+                                Debug.Log("Troop damage to add " + finalDamageToAdd);
+                                Debug.Log("Modified troop damage " + gameObject.GetComponent<TroopsDamage>().GetDamage());
+                            }
                         }
                     }*/
                     if (gameObject.GetComponent<TroopHealth>() != null){
@@ -325,18 +345,15 @@ public class changeSkinManager : MonoBehaviour
         switch(selectedSkinValue){
             case 1:
                 // Default
-                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin"; // setting panel text
+                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "\n" + "This asset doesn't provide any boosts"; // setting panel text
                 btnColour = new Color32(15,41, 243, 255);
                 skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().color  = btnColour;
                 btnText.text = "Okey";
-                //skinSelectionPopUpOnLevelStartButton.GetComponent<UnityEngine.UI.Image>().color = btnColour;
                 skinSelectionPopUpOnLevelStart.SetActive(true); // pop uping panel
                 Time.timeScale = 0; // stopping game
                 break;
             case 2:
                 // Pyro
-                //btnColour = new Color32(255,181, 0, 231);
-                //skinSelectionPopUpOnLevelStartButton.GetComponent<UnityEngine.UI.Image>().color = btnColour;
                 skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Pyro;
                 skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" + "+" + increaseTroopsDamage + " % troops damage" + "\n" + "-" + decreaseTroopsHealth + " % troops health";
                 btnText.text = "Okey";
@@ -345,8 +362,6 @@ public class changeSkinManager : MonoBehaviour
                 break;
             case 3:
                 // Ice
-                //btnColour = new Color32(0,198, 255, 255);
-                //skinSelectionPopUpOnLevelStartButton.GetComponent<UnityEngine.UI.Image>().color = btnColour;
                 skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Ice;
                 skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" + "-" + decreaseBuildingTime + " % building time" + "\n" + "-" + decreaseBuildingHealth + " % building health";
                 btnText.text = "Okey";
@@ -355,8 +370,6 @@ public class changeSkinManager : MonoBehaviour
                 break;
             case 4:
                 // Earth
-                //btnColour = new Color32(34,140, 0, 255);
-                //skinSelectionPopUpOnLevelStartButton.GetComponent<UnityEngine.UI.Image>().color = btnColour;
                 skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Earth;
                 skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" +  "+" + increaseBuildingTime + " % building time" + "\n" + "+" + increaseBuildingHealth + " % building health";
                 btnText.text = "Okey";
