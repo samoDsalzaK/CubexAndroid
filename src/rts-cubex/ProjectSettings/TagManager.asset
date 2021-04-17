@@ -51,6 +51,8 @@ TagManager:
   - Camp
   - Shrine
   - ChangeSkinPanel
+  - buidlingResearch
+  - playerTurret
   layers:
   - Default
   - TransparentFX

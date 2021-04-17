@@ -21,6 +21,8 @@ public class HeavyHealth : MonoBehaviour
     [SerializeField] Image shieldForeground;
     [SerializeField] Image shieldBackground;
     [SerializeField] bool canShield;
+
+    public int UnitHP { get { return unitHP; }}
     void Start()
     {
         shieldHealth = 0;

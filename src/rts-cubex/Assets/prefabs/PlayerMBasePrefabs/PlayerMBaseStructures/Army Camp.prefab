@@ -1558,6 +1558,7 @@ GameObject:
   - component: {fileID: 522062015827597543}
   - component: {fileID: 4287787477462452463}
   - component: {fileID: 7484226736955348664}
+  - component: {fileID: 7037725563241444811}
   m_Layer: 25
   m_Name: Army Camp
   m_TagString: Camp
@@ -1662,6 +1663,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   returnEnergonAmount: 20
   returnCreditsAmount: 20
+--- !u!114 &7037725563241444811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614507205875969898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e48c1f8f0652e943ad161b8ecf80b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5703329079917210052
 GameObject:
   m_ObjectHideFlags: 0

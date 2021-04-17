@@ -917,7 +917,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '+15 % building health
 
-    +5 % building time'
+    +15 % building time'
 --- !u!1 &1565122159408807132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2432,6 +2432,11 @@ MonoBehaviour:
   EarthAssetSkinInfoPanel: {fileID: 1565122159408807132}
   btnID: 1
   numberOfAssets: 4
+  skinNames:
+  - Starter
+  - Pyro
+  - Ice
+  - Earth
 --- !u!114 &9117939963011457439
 MonoBehaviour:
   m_ObjectHideFlags: 0

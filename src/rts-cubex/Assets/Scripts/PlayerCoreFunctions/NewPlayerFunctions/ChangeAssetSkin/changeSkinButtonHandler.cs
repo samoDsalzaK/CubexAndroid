@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class changeSkinButtonHandler : MonoBehaviour
 {
+    // skin ids
+    // 1 - Starter
+    // 2 - Pyro
+    // 3 - Ice
+    // 4 - Earth 
     [Header("Configuration parameters for button handler")]
     // change skin buttons
     [SerializeField] Button StarterAssetSkinBtn;
@@ -33,14 +38,24 @@ public class changeSkinButtonHandler : MonoBehaviour
     [SerializeField] int btnID; // previously pressed button
     [SerializeField] int numberOfAssets; // in our case it is 4
 
+    [SerializeField] string[] skinNames;
+
     PanelManager panelManager;
     // Start is called before the first frame update
     void Start()
     {
+        if(!PlayerPrefs.HasKey("skinSelection")){ // for the first time it will set default skin
+            PlayerPrefs.SetInt("skinSelection", 1);
+            PlayerPrefs.SetInt("previousSelection", 1);
+            PlayerPrefs.SetString("skinName", skinNames[0]);
+        }
+        btnID = PlayerPrefs.GetInt("previousSelection");
         // fill in hash table
         // if button is active state is true, otherwise it is false
+        int skinSelection = PlayerPrefs.GetInt("skinSelection"); // grab previuosly seleceted skin and set as selected on game start
+        //Debug.Log(PlayerPrefs.GetString("skinName"));
         for (int i = 1; i < numberOfAssets + 1; i++){
-            if(i == 1){
+            if(i == skinSelection){
                 buttonActivityHashMap.Add(i, true);
             }
             else{
@@ -78,22 +93,22 @@ public class changeSkinButtonHandler : MonoBehaviour
     {
         if (buttonPressed == StarterAssetSkinBtn)
         {
-            changeButtonState(1);
             panelManager.deactivatePanels();
+            changeButtonState(1, skinNames[0]);
         }
         else if (buttonPressed == PyroAssetSkinBtn)
         {
-            changeButtonState(2);
             panelManager.deactivatePanels();
+            changeButtonState(2, skinNames[1]);
         }
         else if (buttonPressed == IceAssetSkinBtn)
         {
-            changeButtonState(3);
             panelManager.deactivatePanels();
+            changeButtonState(3, skinNames[2]);
         }
         else if (buttonPressed == EarthAssetSkinBtn){
-            changeButtonState(4);
             panelManager.deactivatePanels();
+            changeButtonState(4, skinNames[3]);
         }
         else if (buttonPressed == StarterAssetSkinInfoBtn){
             panelManager.deactivatePanels();
@@ -114,7 +129,7 @@ public class changeSkinButtonHandler : MonoBehaviour
     }
 
     // function for activating and deactivating buttons
-    public void changeButtonState(int buttonID){
+    public void changeButtonState(int buttonID, string skinName){
         if(buttonActivityHashMap.ContainsKey(buttonID))
         {
             // iterate and set to all buttons state to false
@@ -127,6 +142,13 @@ public class changeSkinButtonHandler : MonoBehaviour
                     setButtonText(i);
                 }
             }
+            PlayerPrefs.DeleteKey("skinSelection"); // delete privious skin selection
+            PlayerPrefs.DeleteKey("skinName");
+            PlayerPrefs.DeleteKey("previousSelection");
+            PlayerPrefs.SetInt("skinSelection", buttonID); // add current skin selection
+            PlayerPrefs.SetString("skinName", skinName);
+            PlayerPrefs.SetInt("previousSelection", buttonID);
+            PlayerPrefs.Save(); // save current skin selection to disk
             btnID = buttonID; // save priviously pressed button index
         } 
     }
