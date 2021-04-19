@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4165395663278163135}
   - component: {fileID: 4165395663278163134}
   - component: {fileID: 4165395663278163129}
+  - component: {fileID: 6443995719064651124}
   m_Layer: 0
   m_Name: TestMapCamera
   m_TagString: Untagged
@@ -83,3 +84,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4165395663278163128}
   m_Enabled: 1
+--- !u!114 &6443995719064651124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4165395663278163128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c08ef4824c26a4080e240d9daaa6ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickablesLayer:
+    serializedVersion: 2
+    m_Bits: 8192

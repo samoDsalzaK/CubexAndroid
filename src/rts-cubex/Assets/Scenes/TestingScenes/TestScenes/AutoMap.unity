@@ -819,6 +819,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestMapCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 4165395663278163128, guid: 4c485e5900baf354691b083fb7279cd2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4165395663278163135, guid: 4c485e5900baf354691b083fb7279cd2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -827,7 +832,7 @@ PrefabInstance:
     - target: {fileID: 4165395663278163135, guid: 4c485e5900baf354691b083fb7279cd2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 60
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 4165395663278163135, guid: 4c485e5900baf354691b083fb7279cd2,
         type: 3}
@@ -945,6 +950,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6364303084441207735, guid: d99de9db671e578479bf2ce388a89ff8,
         type: 3}
+      propertyPath: holeCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364303084441207735, guid: d99de9db671e578479bf2ce388a89ff8,
+        type: 3}
       propertyPath: generateNavMesh
       value: 1
       objectReference: {fileID: 0}
@@ -1021,6 +1031,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491819702599988302, guid: 9e87ddd2f7238ee4a88f7c34f1315c08,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e87ddd2f7238ee4a88f7c34f1315c08, type: 3}

@@ -23,6 +23,7 @@ public class MapMaker : MonoBehaviour
     [Tooltip("Height of the walls")]
     [SerializeField] float wHeight = 4;
     [Header("Hole generation cnf.")]
+    [Range(1, 2)]
     [SerializeField] int holeCount = 2;
     [Tooltip("Transformation offset XYZ")] 
     [SerializeField] float tOffset = 50f;
@@ -39,7 +40,9 @@ public class MapMaker : MonoBehaviour
     private GameObject wallAreaGrp;
     private GameObject holeGrp;
 
-    private List<int> rHoleIndexes = new List<int>();
+    // private List<int> rHoleIndexes = new List<int>(); //For first lane
+    //  private List<int> rEHoleIndexes = new List<int>(); //For end lane
+    private int oldHoleIndex = 0;
     private bool holeLaneSwitch = false;
     private Helper help = new Helper();
    // private GameObject startCube;
@@ -170,8 +173,8 @@ public class MapMaker : MonoBehaviour
             var spawnIndexes = new List<int>();
             spawnIndexes.Add(pFirstLane.Count / 2 - 1);
             spawnIndexes.Add(pFirstLane.Count / 2);
-            spawnIndexes.Add(pEndLane.Count / 2 - 1);
-            spawnIndexes.Add(pEndLane.Count / 2);
+            // spawnIndexes.Add(pEndLane.Count / 2 - 1);
+            // spawnIndexes.Add(pEndLane.Count / 2);
             
             if (spawnIndexes.Count > 0)
             {
@@ -181,81 +184,57 @@ public class MapMaker : MonoBehaviour
                     {
                         holeLaneSwitch = !holeLaneSwitch;
                         List<GameObject> pLane = new List<GameObject>();
+                        //List<int> lIndexes = new List<int>();
                         //For random range generation
-                        var sValue = 0;
-                        var eValue = 0;
+                        // var sValue = 0;
+                        // var eValue = 0;
                         if (holeLaneSwitch)
                         {
+                             //lIndexes = rHoleIndexes;
                              pLane = pFirstLane;
-                             sValue = 0;
-                             eValue = spawnIndexes.Count / 2 - 1;
+                            //  sValue = 0;
+                            //  eValue = spawnIndexes.Count / 2;
                         }
                         else
                         {
+                            //lIndexes = rEHoleIndexes;
                             pLane = pEndLane;
-                            sValue = spawnIndexes.Count / 2;
-                            eValue = spawnIndexes.Count - 1;
+                            // sValue = spawnIndexes.Count / 2;
+                            // eValue = spawnIndexes.Count;
                         }
-                        var randNum = Random.Range(sValue, eValue);
+                        var randNum = Random.Range(0, spawnIndexes.Count);
                         // For generating unique random numbers
-                        if (rHoleIndexes.Contains(randNum))
+                        if (oldHoleIndex == randNum)
                         {
-                            while(rHoleIndexes.Contains(randNum))
+                            while(oldHoleIndex == randNum)
                             {
-                                randNum = Random.Range(sValue, eValue);
-                                if (!rHoleIndexes.Contains(randNum))
+                                randNum = Random.Range(0, spawnIndexes.Count);
+                                if (oldHoleIndex != randNum)
                                 {                                   
                                    break; 
                                 }
                             }
                         }
-                        rHoleIndexes.Add(randNum);
+                        //rHoleIndexes.Add(randNum);
                       
                         var sPosLane = pLane[spawnIndexes[randNum]];//hole spawn point
                         
                         var spawnedHole = Instantiate(holeCube, sPosLane.transform.position, sPosLane.transform.rotation);
                         pLane.Add(spawnedHole);
+                        spawnedHole.transform.parent = holeGrp.transform;
                         //Removing existing platform model
                         pLane.Remove(sPosLane);
                         Destroy(sPosLane);
                     }
+                    // rHoleIndexes = new List<int>();
+                    // rEHoleIndexes = new List<int>();
                 }
                 else
                 {
                     Debug.LogError("ERROR: Hole count is larger than spawn indexes set!");
                 }
             }
-            // for(int hIndex = 0; hIndex < holeCount; hIndex++)
-            // {
-            //     //For making unique random numbers
-            //     var randNum = Random.Range(0, sCubes.Count);
-            //     if (!pRandIndexesRow.Contains(randNum) && randNum != sCubes.Count / 2 - 1)
-            //     {
-            //         pRandIndexesRow.Add(randNum);
-            //     }
-            //     else
-            //     {
-            //         while(pRandIndexesRow.Contains(randNum) && randNum == sCubes.Count / 2 - 1)
-            //         {
-            //             randNum = Random.Range(0, sCubes.Count);
-            //             if (!pRandIndexesRow.Contains(randNum) && randNum != sCubes.Count / 2 - 1)
-            //             {
-            //                 pRandIndexesRow.Add(randNum);
-            //                 break;
-            //             }
-            //         }
-            //     }
-            //     var rowIndex = Random.Range(0, sCubes[pRandIndexesRow[0]].Count);
-            //     var ePlatform = sCubes[pRandIndexesRow[0]][rowIndex];
-            //     var spawnedHole = Instantiate(holeCube, ePlatform.transform.position, ePlatform.transform.rotation);
-                
-            //     hList.Add(spawnedHole);
-            //     sCubes.Add(hList);
-                
-            //     spawnedHole.transform.parent = holeGrp.transform;
-            //     ePlatform.SetActive(false);
-            //     //sCubes.Add()
-            // }
+            
             holeGrp.transform.parent = levelMap.transform;
             //var holeIndex = sCubex[Random]
         }
