@@ -50,10 +50,10 @@ MonoBehaviour:
     type: 3}
   pWidth: 4
   pHeight: 4
-  wHeight: 2.5
+  wHeight: 3
   holeCount: 2
   tOffset: 50
-  generateNavMesh: 1
+  generateNavMesh: 0
   generateWalls: 1
   generateGround: 1
   createAreaWalls: 1

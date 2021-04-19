@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-//NOTE: Create obstacles
+
+//NOTE: Fix navmeh on holes
 //NOTE: Create playerBase and Borg spawner
 //NOTE: Create deposit spawner
 //NOTE: For starting point user: 4x4 platform
@@ -38,8 +39,8 @@ public class MapMaker : MonoBehaviour
     private GameObject wallAreaGrp;
     private GameObject holeGrp;
 
-    private List<int> pRandIndexesRow = new List<int>();
-    private List<int> pRandIndexesCol = new List<int>();
+    private List<int> rHoleIndexes = new List<int>();
+    private bool holeLaneSwitch = false;
     private Helper help = new Helper();
    // private GameObject startCube;
     private List<List<GameObject>> sCubes = new List<List<GameObject>>(); //list of spawned cubes
@@ -164,37 +165,97 @@ public class MapMaker : MonoBehaviour
             var hList = new List<GameObject>();
             holeGrp = new GameObject("Platform holes");
             holeGrp.transform.position = Vector3.zero;
-            for(int hIndex = 0; hIndex < holeCount; hIndex++)
+            var pFirstLane = sCubes[0];
+            var pEndLane = sCubes[sCubes.Count - 1];
+            var spawnIndexes = new List<int>();
+            spawnIndexes.Add(pFirstLane.Count / 2 - 1);
+            spawnIndexes.Add(pFirstLane.Count / 2);
+            spawnIndexes.Add(pEndLane.Count / 2 - 1);
+            spawnIndexes.Add(pEndLane.Count / 2);
+            
+            if (spawnIndexes.Count > 0)
             {
-                //For making unique random numbers
-                var randNum = Random.Range(0, sCubes.Count);
-                if (!pRandIndexesRow.Contains(randNum) && randNum != sCubes.Count / 2 - 1)
+                if(spawnIndexes.Count >= holeCount)
                 {
-                    pRandIndexesRow.Add(randNum);
+                    for(int index = 0; index < holeCount; index++)
+                    {
+                        holeLaneSwitch = !holeLaneSwitch;
+                        List<GameObject> pLane = new List<GameObject>();
+                        //For random range generation
+                        var sValue = 0;
+                        var eValue = 0;
+                        if (holeLaneSwitch)
+                        {
+                             pLane = pFirstLane;
+                             sValue = 0;
+                             eValue = spawnIndexes.Count / 2 - 1;
+                        }
+                        else
+                        {
+                            pLane = pEndLane;
+                            sValue = spawnIndexes.Count / 2;
+                            eValue = spawnIndexes.Count - 1;
+                        }
+                        var randNum = Random.Range(sValue, eValue);
+                        // For generating unique random numbers
+                        if (rHoleIndexes.Contains(randNum))
+                        {
+                            while(rHoleIndexes.Contains(randNum))
+                            {
+                                randNum = Random.Range(sValue, eValue);
+                                if (!rHoleIndexes.Contains(randNum))
+                                {                                   
+                                   break; 
+                                }
+                            }
+                        }
+                        rHoleIndexes.Add(randNum);
+                      
+                        var sPosLane = pLane[spawnIndexes[randNum]];//hole spawn point
+                        
+                        var spawnedHole = Instantiate(holeCube, sPosLane.transform.position, sPosLane.transform.rotation);
+                        pLane.Add(spawnedHole);
+                        //Removing existing platform model
+                        pLane.Remove(sPosLane);
+                        Destroy(sPosLane);
+                    }
                 }
                 else
                 {
-                    while(pRandIndexesRow.Contains(randNum) && randNum == sCubes.Count / 2 - 1)
-                    {
-                        randNum = Random.Range(0, sCubes.Count);
-                        if (!pRandIndexesRow.Contains(randNum) && randNum != sCubes.Count / 2 - 1)
-                        {
-                            pRandIndexesRow.Add(randNum);
-                            break;
-                        }
-                    }
+                    Debug.LogError("ERROR: Hole count is larger than spawn indexes set!");
                 }
-                var rowIndex = Random.Range(0, sCubes[pRandIndexesRow[0]].Count);
-                var ePlatform = sCubes[pRandIndexesRow[0]][rowIndex];
-                var spawnedHole = Instantiate(holeCube, ePlatform.transform.position, ePlatform.transform.rotation);
-                
-                hList.Add(spawnedHole);
-                sCubes.Add(hList);
-                
-                spawnedHole.transform.parent = holeGrp.transform;
-                ePlatform.SetActive(false);
-                //sCubes.Add()
             }
+            // for(int hIndex = 0; hIndex < holeCount; hIndex++)
+            // {
+            //     //For making unique random numbers
+            //     var randNum = Random.Range(0, sCubes.Count);
+            //     if (!pRandIndexesRow.Contains(randNum) && randNum != sCubes.Count / 2 - 1)
+            //     {
+            //         pRandIndexesRow.Add(randNum);
+            //     }
+            //     else
+            //     {
+            //         while(pRandIndexesRow.Contains(randNum) && randNum == sCubes.Count / 2 - 1)
+            //         {
+            //             randNum = Random.Range(0, sCubes.Count);
+            //             if (!pRandIndexesRow.Contains(randNum) && randNum != sCubes.Count / 2 - 1)
+            //             {
+            //                 pRandIndexesRow.Add(randNum);
+            //                 break;
+            //             }
+            //         }
+            //     }
+            //     var rowIndex = Random.Range(0, sCubes[pRandIndexesRow[0]].Count);
+            //     var ePlatform = sCubes[pRandIndexesRow[0]][rowIndex];
+            //     var spawnedHole = Instantiate(holeCube, ePlatform.transform.position, ePlatform.transform.rotation);
+                
+            //     hList.Add(spawnedHole);
+            //     sCubes.Add(hList);
+                
+            //     spawnedHole.transform.parent = holeGrp.transform;
+            //     ePlatform.SetActive(false);
+            //     //sCubes.Add()
+            // }
             holeGrp.transform.parent = levelMap.transform;
             //var holeIndex = sCubex[Random]
         }
@@ -214,10 +275,10 @@ public class MapMaker : MonoBehaviour
                         }
                         else
                         {
-                            if(cube.activeSelf)
-                            {
+                            // if(cube.activeSelf)
+                            // {
                                 cube.GetComponent<NavMeshSurface>().BuildNavMesh();
-                            }
+                            //}
                         }
                     }
                 }
