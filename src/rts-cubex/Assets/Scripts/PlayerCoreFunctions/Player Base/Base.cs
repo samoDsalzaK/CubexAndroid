@@ -85,6 +85,9 @@ public class Base : MonoBehaviour
     LocalPanelManager localPanelManager;
 
     createAnimatedPopUp animatedPopUps;    
+
+	InGameMarketButtonHandler buttonHadler;
+	InGameMarketManager marketManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -118,6 +121,8 @@ public class Base : MonoBehaviour
 		panelManager = GetComponent<PanelManager>();
 		localPanelManager = GetComponent<LocalPanelManager>();
 		animatedPopUps = GetComponent<createAnimatedPopUp>();
+		buttonHadler = GetComponent<InGameMarketButtonHandler>();
+		marketManager = GetComponent<InGameMarketManager>();
 		GetComponent<changeSkinManager>().applyChosenSkin(gameObject);
 		GetComponent<changeSkinManager>().onStartSkinSelectionPopUp();
     }
@@ -320,6 +325,10 @@ public class Base : MonoBehaviour
 		{
 			playerScorePoints.AddPlayerScorePoints(playerScoreEarned);
 			playerScoreEarned += 5;
+		}
+		if (playerBaselevel == marketManager.getMinLevelNeeded){ // unlock market button when level 3 playerbase is reached
+			buttonHadler.unlockBtn(1);
+			buttonHadler.setButtonText(1);
 		}
     }
     // UI geteris/seteris workeriams // kai vienas zusta kai buvo max skaicius mygtukas vel turi bui ijungtas su galimybe vel spawninti.
