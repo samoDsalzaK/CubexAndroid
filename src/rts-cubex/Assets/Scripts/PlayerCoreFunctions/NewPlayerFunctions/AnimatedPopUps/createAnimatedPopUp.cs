@@ -159,30 +159,30 @@ public class createAnimatedPopUp : MonoBehaviour
         }*/
     }
 
+    // time add pop up
     public void createAddTimePopUp(int timeAmountToAdd){
-        //
-        Transform[] ts = addEnergonPopUpV3.transform.GetComponentsInChildren<Transform>();
+        Transform[] ts = addTimePopUpV3.transform.GetComponentsInChildren<Transform>();
         foreach (Transform t in ts) {
             if(t.gameObject.GetComponent<Text>() != null)
             {
                 t.gameObject.GetComponent<Text>().text = "+" + timeAmountToAdd + " minutes ↑ ";
             }
         }
-        addEnergonPopUpV3.SetActive(true);
-        StartCoroutine(energonPopUpTimer(1));
+        addTimePopUpV3.SetActive(true);
+        StartCoroutine(timePopUpTimer());
     }
 
+    // military troops add pop up
     public void createAddTroopsCapacityPopUp(int troopsAmountToAdd){
-        //
-        Transform[] ts = addEnergonPopUpV3.transform.GetComponentsInChildren<Transform>();
+        Transform[] ts = addTroopsPopUpV3.transform.GetComponentsInChildren<Transform>();
         foreach (Transform t in ts) {
             if(t.gameObject.GetComponent<Text>() != null)
             {
                 t.gameObject.GetComponent<Text>().text = "+" + troopsAmountToAdd + " troops ↑ ";
             }
         }
-        addEnergonPopUpV3.SetActive(true);
-        StartCoroutine(energonPopUpTimer(1));
+        addTroopsPopUpV3.SetActive(true);
+        StartCoroutine(troopsPopUpTimer());
     }
 
     public IEnumerator creditsPopUpTimer(int var){

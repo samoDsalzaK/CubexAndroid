@@ -12,12 +12,14 @@ public class GameSesionTime : MonoBehaviour
     //[SerializeField] float maxMinutes;
     [SerializeField] bool isTimeUnlimited = false;
     float startingTime;
+    //float currentValue; // variable to store current level time
+    float totalTimeToAdd = 0f;
     CubexWindowManager cubexWindowManager;
     // Update is called once per frame
     void Start(){
         if (!isTimeUnlimited){
             startingTime = minutes * 60f + seconds;
-            StartCoroutine(StartCountDown());
+            StartCoroutine(StartCountDown(startingTime));
         }
     }
     void Update()
@@ -31,7 +33,7 @@ public class GameSesionTime : MonoBehaviour
         }
     }
 
-    public IEnumerator StartCountDown()
+    public IEnumerator StartCountDown(float startingTime)
     {
         while (startingTime > 0)
             {
@@ -46,6 +48,10 @@ public class GameSesionTime : MonoBehaviour
                 }
                 yield return new WaitForSeconds(1.0f);
                 startingTime--;
+                if (totalTimeToAdd != 0f){ // check for this value, if not 0 then add seconds to level time
+                    startingTime += totalTimeToAdd;
+                    totalTimeToAdd = 0f;
+                }
             }
         cubexWindowManager = GetComponent<CubexWindowManager>();
         cubexWindowManager.returnLevelIndex = 9;
@@ -58,8 +64,6 @@ public class GameSesionTime : MonoBehaviour
         return isTimeFinished;
     }
     public void addTime(float timeInMinutes){
-        Debug.Log("Time added");
-        float totalTimeToAdd = timeInMinutes * 60;
-        startingTime += timeInMinutes;
+        totalTimeToAdd = timeInMinutes * 60f; // convert minutes to seconds
     }
 }

@@ -257,43 +257,43 @@ public class InGameMarketButtonHandler : MonoBehaviour
             case 3:
                 int timeSelection = Random.Range(1,4);
                 if (timeSelection == 1){
-                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getLevelTimeValues[timeSelection] + " level time minute" + "\n" + "Price : 20 credits";
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getLevelTimeValues[timeSelection-1] + " level time minute" + "\n" + "Price : 20 credits";
                     button.onClick.RemoveAllListeners();
-                    button.onClick.AddListener(() => marketManager.inCreaseLevelTime(20,"credits", marketManager.getLevelTimeValues[timeSelection], buttonID));
+                    button.onClick.AddListener(() => marketManager.inCreaseLevelTime(20,"credits", marketManager.getLevelTimeValues[timeSelection-1], buttonID));
                     button.interactable = true;
                 }
                 else if (timeSelection == 2)
                 {
-                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getLevelTimeValues[timeSelection] + " level time minute" + "\n" + "Price : 50 energon";
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getLevelTimeValues[timeSelection-1] + " level time minutes" + "\n" + "Price : 50 energon";
                     button.onClick.RemoveAllListeners();
-                    button.onClick.AddListener(() => marketManager.inCreaseLevelTime(50,"energon", marketManager.getLevelTimeValues[timeSelection], buttonID));
+                    button.onClick.AddListener(() => marketManager.inCreaseLevelTime(50,"energon", marketManager.getLevelTimeValues[timeSelection-1], buttonID));
                     button.interactable = true;
                 }
                 else if (timeSelection == 3){
-                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getLevelTimeValues[timeSelection] + " level time minute" + "\n" + "Price : 100 credits";
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getLevelTimeValues[timeSelection-1] + " level time minutes" + "\n" + "Price : 100 credits";
                     button.onClick.RemoveAllListeners();
-                    button.onClick.AddListener(() => marketManager.inCreaseLevelTime(100,"credits", marketManager.getLevelTimeValues[timeSelection], buttonID));
+                    button.onClick.AddListener(() => marketManager.inCreaseLevelTime(100,"credits", marketManager.getLevelTimeValues[timeSelection-1], buttonID));
                     button.interactable = true;
                 }
                 break;
             case 4:
                 int troopCapacitySelection = Random.Range(1,4);
                 if (troopCapacitySelection == 1){
-                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getTroopsCapacityValues[troopCapacitySelection] + " troops capacity" + "\n" + "Price : 20 energon";
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getTroopsCapacityValues[troopCapacitySelection-1] + " troops capacity" + "\n" + "Price : 20 energon";
                     button.onClick.RemoveAllListeners();
-                    button.onClick.AddListener(() => marketManager.inCreaseTroopsCapacity(20,"energon",marketManager.getTroopsCapacityValues[troopCapacitySelection], buttonID));
+                    button.onClick.AddListener(() => marketManager.inCreaseTroopsCapacity(20,"energon",marketManager.getTroopsCapacityValues[troopCapacitySelection-1], buttonID));
                     button.interactable = true;
                 }
                 else if (troopCapacitySelection == 2){
-                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getTroopsCapacityValues[troopCapacitySelection] + " troops capacity" + "\n" + "Price : 50 credits";
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getTroopsCapacityValues[troopCapacitySelection-1] + " troops capacity" + "\n" + "Price : 50 credits";
                     button.onClick.RemoveAllListeners();
-                    button.onClick.AddListener(() => marketManager.inCreaseTroopsCapacity(50,"credits",marketManager.getTroopsCapacityValues[troopCapacitySelection], buttonID));
+                    button.onClick.AddListener(() => marketManager.inCreaseTroopsCapacity(50,"credits",marketManager.getTroopsCapacityValues[troopCapacitySelection-1], buttonID));
                     button.interactable = true;
                 }
                 else if (troopCapacitySelection == 3){
-                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getTroopsCapacityValues[troopCapacitySelection] + " troops capacity" + "\n" + "Price : 100 energon";
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getTroopsCapacityValues[troopCapacitySelection-1] + " troops capacity" + "\n" + "Price : 100 energon";
                     button.onClick.RemoveAllListeners();
-                    button.onClick.AddListener(() => marketManager.inCreaseTroopsCapacity(100,"energon",marketManager.getTroopsCapacityValues[troopCapacitySelection], buttonID));
+                    button.onClick.AddListener(() => marketManager.inCreaseTroopsCapacity(100,"energon",marketManager.getTroopsCapacityValues[troopCapacitySelection-1], buttonID));
                     button.interactable = true;
                 }
                 break;
@@ -303,7 +303,7 @@ public class InGameMarketButtonHandler : MonoBehaviour
     }
 
     public void refreshMarketOffers(){
-        for (int i = 1; i < numberOfOffers + 1; i++){ // refresh all buttons with new text 
+        for (int i = 1; i < numberOfOffers + 1; i++){ // refresh all buttons with new text and items
             buttonInGameMarketOffersHashMap[i] = false;
             setMarketOfferButtonText(i);
         }

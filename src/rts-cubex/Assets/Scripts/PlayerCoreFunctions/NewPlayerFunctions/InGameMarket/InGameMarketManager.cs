@@ -85,6 +85,7 @@ public class InGameMarketManager : MonoBehaviour
         Debug.Log("Offer 3 bought");
         gameTime = FindObjectOfType<GameSesionTime>();
         gameTime.addTime(increaseValue); // adding minutes to level time
+        // create animated pop up
         inGameButtonHandler.changeStateOfInGameMarketBtn(buttonID,1);
         inGameButtonHandler.setMarketOfferButtonText(buttonID);
         return;
@@ -94,6 +95,7 @@ public class InGameMarketManager : MonoBehaviour
         // playerbase increase troop capacity
         Debug.Log("Offer 4 bought");
         playerbase.setPlayerMaxTroopsAmount(playerbase.getPlayerMaxTroopsAmount() + increaseValue); // increasing player troops capacity
+        // create animated pop up
         inGameButtonHandler.changeStateOfInGameMarketBtn(buttonID,1);
         inGameButtonHandler.setMarketOfferButtonText(buttonID);
         return;
@@ -121,7 +123,7 @@ public class InGameMarketManager : MonoBehaviour
 
     // function to start market refresh button cool down timer 
     public void startCoolDown(int index){
-        float time = refreshCoolDownTimers[index] * 60;
+        float time = refreshCoolDownTimers[index] * 60f;
         StartCoroutine(StartCountdownRefresh(time));
     }
 }

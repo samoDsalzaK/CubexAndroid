@@ -40,7 +40,7 @@ public class changeSkinManager : MonoBehaviour
     // Pop up panel, when player starts new level
     [SerializeField] GameObject skinSelectionPopUpOnLevelStart;
     [SerializeField] Text skinSelectionPopUpOnLevelStartText; 
-    [SerializeField] Button skinSelectionPopUpOnLevelStartButton;
+    //[SerializeField] Button skinSelectionPopUpOnLevelStartButton;
     [SerializeField] Image skinSelectionPopUpOnLevelStartImage;
     [SerializeField] Text btnText;
 
