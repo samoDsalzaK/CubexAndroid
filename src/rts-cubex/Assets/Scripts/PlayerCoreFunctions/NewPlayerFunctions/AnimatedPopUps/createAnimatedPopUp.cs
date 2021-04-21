@@ -10,7 +10,7 @@ public class createAnimatedPopUp : MonoBehaviour
     [Header("Configuration parameters Animated Pop UPs v2")]
     [SerializeField] GameObject addCreditsPopUpPLCanvas, decreaseCreditsPopUpPLCanvas, addEnergonPopUpPLCanvas, decreaseEnergonPopUpPLCanvas; // version 2*/
     [Header("Configuration parameters Animated Pop UPs v3")]
-    [SerializeField] GameObject addCreditsPopUpV3, decreaseCreditsPopUpV3, addEnergonPopUpV3, decreaseEnergonPopUpV3; // version 3
+    [SerializeField] GameObject addCreditsPopUpV3, decreaseCreditsPopUpV3, addEnergonPopUpV3, decreaseEnergonPopUpV3, addTimePopUpV3, addTroopsPopUpV3; // version 3
     // Start is called before the first frame update
 
     // addCreditsPopUp - done
@@ -21,6 +21,8 @@ public class createAnimatedPopUp : MonoBehaviour
         decreaseCreditsPopUpV3.SetActive(false);
         addEnergonPopUpV3.SetActive(false);
         decreaseEnergonPopUpV3.SetActive(false);
+        /*addTimePopUpV3.SetActive(false);
+        addTroopsPopUpV3.SetActive(false);*/
     }
 
     // Update is called once per frame
@@ -157,6 +159,32 @@ public class createAnimatedPopUp : MonoBehaviour
         }*/
     }
 
+    public void createAddTimePopUp(int timeAmountToAdd){
+        //
+        Transform[] ts = addEnergonPopUpV3.transform.GetComponentsInChildren<Transform>();
+        foreach (Transform t in ts) {
+            if(t.gameObject.GetComponent<Text>() != null)
+            {
+                t.gameObject.GetComponent<Text>().text = "+" + timeAmountToAdd + " minutes ↑ ";
+            }
+        }
+        addEnergonPopUpV3.SetActive(true);
+        StartCoroutine(energonPopUpTimer(1));
+    }
+
+    public void createAddTroopsCapacityPopUp(int troopsAmountToAdd){
+        //
+        Transform[] ts = addEnergonPopUpV3.transform.GetComponentsInChildren<Transform>();
+        foreach (Transform t in ts) {
+            if(t.gameObject.GetComponent<Text>() != null)
+            {
+                t.gameObject.GetComponent<Text>().text = "+" + troopsAmountToAdd + " troops ↑ ";
+            }
+        }
+        addEnergonPopUpV3.SetActive(true);
+        StartCoroutine(energonPopUpTimer(1));
+    }
+
     public IEnumerator creditsPopUpTimer(int var){
         yield return new WaitForSeconds(1.3f);
         if(var == 1){
@@ -183,6 +211,16 @@ public class createAnimatedPopUp : MonoBehaviour
             addCreditsPopUpV3.SetActive(false);
             decreaseEnergonPopUpV3.SetActive(false);
         }
+    }
+
+    public IEnumerator timePopUpTimer(){
+        yield return new WaitForSeconds(1.3f);
+        addTimePopUpV3.SetActive(false);
+    }
+
+    public IEnumerator troopsPopUpTimer(){
+        yield return new WaitForSeconds(1.3f);
+        addTroopsPopUpV3.SetActive(false);
     }
 }
 

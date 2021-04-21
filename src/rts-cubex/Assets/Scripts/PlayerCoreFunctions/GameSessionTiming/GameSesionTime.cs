@@ -57,4 +57,9 @@ public class GameSesionTime : MonoBehaviour
     {
         return isTimeFinished;
     }
+    public void addTime(float timeInMinutes){
+        Debug.Log("Time added");
+        float totalTimeToAdd = timeInMinutes * 60;
+        startingTime += timeInMinutes;
+    }
 }

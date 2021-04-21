@@ -9837,6 +9837,8 @@ MonoBehaviour:
   decreaseCreditsPopUpV3: {fileID: 534621246716080655}
   addEnergonPopUpV3: {fileID: 2701502972121408275}
   decreaseEnergonPopUpV3: {fileID: 6924286324253314225}
+  addTimePopUpV3: {fileID: 0}
+  addTroopsPopUpV3: {fileID: 0}
 --- !u!114 &293116782293653406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9889,6 +9891,7 @@ MonoBehaviour:
   numberOfOffers: 3
   minValue: 1
   maxValue: 5
+  refreshButtonCount: 0
 --- !u!114 &4098347632218928293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9901,7 +9904,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a04aeb2038a354581691aa04d7a1f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inGameMarketPanel: {fileID: 0}
   minLevelNeededToUnlockMarket: 2
   priceInEnergon: 50
   priceInCredits: 50
@@ -9912,6 +9914,12 @@ MonoBehaviour:
   - 2
   - 5
   inCreaseTroopsCapacityValues: 0a000000140000001e000000
+  refreshCoolDownTimers:
+  - 1
+  - 2
+  - 5
+  - 10
+  refreshMarketButtonText: {fileID: 4661369227229607666}
 --- !u!1 &755612447314088123
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,6 +38,8 @@ public class InGameMarketButtonHandler : MonoBehaviour
     // playerbase type variable
     private Base playerbase;
 
+    [SerializeField] int refreshButtonCount; // start from 0
+
     // Start is called before the first frame update
     void Start()
     {
@@ -301,8 +303,31 @@ public class InGameMarketButtonHandler : MonoBehaviour
     }
 
     public void refreshMarketOffers(){
-        for (int i = 1; i < numberOfOffers + 1; i++){
+        for (int i = 1; i < numberOfOffers + 1; i++){ // refresh all buttons with new text 
+            buttonInGameMarketOffersHashMap[i] = false;
             setMarketOfferButtonText(i);
         }
+        refreshButtonCount++;
+        if (refreshButtonCount == 1){
+            refreshMarketItemsList.interactable = false;
+            marketManager.startCoolDown(0);
+        }
+        else if (refreshButtonCount == 2){
+            refreshMarketItemsList.interactable = false;
+            marketManager.startCoolDown(1);
+        }
+        else if (refreshButtonCount == 3){
+            refreshMarketItemsList.interactable = false;
+            marketManager.startCoolDown(2);
+        }
+        else {
+            refreshMarketItemsList.interactable = false;
+            marketManager.startCoolDown(3);
+        }
+    }
+
+    public void unlockRefreshBtn(){
+        refreshMarketItemsList.GetComponentInChildren<Text>().text = "Refresh";
+        refreshMarketItemsList.interactable = true;
     }
 }

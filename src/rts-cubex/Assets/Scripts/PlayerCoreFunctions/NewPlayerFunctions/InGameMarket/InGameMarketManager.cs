@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class InGameMarketManager : MonoBehaviour
 {
     [Header("Configuration parameters for in game market manager")]
-    [SerializeField] GameObject inGameMarketPanel;
     [SerializeField] int minLevelNeededToUnlockMarket; // minimum palyer base level needed to unlock in game market btn 
     public int getMinLevelNeeded {get {return minLevelNeededToUnlockMarket;}}
     // playerbase type variable
@@ -16,7 +15,7 @@ public class InGameMarketManager : MonoBehaviour
     [SerializeField] int priceInCredits;
     [SerializeField] int getEnergonValue;
     [SerializeField] int getCreditsValue;
-    [SerializeField] float[] increaseLevelTimeValues;
+    [SerializeField] float[] increaseLevelTimeValues; // time specified in minutes
     [SerializeField] int[] inCreaseTroopsCapacityValues;
     public float[] getLevelTimeValues {get{return increaseLevelTimeValues;}}
     public int getPriceInEnergon {get {return priceInEnergon;}}
@@ -25,7 +24,15 @@ public class InGameMarketManager : MonoBehaviour
     public int getBoughtCreditsValue {get {return getCreditsValue;}}
     public int[] getTroopsCapacityValues {get {return inCreaseTroopsCapacityValues;}}
 
+    [SerializeField] float[] refreshCoolDownTimers;
+
+    [SerializeField] Text refreshMarketButtonText;
+
     InGameMarketButtonHandler inGameButtonHandler;
+
+    GameSesionTime gameTime;
+
+    createAnimatedPopUp animatedPopUps;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +44,8 @@ public class InGameMarketManager : MonoBehaviour
             playerbase = FindObjectOfType<Base>();
         }
         inGameButtonHandler = GetComponent<InGameMarketButtonHandler>();
+        gameTime = FindObjectOfType<GameSesionTime>();
+        animatedPopUps = GetComponent<createAnimatedPopUp>();
     }
 
     // Update is called once per frame
@@ -49,7 +58,11 @@ public class InGameMarketManager : MonoBehaviour
         // player base to set new value of energon
         // decrease value of credits
         Debug.Log("Offer 1 bought");
-        inGameButtonHandler.changeStateOfInGameMarketBtn(buttonID,1);
+        playerbase.setCreditsAmount(playerbase.getCreditsAmount() - priceInCredits); // decreasing credits amount
+        playerbase.setEnergonAmount(playerbase.getEnergonAmount() + getEnergonValue); // increasing energon amount
+        animatedPopUps.createDecreaseCreditsPopUp(priceInCredits);
+        animatedPopUps.createAddEnergonPopUp(getEnergonValue);
+        inGameButtonHandler.changeStateOfInGameMarketBtn(buttonID,1); // change button state to true
         inGameButtonHandler.setMarketOfferButtonText(buttonID);
         return;
     }
@@ -58,6 +71,10 @@ public class InGameMarketManager : MonoBehaviour
         // player base to set new value of credits
         // decrease value of energon
         Debug.Log("Offer 2 bought");
+        playerbase.setEnergonAmount(playerbase.getEnergonAmount() - priceInEnergon); // decreasing energon amount
+        playerbase.setCreditsAmount(playerbase.getCreditsAmount() + getCreditsValue); // increasing credits amount
+        animatedPopUps.createDecreaseEnergonPopUp(priceInEnergon);
+        animatedPopUps.createAddCreditsPopUp(getCreditsValue);
         inGameButtonHandler.changeStateOfInGameMarketBtn(buttonID,1);
         inGameButtonHandler.setMarketOfferButtonText(buttonID);
         return;
@@ -66,6 +83,8 @@ public class InGameMarketManager : MonoBehaviour
     public void inCreaseLevelTime(int price, string type, float increaseValue, int buttonID){
         // find timesession
         Debug.Log("Offer 3 bought");
+        gameTime = FindObjectOfType<GameSesionTime>();
+        gameTime.addTime(increaseValue); // adding minutes to level time
         inGameButtonHandler.changeStateOfInGameMarketBtn(buttonID,1);
         inGameButtonHandler.setMarketOfferButtonText(buttonID);
         return;
@@ -74,9 +93,35 @@ public class InGameMarketManager : MonoBehaviour
     public void inCreaseTroopsCapacity(int price, string type, int increaseValue, int buttonID){
         // playerbase increase troop capacity
         Debug.Log("Offer 4 bought");
+        playerbase.setPlayerMaxTroopsAmount(playerbase.getPlayerMaxTroopsAmount() + increaseValue); // increasing player troops capacity
         inGameButtonHandler.changeStateOfInGameMarketBtn(buttonID,1);
         inGameButtonHandler.setMarketOfferButtonText(buttonID);
         return;
     }
+
+    public IEnumerator StartCountdownRefresh(float timeStart)
+    {
+        //currCountdownValueSlot3 = timeStart;
+        while (timeStart > 0)
+            {
+                if(timeStart >= 60.00f)
+                {
+                    refreshMarketButtonText.text = "Cool down :" + "\n" + (int)(timeStart / 60)+ " min " + (timeStart % 60).ToString() + " sec";
+                }
+                else{
+                    refreshMarketButtonText.text = "Cool down :" + "\n" + (timeStart % 60).ToString() + " sec";
+                }
+                //Debug.Log("Countdown: " + timeStart);
+                yield return new WaitForSeconds(1.0f);
+                timeStart--;
+            }
+        inGameButtonHandler.unlockRefreshBtn();
+        yield break;
+    }
+
+    // function to start market refresh button cool down timer 
+    public void startCoolDown(int index){
+        float time = refreshCoolDownTimers[index] * 60;
+        StartCoroutine(StartCountdownRefresh(time));
+    }
 }
-// Cool down : 2 min 30 sec
