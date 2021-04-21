@@ -20,6 +20,13 @@ public class InGameMarketButtonHandler : MonoBehaviour
     [SerializeField] Button Offer1;
     [SerializeField] Button Offer2;
     [SerializeField] Button Offer3;
+
+    [SerializeField] int numberOfOffers;
+
+    // value boarders to take random number
+    [SerializeField] int minValue; // 1
+    [SerializeField] int maxValue; // 5, in order to generate numbers 1,2,3,4
+
     InGameMarketManager marketManager;
 
     // hash table for storing button activity info (pressed or not)
@@ -44,10 +51,13 @@ public class InGameMarketButtonHandler : MonoBehaviour
         marketManager = GetComponent<InGameMarketManager>();
         buttonUnlockTracker.Add(1, false); // button is unlocked on game start
         buttonActivityHashMap.Add(1, false); // button is not pressed on game start
-        for (int i = 1; i < 4; i ++){
+        setButtonText(1);
+        for (int i = 1; i < numberOfOffers + 1; i++){
             buttonInGameMarketOffersHashMap.Add(i, false);
         }
-        setButtonText(1);
+        for (int i = 1; i < numberOfOffers + 1; i++){
+            setMarketOfferButtonText(i);
+        }
     }
 
     // Update is called once per frame
@@ -65,6 +75,7 @@ public class InGameMarketButtonHandler : MonoBehaviour
 
     private void buttonCallBack(Button buttonPressed)
     {
+        int selection;
         if (buttonPressed == inGameMarketBtn)
         {
             if ((bool)buttonActivityHashMap[1]){ // when button will be pressed another time se button state to false (value 0) and deactivate panel
@@ -78,8 +89,8 @@ public class InGameMarketButtonHandler : MonoBehaviour
                 changeActivity(1,1);
             } 
         }
-        else if (buttonPressed == refreshMarketItemsList){
-            // refresh list, generate new items
+        else if(buttonPressed == refreshMarketItemsList){
+            refreshMarketOffers();
         }
     }
 
@@ -113,7 +124,7 @@ public class InGameMarketButtonHandler : MonoBehaviour
                     inGameMarketText.gameObject.SetActive(true);
                     inGameMarketText.text = "Market";
                 }
-                else{
+                else{ // if button is not unlocked
                     inGameMarketBtn.interactable = false;
                     inGameMarketText.gameObject.SetActive(false);
                     inGameMarketLockedText.gameObject.SetActive(true);
@@ -174,7 +185,124 @@ public class InGameMarketButtonHandler : MonoBehaviour
         }
     }
 
-    public void offerButtonTracker(){
-        // will make button set active false
+    // function for changing in game market offer button activity
+    public void changeStateOfInGameMarketBtn(int buttonID, int state){
+        if (state == 0){
+            if (buttonInGameMarketOffersHashMap.ContainsKey(buttonID)){
+                buttonInGameMarketOffersHashMap[buttonID] = false; // setting value to false, means that button was not pressed yet after market refresh
+            }  
+        }
+        else if (state == 1){
+            if (buttonInGameMarketOffersHashMap.ContainsKey(buttonID)){
+                buttonInGameMarketOffersHashMap[buttonID] = true; // setting value to true, means that button was pressed
+            }  
+        }
+    }
+
+    // function for setting text on market offers buttons
+    public void setMarketOfferButtonText(int buttonID){
+        marketManager = GetComponent<InGameMarketManager>();
+        //string buttonText = ""; 
+        switch(buttonID){
+            case 1:
+                if ((bool)buttonInGameMarketOffersHashMap[buttonID]){ // button was alrady pressed
+                    Offer1.GetComponentInChildren<Text>().text = "Offer Sold";
+                    Offer1.interactable = false;
+                }
+                else{ // button has not been pressed yet
+                    assignRandomParamsToButton(Offer1, buttonID);
+                }
+                break;
+            case 2:
+                if ((bool)buttonInGameMarketOffersHashMap[buttonID]){ // button was alrady pressed
+                    Offer2.GetComponentInChildren<Text>().text = "Offer Sold";
+                    Offer2.interactable = false;
+                }
+                else{ // button has not been pressed yet
+                    assignRandomParamsToButton(Offer2, buttonID);
+                }
+                break;
+            case 3:
+                if ((bool)buttonInGameMarketOffersHashMap[buttonID]){ // button was alrady pressed
+                    Offer3.GetComponentInChildren<Text>().text = "Offer Sold";
+                    Offer3.interactable = false;
+                }
+                else{ // button has not been pressed yet
+                    assignRandomParamsToButton(Offer3, buttonID);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    // function for assigning random params to market offer buttons
+    public void assignRandomParamsToButton(Button button, int buttonID){
+        int selection = Random.Range(minValue,maxValue);
+        switch(selection){
+            case 1:
+                button.GetComponentInChildren<Text>().text = marketManager.getBoughtEnergonValue + " energon" + "\n" + "Price : " + marketManager.getPriceInCredits + " credits";
+                button.onClick.RemoveAllListeners(); // removing all previuos listeners from this button
+                button.onClick.AddListener(() => marketManager.buyEnergon(marketManager.getPriceInCredits,marketManager.getBoughtEnergonValue, buttonID));
+                button.interactable = true;
+                break;
+            case 2:
+                button.GetComponentInChildren<Text>().text = marketManager.getBoughtCreditsValue + " credits" + "\n" + "Price : " + marketManager.getPriceInEnergon + " energon";
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() => marketManager.buyCredits(marketManager.getPriceInEnergon,marketManager.getBoughtCreditsValue, buttonID));
+                button.interactable = true;
+                break;
+            case 3:
+                int timeSelection = Random.Range(1,4);
+                if (timeSelection == 1){
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getLevelTimeValues[timeSelection] + " level time minute" + "\n" + "Price : 20 credits";
+                    button.onClick.RemoveAllListeners();
+                    button.onClick.AddListener(() => marketManager.inCreaseLevelTime(20,"credits", marketManager.getLevelTimeValues[timeSelection], buttonID));
+                    button.interactable = true;
+                }
+                else if (timeSelection == 2)
+                {
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getLevelTimeValues[timeSelection] + " level time minute" + "\n" + "Price : 50 energon";
+                    button.onClick.RemoveAllListeners();
+                    button.onClick.AddListener(() => marketManager.inCreaseLevelTime(50,"energon", marketManager.getLevelTimeValues[timeSelection], buttonID));
+                    button.interactable = true;
+                }
+                else if (timeSelection == 3){
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getLevelTimeValues[timeSelection] + " level time minute" + "\n" + "Price : 100 credits";
+                    button.onClick.RemoveAllListeners();
+                    button.onClick.AddListener(() => marketManager.inCreaseLevelTime(100,"credits", marketManager.getLevelTimeValues[timeSelection], buttonID));
+                    button.interactable = true;
+                }
+                break;
+            case 4:
+                int troopCapacitySelection = Random.Range(1,4);
+                if (troopCapacitySelection == 1){
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getTroopsCapacityValues[troopCapacitySelection] + " troops capacity" + "\n" + "Price : 20 energon";
+                    button.onClick.RemoveAllListeners();
+                    button.onClick.AddListener(() => marketManager.inCreaseTroopsCapacity(20,"energon",marketManager.getTroopsCapacityValues[troopCapacitySelection], buttonID));
+                    button.interactable = true;
+                }
+                else if (troopCapacitySelection == 2){
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getTroopsCapacityValues[troopCapacitySelection] + " troops capacity" + "\n" + "Price : 50 credits";
+                    button.onClick.RemoveAllListeners();
+                    button.onClick.AddListener(() => marketManager.inCreaseTroopsCapacity(50,"credits",marketManager.getTroopsCapacityValues[troopCapacitySelection], buttonID));
+                    button.interactable = true;
+                }
+                else if (troopCapacitySelection == 3){
+                    button.GetComponentInChildren<Text>().text = "+ " + marketManager.getTroopsCapacityValues[troopCapacitySelection] + " troops capacity" + "\n" + "Price : 100 energon";
+                    button.onClick.RemoveAllListeners();
+                    button.onClick.AddListener(() => marketManager.inCreaseTroopsCapacity(100,"energon",marketManager.getTroopsCapacityValues[troopCapacitySelection], buttonID));
+                    button.interactable = true;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void refreshMarketOffers(){
+        for (int i = 1; i < numberOfOffers + 1; i++){
+            setMarketOfferButtonText(i);
+        }
     }
 }

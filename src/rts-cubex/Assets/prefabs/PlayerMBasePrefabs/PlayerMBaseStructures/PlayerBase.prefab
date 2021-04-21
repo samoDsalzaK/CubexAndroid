@@ -9883,9 +9883,12 @@ MonoBehaviour:
   inGameMarketLockedText: {fileID: 259189632049730452}
   inGameMarketPanel: {fileID: 759153806094290490}
   refreshMarketItemsList: {fileID: 3279999560763445547}
-  Offer1: {fileID: 0}
-  Offer2: {fileID: 0}
-  Offer3: {fileID: 0}
+  Offer1: {fileID: 5225124292410011180}
+  Offer2: {fileID: 3429573015331141098}
+  Offer3: {fileID: 2849159751880618788}
+  numberOfOffers: 3
+  minValue: 1
+  maxValue: 5
 --- !u!114 &4098347632218928293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9900,6 +9903,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGameMarketPanel: {fileID: 0}
   minLevelNeededToUnlockMarket: 2
+  priceInEnergon: 50
+  priceInCredits: 50
+  getEnergonValue: 100
+  getCreditsValue: 100
+  increaseLevelTimeValues:
+  - 1
+  - 2
+  - 5
+  inCreaseTroopsCapacityValues: 0a000000140000001e000000
 --- !u!1 &755612447314088123
 GameObject:
   m_ObjectHideFlags: 0
@@ -11728,7 +11740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -32.6, y: -22.5}
+  m_AnchoredPosition: {x: -32.6, y: -23.7}
   m_SizeDelta: {x: 130, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2845735024236275941
@@ -16645,7 +16657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 122, y: -22.3}
+  m_AnchoredPosition: {x: 122, y: -23.7}
   m_SizeDelta: {x: 130, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2712054232865651978
@@ -17255,7 +17267,7 @@ PrefabInstance:
     - target: {fileID: 7409676916912488079, guid: 8e68de6565288da49b5ec8d1404df68e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 214.4
+      value: 218
       objectReference: {fileID: 0}
     - target: {fileID: 7409676916912488079, guid: 8e68de6565288da49b5ec8d1404df68e,
         type: 3}
@@ -17381,7 +17393,7 @@ PrefabInstance:
     - target: {fileID: 1271518264808499725, guid: d9046e2c958d7a344acc4cee0f4abe96,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 214.4
+      value: 218
       objectReference: {fileID: 0}
     - target: {fileID: 1271518264808499725, guid: d9046e2c958d7a344acc4cee0f4abe96,
         type: 3}
@@ -17951,6 +17963,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DecreaseEnergonV3
       objectReference: {fileID: 0}
+    - target: {fileID: 3702959091981382322, guid: 8ea698cc440cb694e81c5c64e1f03998,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4757647583551427240, guid: 8ea698cc440cb694e81c5c64e1f03998,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18009,7 +18026,7 @@ PrefabInstance:
     - target: {fileID: 4757647583551427240, guid: 8ea698cc440cb694e81c5c64e1f03998,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 214.4
+      value: 218
       objectReference: {fileID: 0}
     - target: {fileID: 4757647583551427240, guid: 8ea698cc440cb694e81c5c64e1f03998,
         type: 3}
@@ -18140,7 +18157,7 @@ PrefabInstance:
     - target: {fileID: 1478850736226991939, guid: b21b0a91fb860d2459b48e1bb8987831,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 214.4
+      value: 218
       objectReference: {fileID: 0}
     - target: {fileID: 1478850736226991939, guid: b21b0a91fb860d2459b48e1bb8987831,
         type: 3}
