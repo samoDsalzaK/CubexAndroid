@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//NOTE: Fix navmeh on holes
+//NOTE: Create risen platforms
 //NOTE: Create playerBase and Borg spawner
 //NOTE: Create deposit spawner
 //NOTE: For starting point user: 4x4 platform
@@ -16,15 +16,21 @@ public class MapMaker : MonoBehaviour
     [SerializeField] GameObject walls;
     [SerializeField] GameObject areaWall;
     [SerializeField] GameObject holeCube;
+    [SerializeField] GameObject moundCube;
     [Tooltip("Platform Width in Cubes")]
+    [Range(6, 6)] //For locking values in inspector
     [SerializeField] int pWidth = 6;  
     [Tooltip("Platform Height in Cubes")] 
+    [Range(6, 6)] //For locking values in inspector
     [SerializeField] int pHeight = 6; 
     [Tooltip("Height of the walls")]
     [SerializeField] float wHeight = 4;
     [Header("Hole generation cnf.")]
     [Range(1, 2)]
     [SerializeField] int holeCount = 2;
+    [Header("Mound generation cnf")]
+    [Range(1, 2)]
+    [SerializeField] int moundCount = 2;
     [Tooltip("Transformation offset XYZ")] 
     [SerializeField] float tOffset = 50f;
     [SerializeField] bool generateNavMesh = false;
@@ -32,6 +38,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] bool generateGround = false;
     [SerializeField] bool createAreaWalls = false;
     [SerializeField] bool createHoles = false;
+    [SerializeField] bool createMounds = false;
     //private float x = 0f, y = 0f, z = 0f;
     //private GameObject sPlatform;
     //Object sub groups
@@ -39,30 +46,24 @@ public class MapMaker : MonoBehaviour
     private GameObject groundGrp;
     private GameObject wallAreaGrp;
     private GameObject holeGrp;
-
+    private GameObject moundGrp;
     // private List<int> rHoleIndexes = new List<int>(); //For first lane
     //  private List<int> rEHoleIndexes = new List<int>(); //For end lane
     private int oldHoleIndex = 0;
+    private int oldMoundIndex = 1;
     private bool holeLaneSwitch = false;
+    private bool moundLaneSwitch = false;
     private Helper help = new Helper();
    // private GameObject startCube;
     private List<List<GameObject>> sCubes = new List<List<GameObject>>(); //list of spawned cubes
     void Start()
     {
-        // sPlatform = Instantiate(platform, Vector3.zero, platform.transform.rotation);
-        // sPlatform.transform.localScale = new Vector3(pWidth, 0f, pHeight);
-        // sPlatform.GetComponent<NavMeshSurface>().BuildNavMesh();
-        //var tOffset = pCube.transform.localScale.x;
+       
         //Create platform object groups
         levelMap = new GameObject("LevelMap"); //Main paltform group
         
         levelMap.transform.position = Vector3.zero;
-        //startCube = Instantiate(pCube, new Vector3(-(pWidth / 2 + tOffset), y, (pHeight / 2 + tOffset)), pCube.transform.rotation);
-
-        // var sX = startCube.transform.position.x;
-        // var sZ = startCube.transform.position.z;
-
-        //startCube.SetActive(false);
+        
         if (generateGround)
         {
             groundGrp = new GameObject("Ground");
@@ -95,19 +96,16 @@ public class MapMaker : MonoBehaviour
         if (generateWalls)
         {           
             var spawnedWalls = Instantiate(walls, Vector3.zero, walls.transform.rotation);
-            spawnedWalls.transform.localScale = new Vector3((((pWidth * tOffset) / 4)) / 2 - 5, spawnedWalls.transform.localScale.y * wHeight, (((pHeight * tOffset) / 4)) / 2 - 5);
+            spawnedWalls.transform.localScale = new Vector3((((pWidth * tOffset) / 4)) / 2 - 5.5f, 
+                                                               spawnedWalls.transform.localScale.y * wHeight,
+                                                               (((pHeight * tOffset) / 4)) / 2 - 5.5f);
             spawnedWalls.transform.position = new Vector3(spawnedWalls.transform.position.x, wHeight / 2, spawnedWalls.transform.position.z);
             spawnedWalls.transform.parent = levelMap.transform;
         }
 
         //Creating paltform obstacles
         if (createAreaWalls)
-        {
-            // var p1 = sCubes[pWidth / 2 - 1].transform;
-            // var spawnWall = Instantiate(areaWall, p1.position, p1.rotation);
-
-            // var p1 = sCubes[pWidth / 2 - 1].transform;
-            // var spawnWall = Instantiate(areaWall, p1.position, p1.rotation);
+        {            
             wallAreaGrp = new GameObject("AreaWalls");
             wallAreaGrp.transform.position = Vector3.zero;
             bool rotateWall = false;
@@ -171,10 +169,9 @@ public class MapMaker : MonoBehaviour
             var pFirstLane = sCubes[0];
             var pEndLane = sCubes[sCubes.Count - 1];
             var spawnIndexes = new List<int>();
+            //NOTE: Since we are working with a square ground platform, first and last lanes will always be equal
             spawnIndexes.Add(pFirstLane.Count / 2 - 1);
-            spawnIndexes.Add(pFirstLane.Count / 2);
-            // spawnIndexes.Add(pEndLane.Count / 2 - 1);
-            // spawnIndexes.Add(pEndLane.Count / 2);
+            spawnIndexes.Add(pFirstLane.Count / 2);            
             
             if (spawnIndexes.Count > 0)
             {
@@ -202,22 +199,27 @@ public class MapMaker : MonoBehaviour
                             // sValue = spawnIndexes.Count / 2;
                             // eValue = spawnIndexes.Count;
                         }
-                        var randNum = Random.Range(0, spawnIndexes.Count);
+                        var randPosIndex = Random.Range(0, spawnIndexes.Count);
                         // For generating unique random numbers
-                        if (oldHoleIndex == randNum)
+                        if (oldHoleIndex == randPosIndex)
                         {
-                            while(oldHoleIndex == randNum)
+                            while(oldHoleIndex == randPosIndex)
                             {
-                                randNum = Random.Range(0, spawnIndexes.Count);
-                                if (oldHoleIndex != randNum)
-                                {                                   
+                                randPosIndex = Random.Range(0, spawnIndexes.Count);
+                                if (oldHoleIndex != randPosIndex)
+                                {      
+                                   oldHoleIndex = randPosIndex;                            
                                    break; 
                                 }
                             }
                         }
+                        else
+                        {
+                             oldHoleIndex = randPosIndex;  
+                        }
                         //rHoleIndexes.Add(randNum);
                       
-                        var sPosLane = pLane[spawnIndexes[randNum]];//hole spawn point
+                        var sPosLane = pLane[spawnIndexes[randPosIndex]];//hole spawn point
                         
                         var spawnedHole = Instantiate(holeCube, sPosLane.transform.position, sPosLane.transform.rotation);
                         pLane.Add(spawnedHole);
@@ -226,8 +228,7 @@ public class MapMaker : MonoBehaviour
                         pLane.Remove(sPosLane);
                         Destroy(sPosLane);
                     }
-                    // rHoleIndexes = new List<int>();
-                    // rEHoleIndexes = new List<int>();
+                    
                 }
                 else
                 {
@@ -237,6 +238,59 @@ public class MapMaker : MonoBehaviour
             
             holeGrp.transform.parent = levelMap.transform;
             //var holeIndex = sCubex[Random]
+        }
+        //Mound generation
+        if(createMounds)
+        {
+            //moundCube
+            moundGrp = new GameObject("Mounds");
+            moundGrp.transform.position = Vector3.zero;
+
+            var leftLane = sCubes[(((sCubes.Count - 1) / 2) - 1)];
+            var rightLane = sCubes[sCubes.Count - ((sCubes.Count - 1) / 2)];
+            var spawnIndexes = new List<int>();
+            spawnIndexes.Add(((leftLane.Count - 1) / 2) - 1);
+            spawnIndexes.Add(leftLane.Count - ((leftLane.Count - 1) / 2));
+
+            for(int mIndex = 0; mIndex < moundCount; mIndex++)
+            {
+                moundLaneSwitch = !moundLaneSwitch;
+                List<GameObject> pLane = new List<GameObject>(); 
+                if (moundLaneSwitch)
+                {
+                    pLane = leftLane;
+                }
+                else
+                {
+                    pLane = rightLane;
+                }
+                var randPosIndex = Random.Range(0, spawnIndexes.Count);
+                if (randPosIndex == oldMoundIndex)
+                {
+                    while(randPosIndex == oldMoundIndex)
+                    {
+                        randPosIndex = Random.Range(0, spawnIndexes.Count);
+                        if (randPosIndex != oldMoundIndex)
+                        {
+                           oldMoundIndex = randPosIndex;
+                           break; 
+                        }
+                    }
+                }
+                else
+                {
+                    oldMoundIndex = randPosIndex;
+                }
+
+                //Mound spawning
+                var cPScale = pLane[spawnIndexes[randPosIndex]].transform.localScale;
+                var mPos = pLane[spawnIndexes[randPosIndex]].transform.position + new Vector3(0f, cPScale.y, 0f);
+                var spawnedMound = Instantiate(moundCube, mPos, moundCube.transform.rotation);
+
+                //Parent to required sub group
+                spawnedMound.transform.parent = moundGrp.transform;
+            }
+            moundGrp.transform.parent = levelMap.transform;
         }
         //NOTE: Generate NavMesh at the end
         if (generateNavMesh)
