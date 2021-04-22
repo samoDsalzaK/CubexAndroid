@@ -50,6 +50,10 @@ MonoBehaviour:
     type: 3}
   moundCube: {fileID: 1394730482024109165, guid: acf11419c0f0ee4428cfb2480b77a85e,
     type: 3}
+  moundNormal: {fileID: 4448742607508523904, guid: a3510dbe1a3c8b247b800824a890bdf0,
+    type: 3}
+  energonDeposit: {fileID: 813274202905404770, guid: 2d326ee9638786e4a9a76fc1b7be4010,
+    type: 3}
   pWidth: 6
   pHeight: 6
   wHeight: 3
@@ -62,3 +66,4 @@ MonoBehaviour:
   createAreaWalls: 1
   createHoles: 1
   createMounds: 1
+  spawnEDeposits: 1

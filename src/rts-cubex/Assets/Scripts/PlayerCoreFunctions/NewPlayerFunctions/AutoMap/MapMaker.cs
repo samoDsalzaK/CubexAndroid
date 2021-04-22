@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//NOTE: Create risen platforms
-//NOTE: Create playerBase and Borg spawner
 //NOTE: Create deposit spawner
-//NOTE: For starting point user: 4x4 platform
+//NOTE: Create playerBase and Borg spawner
+//NOTE: Add some obstacles to empty hole fields
+//NOTE: For starting point user: 6x6 platform
 
 public class MapMaker : MonoBehaviour
 {
@@ -17,6 +17,8 @@ public class MapMaker : MonoBehaviour
     [SerializeField] GameObject areaWall;
     [SerializeField] GameObject holeCube;
     [SerializeField] GameObject moundCube;
+    [SerializeField] GameObject moundNormal;
+    [SerializeField] GameObject energonDeposit;
     [Tooltip("Platform Width in Cubes")]
     [Range(6, 6)] //For locking values in inspector
     [SerializeField] int pWidth = 6;  
@@ -39,6 +41,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] bool createAreaWalls = false;
     [SerializeField] bool createHoles = false;
     [SerializeField] bool createMounds = false;
+    [SerializeField] bool spawnEDeposits = false;
     //private float x = 0f, y = 0f, z = 0f;
     //private GameObject sPlatform;
     //Object sub groups
@@ -47,6 +50,7 @@ public class MapMaker : MonoBehaviour
     private GameObject wallAreaGrp;
     private GameObject holeGrp;
     private GameObject moundGrp;
+    private GameObject energonGrp;
     // private List<int> rHoleIndexes = new List<int>(); //For first lane
     //  private List<int> rEHoleIndexes = new List<int>(); //For end lane
     private int oldHoleIndex = 0;
@@ -56,6 +60,7 @@ public class MapMaker : MonoBehaviour
     private Helper help = new Helper();
    // private GameObject startCube;
     private List<List<GameObject>> sCubes = new List<List<GameObject>>(); //list of spawned cubes
+    private List<GameObject> mounds = new List<GameObject>();
     void Start()
     {
        
@@ -81,7 +86,7 @@ public class MapMaker : MonoBehaviour
                     cList.Add(scube);
                 }
                 sCubes.Add(cList);
-                if (sCubes[0].Count >= pWidth) print("PRow created!");
+              //  if (sCubes[0].Count >= pWidth) print("PRow created!");
                
             }
             groundGrp.transform.parent = levelMap.transform;
@@ -251,18 +256,25 @@ public class MapMaker : MonoBehaviour
             var spawnIndexes = new List<int>();
             spawnIndexes.Add(((leftLane.Count - 1) / 2) - 1);
             spawnIndexes.Add(leftLane.Count - ((leftLane.Count - 1) / 2));
-
+            // spawnIndexes.Add(((leftLane.Count - 1) / 2) + 1);
+            // spawnIndexes.Add();
+            
             for(int mIndex = 0; mIndex < moundCount; mIndex++)
             {
                 moundLaneSwitch = !moundLaneSwitch;
                 List<GameObject> pLane = new List<GameObject>(); 
+                List<GameObject> nPLane = new List<GameObject>(); 
+                var mRotAngle = Vector3.zero; //Rotation angle on Yaxis
                 if (moundLaneSwitch)
                 {
                     pLane = leftLane;
+                    nPLane = rightLane;
+                    mRotAngle = new Vector3(0f, 90f, 0f);
                 }
                 else
                 {
                     pLane = rightLane;
+                    nPLane = leftLane;
                 }
                 var randPosIndex = Random.Range(0, spawnIndexes.Count);
                 if (randPosIndex == oldMoundIndex)
@@ -285,12 +297,69 @@ public class MapMaker : MonoBehaviour
                 //Mound spawning
                 var cPScale = pLane[spawnIndexes[randPosIndex]].transform.localScale;
                 var mPos = pLane[spawnIndexes[randPosIndex]].transform.position + new Vector3(0f, cPScale.y, 0f);
-                var spawnedMound = Instantiate(moundCube, mPos, moundCube.transform.rotation);
+                
+                //Mound normal spawning pos
+                //var nMIndex = spawnIndexes[randPosIndex] > 0 ? spawnIndexes[randPosIndex] - 1 : spawnIndexes[randPosIndex];
+                var mNPos = nPLane[spawnIndexes[randPosIndex]].transform.position + new Vector3(0f, cPScale.y, 0f);
+                
+                var spawnedMound = Instantiate(moundCube, mPos, Quaternion.Euler(mRotAngle));
+                mounds.Add(spawnedMound);
 
+                var spawnedMoundN = Instantiate(moundNormal, mNPos, Quaternion.Euler(mRotAngle));
                 //Parent to required sub group
                 spawnedMound.transform.parent = moundGrp.transform;
+                spawnedMoundN.transform.parent = moundGrp.transform;
             }
             moundGrp.transform.parent = levelMap.transform;
+        }
+        //Energon deposit spawning
+        if (spawnEDeposits)
+        {
+            energonGrp = new GameObject("EnergonDeposits");
+            energonGrp.transform.position = Vector3.zero;
+
+            var rightLane = sCubes[((sCubes.Count - 1) / 2) - 2];
+            var leftLane = sCubes[(sCubes.Count - 1) / 2];
+            var offsetT = pCube.transform.localScale.x / 4;
+            var endPosX = rightLane[(rightLane.Count / 2)].transform.position.x - 2 * pCube.transform.localScale.x;           
+            
+            //Right lane spawning
+            //Spawning in the right region energon deposit
+            for(float xPos = rightLane[0].transform.position.x; xPos < endPosX; xPos += offsetT)
+            {        
+                var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[(rightLane.Count / 2 - 1)].transform.position.z - 2 * offsetT);       
+                var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
+                spawnedDeposit.transform.parent = energonGrp.transform;
+            }
+
+            //Spawning in the left region energon deposits
+            endPosX = rightLane[(rightLane.Count - 1)].transform.position.x + pCube.transform.localScale.x;           
+            for(float xPos = rightLane[rightLane.Count - 2].transform.position.x; xPos >= endPosX; xPos -= offsetT)
+            {        
+                var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[(rightLane.Count / 2 - 1)].transform.position.z - 2 * offsetT);       
+                var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
+                spawnedDeposit.transform.parent = energonGrp.transform;
+            }
+            //--------------------------------
+            //Left lane spawning
+            //endPosX works with both lanes because platform is a square
+            for(float xPos = leftLane[0].transform.position.x; xPos < endPosX; xPos += offsetT)
+            {        
+                var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, leftLane[(leftLane.Count / 2 - 1)].transform.position.z - 10 * offsetT);       
+                var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
+                spawnedDeposit.transform.parent = energonGrp.transform;
+            }
+
+            //Spawning in the left region energon deposits
+            //FIX this-----------------------
+            endPosX = leftLane[(leftLane.Count - 1)].transform.position.x + pCube.transform.localScale.x;           
+            for(float xPos = leftLane[leftLane.Count - 2].transform.position.x; xPos >= endPosX; xPos -= offsetT)
+            {        
+                var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, leftLane[(leftLane.Count / 2 - 1)].transform.position.z - 10 * offsetT);       
+                var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
+                spawnedDeposit.transform.parent = energonGrp.transform;
+            }
+            energonGrp.transform.parent = levelMap.transform;
         }
         //NOTE: Generate NavMesh at the end
         if (generateNavMesh)
@@ -305,7 +374,7 @@ public class MapMaker : MonoBehaviour
                         {
                             var iPlatform = help.getChildGameObjectByName(cube, "BWArea");
                             iPlatform.GetComponent<NavMeshSurface>().BuildNavMesh();
-                        }
+                        }                        
                         else
                         {
                             // if(cube.activeSelf)
@@ -314,6 +383,13 @@ public class MapMaker : MonoBehaviour
                             //}
                         }
                     }
+                }
+            }
+            if (mounds.Count > 0)
+            {
+                foreach(var m in mounds)
+                {
+                    m.GetComponent<MoundNavGen>().BuildNavMesh = true;
                 }
             }
         }

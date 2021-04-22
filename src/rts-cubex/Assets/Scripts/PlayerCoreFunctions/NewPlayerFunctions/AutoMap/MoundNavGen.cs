@@ -6,12 +6,18 @@ using UnityEngine.AI;
 public class MoundNavGen : MonoBehaviour
 {
     [SerializeField] List<NavMeshSurface> moundWalks;
+
+    private bool buildNavMesh = false;
+    public bool BuildNavMesh { set {buildNavMesh = value;} get {return buildNavMesh; }}
     void Start()
     {
-       foreach(var m in moundWalks) 
-       {
-           m.BuildNavMesh();
-       }
+        if (buildNavMesh)
+        {
+            foreach(var m in moundWalks) 
+            {
+                m.BuildNavMesh();
+            }
+        }
     }
 
     
