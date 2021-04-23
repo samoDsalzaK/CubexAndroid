@@ -120,7 +120,7 @@ public class changeSkinManager : MonoBehaviour
                     else{
                         Debug.Log("No Damage component found!");
                     }
-                    /*else{
+                    /*else{ // sniper unit
                         Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
                         foreach (Transform t in ts) {
                             if(t.gameObject.GetComponent<TroopsDamage>() != null)
