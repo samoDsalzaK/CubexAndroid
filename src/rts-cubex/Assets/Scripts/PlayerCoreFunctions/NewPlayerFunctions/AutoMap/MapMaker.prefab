@@ -54,6 +54,9 @@ MonoBehaviour:
     type: 3}
   energonDeposit: {fileID: 813274202905404770, guid: 2d326ee9638786e4a9a76fc1b7be4010,
     type: 3}
+  sPlayerBase: {fileID: 755612447165250645, guid: 7c798978728a8b345a589b5e1ca29966,
+    type: 3}
+  sBorgBase: {fileID: 0}
   pWidth: 6
   pHeight: 6
   wHeight: 3
@@ -67,3 +70,4 @@ MonoBehaviour:
   createHoles: 1
   createMounds: 1
   spawnEDeposits: 1
+  spawnGameBases: 1

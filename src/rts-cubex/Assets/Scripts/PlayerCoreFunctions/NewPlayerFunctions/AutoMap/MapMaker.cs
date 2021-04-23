@@ -19,6 +19,8 @@ public class MapMaker : MonoBehaviour
     [SerializeField] GameObject moundCube;
     [SerializeField] GameObject moundNormal;
     [SerializeField] GameObject energonDeposit;
+    [SerializeField] GameObject sPlayerBase;
+    [SerializeField] GameObject sBorgBase;
     [Tooltip("Platform Width in Cubes")]
     [Range(6, 6)] //For locking values in inspector
     [SerializeField] int pWidth = 6;  
@@ -42,6 +44,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] bool createHoles = false;
     [SerializeField] bool createMounds = false;
     [SerializeField] bool spawnEDeposits = false;
+    [SerializeField] bool spawnGameBases = false;
     //private float x = 0f, y = 0f, z = 0f;
     //private GameObject sPlatform;
     //Object sub groups
@@ -51,6 +54,7 @@ public class MapMaker : MonoBehaviour
     private GameObject holeGrp;
     private GameObject moundGrp;
     private GameObject energonGrp;
+    private GameObject gSpawnMBaseGrp;
     // private List<int> rHoleIndexes = new List<int>(); //For first lane
     //  private List<int> rEHoleIndexes = new List<int>(); //For end lane
     private int oldHoleIndex = 0;
@@ -342,6 +346,7 @@ public class MapMaker : MonoBehaviour
             }
             //--------------------------------
             //Left lane spawning
+            endPosX = leftLane[(leftLane.Count / 2)].transform.position.x - 2 * pCube.transform.localScale.x;           
             //endPosX works with both lanes because platform is a square
             for(float xPos = leftLane[0].transform.position.x; xPos < endPosX; xPos += offsetT)
             {        
@@ -352,7 +357,7 @@ public class MapMaker : MonoBehaviour
 
             //Spawning in the left region energon deposits
             //FIX this-----------------------
-            endPosX = leftLane[(leftLane.Count - 1)].transform.position.x + pCube.transform.localScale.x;           
+            endPosX = leftLane[(leftLane.Count - 1)].transform.position.x - 2 * pCube.transform.localScale.x;           
             for(float xPos = leftLane[leftLane.Count - 2].transform.position.x; xPos >= endPosX; xPos -= offsetT)
             {        
                 var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, leftLane[(leftLane.Count / 2 - 1)].transform.position.z - 10 * offsetT);       
@@ -360,6 +365,28 @@ public class MapMaker : MonoBehaviour
                 spawnedDeposit.transform.parent = energonGrp.transform;
             }
             energonGrp.transform.parent = levelMap.transform;
+        }
+        if (spawnGameBases)
+        {
+            gSpawnMBaseGrp = new GameObject("Game_MBases");
+            gSpawnMBaseGrp.transform.position = Vector3.zero;
+            var firstLane = sCubes[0];
+            var endLane = sCubes[sCubes.Count - 1];
+            var spawnPoints = new List<Transform>();
+
+            spawnPoints.Add(firstLane[0].transform);
+            spawnPoints.Add(firstLane[firstLane.Count - 1].transform);
+            spawnPoints.Add(endLane[0].transform);
+            spawnPoints.Add(endLane[firstLane.Count - 1].transform);
+
+
+            //SpawnPlayer
+            var sPos = spawnPoints[Random.Range(0, spawnPoints.Count)];
+            var yPosOffset = pCube.transform.localScale.y;
+            var spawnPlayerBase = Instantiate(sPlayerBase, sPos.position + new Vector3(0f, yPosOffset, 0f), sPlayerBase.transform.rotation);
+            spawnPlayerBase.transform.parent = gSpawnMBaseGrp.transform;
+
+            gSpawnMBaseGrp.transform.parent = levelMap.transform;
         }
         //NOTE: Generate NavMesh at the end
         if (generateNavMesh)
