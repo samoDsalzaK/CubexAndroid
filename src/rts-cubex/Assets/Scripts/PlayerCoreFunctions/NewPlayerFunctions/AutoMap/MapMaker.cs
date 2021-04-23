@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//NOTE: Create deposit spawner
-//NOTE: Create playerBase and Borg spawner
-//NOTE: Add some obstacles to empty hole fields
+//NOTE: Fix boundary walls
+//NOTE: FIX map shadows
+//NOTE: Spawn game hood
+//NOTE: FIX energon deposit spawning
 //NOTE: For starting point user: 6x6 platform
 
 public class MapMaker : MonoBehaviour
@@ -19,6 +20,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] GameObject moundCube;
     [SerializeField] GameObject moundNormal;
     [SerializeField] GameObject energonDeposit;
+    [SerializeField] GameObject wallCube;
     [SerializeField] GameObject sPlayerBase;
     [SerializeField] GameObject sBorgBase;
     [Tooltip("Platform Width in Cubes")]
@@ -325,12 +327,16 @@ public class MapMaker : MonoBehaviour
             var rightLane = sCubes[((sCubes.Count - 1) / 2) - 2];
             var leftLane = sCubes[(sCubes.Count - 1) / 2];
             var offsetT = pCube.transform.localScale.x / 4;
+
+
             var endPosX = rightLane[(rightLane.Count / 2)].transform.position.x - 2 * pCube.transform.localScale.x;           
             
             //Right lane spawning
             //Spawning in the right region energon deposit
+            
             for(float xPos = rightLane[0].transform.position.x; xPos < endPosX; xPos += offsetT)
             {        
+                print("Spawning right lane energon deposits");
                 var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[(rightLane.Count / 2 - 1)].transform.position.z - 2 * offsetT);       
                 var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                 spawnedDeposit.transform.parent = energonGrp.transform;
@@ -339,7 +345,8 @@ public class MapMaker : MonoBehaviour
             //Spawning in the left region energon deposits
             endPosX = rightLane[(rightLane.Count - 1)].transform.position.x + pCube.transform.localScale.x;           
             for(float xPos = rightLane[rightLane.Count - 2].transform.position.x; xPos >= endPosX; xPos -= offsetT)
-            {        
+            {     
+                 print("Spawning right lane energon deposits");   
                 var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[(rightLane.Count / 2 - 1)].transform.position.z - 2 * offsetT);       
                 var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                 spawnedDeposit.transform.parent = energonGrp.transform;
@@ -349,7 +356,8 @@ public class MapMaker : MonoBehaviour
             endPosX = leftLane[(leftLane.Count / 2)].transform.position.x - 2 * pCube.transform.localScale.x;           
             //endPosX works with both lanes because platform is a square
             for(float xPos = leftLane[0].transform.position.x; xPos < endPosX; xPos += offsetT)
-            {        
+            {     
+                 print("Spawning left lane energon deposits");
                 var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, leftLane[(leftLane.Count / 2 - 1)].transform.position.z - 10 * offsetT);       
                 var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                 spawnedDeposit.transform.parent = energonGrp.transform;
@@ -359,7 +367,8 @@ public class MapMaker : MonoBehaviour
             //FIX this-----------------------
             endPosX = leftLane[(leftLane.Count - 1)].transform.position.x - 2 * pCube.transform.localScale.x;           
             for(float xPos = leftLane[leftLane.Count - 2].transform.position.x; xPos >= endPosX; xPos -= offsetT)
-            {        
+            {    
+                 print("Spawning left lane energon deposits");    
                 var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, leftLane[(leftLane.Count / 2 - 1)].transform.position.z - 10 * offsetT);       
                 var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                 spawnedDeposit.transform.parent = energonGrp.transform;
@@ -374,18 +383,28 @@ public class MapMaker : MonoBehaviour
             var endLane = sCubes[sCubes.Count - 1];
             var spawnPoints = new List<Transform>();
 
+            // foreach(var i in firstLane)
+            //     print(i.name + "----" + i.transform.position);
+
             spawnPoints.Add(firstLane[0].transform);
-            spawnPoints.Add(firstLane[firstLane.Count - 1].transform);
+            spawnPoints.Add(firstLane[firstLane.Count - 2].transform); //2 cuz for not looking at the attached hole object
             spawnPoints.Add(endLane[0].transform);
-            spawnPoints.Add(endLane[firstLane.Count - 1].transform);
+            spawnPoints.Add(endLane[firstLane.Count - 2].transform);
 
+            var yPosOffset = pCube.transform.localScale.y + 2f;
 
-            //SpawnPlayer
-            var sPos = spawnPoints[Random.Range(0, spawnPoints.Count)];
-            var yPosOffset = pCube.transform.localScale.y;
+            //SpawnPlayerBase
+            var sPos = spawnPoints[Random.Range(0, spawnPoints.Count)];            
             var spawnPlayerBase = Instantiate(sPlayerBase, sPos.position + new Vector3(0f, yPosOffset, 0f), sPlayerBase.transform.rotation);
+            spawnPoints.Remove(sPos);
             spawnPlayerBase.transform.parent = gSpawnMBaseGrp.transform;
+            gSpawnMBaseGrp.transform.parent = levelMap.transform;
 
+            //SpawnBorgBase
+            sPos = spawnPoints[Random.Range(0, spawnPoints.Count)];
+            var spawnBorgBase = Instantiate(sBorgBase, sPos.position + new Vector3(0f, yPosOffset, 0f), sBorgBase.transform.rotation);
+            spawnPoints.Remove(sPos);
+            spawnBorgBase.transform.parent = gSpawnMBaseGrp.transform;
             gSpawnMBaseGrp.transform.parent = levelMap.transform;
         }
         //NOTE: Generate NavMesh at the end
