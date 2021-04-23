@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CreditsMiningStation : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CreditsMiningStation : MonoBehaviour
     [SerializeField] GameObject MainMiningStationPanel;
     [SerializeField] GameObject errorForMining1; // error panel if user do not have min needed energon amount to mine
     [SerializeField] GameObject errorForMining2; // error panel if storage is full and user has to redeem mined credits
+    [SerializeField] GameObject selectionCanvas;
     [SerializeField] Text playerMinedCreditsTextField;
     [SerializeField] Text upgradePaneCredits; // upgrade panel credits amount
     [SerializeField] Text upgradePaneEnergon; // upgrade panel energon amount
@@ -108,6 +110,7 @@ public class CreditsMiningStation : MonoBehaviour
         else{
             // set main window
             MainMiningStationPanel.SetActive(true);
+            selectionCanvas.SetActive(true);
             // deactivate other building panels
             panelManager.changeStatusOfAllPanels();
         }

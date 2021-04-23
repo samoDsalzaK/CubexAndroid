@@ -47,6 +47,19 @@ public class TimerForSpawningOriginal : MonoBehaviour
 
 	int pressedBtnIndex = 0;
 
+	public float[] changeBuildingTimers
+    {
+        get
+        {
+            return timereferencetasks;
+        }
+        set
+        {
+            timereferencetasks = value;
+        }
+    }
+
+
     void Start()
     {
         if(FindObjectOfType<Base>() == null)

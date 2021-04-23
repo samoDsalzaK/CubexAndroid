@@ -27,10 +27,20 @@ PrefabInstance:
       propertyPath: m_Text
       value: "+1000 credits \u2193"
       objectReference: {fileID: 0}
+    - target: {fileID: 3737263863951519856, guid: 985fd84c18f186d4a9433fe956b8bd2f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4632164739043059106, guid: 985fd84c18f186d4a9433fe956b8bd2f,
         type: 3}
       propertyPath: m_Name
-      value: 'DecreaseCredits-free-aspect-playerbaseCanvas '
+      value: DecreaseCredits-free-aspect-playerbaseCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632164739043059106, guid: 985fd84c18f186d4a9433fe956b8bd2f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 8584667876080004033, guid: 985fd84c18f186d4a9433fe956b8bd2f,
         type: 3}
