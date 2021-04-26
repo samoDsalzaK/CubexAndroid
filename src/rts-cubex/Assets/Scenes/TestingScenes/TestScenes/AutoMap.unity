@@ -587,6 +587,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameHood
       objectReference: {fileID: 0}
+    - target: {fileID: 2038102805122543913, guid: efd3a56b59baffb40bf21d431e1af268,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2038102805122543917, guid: efd3a56b59baffb40bf21d431e1af268,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1129,6 +1134,11 @@ PrefabInstance:
     - target: {fileID: 3838516044077512843, guid: d99de9db671e578479bf2ce388a89ff8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364303084441207735, guid: d99de9db671e578479bf2ce388a89ff8,
+        type: 3}
+      propertyPath: createLevelUI
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

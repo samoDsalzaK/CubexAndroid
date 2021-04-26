@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//NOTE: Fix boundary walls
+//NOTE: Fix boundary walls groups and y scale
 //NOTE: FIX map shadows
 //NOTE: Spawn game hood
 //NOTE: FIX energon deposit spawning
@@ -11,8 +11,8 @@ using UnityEngine.AI;
 
 public class MapMaker : MonoBehaviour
 {
-    //[SerializeField] GameObject platform; //platform cube
-    [Header("Main cnf. p.")]
+   
+    [Header("Level map cnf.:")]
     [SerializeField] GameObject pCube; //platform cube
     [SerializeField] GameObject walls;
     [SerializeField] GameObject areaWall;
@@ -73,8 +73,9 @@ public class MapMaker : MonoBehaviour
         //Create platform object groups
         levelMap = new GameObject("LevelMap"); //Main paltform group
         
-        levelMap.transform.position = Vector3.zero;
+        levelMap.transform.position = Vector3.zero;        
         
+
         if (generateGround)
         {
             groundGrp = new GameObject("Ground");
@@ -106,12 +107,53 @@ public class MapMaker : MonoBehaviour
         //Build platform main wall
         if (generateWalls)
         {           
-            var spawnedWalls = Instantiate(walls, Vector3.zero, walls.transform.rotation);
-            spawnedWalls.transform.localScale = new Vector3((((pWidth * tOffset) / 4)) / 2 - 5.5f, 
-                                                               spawnedWalls.transform.localScale.y * wHeight,
-                                                               (((pHeight * tOffset) / 4)) / 2 - 5.5f);
-            spawnedWalls.transform.position = new Vector3(spawnedWalls.transform.position.x, wHeight / 2, spawnedWalls.transform.position.z);
-            spawnedWalls.transform.parent = levelMap.transform;
+            //New wall spawn logic
+            //Vertical wall generation logic
+            //var middleLane = sCubes[sCubes.Count / 2 - 1];
+            int indexOffset = 1;
+            for (int lIndex = sCubes.Count / 2 - 1; lIndex >= 0; lIndex--)
+            {
+                var spawnedWall1 = Instantiate(wallCube, 
+                                               sCubes[lIndex][0].transform.position + new Vector3((-pCube.transform.localScale.x / 2) - 5f, 0f, 0f), 
+                                               wallCube.transform.rotation);
+                var spawnedWall2 = Instantiate(wallCube, 
+                                               sCubes[lIndex][sCubes[lIndex].Count - 1].transform.position + new Vector3(pCube.transform.localScale.x / 2 + 5f, 0f, 0f), 
+                                               wallCube.transform.rotation);
+                
+                var spawnedWall3 = Instantiate(wallCube, 
+                                               sCubes[lIndex + indexOffset][0].transform.position + new Vector3((-pCube.transform.localScale.x / 2) - 5f, 0f, 0f), 
+                                               wallCube.transform.rotation);
+                var spawnedWall4 = Instantiate(wallCube, 
+                                               sCubes[lIndex + indexOffset][sCubes[lIndex + indexOffset].Count - 1].transform.position + new Vector3(pCube.transform.localScale.x / 2 + 5f, 0f, 0f), 
+                                               wallCube.transform.rotation);
+                indexOffset += 2;
+            }
+            //Horizontal wall spawning
+            indexOffset = 1;
+            for (int lIndex = sCubes[0].Count / 2 - 1; lIndex >= 0; lIndex--)
+            {
+                var spawnedWall1 = Instantiate(wallCube, 
+                                               sCubes[0][lIndex].transform.position + new Vector3(0f, 0f, (pCube.transform.localScale.x / 2) + 5f), 
+                                               Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                var spawnedWall2 = Instantiate(wallCube, 
+                                               sCubes[0][lIndex + indexOffset].transform.position + new Vector3(0f, 0f, (pCube.transform.localScale.x / 2) + 5f), 
+                                               Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                
+                var spawnedWall3 = Instantiate(wallCube, 
+                                               sCubes[sCubes.Count - 1][lIndex].transform.position + new Vector3(0f, 0f, -((pCube.transform.localScale.x / 2) + 5f)), 
+                                               Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                var spawnedWall4 = Instantiate(wallCube, 
+                                               sCubes[sCubes.Count - 1][lIndex + indexOffset].transform.position + new Vector3(0f, 0f, -((pCube.transform.localScale.x / 2) + 5f)), 
+                                               Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                indexOffset += 2;
+            }
+
+            // var spawnedWalls = Instantiate(walls, Vector3.zero, walls.transform.rotation);
+            // spawnedWalls.transform.localScale = new Vector3((((pWidth * tOffset) / 4)) / 2 - 5.5f, 
+            //                                                    spawnedWalls.transform.localScale.y * wHeight,
+            //                                                    (((pHeight * tOffset) / 4)) / 2 - 5.5f);
+            // spawnedWalls.transform.position = new Vector3(spawnedWalls.transform.position.x, wHeight / 2, spawnedWalls.transform.position.z);
+            // spawnedWalls.transform.parent = levelMap.transform;
         }
 
         //Creating paltform obstacles

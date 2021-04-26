@@ -54,7 +54,8 @@ MonoBehaviour:
     type: 3}
   energonDeposit: {fileID: 813274202905404770, guid: 2d326ee9638786e4a9a76fc1b7be4010,
     type: 3}
-  wallCube: {fileID: 0}
+  wallCube: {fileID: 7837839292907508701, guid: 15e979bf577d2574183e238ad3f3bc7f,
+    type: 3}
   sPlayerBase: {fileID: 755612447165250645, guid: 7c798978728a8b345a589b5e1ca29966,
     type: 3}
   sBorgBase: {fileID: 1525609497285559154, guid: 21db69939d83a554ab56e1b973c99514,
