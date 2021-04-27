@@ -11,8 +11,9 @@ using UnityEngine.AI;
 
 public class MapMaker : MonoBehaviour
 {
-   
-    [Header("Level map cnf.:")]
+    [Header("Map UI cnf.:")]
+    [SerializeField] GameObject gameHood;
+    [Header("Level map cnf.:")]    
     [SerializeField] GameObject pCube; //platform cube
     [SerializeField] GameObject walls;
     [SerializeField] GameObject areaWall;
@@ -30,7 +31,8 @@ public class MapMaker : MonoBehaviour
     [Range(6, 6)] //For locking values in inspector
     [SerializeField] int pHeight = 6; 
     [Tooltip("Height of the walls")]
-    [SerializeField] float wHeight = 4;
+    [Range(2, 4)]
+    [SerializeField] float wallHeight = 4;
     [Header("Hole generation cnf.")]
     [Range(1, 2)]
     [SerializeField] int holeCount = 2;
@@ -41,7 +43,6 @@ public class MapMaker : MonoBehaviour
     [SerializeField] float tOffset = 50f;
     [SerializeField] bool generateNavMesh = false;
     [SerializeField] bool generateWalls = false;
-    [SerializeField] bool generateGround = false;
     [SerializeField] bool createAreaWalls = false;
     [SerializeField] bool createHoles = false;
     [SerializeField] bool createMounds = false;
@@ -49,83 +50,115 @@ public class MapMaker : MonoBehaviour
     [SerializeField] bool spawnGameBases = false;
     //private float x = 0f, y = 0f, z = 0f;
     //private GameObject sPlatform;
+    
     //Object sub groups
     private GameObject levelMap;
     private GameObject groundGrp;
     private GameObject wallAreaGrp;
+    private GameObject boundWalls;
     private GameObject holeGrp;
     private GameObject moundGrp;
     private GameObject energonGrp;
     private GameObject gSpawnMBaseGrp;
-    // private List<int> rHoleIndexes = new List<int>(); //For first lane
-    //  private List<int> rEHoleIndexes = new List<int>(); //For end lane
+    
     private int oldHoleIndex = 0;
     private int oldMoundIndex = 1;
     private bool holeLaneSwitch = false;
     private bool moundLaneSwitch = false;
+    private bool generateGround = true;
     private Helper help = new Helper();
    // private GameObject startCube;
     private List<List<GameObject>> sCubes = new List<List<GameObject>>(); //list of spawned cubes
     private List<GameObject> mounds = new List<GameObject>();
     void Start()
     {
-       
+        //By default gamehood is deactivated
+        gameHood.SetActive(false);
         //Create platform object groups
         levelMap = new GameObject("LevelMap"); //Main paltform group
         
-        levelMap.transform.position = Vector3.zero;        
-        
-
+        levelMap.transform.position = Vector3.zero;             
+       
         if (generateGround)
         {
+            //Ground generation
             groundGrp = new GameObject("Ground");
             groundGrp.transform.position = Vector3.zero;
             for (float posZIndex = 0f; posZIndex > -(pHeight * tOffset); posZIndex -= tOffset)
             {
-                var cList = new List<GameObject>();
-                var countW = 0;
-                for(float posXIndex = 0f; posXIndex < (pWidth * tOffset); posXIndex += tOffset)
-                {                     
-                    var scube = Instantiate(pCube, new Vector3(posXIndex, 0f, posZIndex), pCube.transform.rotation);
-                    scube.transform.parent = groundGrp.transform;
-                    //scube.SetActive(true);
-                    //countW++;
-                    cList.Add(scube);
-                }
-                sCubes.Add(cList);
-              //  if (sCubes[0].Count >= pWidth) print("PRow created!");
-               
+                    var cList = new List<GameObject>();
+                    var countW = 0;
+                    for(float posXIndex = 0f; posXIndex < (pWidth * tOffset); posXIndex += tOffset)
+                    {                     
+                        var scube = Instantiate(pCube, new Vector3(posXIndex, 0f, posZIndex), pCube.transform.rotation);
+                        scube.transform.parent = groundGrp.transform;
+                        //scube.SetActive(true);
+                        //countW++;
+                        cList.Add(scube);
+                    }
+                    sCubes.Add(cList);
+                //  if (sCubes[0].Count >= pWidth) print("PRow created!");
+                
             }
-            groundGrp.transform.parent = levelMap.transform;
-        }
+            groundGrp.transform.parent = levelMap.transform;   
 
-        //platform.transform.position = new Vector3(-((pWidth * tOffset) / 2), 0f, ((pHeight * tOffset) / 2));
-        //For centering of platform rect in 0,0,0
-        var newWidth = (pCube.transform.localScale.x * pWidth) / 2;
-        var newHeight = (pCube.transform.localScale.x * pHeight) / 2;
-        levelMap.transform.position = new Vector3(-(newWidth - newWidth / 4), 0f, (newHeight - newHeight / 4));
+            //For centering of platform rect in 0,0,0
+            var newWidth = (pCube.transform.localScale.x * pWidth) / 2;
+            var newHeight = (pCube.transform.localScale.x * pHeight) / 2;
+            levelMap.transform.position = new Vector3(-(newWidth - newWidth / 4), 0f, (newHeight - newHeight / 4));
+            
+            generateGround = false;
+        }
         //Build platform main wall
-        if (generateWalls)
-        {           
+        if (generateWalls && sCubes.Count > 0)
+        {      
+            boundWalls = new GameObject("BoundWalls");
+            boundWalls.transform.position = Vector3.zero;     
             //New wall spawn logic
             //Vertical wall generation logic
-            //var middleLane = sCubes[sCubes.Count / 2 - 1];
             int indexOffset = 1;
             for (int lIndex = sCubes.Count / 2 - 1; lIndex >= 0; lIndex--)
             {
                 var spawnedWall1 = Instantiate(wallCube, 
-                                               sCubes[lIndex][0].transform.position + new Vector3((-pCube.transform.localScale.x / 2) - 5f, 0f, 0f), 
+                                               //wall position
+                                               sCubes[lIndex][0].transform.position + 
+                                               //wall pos offset
+                                               new Vector3((-pCube.transform.localScale.x / 2) - 5f, //x
+                                               wallHeight / 2, //y
+                                               0f), //z
                                                wallCube.transform.rotation);
+                spawnedWall1.transform.parent = boundWalls.transform;
+
                 var spawnedWall2 = Instantiate(wallCube, 
-                                               sCubes[lIndex][sCubes[lIndex].Count - 1].transform.position + new Vector3(pCube.transform.localScale.x / 2 + 5f, 0f, 0f), 
+                                               //wall position
+                                               sCubes[lIndex][sCubes[lIndex].Count - 1].transform.position + 
+                                               //wall pos offset
+                                               new Vector3(pCube.transform.localScale.x / 2 + 5f, //x
+                                               wallHeight / 2, //y
+                                               0f), //z
                                                wallCube.transform.rotation);
+                spawnedWall2.transform.parent = boundWalls.transform;                               
                 
                 var spawnedWall3 = Instantiate(wallCube, 
-                                               sCubes[lIndex + indexOffset][0].transform.position + new Vector3((-pCube.transform.localScale.x / 2) - 5f, 0f, 0f), 
+                                               //wall position
+                                               sCubes[lIndex + indexOffset][0].transform.position +
+                                               //wall pos offset
+                                               new Vector3((-pCube.transform.localScale.x / 2) - 5f, //x
+                                               wallHeight / 2, //y
+                                               0f), //z
                                                wallCube.transform.rotation);
+                spawnedWall3.transform.parent = boundWalls.transform;
+
                 var spawnedWall4 = Instantiate(wallCube, 
-                                               sCubes[lIndex + indexOffset][sCubes[lIndex + indexOffset].Count - 1].transform.position + new Vector3(pCube.transform.localScale.x / 2 + 5f, 0f, 0f), 
+                                               //wall position
+                                               sCubes[lIndex + indexOffset][sCubes[lIndex + indexOffset].Count - 1].transform.position +
+                                               //wall pos offset
+                                               new Vector3(pCube.transform.localScale.x / 2 + 5f, //x
+                                               wallHeight / 2, //y
+                                               0f), //z
                                                wallCube.transform.rotation);
+                spawnedWall4.transform.parent = boundWalls.transform;
+
                 indexOffset += 2;
             }
             //Horizontal wall spawning
@@ -133,31 +166,42 @@ public class MapMaker : MonoBehaviour
             for (int lIndex = sCubes[0].Count / 2 - 1; lIndex >= 0; lIndex--)
             {
                 var spawnedWall1 = Instantiate(wallCube, 
-                                               sCubes[0][lIndex].transform.position + new Vector3(0f, 0f, (pCube.transform.localScale.x / 2) + 5f), 
+                                               sCubes[0][lIndex].transform.position +
+                                               new Vector3(0f, wallHeight / 2, (pCube.transform.localScale.x / 2) + 5f), 
                                                Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                spawnedWall1.transform.parent = boundWalls.transform;
+
                 var spawnedWall2 = Instantiate(wallCube, 
-                                               sCubes[0][lIndex + indexOffset].transform.position + new Vector3(0f, 0f, (pCube.transform.localScale.x / 2) + 5f), 
+                                               sCubes[0][lIndex + indexOffset].transform.position + 
+                                               new Vector3(0f, wallHeight / 2, (pCube.transform.localScale.x / 2) + 5f), 
                                                Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                spawnedWall2.transform.parent = boundWalls.transform;
                 
                 var spawnedWall3 = Instantiate(wallCube, 
-                                               sCubes[sCubes.Count - 1][lIndex].transform.position + new Vector3(0f, 0f, -((pCube.transform.localScale.x / 2) + 5f)), 
+                                               sCubes[sCubes.Count - 1][lIndex].transform.position + 
+                                               new Vector3(0f, wallHeight / 2, -((pCube.transform.localScale.x / 2) + 5f)), 
                                                Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                spawnedWall3.transform.parent = boundWalls.transform;
+
                 var spawnedWall4 = Instantiate(wallCube, 
-                                               sCubes[sCubes.Count - 1][lIndex + indexOffset].transform.position + new Vector3(0f, 0f, -((pCube.transform.localScale.x / 2) + 5f)), 
+                                               sCubes[sCubes.Count - 1][lIndex + indexOffset].transform.position + 
+                                               new Vector3(0f, wallHeight / 2, -((pCube.transform.localScale.x / 2) + 5f)), 
                                                Quaternion.Euler(new Vector3(0f, 90f, 0f)));
+                spawnedWall4.transform.parent = boundWalls.transform;
+                
                 indexOffset += 2;
             }
-
-            // var spawnedWalls = Instantiate(walls, Vector3.zero, walls.transform.rotation);
-            // spawnedWalls.transform.localScale = new Vector3((((pWidth * tOffset) / 4)) / 2 - 5.5f, 
-            //                                                    spawnedWalls.transform.localScale.y * wHeight,
-            //                                                    (((pHeight * tOffset) / 4)) / 2 - 5.5f);
-            // spawnedWalls.transform.position = new Vector3(spawnedWalls.transform.position.x, wHeight / 2, spawnedWalls.transform.position.z);
-            // spawnedWalls.transform.parent = levelMap.transform;
+            //Regulating the scale
+            boundWalls.transform.localScale = new Vector3(
+                                                            boundWalls.transform.localScale.x,
+                                                            wallHeight,
+                                                            boundWalls.transform.localScale.z);
+             //Parenting to main map group
+            boundWalls.transform.parent = levelMap.transform;
         }
 
         //Creating paltform obstacles
-        if (createAreaWalls)
+        if (createAreaWalls && sCubes.Count > 0)
         {            
             wallAreaGrp = new GameObject("AreaWalls");
             wallAreaGrp.transform.position = Vector3.zero;
@@ -214,7 +258,7 @@ public class MapMaker : MonoBehaviour
             //Parenting to main map group
             wallAreaGrp.transform.parent = levelMap.transform;
         }
-        if (createHoles)
+        if (createHoles && sCubes.Count > 0)
         {
             var hList = new List<GameObject>();
             holeGrp = new GameObject("Platform holes");
@@ -293,7 +337,7 @@ public class MapMaker : MonoBehaviour
             //var holeIndex = sCubex[Random]
         }
         //Mound generation
-        if(createMounds)
+        if(createMounds && sCubes.Count > 0)
         {
             //moundCube
             moundGrp = new GameObject("Mounds");
@@ -361,7 +405,7 @@ public class MapMaker : MonoBehaviour
             moundGrp.transform.parent = levelMap.transform;
         }
         //Energon deposit spawning
-        if (spawnEDeposits)
+        if (spawnEDeposits && sCubes.Count > 0)
         {
             energonGrp = new GameObject("EnergonDeposits");
             energonGrp.transform.position = Vector3.zero;
@@ -417,8 +461,11 @@ public class MapMaker : MonoBehaviour
             }
             energonGrp.transform.parent = levelMap.transform;
         }
-        if (spawnGameBases)
+        if (spawnGameBases && sCubes.Count > 0)
         {
+            //Activating the game hood
+            gameHood.SetActive(true);
+
             gSpawnMBaseGrp = new GameObject("Game_MBases");
             gSpawnMBaseGrp.transform.position = Vector3.zero;
             var firstLane = sCubes[0];
@@ -450,7 +497,7 @@ public class MapMaker : MonoBehaviour
             gSpawnMBaseGrp.transform.parent = levelMap.transform;
         }
         //NOTE: Generate NavMesh at the end
-        if (generateNavMesh)
+        if (generateNavMesh && sCubes.Count > 0)
         {
             if(sCubes.Count > 0)
             {

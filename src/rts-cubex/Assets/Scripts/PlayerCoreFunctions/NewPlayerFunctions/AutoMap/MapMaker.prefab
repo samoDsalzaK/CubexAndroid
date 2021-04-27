@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f74fa5039a3a074191d2711bdcf6c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameHood: {fileID: 0}
   pCube: {fileID: 1049119169126351701, guid: 069878fb70b09da4db31c6be3a6e52d8, type: 3}
   walls: {fileID: 3278041012353780772, guid: adac1fc2b24493242a9b0f5ed443153e, type: 3}
   areaWall: {fileID: 706042165436362283, guid: f0861b2f7d1885d498856998ee1e5ab3, type: 3}
@@ -62,13 +63,12 @@ MonoBehaviour:
     type: 3}
   pWidth: 6
   pHeight: 6
-  wHeight: 3
+  wallHeight: 2
   holeCount: 2
   moundCount: 2
   tOffset: 50
   generateNavMesh: 1
   generateWalls: 1
-  generateGround: 1
   createAreaWalls: 1
   createHoles: 1
   createMounds: 1
