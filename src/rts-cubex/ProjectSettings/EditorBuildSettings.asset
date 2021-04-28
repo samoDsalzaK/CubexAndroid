@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainGameScenes/Level03.unity
     guid: ce4d6c278a6c1a64b98ed3f78381900f
   - enabled: 1
+    path: Assets/Scenes/TestingScenes/TestScenes/AutoMap.unity
+    guid: 83095da27e9773b4e976c28caec15dc8
+  - enabled: 1
     path: Assets/Scenes/TutorialScenes/TutorialBasicFunctions.unity
     guid: 848e69e36d915294ebc6169322f81f24
   - enabled: 1
