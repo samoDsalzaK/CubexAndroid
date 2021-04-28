@@ -490,7 +490,7 @@ public class MapMaker : MonoBehaviour
                 energonGrp = new GameObject("EnergonDeposits");
                 energonGrp.transform.position = Vector3.zero;
 
-                var rightLane = sCubes[((sCubes.Count - 1) / 2) - 2];
+                var rightLane = sCubes[((sCubes.Count - 1) / 2) - 1];
                 var leftLane = sCubes[(sCubes.Count - 1) / 2];
                 var offsetT = pCube.transform.localScale.x / 4;
 
@@ -503,17 +503,21 @@ public class MapMaker : MonoBehaviour
                 for(float xPos = rightLane[0].transform.position.x; xPos < endPosX; xPos += offsetT)
                 {        
                    // print("Spawning right lane energon deposits");
-                    var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[(rightLane.Count / 2 - 1)].transform.position.z - 2 * offsetT);       
+                    var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[0].transform.position.z - 2 * offsetT);       
                     var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                     spawnedDeposit.transform.parent = energonGrp.transform;
                 }
 
                 //Spawning in the left region energon deposits
                 endPosX = rightLane[(rightLane.Count - 1)].transform.position.x + pCube.transform.localScale.x;           
-                for(float xPos = rightLane[rightLane.Count - 2].transform.position.x; xPos >= endPosX; xPos -= offsetT)
+                //print("EndX: " + endPosX);
+                //print("StartPosX: " + rightLane[rightLane.Count - 1].transform.position.x);
+                for(float xPos = rightLane[rightLane.Count - 1].transform.position.x - pCube.transform.localScale.x; 
+                          xPos < endPosX - 2 * offsetT; 
+                          xPos += offsetT)
                 {     
-                   // print("Spawning right lane energon deposits");   
-                    var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[(rightLane.Count / 2 - 1)].transform.position.z - 2 * offsetT);       
+                    //print("Spawning right lane energon deposits");   
+                    var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[0].transform.position.z - 2 * offsetT);       
                     var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                     spawnedDeposit.transform.parent = energonGrp.transform;
                 }
@@ -523,7 +527,7 @@ public class MapMaker : MonoBehaviour
                 //endPosX works with both lanes because platform is a square
                 for(float xPos = leftLane[0].transform.position.x; xPos < endPosX; xPos += offsetT)
                 {     
-                   // print("Spawning left lane energon deposits");
+                    //print("Spawning left lane energon deposits");
                     var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, leftLane[(leftLane.Count / 2 - 1)].transform.position.z - 10 * offsetT);       
                     var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                     spawnedDeposit.transform.parent = energonGrp.transform;
@@ -667,51 +671,12 @@ public class MapMaker : MonoBehaviour
                 spawnLootBoxes = false;
             }
             //NOTE: Generate NavMesh at the end
-            if (generateNavMesh && sCubes.Count > 0)
-            {   
-                //createPart(7, delayTime);         
-                if(sCubes.Count > 0)
-                {
-                    foreach(var crow in sCubes)
-                    {
-                        foreach(var cube in crow)
-                        {
-                             cube.GetComponent<NavMeshSurface>().BuildNavMesh();
-                            // if ((cube.name.ToLower()).Contains("hole"))
-                            // {
-                                // var iPlatform = help.getChildGameObjectByName(cube, "BWArea");
-                                // iPlatform.GetComponent<NavMeshSurface>().BuildNavMesh();
-                            //}                        
-                            // else
-                            // {
-                                // if(cube.activeSelf)
-                                // {
-                                   
-                                //}
-                            //}
-                        }
-                    }
-                }
-                //Hole navmesh generation
-                if (holes.Count > 0)
-                {
-                    foreach(var h in holes)
-                    {
-                       var iPlatform = help.getChildGameObjectByName(h, "BWArea");
-                       iPlatform.GetComponent<NavMeshSurface>().BuildNavMesh(); 
-                    }
-                }
-                //Mound navmesh generation
-                if (mounds.Count > 0)
-                {
-                    foreach(var m in mounds)
-                    {
-                        m.GetComponent<MoundNavGen>().BuildNavMesh = true;
-                    }
-                }
+           if (generateNavMesh && sCubes.Count > 0)
+           {   
+               gameObject.GetComponent<NavMeshSurface>().BuildNavMesh();               
                 
-                 generateNavMesh = false;
-                // loadBar.fillAmount += 0.125f;                
+                generateNavMesh = false;
+                //loadBar.fillAmount += 0.125f;                
             }
             createLevel = false;
             levelLoadingCanvas.SetActive(false);
