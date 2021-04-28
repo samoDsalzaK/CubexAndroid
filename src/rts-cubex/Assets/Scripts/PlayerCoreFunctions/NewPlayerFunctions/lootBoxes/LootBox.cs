@@ -21,6 +21,8 @@ public class LootBox : MonoBehaviour
     private ParticleSystem boxSmoke;
     private Color boxColor;
     private bool isBoxOpened = false;
+
+    public int BoxType {set { boxType=value; } get { return boxType; }}
     enum Box{Energon, Credits};
     void Start()
     {
@@ -108,6 +110,7 @@ public class LootBox : MonoBehaviour
         boxMainBody.SetActive(false);
         boxSmoke.enableEmission = false;
         GetComponent<Collider>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic  = true;
         yield return new WaitForSeconds(destroyDelayTime);
         Destroy(gameObject);
     }

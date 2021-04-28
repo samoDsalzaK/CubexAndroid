@@ -65,6 +65,7 @@ MonoBehaviour:
     type: 3}
   sBorgBase: {fileID: 1525609497285559154, guid: 21db69939d83a554ab56e1b973c99514,
     type: 3}
+  lootBox: {fileID: 3522917265492798337, guid: f4f96d5d9cf2c8b4abe332131ea80b5c, type: 3}
   pWidth: 6
   pHeight: 6
   wallHeight: 2
@@ -79,3 +80,4 @@ MonoBehaviour:
   createMounds: 1
   spawnEDeposits: 1
   spawnGameBases: 1
+  spawnLootBoxes: 1

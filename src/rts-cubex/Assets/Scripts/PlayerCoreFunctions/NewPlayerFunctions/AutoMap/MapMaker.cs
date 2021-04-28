@@ -28,6 +28,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] GameObject wallCube;
     [SerializeField] GameObject sPlayerBase;
     [SerializeField] GameObject sBorgBase;
+    [SerializeField] GameObject lootBox;
     [Tooltip("Platform Width in Cubes")]
     [Range(6, 6)] //For locking values in inspector
     [SerializeField] int pWidth = 6;  
@@ -53,7 +54,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] bool createMounds = false;
     [SerializeField] bool spawnEDeposits = false;
     [SerializeField] bool spawnGameBases = false;
-   
+    [SerializeField] bool spawnLootBoxes = false;
     
     //Object sub groups
     private GameObject levelMap;
@@ -64,6 +65,7 @@ public class MapMaker : MonoBehaviour
     private GameObject moundGrp;
     private GameObject energonGrp;
     private GameObject gSpawnMBaseGrp;
+    private GameObject lootBoxGrp;
     
     private int oldHoleIndex = 0;
     private int oldMoundIndex = 1;
@@ -72,10 +74,12 @@ public class MapMaker : MonoBehaviour
     private bool generateGround = true;
     private bool createLevel = true;
 
+    private int oldBoxType = 0;
     private Helper help = new Helper();
    // private GameObject startCube;
     private List<List<GameObject>> sCubes = new List<List<GameObject>>(); //list of spawned cubes
     private List<GameObject> mounds = new List<GameObject>();
+    private List<GameObject> holes = new List<GameObject>();
     void Start()
     {
       
@@ -118,13 +122,11 @@ public class MapMaker : MonoBehaviour
                 for (float posZIndex = 0f; posZIndex > -(pHeight * tOffset); posZIndex -= tOffset)
                 {
                         var cList = new List<GameObject>();
-                        var countW = 0;
                         for(float posXIndex = 0f; posXIndex < (pWidth * tOffset); posXIndex += tOffset)
                         {                     
                             var scube = Instantiate(pCube, new Vector3(posXIndex, 0f, posZIndex), pCube.transform.rotation);
                             scube.transform.parent = groundGrp.transform;
-                            //scube.SetActive(true);
-                            //countW++;
+                            
                             cList.Add(scube);
                         }
                         sCubes.Add(cList);
@@ -375,7 +377,8 @@ public class MapMaker : MonoBehaviour
                             var sPosLane = pLane[spawnIndexes[randPosIndex]];//hole spawn point
                             
                             var spawnedHole = Instantiate(holeCube, sPosLane.transform.position, sPosLane.transform.rotation);
-                            pLane.Add(spawnedHole);
+                            //pLane.Add(spawnedHole);
+                            holes.Add(spawnedHole);
                             spawnedHole.transform.parent = holeGrp.transform;
                             //Removing existing platform model
                             pLane.Remove(sPosLane);
@@ -460,6 +463,7 @@ public class MapMaker : MonoBehaviour
                     //var nMIndex = spawnIndexes[randPosIndex] > 0 ? spawnIndexes[randPosIndex] - 1 : spawnIndexes[randPosIndex];
                     var mNPos = nPLane[spawnIndexes[randPosIndex]].transform.position + new Vector3(0f, cPScale.y, 0f);
                     
+                    //Adding building navmesh and placing loot boxes on them
                     var spawnedMound = Instantiate(moundCube, mPos, Quaternion.Euler(mRotAngle));
                     mounds.Add(spawnedMound);
 
@@ -563,9 +567,9 @@ public class MapMaker : MonoBehaviour
                 //     print(i.name + "----" + i.transform.position);
 
                 spawnPoints.Add(firstLane[0].transform);
-                spawnPoints.Add(firstLane[firstLane.Count - 2].transform); //2 cuz for not looking at the attached hole object
+                spawnPoints.Add(firstLane[firstLane.Count - 1].transform); //2 cuz for not looking at the attached hole object
                 spawnPoints.Add(endLane[0].transform);
-                spawnPoints.Add(endLane[firstLane.Count - 2].transform);
+                spawnPoints.Add(endLane[firstLane.Count - 1].transform);
 
                 var yPosOffset = pCube.transform.localScale.y + 2f;
 
@@ -593,6 +597,75 @@ public class MapMaker : MonoBehaviour
                 // if (!isTesting)
                 //     generateNavMesh = true;
             }
+            if (spawnLootBoxes && sCubes.Count > 0)
+            {
+                lootBoxGrp = new GameObject("LootBoxes");
+                lootBoxGrp.transform.position = Vector3.zero;
+                //Spawning logic
+                foreach(var m in mounds)
+                {
+                    var spawnedLootBox = Instantiate(lootBox,
+                                                   m.transform.position + 
+                                                   new Vector3(0f, 10f, 0f), 
+                                                   lootBox.transform.rotation);
+                    //Generating random loot box types 0 - 1
+                    var boxType = Random.Range(0, 2);
+                    //Cehcking if old type number exists or not
+                    if (oldBoxType == boxType)
+                    {
+                        while(oldBoxType == boxType)
+                        {
+                            boxType = Random.Range(0, 2);
+
+                            if (oldBoxType != boxType) 
+                            {
+                                oldBoxType = boxType;
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        oldBoxType = boxType;
+                    }
+
+                    spawnedLootBox.GetComponent<LootBox>().BoxType = boxType;
+                    spawnedLootBox.transform.parent = lootBoxGrp.transform;
+                }
+
+                //Spawning on holes
+                foreach(var h in holes)
+                {
+                    var spawnedLootBox = Instantiate(lootBox,
+                                                   h.transform.position + 
+                                                   new Vector3(0f, 5f, 0f), 
+                                                   lootBox.transform.rotation);
+                    //Generating random loot box types 0 - 1
+                    var boxType = Random.Range(0, 2);
+                    //Cehcking if old type number exists or not
+                    if (oldBoxType == boxType)
+                    {
+                        while(oldBoxType == boxType)
+                        {
+                            boxType = Random.Range(0, 2);
+
+                            if (oldBoxType != boxType) 
+                            {
+                                oldBoxType = boxType;
+                                break;
+                            }
+                        }
+                    }
+                    else{
+                        oldBoxType = boxType;
+                    }
+
+                    spawnedLootBox.GetComponent<LootBox>().BoxType = boxType;
+                    spawnedLootBox.transform.parent = lootBoxGrp.transform;
+                }
+                //Parenting the created loot box group
+                lootBoxGrp.transform.parent = levelMap.transform;
+                spawnLootBoxes = false;
+            }
             //NOTE: Generate NavMesh at the end
             if (generateNavMesh && sCubes.Count > 0)
             {   
@@ -603,19 +676,29 @@ public class MapMaker : MonoBehaviour
                     {
                         foreach(var cube in crow)
                         {
-                            if ((cube.name.ToLower()).Contains("hole"))
-                            {
-                                var iPlatform = help.getChildGameObjectByName(cube, "BWArea");
-                                iPlatform.GetComponent<NavMeshSurface>().BuildNavMesh();
-                            }                        
-                            else
-                            {
+                             cube.GetComponent<NavMeshSurface>().BuildNavMesh();
+                            // if ((cube.name.ToLower()).Contains("hole"))
+                            // {
+                                // var iPlatform = help.getChildGameObjectByName(cube, "BWArea");
+                                // iPlatform.GetComponent<NavMeshSurface>().BuildNavMesh();
+                            //}                        
+                            // else
+                            // {
                                 // if(cube.activeSelf)
                                 // {
-                                    cube.GetComponent<NavMeshSurface>().BuildNavMesh();
+                                   
                                 //}
-                            }
+                            //}
                         }
+                    }
+                }
+                //Hole navmesh generation
+                if (holes.Count > 0)
+                {
+                    foreach(var h in holes)
+                    {
+                       var iPlatform = help.getChildGameObjectByName(h, "BWArea");
+                       iPlatform.GetComponent<NavMeshSurface>().BuildNavMesh(); 
                     }
                 }
                 //Mound navmesh generation
@@ -633,6 +716,7 @@ public class MapMaker : MonoBehaviour
             createLevel = false;
             levelLoadingCanvas.SetActive(false);
         }
+        
     }
     // private void delay(float time){
     //     StartCoroutine(handleDelay(time));
