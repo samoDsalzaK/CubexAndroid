@@ -498,7 +498,7 @@ public class MapMaker : MonoBehaviour
                 
                 for(float xPos = rightLane[0].transform.position.x; xPos < endPosX; xPos += offsetT)
                 {        
-                    print("Spawning right lane energon deposits");
+                   // print("Spawning right lane energon deposits");
                     var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[(rightLane.Count / 2 - 1)].transform.position.z - 2 * offsetT);       
                     var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                     spawnedDeposit.transform.parent = energonGrp.transform;
@@ -508,7 +508,7 @@ public class MapMaker : MonoBehaviour
                 endPosX = rightLane[(rightLane.Count - 1)].transform.position.x + pCube.transform.localScale.x;           
                 for(float xPos = rightLane[rightLane.Count - 2].transform.position.x; xPos >= endPosX; xPos -= offsetT)
                 {     
-                    print("Spawning right lane energon deposits");   
+                   // print("Spawning right lane energon deposits");   
                     var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, rightLane[(rightLane.Count / 2 - 1)].transform.position.z - 2 * offsetT);       
                     var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                     spawnedDeposit.transform.parent = energonGrp.transform;
@@ -519,7 +519,7 @@ public class MapMaker : MonoBehaviour
                 //endPosX works with both lanes because platform is a square
                 for(float xPos = leftLane[0].transform.position.x; xPos < endPosX; xPos += offsetT)
                 {     
-                    print("Spawning left lane energon deposits");
+                   // print("Spawning left lane energon deposits");
                     var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, leftLane[(leftLane.Count / 2 - 1)].transform.position.z - 10 * offsetT);       
                     var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                     spawnedDeposit.transform.parent = energonGrp.transform;
@@ -530,7 +530,7 @@ public class MapMaker : MonoBehaviour
                 endPosX = leftLane[(leftLane.Count - 1)].transform.position.x - 2 * pCube.transform.localScale.x;           
                 for(float xPos = leftLane[leftLane.Count - 2].transform.position.x; xPos >= endPosX; xPos -= offsetT)
                 {    
-                    print("Spawning left lane energon deposits");    
+                    //print("Spawning left lane energon deposits");    
                     var ePos = new Vector3(xPos, pCube.transform.localScale.y + 1f, leftLane[(leftLane.Count / 2 - 1)].transform.position.z - 10 * offsetT);       
                     var spawnedDeposit = Instantiate(energonDeposit, ePos, energonDeposit.transform.rotation);               
                     spawnedDeposit.transform.parent = energonGrp.transform;

@@ -53,6 +53,7 @@ TagManager:
   - ChangeSkinPanel
   - buidlingResearch
   - playerTurret
+  - lootbox
   layers:
   - Default
   - TransparentFX
