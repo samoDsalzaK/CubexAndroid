@@ -46,7 +46,6 @@ public class MapMaker : MonoBehaviour
     [SerializeField] int moundCount = 2;
     [Tooltip("Transformation offset XYZ")] 
     [SerializeField] float tOffset = 50f;
-    [SerializeField] bool isTesting = true;
     [SerializeField] bool generateNavMesh = false;
     [SerializeField] bool generateWalls = false;
     [SerializeField] bool createAreaWalls = false;
@@ -82,21 +81,7 @@ public class MapMaker : MonoBehaviour
     private List<GameObject> holes = new List<GameObject>();
     void Start()
     {
-      
-        // if (isTesting)
-        // {
-        //     levelLoadingCanvas.SetActive(false);
-        // }
-        // else
-        // {
-        //     generateNavMesh = true;
-        //     generateWalls = true;
-        //     createAreaWalls = true;
-        //     createHoles = true;
-        //     createMounds = true;
-        //     spawnEDeposits = true;
-        //     spawnGameBases = true;
-        // }
+              
         //Prearing main game level map group
         //By default gamehood is deactivated
         gameHood.SetActive(false);
@@ -140,13 +125,9 @@ public class MapMaker : MonoBehaviour
                 var newHeight = (pCube.transform.localScale.x * pHeight) / 2;
                 levelMap.transform.position = new Vector3(-(newWidth - newWidth / 4), 0f, (newHeight - newHeight / 4));
                                 
-                generateGround = false;
+                generateGround = false;                
 
-                // delay(delayTime);
-                // loadBar.fillAmount += 0.125f;
-
-                // if (!isTesting)
-                //      generateWalls = true;
+               
             }
                     //Build platform main boundary wall
             if (generateWalls && sCubes.Count > 0)
@@ -240,12 +221,7 @@ public class MapMaker : MonoBehaviour
                 boundWalls.transform.parent = levelMap.transform;
 
                 generateWalls = false;
-
-                // delay(delayTime);
-                // loadBar.fillAmount += 0.125f;
                 
-                // if (!isTesting)
-                //     createAreaWalls = true;
             }
 
             //Creating paltform wall obstacles in cross pattern
@@ -309,10 +285,7 @@ public class MapMaker : MonoBehaviour
                 
                 createAreaWalls = false;
 
-                // delay(delayTime);
-                // loadBar.fillAmount += 0.125f;
-                // if (!isTesting)
-                //     createHoles = true;
+                
             }
             //Creating platform holes
             if (createHoles && sCubes.Count > 0)
@@ -395,12 +368,7 @@ public class MapMaker : MonoBehaviour
                 holeGrp.transform.parent = levelMap.transform;            
                 
                 createHoles = false;
-
-                // delay(delayTime);
-                // loadBar.fillAmount += 0.125f;
-
-                // if (!isTesting)
-                //     createMounds = true;
+               
             }
 
             //Standard mound generation
@@ -475,12 +443,7 @@ public class MapMaker : MonoBehaviour
                 moundGrp.transform.parent = levelMap.transform;
             
                 createMounds = false;
-
-                // delay(delayTime);
-                // loadBar.fillAmount += 0.125f;
-
-                //  if (!isTesting)
-                //     spawnEDeposits = true;
+               
             }
 
             //Energon deposit spawning
@@ -546,12 +509,7 @@ public class MapMaker : MonoBehaviour
                 energonGrp.transform.parent = levelMap.transform;
                 
                 spawnEDeposits = false;
-
-                // delay(delayTime);
-                // loadBar.fillAmount += 0.125f;
-
-                // if (!isTesting)
-                //     spawnGameBases = true;
+               
             }
 
             //Spawning main level bases and required game hood
@@ -594,12 +552,7 @@ public class MapMaker : MonoBehaviour
                 gSpawnMBaseGrp.transform.parent = levelMap.transform;
 
                 spawnGameBases = false;
-
-                // delay(delayTime);
-                // loadBar.fillAmount += 0.125f;
-
-                // if (!isTesting)
-                //     generateNavMesh = true;
+               
             }
             if (spawnLootBoxes && sCubes.Count > 0)
             {
