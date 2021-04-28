@@ -16020,6 +16020,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnergonAmountB
       objectReference: {fileID: 0}
+    - target: {fileID: 6156616987256619837, guid: 892d39465416b974194dd3fbc94a3195,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156616987256619837, guid: 892d39465416b974194dd3fbc94a3195,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.47843137
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156616987256619837, guid: 892d39465416b974194dd3fbc94a3195,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6156616987256619837, guid: 892d39465416b974194dd3fbc94a3195,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 892d39465416b974194dd3fbc94a3195, type: 3}
 --- !u!224 &2641340578190704250 stripped
@@ -16594,6 +16614,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926451223242390848, guid: 3ff4cdacf52e7234db3215d42f65c44d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.9882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926451223242390848, guid: 3ff4cdacf52e7234db3215d42f65c44d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.44705883
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926451223242390848, guid: 3ff4cdacf52e7234db3215d42f65c44d,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2926451223242390848, guid: 3ff4cdacf52e7234db3215d42f65c44d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.972549
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ff4cdacf52e7234db3215d42f65c44d, type: 3}

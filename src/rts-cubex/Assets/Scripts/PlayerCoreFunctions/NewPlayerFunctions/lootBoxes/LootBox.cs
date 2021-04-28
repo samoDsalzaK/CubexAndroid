@@ -66,12 +66,13 @@ public class LootBox : MonoBehaviour
                        displayInfo(energonToAdd);
 
                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() + energonToAdd);
+                        isBoxOpened = true;
                     }
                     // else
                     // {
                     //     //Add score points instead
                     // }
-                    isBoxOpened = true;
+                    
                    
                 }
             }
@@ -85,13 +86,13 @@ public class LootBox : MonoBehaviour
                         displayInfo(creditsToAdd);
 
                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() + creditsToAdd);
-                        
+                         isBoxOpened = true;
                     }
                     // else
                     // {
                     //     //Add score points instead
                     // }
-                    isBoxOpened = true;
+                   
                 }
             }
             
