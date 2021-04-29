@@ -26,6 +26,10 @@ public class PlayerEnergonStPoint : MonoBehaviour
    private void OnTriggerEnter(Collider other) {
        if (other.gameObject.tag == "Worker")
        {
+           if (other.gameObject.GetComponent<Worker>().getEnergonAmount() <= 0)
+           {
+               return;
+           }
            //It takes the player object class
            var workerNav = other.gameObject.GetComponent<Worker>();
            if (workerNav.getEnergonAmount() > 0)    

@@ -15,6 +15,7 @@ public class ResearchLevel : MonoBehaviour
     [SerializeField] ResearchConf oBGResearch;
 	PanelManager panelManager;
 	createAnimatedPopUp animatedPopUps;
+  [SerializeField] GameObject selectionCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,7 @@ public class ResearchLevel : MonoBehaviour
 		researchHealth.setHealthOfStructureOriginal(oBGResearch.getBuildingResearchHealth());
 		researchHealth.setHealth(oBGResearch.getBuildingResearchHealth());
 	 	panelManager = GetComponent<PanelManager>();
-		animatedPopUps = GetComponent<createAnimatedPopUp>();
+		animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
     }
 
     // Update is called once per frame
@@ -62,6 +63,7 @@ public class ResearchLevel : MonoBehaviour
         }  
         else{
             // set main window
+            selectionCanvas.SetActive(true);
 			researchCenterUpgradePanel.SetActive(true);  
 			researchCenterLevelText.text = "Research Center Level : " + oBGResearch.getBuildingResearchLevel();   
 			researchUpgradeBtnText.text = "Upgrade Research Center to level " + (oBGResearch.getBuildingResearchLevel()+ 1) + "\n" + "(" + oBGResearch.getMinNeededCreditsAmountForResearch() + " credits & " + oBGResearch.getMinNeededEnergonAmountForResearch()  + " energon)"; 
@@ -88,9 +90,9 @@ public class ResearchLevel : MonoBehaviour
         } 
         
       oBGResearch.setBuildingResearchLevel(oBGResearch.getBuildingResearchLevel() + 1); // scriptable object change value
-	  animatedPopUps = GetComponent<createAnimatedPopUp>();
+	  animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
 	  animatedPopUps.createDecreaseCreditsPopUp(oBGResearch.getMinNeededCreditsAmountForResearch()); // creating pop ups
-	  animatedPopUps.createDecreaseEnergonPopUp(oBGResearch.getMinNeededEnergonAmountForResearch(),2); // creating pop ups
+	  animatedPopUps.createDecreaseEnergonPopUp(oBGResearch.getMinNeededEnergonAmountForResearch()); // creating pop ups
       playerbase.setCreditsAmount(playerbase.getCreditsAmount() - oBGResearch.getMinNeededCreditsAmountForResearch());
       playerbase.setEnergonAmount(playerbase.getEnergonAmount() - oBGResearch.getMinNeededEnergonAmountForResearch());
       researchHealth.setHealthOfStructureOriginal(researchHealth.getHealthOfStructureOriginal() + oBGResearch.getUpgradeBuildingResearchLevelHP());

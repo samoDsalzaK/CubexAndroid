@@ -15,6 +15,7 @@ public class Energon : MonoBehaviour
     bool savedIndex = false;
     private Base playerbase;
     PanelManager panelManager;
+    [SerializeField] GameObject selectionCanvas;
     void Start()
     {
         energonCollectorHealth = GetComponent<HealthOfRegBuilding>();
@@ -58,6 +59,7 @@ public class Energon : MonoBehaviour
         }  
         else{
             // set main window
+            selectionCanvas.SetActive(true);
 			CollectorScreen.SetActive(true);
             // deactivate other building panels
             panelManager.changeStatusOfAllPanels();
@@ -72,28 +74,34 @@ public class Energon : MonoBehaviour
             workerIndex = enteredWorker.GetComponent<Worker>().getWorkerIndex();
             savedIndex = true;
         }
-        
-        if (other.gameObject.tag == "Worker")
-        {
-            var basePosition = FindObjectOfType<PlayerEnergonStPoint>();
-            var workerNav = other.gameObject.GetComponent<Worker>();
-            if(availableEnergon <= 0)
+        // check for entered wprker index
+        if (workerIndex == enteredWorker.GetComponent<Worker>().getWorkerIndex()){
+            if (other.gameObject.tag == "Worker")
             {
-            Destroy(gameObject);
-            playerbase.setworkersAmount(playerbase.getworkersAmount()+1);
-           
-            enteredWorker.GetComponent<Worker>().setWorkerState(false); // workeris yra laisvas vel.
-            enteredWorker.GetComponent<WorkerLifeCycle>().decreaseWorkerLife();
-            return;
+                var basePosition = FindObjectOfType<PlayerEnergonStPoint>();
+                var workerNav = other.gameObject.GetComponent<Worker>();
+                if(availableEnergon <= 0)
+                {
+                Destroy(gameObject);
+                playerbase.setworkersAmount(playerbase.getworkersAmount()+1);
+            
+                enteredWorker.GetComponent<Worker>().setWorkerState(false); // workeris yra laisvas vel.
+                enteredWorker.GetComponent<WorkerLifeCycle>().decreaseWorkerLife();
+                return;
+                }
+                int temp = availableEnergon;
+                availableEnergon--;
+                workerNav.setEnergonInWorker(takenEnergonAmount);
+                workerNav.setEnergonStationPozition(transform.position);
+                //print("Player base storage point: " + basePosition.getStoragePointPoisition());
+                workerNav.SetDestination(basePosition.getStoragePointPoisition());
             }
-            int temp = availableEnergon;
-            availableEnergon--;
-            workerNav.setEnergonInWorker(takenEnergonAmount);
-            workerNav.setEnergonStationPozition(transform.position);
-            workerNav.SetDestination(basePosition.getStoragePointPoisition());
+            else
+            {
+                return;
             }
-        else
-        {
+        }
+        else{
             return;
         }
     }

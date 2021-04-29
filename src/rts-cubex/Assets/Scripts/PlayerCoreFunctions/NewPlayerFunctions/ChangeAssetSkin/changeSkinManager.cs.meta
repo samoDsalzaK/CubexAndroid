@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:src/rts-cubex/Assets/Scripts/PlayerCoreFunctions/NewPlayerFunctions/AutoMap/MapMaker.cs.meta
+guid: 5e9b718e1279a2146ba40b884faf2c68
+=======
+guid: 4cbaa31b8eaf7e041b3a2e0f6711b38d
+>>>>>>> main:src/rts-cubex/Assets/Scripts/PlayerCoreFunctions/NewPlayerFunctions/ChangeAssetSkin/changeSkinManager.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

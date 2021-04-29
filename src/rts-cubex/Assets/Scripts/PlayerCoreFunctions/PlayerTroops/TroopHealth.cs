@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TroopHealth : MonoBehaviour
 {
-    [SerializeField] private int unitHP;
+    [SerializeField]  int unitHP;
     public GameObject health;
     [SerializeField] Image healthBarForeground;
     [SerializeField] Image healthBarBackground;
@@ -24,14 +24,19 @@ public class TroopHealth : MonoBehaviour
     [SerializeField] bool isHero = false;
     [SerializeField] bool nearHero = false;
     [SerializeField] GameObject heroEffectParticles;
+    [SerializeField] float shieldRegTime = 0.3f;
+    [SerializeField] Text heroCharText;
     public bool NearHero { set { nearHero = value; } get { return nearHero; }}
+    public int UnitHP { get { return unitHP; }}
     public int ShieldHealth { set { shieldHealth = value; } get { return shieldHealth; }}
     public int MaxShield { set { maxShield = value; } get { return maxShield; }}
+    public float ShieldRegTime { set {shieldRegTime = value; } get {return shieldRegTime;}}
     void Start()
     {
         if (isHero)
         {
             shieldHealth = maxShield;
+            
         }
         else
         {
@@ -48,7 +53,10 @@ public class TroopHealth : MonoBehaviour
             playerBase = FindObjectOfType<Base>();
         }
         //upgrade = FindObjectOfType<Research> ();
-        unitHP = upgrade.getMaxHP();
+        if (isHero)
+            unitHP = upgrade.SHeroMaxHP;
+        else
+            unitHP = upgrade.getMaxHP();
         //healthBar.sizeDelta = new Vector2 (unitHP * scalingCoef, healthBar.sizeDelta.y);
         healthBarForeground.fillAmount = unitHP / upgrade.getLightTroopScalingCoef();
     }
@@ -210,7 +218,7 @@ public class TroopHealth : MonoBehaviour
             while (shieldHealth < maxShield && !isShot && canShield)
             {
                 shieldHealth += regenerationAmount;
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(shieldRegTime);
             }
         }
     }

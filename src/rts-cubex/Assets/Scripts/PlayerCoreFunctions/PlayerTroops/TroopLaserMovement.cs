@@ -6,9 +6,12 @@ public class TroopLaserMovement : MonoBehaviour {
     Rigidbody laserMove;
     private Research damage;
     [SerializeField] float thrust = 2f;
-    [SerializeField] int defaultDamage=10;
     [SerializeField] ResearchConf oBGResearch;
     [SerializeField] string [] enemyTags;
+    [SerializeField] bool heroFire = false;
+    [SerializeField] int currentDamagePoints = 0;
+    public bool HeroFire { set {heroFire = value; } get { return heroFire; }}
+    public ResearchConf OBGResearch { get { return oBGResearch; }}
     void Start () {
         laserMove = GetComponent<Rigidbody> ();
         //if (FindObjectOfType<Research> () != null) {
@@ -16,6 +19,8 @@ public class TroopLaserMovement : MonoBehaviour {
     }
     void Update () {
         laserMove.velocity = transform.TransformDirection (new Vector3 (0f, 0f, thrust));
+        var giveDamagePoints = HeroFire ? oBGResearch.HeroMakeDamagePoints : oBGResearch.getDamage();
+        currentDamagePoints = giveDamagePoints;
     }
     private void OnTriggerEnter (Collider other) {
         /*if (isEnemy(other.gameObject.tag)){
@@ -25,39 +30,41 @@ public class TroopLaserMovement : MonoBehaviour {
         else {
             Destroy (gameObject);
         }*/
-        switch(other.gameObject.tag) {
-        case "enemyTroop":
-            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(oBGResearch.getDamage());
+        
+        
+        switch(other.gameObject.tag) {            
+            case "enemyTroop":           
+            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(currentDamagePoints);
             Destroy(gameObject);
             break;
             
             case "EnemyBase":
-            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(oBGResearch.getDamage());
+            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(currentDamagePoints);
             Destroy(gameObject);
             break;
 
             case "EBCollector":
-            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(oBGResearch.getDamage());
+            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(currentDamagePoints);
             Destroy(gameObject);
             break;
 
             case "EMDef":
-            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(oBGResearch.getDamage());
+            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(currentDamagePoints);
             Destroy(gameObject);
             break;
             
             case "EmDefBody":
-            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(oBGResearch.getDamage());
+            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(currentDamagePoints);
             Destroy(gameObject);
             break;
 
             case "EBWorker":
-            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(oBGResearch.getDamage());
+            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(currentDamagePoints);
             Destroy(gameObject);
             break;
 
             case "EBBarracks":
-            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(oBGResearch.getDamage());
+            other.gameObject.GetComponent<HealthEnemyAI>().decreaseHealth(currentDamagePoints);
             Destroy(gameObject);
             break;
 

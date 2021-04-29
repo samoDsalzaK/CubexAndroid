@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Research : MonoBehaviour {
     [SerializeField] GameObject menu;
+    [SerializeField] GameObject selectionCanvas;
     [SerializeField] ResearchConf oBGResearch;
     [Header ("Research info")]
     [SerializeField] int researchLevel;
@@ -46,7 +47,9 @@ public class Research : MonoBehaviour {
     PanelManager panelManager;
     createAnimatedPopUp animatedPopUps;
     LocalPanelManager localPanelManager;
-    
+    public int ResearchLevel { get { return researchLevel; }}
+    public ResearchConf OBGResearch {get { return oBGResearch; }}
+
     private void Start() {
     researchLevel = oBGResearch.getResearchLevel();
     researchCost = oBGResearch.getResearchCost();
@@ -80,7 +83,7 @@ public class Research : MonoBehaviour {
         troopsResearchHealth.setHealthOfStructureOriginal(oBGResearch.getTroopResearchHealth());
         troopsResearchHealth.setHealth(oBGResearch.getTroopResearchHealth());
         panelManager = GetComponent<PanelManager>();
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerBase.GetComponent<createAnimatedPopUp>();
         localPanelManager = GetComponent<LocalPanelManager>();
     }
     void Update () {
@@ -118,6 +121,7 @@ public class Research : MonoBehaviour {
         }  
         else{
             // set main window
+            selectionCanvas.SetActive(true);
             openMenu ();    
             // deactivate other building panels
             panelManager.changeStatusOfAllPanels();

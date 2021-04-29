@@ -9,18 +9,19 @@ public class move : MonoBehaviour
     [SerializeField] bool onItsWay;
     [SerializeField] bool isHero = false;
     [SerializeField] GameObject mainModel;
-    [SerializeField] bool bloomWorking;
-    public bool BloomWorking { set { bloomWorking = value; } get { return bloomWorking; } }
-    public NavMeshAgent Agent { get { return agent; } }
+    [SerializeField] bool lockMove = false;
+    private TroopAttack ta;
+    public bool LockMove { set {lockMove = value; } get {return lockMove; }}
     void Start()
     {
+        ta = GetComponent<TroopAttack>();
         agent = GetComponent<NavMeshAgent>();
         agent.Warp(transform.position);
         click = GetComponent<ClickOn>();
         var gs = FindObjectOfType<GameSession>();
         if (gs)
             gs.addTroopAmount(1);
-
+        
         if (!isHero)
         {
             var camps = GameObject.FindGameObjectsWithTag("Camp");
@@ -41,13 +42,11 @@ public class move : MonoBehaviour
     }
     void Update()
     {
-        // if (!bloomWorking)
-        // {
+        if (!lockMove)
             unitMove();
-        // }
     }
     private void unitMove()
-    {
+    {        
         if (!click.GetSelected())
         {
             return;
@@ -55,13 +54,17 @@ public class move : MonoBehaviour
         // Checking when to stop the moving unit
         if (agent.velocity.magnitude > 0f)
         {
-            // print("Unit is moving");
+           // ta.LockFire = true;
+           // print("Unit is moving");
             if (agent.remainingDistance < 1f)
+            {
+                //ta.LockFire = false;
                 agent.isStopped = true;
+            }
             //print(agent.remainingDistance);
         }
-
-
+        
+       
         if (Input.GetMouseButtonDown(0))
         {
             if (!EventSystem.current.IsPointerOverGameObject())
@@ -69,13 +72,13 @@ public class move : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
                 {
-                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground") || hit.transform.gameObject.layer == LayerMask.NameToLayer("LvlMap"))
+                    if (hit.transform.gameObject.tag == "lootbox" || hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground") || hit.transform.gameObject.layer == LayerMask.NameToLayer("LvlMap"))
                     {
                         agent.isStopped = false;
                         agent.SetDestination(hit.point);
                         if (mainModel)
                             mainModel.transform.position = transform.position;
-                        //mainModel.transform.position = hit.point;
+                            //mainModel.transform.position = hit.point;
                     }
                     else
                     {
@@ -100,6 +103,6 @@ public class move : MonoBehaviour
         onItsWay = isOnWay;
     }
 
-
+    
 
 }

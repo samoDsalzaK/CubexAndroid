@@ -62,6 +62,19 @@ public class Base : MonoBehaviour
     [SerializeField] int playerScoreEarned;
     [SerializeField] int powerNumber;
     [SerializeField] int playerTroopsAmount;
+    [SerializeField] Image EnergonAmountScreen;
+    [SerializeField] Text EnergonAmountScreenText;
+    [SerializeField] Image CreditsAmountScreen; 
+    [SerializeField] Text CreditsAmountScreenText;
+
+    [SerializeField] int maxBaseEnergonAmount;
+    [SerializeField] int maxBaseCreditsAmount;
+
+    public int MaxBEnergon { get {return maxBaseEnergonAmount; }}
+    public int MaxBCredits { get {return maxBaseCreditsAmount; }}
+    [SerializeField] GameObject selectionCanvas;
+
+
     [Header("Tutorial manager parameters")]
     [SerializeField] bool isTutorialChecked = false;
     private int index = 0; // parameter needed for worker indexing
@@ -69,29 +82,33 @@ public class Base : MonoBehaviour
 
     public Canvas gameHood;
 
-	PanelManager panelManager;
+    PanelManager panelManager;
 
-	LocalPanelManager localPanelManager;
-    
+    LocalPanelManager localPanelManager;
+
+    createAnimatedPopUp animatedPopUps;    
+
+	InGameMarketButtonHandler buttonHadler;
+	InGameMarketManager marketManager;
     // Start is called before the first frame update
     void Start()
     {
-       workersAmountOriginal = 0;  // variable which holds only free workers amount in the player's baze
-       researchCentreUnitAmount = 0;
-       troopsResearchCenterAmount = 0;
-       existingWorkerAmount = 0;
-       resourceAmountScreenState = false; // initialize boolean variables
-       resourceAmountScreenStateForUpgrade = false;
-       errorStateForPlayerBase = false;
-       errorStateForResearchCenter = false;
-       errorStateToBuildStructure = false;
-       errorStateForPlayerCollector = false; 
-       buildingArea = false; // make the object of biulding area be inactive
-       healthOfTheBase = GetComponent<HealthOfRegBuilding>();
-       researchCenterLevel = FindObjectOfType<ResearchLevel>();
-       BuildingArea.SetActive(false);
-       additionalWorkerText.text = "Additional \n Worker (" + fixedPriceOfOneAdditionalWorker + " credits)";
-       gameHood = GameObject.Find("GameHood").GetComponent<Canvas>();
+		workersAmountOriginal = 0;  // variable which holds only free workers amount in the player's baze
+		researchCentreUnitAmount = 0;
+		troopsResearchCenterAmount = 0;
+		existingWorkerAmount = 0;
+		resourceAmountScreenState = false; // initialize boolean variables
+		resourceAmountScreenStateForUpgrade = false;
+		errorStateForPlayerBase = false;
+		errorStateForResearchCenter = false;
+		errorStateToBuildStructure = false;
+		errorStateForPlayerCollector = false; 
+		buildingArea = false; // make the object of biulding area be inactive
+		healthOfTheBase = GetComponent<HealthOfRegBuilding>();
+		researchCenterLevel = FindObjectOfType<ResearchLevel>();
+		BuildingArea.SetActive(false);
+		additionalWorkerText.text = "Additional \n Worker (" + fixedPriceOfOneAdditionalWorker + " credits)";
+		gameHood = GameObject.Find("GameHood").GetComponent<Canvas>();
         Transform[] ts = gameHood.transform.GetComponentsInChildren<Transform>();
         foreach (Transform t in ts) {
             if(t.gameObject.GetComponent<Text>() != null && t.gameObject.GetComponent<Text>().name == "maxandavailableworkeramount")
@@ -105,6 +122,11 @@ public class Base : MonoBehaviour
 
 		panelManager = GetComponent<PanelManager>();
 		localPanelManager = GetComponent<LocalPanelManager>();
+		animatedPopUps = GetComponent<createAnimatedPopUp>();
+		buttonHadler = GetComponent<InGameMarketButtonHandler>();
+		marketManager = GetComponent<InGameMarketManager>();
+		GetComponent<changeSkinManager>().applyChosenSkin(gameObject);
+		GetComponent<changeSkinManager>().onStartSkinSelectionPopUp();
     }
     // Update is called once per frame
     void Update()
@@ -127,6 +149,12 @@ public class Base : MonoBehaviour
         energonLeft3.text = "Energon left : " + energon; // reserach center build panel
         existingAndMaxWorkersAmount.text = " Workers: " + workersAmountOriginal +"/"+ maxWorkerAmountInLevel; 
         currentPlayerTroopsAmount.text = "Troops: " + playerTroopsAmount + "/" + maxPlayerTroopsAmount;
+
+		// fill in credits and energon amount image
+		EnergonAmountScreenText.text = energon + " / " + maxBaseEnergonAmount + " energon";
+		CreditsAmountScreenText.text = credits + " / " + maxBaseCreditsAmount + " credits";
+		EnergonAmountScreen.fillAmount = (float)energon / (float)maxBaseEnergonAmount; 
+		CreditsAmountScreen.fillAmount = (float)credits / (float)maxBaseCreditsAmount;
 
         if(getWorkersAmountState())
         {
@@ -200,10 +228,10 @@ public class Base : MonoBehaviour
         upgradeBaseButtonText.text = "Upgrade Base to level " + (playerBaselevel + 1) + " (" + minCreditsAmountNeededForUpgrading + " credits & " + minEnergonAmounNeededForUpgrading + " energon)";
         baseLevel.text = "Base level : " + playerBaselevel;
         baseHealth.text = "Health : " + healthOfTheBase.getHealth() + " / " + healthOfTheBase.getHealthOfStructureOriginal();
-          if(playerBaselevel == maxPlayerBaseLevel) // then the player reaches max level then the buttons text changes
-           {
-             upgradeBaseButtonText.text = "You have reached max level";
-           }
+        if(playerBaselevel == maxPlayerBaseLevel) // then the player reaches max level then the buttons text changes
+        {
+            upgradeBaseButtonText.text = "You have reached max level";
+        }
     }
     void OnMouseDown()
     {
@@ -214,6 +242,7 @@ public class Base : MonoBehaviour
       	}  
       	else{
         	// set main window
+          selectionCanvas.SetActive(true);
         	Screen.SetActive(true);
         	addCredits.text = "Credits left : " + credits;  
         	addEnergon.text = "Energon left : " + energon;  
@@ -260,7 +289,7 @@ public class Base : MonoBehaviour
 		resourceAmountScreenState = true;
 		return;   
 		}
-		BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(fixedPriceOfOneAdditionalWorker);
+		animatedPopUps.createDecreaseCreditsPopUp(fixedPriceOfOneAdditionalWorker);
 		credits -= fixedPriceOfOneAdditionalWorker;
 		maxWorkerAmountInLevel++;
 		
@@ -272,57 +301,60 @@ public class Base : MonoBehaviour
 
     public void upgradeBaseMethod()
     {
-      if(playerBaselevel == maxPlayerBaseLevel) // kai zaidejas pasiekia max leveli tai mygtukas pakeicia teksta ir po paspaudimo escapina
-      {
-        return;
-      }
-      if(credits < minCreditsAmountNeededForUpgrading || energon < minEnergonAmounNeededForUpgrading) // per update tikrinsiu ar pakanka resursu tobulinti baze. Kai neuztenks resursu tai uzdisabliname
-      {
-		  localPanelManager.deactivatePanels();
-        setResourceAMountScreenStateForUpgrade(true);  
-        return;
-      }
-      playerBaselevel++;
-      BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(minCreditsAmountNeededForUpgrading);
-      BuildingArea.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(minEnergonAmounNeededForUpgrading,2);
-      energon -= minEnergonAmounNeededForUpgrading; // numinusuojame resursus uz viena updata.
-      credits -= minCreditsAmountNeededForUpgrading; // numinusuojame resursus uz viena update.
-      minCreditsAmountNeededForUpgrading += 10; // kas kita leveli upgradinant reikes vis daugiau resursu.
-      minEnergonAmounNeededForUpgrading += 20; // kas kita leveli upgradinant reikes vis daugiau resursu.
-      healthOfTheBase.setHealthOfStructureOriginal(healthOfTheBase.getHealthOfStructureOriginal() + baseUpgradeHPAmount);
-      maxPlayerTroopsAmount += 10;
-      baseUpgradeHPAmount += (int)Mathf.Pow(2,powerNumber); // uzsetiname nauja reiksme HP, siaip cia galima parasyti koki desni pagal kuri dides tas skaicius, pavyzdziui prideti skaiciu kuris bus padaugintas is bazes levelio
-      powerNumber++;
-      var playerScorePoints = FindObjectOfType<GameSession>();
-      if(playerScorePoints != null)
-      {
-        playerScorePoints.AddPlayerScorePoints(playerScoreEarned);
-        playerScoreEarned += 5;
-      }
-      
+		if(playerBaselevel == maxPlayerBaseLevel) // kai zaidejas pasiekia max leveli tai mygtukas pakeicia teksta ir po paspaudimo escapina
+		{
+			return;
+		}
+		if(credits < minCreditsAmountNeededForUpgrading || energon < minEnergonAmounNeededForUpgrading) // per update tikrinsiu ar pakanka resursu tobulinti baze. Kai neuztenks resursu tai uzdisabliname
+		{
+			localPanelManager.deactivatePanels();
+			setResourceAMountScreenStateForUpgrade(true);  
+			return;
+		}
+		playerBaselevel++;
+		animatedPopUps.createDecreaseCreditsPopUp(minCreditsAmountNeededForUpgrading);
+		animatedPopUps.createDecreaseEnergonPopUp(minEnergonAmounNeededForUpgrading);
+		energon -= minEnergonAmounNeededForUpgrading; // numinusuojame resursus uz viena updata.
+		credits -= minCreditsAmountNeededForUpgrading; // numinusuojame resursus uz viena update.
+		minCreditsAmountNeededForUpgrading += 10; // kas kita leveli upgradinant reikes vis daugiau resursu.
+		minEnergonAmounNeededForUpgrading += 20; // kas kita leveli upgradinant reikes vis daugiau resursu.
+		healthOfTheBase.setHealthOfStructureOriginal(healthOfTheBase.getHealthOfStructureOriginal() + baseUpgradeHPAmount);
+		maxPlayerTroopsAmount += 10;
+		baseUpgradeHPAmount += (int)Mathf.Pow(2,powerNumber); // uzsetiname nauja reiksme HP, siaip cia galima parasyti koki desni pagal kuri dides tas skaicius, pavyzdziui prideti skaiciu kuris bus padaugintas is bazes levelio
+		powerNumber++;
+		var playerScorePoints = FindObjectOfType<GameSession>();
+		if(playerScorePoints != null)
+		{
+			playerScorePoints.AddPlayerScorePoints(playerScoreEarned);
+			playerScoreEarned += 5;
+		}
+		if (playerBaselevel == marketManager.getMinLevelNeeded){ // unlock market button when level 3 playerbase is reached
+			buttonHadler.unlockBtn(1);
+			buttonHadler.setButtonText(1);
+		}
     }
     // UI geteris/seteris workeriams // kai vienas zusta kai buvo max skaicius mygtukas vel turi bui ijungtas su galimybe vel spawninti.
     public bool getWorkersAmountState()
     {
-      return createWorkerAmountState;
+      	return createWorkerAmountState;
     }
     public void setWorkersAmountState(bool createWorkerStatus)
     {
-      createWorkerAmountState = createWorkerStatus;
+      	createWorkerAmountState = createWorkerStatus;
     }
     // UI screeno geteris/seteris jei neuztenka resusrsu nupirkti game objekto
     public bool getResourceAmountScreenState()
     {
-      return resourceAmountScreenState;
+      	return resourceAmountScreenState;
     }
     public void setResourceAMountScreenState(bool screenStatus)
     {
-      resourceAmountScreenState = screenStatus;
+      	resourceAmountScreenState = screenStatus;
     }
     // UI geteris/seteris jei neuztenka resursu uzupgardinti game objekto
     public bool getResourceAmountScreenStateForUpgrade()
     {
-      return resourceAmountScreenStateForUpgrade;
+      	return resourceAmountScreenStateForUpgrade;
     }
     public void setResourceAMountScreenStateForUpgrade(bool screenStatus)
     {
@@ -331,122 +363,122 @@ public class Base : MonoBehaviour
     // UI geteris/seteris jei reikia uztobulinti research centra
     public bool getErrorStateForResearchCenter()
     {
-      return errorStateForResearchCenter;
+      	return errorStateForResearchCenter;
     }
     public void setErrorStateForResearchCenter(bool screenStatus)
     {
-      errorStateForResearchCenter = screenStatus;
+      	errorStateForResearchCenter = screenStatus;
     }
     // UI geteris/seteris jei reikia uztobulinti zaidiejo baze
     public bool getErrorStateForPlayerBase()
-    {
-      return errorStateForPlayerBase;
+		{
+		return errorStateForPlayerBase;
     }
     public void setErrorStateForPlayerBase(bool screenStatus)
     {
-      errorStateForPlayerBase = screenStatus;
+      	errorStateForPlayerBase = screenStatus;
     }
     // UI geteris/seteris norint pastatyti resursu rinkeja
     public bool getErrorStateForPlayerCollector()
     {
-      return errorStateForPlayerCollector;
+      	return errorStateForPlayerCollector;
     }
     public void setErrorStateForPlayerCollector(bool screenStatus)
     {
-      errorStateForPlayerCollector = screenStatus;
+      	errorStateForPlayerCollector = screenStatus;
     }
     // UI geteris/seteris sukurti tam ikra game strucuture
     public bool getErrorStateToBuildStructure()
     {
-      return errorStateToBuildStructure;
+      	return errorStateToBuildStructure;
     }
     public void setErrorStateToBuildStructure(bool screenStatus)
     {
-      errorStateToBuildStructure = screenStatus;
+      	errorStateToBuildStructure = screenStatus;
     }
     // geteris/seteris building area nustatytis
     public bool getBuildingArea()
     {
-      return buildingArea;
+      	return buildingArea;
     }
     public void setBuildingArea(bool status)
-    {
-      buildingArea = status;
+    {	
+      	buildingArea = status;
     }
     // metodas skirtas uzdaryti atsidarusius langus
     public void closeWindow()
     {
-      resourceAmountScreenState = false;
-      resourceAmountScreenStateForUpgrade = false;
-      errorStateForResearchCenter = false;
-      errorStateForPlayerBase = false;
-      errorStateToBuildStructure = false;
-      errorStateForPlayerCollector = false;
+		resourceAmountScreenState = false;
+		resourceAmountScreenStateForUpgrade = false;
+		errorStateForResearchCenter = false;
+		errorStateForPlayerBase = false;
+		errorStateToBuildStructure = false;
+		errorStateForPlayerCollector = false;
     }
     public int getCreditsAmount()
     {
-      return credits;
+      	return credits;
     }
     public void setCreditsAmount(int creditsAmount)
     {
-      credits = creditsAmount;
+      	credits = creditsAmount;
     }
     public int getEnergonAmount()
     {
-      return energon;
+      	return energon;
     }
     public void setEnergonAmount(int energonAmount)
     {
-      energon = energonAmount;
+      	energon = energonAmount;
     }
     // geteriai nustatyti laisvu workeriu skaiciu zaidejo bazeje
     public int getworkersAmount()
     {
-      return workersAmountOriginal;
+      	return workersAmountOriginal;
     }
     public void setworkersAmount(int workersAmount)
     {
-      workersAmountOriginal = workersAmount;
+      	workersAmountOriginal = workersAmount;
     }
     // kiek yra pasatatyta research center zaidejo bazeje
     public int getResearchCentreUnitAmount()
     {
-      return researchCentreUnitAmount;
+      	return researchCentreUnitAmount;
     }
     public void setResearchCentreUnitAmount(int newUnitAmount)
     {
-      researchCentreUnitAmount = newUnitAmount;
+      	researchCentreUnitAmount = newUnitAmount;
     }
     // kiek yra pastatyta troopsu research centru
     public int getTroopsResearchCentreUnitAmount()
     {
-      return troopsResearchCenterAmount;
+      	return troopsResearchCenterAmount;
     }
     public void setTroopsResearchCentreUnitAmount(int newUnitAmount)
     {
-      troopsResearchCenterAmount = newUnitAmount;
+      	troopsResearchCenterAmount = newUnitAmount;
     }
     // zaidejo bazes lygis
     public int getPlayerBaseLevel()
     {
-      return playerBaselevel;
+      	return playerBaselevel;
     }
     // kiek zaidejas siuo metu turi workeriu bazeje, nepriklausomai ar jie laisvi ar ne
     public int getExistingworkersAmount()
     {
-      return existingWorkerAmount;
+      	return existingWorkerAmount;
     }
     public void setExistingworkersAmount(int workersAmount2)
     {
-      existingWorkerAmount = workersAmount2;
+      	existingWorkerAmount = workersAmount2;
     }
     public int getPlayerMaxTroopsAmount() // max troops amount in current playerbase
     {
-      return maxPlayerTroopsAmount;
+      	return maxPlayerTroopsAmount;
     }
     public void setPlayerMaxTroopsAmount(int troopsAmount)
     {
-      maxPlayerTroopsAmount = troopsAmount;
+     	maxPlayerTroopsAmount = troopsAmount;
     }
     public void setPosition(Vector3 poz)
     {
@@ -454,14 +486,14 @@ public class Base : MonoBehaviour
     }
     public int getMaxWorkerAmountInLevel()
     {
-      return maxWorkerAmountInLevel;
+      	return maxWorkerAmountInLevel;
     }
     public void addPlayerTroopsAmount(int amount)
     {
-      playerTroopsAmount += amount;
+      	playerTroopsAmount += amount;
     }
     public int getPlayerTroopsAmount()
     {
-      return playerTroopsAmount;
+      	return playerTroopsAmount;
     } 
 }

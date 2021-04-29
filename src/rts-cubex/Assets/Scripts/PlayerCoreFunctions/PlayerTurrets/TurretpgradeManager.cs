@@ -25,6 +25,7 @@ public class TurretpgradeManager : MonoBehaviour
     [SerializeField] int playerScoreEarned = 5;
     PanelManager panelManager;
     createAnimatedPopUp animatedPopUps;
+    [SerializeField] GameObject selectionCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +42,7 @@ public class TurretpgradeManager : MonoBehaviour
         turretHealth = GetComponent<TurretHealth>();
         turretFire = GetComponent<TurretFire>(); 
         panelManager = GetComponent<PanelManager>();
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()
@@ -66,6 +67,7 @@ public class TurretpgradeManager : MonoBehaviour
         }  
         else{
             // set main window
+            selectionCanvas.SetActive(true);
             turretUpgradePanel.SetActive(true);    
             turretLevelText.text = "Turret Level : " + turretLevel;
             turretUpgrageBtText.text = "Upgrade Turret to level" + (turretLevel + 1) + "(" + minNeedCreditsAmountForTurretUpgrade + " credits & " + minNeedEnergonAmountForTurretUpgrade + " energon)";
@@ -187,7 +189,7 @@ public class TurretpgradeManager : MonoBehaviour
     {
     turretLevel++;
     animatedPopUps.createDecreaseCreditsPopUp(minNeedCreditsAmountForTurretUpgrade);
-    animatedPopUps.createDecreaseEnergonPopUp(minNeedEnergonAmountForTurretUpgrade,2);
+    animatedPopUps.createDecreaseEnergonPopUp(minNeedEnergonAmountForTurretUpgrade);
     playerbase.setCreditsAmount(playerbase.getCreditsAmount() - minNeedCreditsAmountForTurretUpgrade);
     playerbase.setEnergonAmount(playerbase.getEnergonAmount() - minNeedEnergonAmountForTurretUpgrade);
     turretHealth.setTurretHealth(turretHealth.getTurretHealth() + turretUpgradeHPAmount);

@@ -49,7 +49,7 @@ public class MiningStationUpgradeManager : MonoBehaviour
         miningStationHealth = GetComponent<HealthOfRegBuilding>();
         button_Hadler = GetComponent<buttonHadler>();
         miningStation = GetComponent<CreditsMiningStation>();
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
         upgradeBtnText.text = "Upgrade mining station to level " + (miningStationLevel + 1) + "\n" + "(" + creditsNeededForUpgrade[0] + " credits & " + energonNeededForUpgrade[0] + " energon)";
         miningStationLevelText.text = "Mining station level : " + miningStationLevel;
         miningStationHealthText.text = "Mining station health : " + miningStationHealth.getHealth() + " / " + miningStationHealth.getHealthOfStructureOriginal();
@@ -76,7 +76,7 @@ public class MiningStationUpgradeManager : MonoBehaviour
     }
     
     public void upgradeAction(){
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
         bool state = false;
         // max level of research center = 5
         // max level of mining station = 3
@@ -100,7 +100,7 @@ public class MiningStationUpgradeManager : MonoBehaviour
                 playerbase.setResourceAMountScreenStateForUpgrade(true); 
                 return;
             }
-            animatedPopUps.createDecreaseEnergonPopUp(energonNeededForUpgrade[miningStationLevel-1],2); // creating pop up window
+            animatedPopUps.createDecreaseEnergonPopUp(energonNeededForUpgrade[miningStationLevel-1]); // creating pop up window
             animatedPopUps.createDecreaseCreditsPopUp(creditsNeededForUpgrade[miningStationLevel-1]); // creating pop up window
             // change credits/energon values after upgrade
             playerbase.setCreditsAmount(playerbase.getCreditsAmount() - creditsNeededForUpgrade[miningStationLevel-1]);

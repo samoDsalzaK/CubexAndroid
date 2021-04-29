@@ -10,6 +10,7 @@ public class Barrack_menu : MonoBehaviour {
     private HealthOfRegBuilding troopsResearchHealth;
     [SerializeField] ResearchConf oBGResearch;
     PanelManager panelManager;
+    [SerializeField] GameObject selectionCanvas;
     private void Start() {
         troopsResearchHealth = GetComponent<HealthOfRegBuilding>();
         troopsResearchHealth.setHealthOfStructureOriginal(oBGResearch.getBarrackHealth());
@@ -25,6 +26,7 @@ public class Barrack_menu : MonoBehaviour {
         else{
             // set main window
             openMenu ();
+            selectionCanvas.SetActive(true);
             // deactivate other building panels
             panelManager.changeStatusOfAllPanels();
         }

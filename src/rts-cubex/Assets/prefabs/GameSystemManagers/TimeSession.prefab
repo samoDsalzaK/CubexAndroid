@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8464270302268954968}
   - component: {fileID: 8464270302268954969}
+  - component: {fileID: 6971076199858595212}
   m_Layer: 0
   m_Name: TimeSession
   m_TagString: Untagged
@@ -47,5 +48,17 @@ MonoBehaviour:
   seconds: 0
   minutes: 0
   isTimeFinished: 0
-  maxMinutes: 60
-  isTimeUnlimited: 0
+  isTimeUnlimited: 1
+--- !u!114 &6971076199858595212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464270302268954950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a1081e24e5633146b95baaab42dc444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelindex: 0

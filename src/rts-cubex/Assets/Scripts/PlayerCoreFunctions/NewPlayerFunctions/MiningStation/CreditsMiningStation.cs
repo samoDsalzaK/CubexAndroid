@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class CreditsMiningStation : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CreditsMiningStation : MonoBehaviour
     [SerializeField] GameObject MainMiningStationPanel;
     [SerializeField] GameObject errorForMining1; // error panel if user do not have min needed energon amount to mine
     [SerializeField] GameObject errorForMining2; // error panel if storage is full and user has to redeem mined credits
+    [SerializeField] GameObject selectionCanvas;
     [SerializeField] Text playerMinedCreditsTextField;
     [SerializeField] Text upgradePaneCredits; // upgrade panel credits amount
     [SerializeField] Text upgradePaneEnergon; // upgrade panel energon amount
@@ -87,7 +89,7 @@ public class CreditsMiningStation : MonoBehaviour
         }
 
         panelManager = GetComponent<PanelManager>();
-        animatedPopUps = GetComponent<createAnimatedPopUp>();
+        animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
     }
     // Update is called once per frame
     void Update()
@@ -108,6 +110,7 @@ public class CreditsMiningStation : MonoBehaviour
         else{
             // set main window
             MainMiningStationPanel.SetActive(true);
+            selectionCanvas.SetActive(true);
             // deactivate other building panels
             panelManager.changeStatusOfAllPanels();
         }
@@ -130,7 +133,7 @@ public class CreditsMiningStation : MonoBehaviour
         Debug.Log("First redeem and then mine again");
         return;
         }
-        animatedPopUps.createDecreaseEnergonPopUp(minNeededEnergonAmount[slotIndex-1], 1);
+        animatedPopUps.createDecreaseEnergonPopUp(minNeededEnergonAmount[slotIndex-1]);
         // set new value for energon
         playerbase.setEnergonAmount(playerbase.getEnergonAmount() - minNeededEnergonAmount[slotIndex-1]);
         // addition check for resources

@@ -18,6 +18,7 @@ public class BuildArea : MonoBehaviour
     [SerializeField] WorkerSpawningTimer timerStart;
     [SerializeField] MiningStationBuild creditsMiningStationBtn; // for credits mining station
 	[SerializeField] buildArmyCamp armyCampBuildBtn;
+	[SerializeField] buildShrine shrineBuildBtn;
     [SerializeField] float buildWorkerStartTime = 5f;
   	//  [SerializeField] GameObject buildRegWorker;
   	//  [SerializeField] GameObject buildDefensive;
@@ -33,7 +34,7 @@ public class BuildArea : MonoBehaviour
         {
           playerbase = FindObjectOfType<Base>();
         }
-		animatedPopUps = GetComponent<createAnimatedPopUp>();
+		animatedPopUps =  playerbase.GetComponent<createAnimatedPopUp>();
     }
     void Update()
     {
@@ -73,7 +74,7 @@ public class BuildArea : MonoBehaviour
           	{ 
               	if((barrackBtn.buildBarrack()) && (canBuild))
               	{
-					animatedPopUps.createDecreaseEnergonPopUp(barrackBtn.getMinNeededEnergonAmountForTroopsBarrack(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // creating pop up window
                     playerbase.setCreditsAmount(playerbase.getCreditsAmount()-barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // uzsetiname naujas reksmes 
                     playerbase.setEnergonAmount(playerbase.getEnergonAmount()-barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // uzsetiname naujas reksmes
@@ -98,7 +99,7 @@ public class BuildArea : MonoBehaviour
               	}
 				if((turretBtn.buildTurret()) && (canBuild))
 				{
-					animatedPopUps.createDecreaseEnergonPopUp(turretBtn.getMinNeededEnergonAmountForTurret(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(turretBtn.getMinNeededEnergonAmountForTurret()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(turretBtn.getMinNeededCreditsAmountForTurret()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-turretBtn.getMinNeededCreditsAmountForTurret()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-turretBtn.getMinNeededEnergonAmountForTurret()); // uzsetiname naujas reksmes
@@ -124,7 +125,7 @@ public class BuildArea : MonoBehaviour
 				}
 				if((researchCenterBtn.buildResearchCentre()) && (canBuild))
 				{
-					animatedPopUps.createDecreaseEnergonPopUp(researchCenterBtn.getMinNeededEnergonAmountForResearchCentre(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(researchCenterBtn.getMinNeededEnergonAmountForResearchCentre()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(researchCenterBtn.getMinNeededCreditsAmountForResearchCentre()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-researchCenterBtn.getMinNeededCreditsAmountForResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-researchCenterBtn.getMinNeededEnergonAmountForResearchCentre()); // uzsetiname naujas reksmes
@@ -149,7 +150,7 @@ public class BuildArea : MonoBehaviour
 				}
 				if((troopsCenterBtn.buildResearchCentre()) && (canBuild))
 				{
-					animatedPopUps.createDecreaseEnergonPopUp(troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(troopsCenterBtn.getMinNeededCreditsAmountForTroopsResearchCentre()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-troopsCenterBtn.getMinNeededCreditsAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes
@@ -178,7 +179,7 @@ public class BuildArea : MonoBehaviour
 					// buildRegWorker.SetActive(false);
 					Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
 					playerbase.setPosition(buildpozition);
-					animatedPopUps.createDecreaseEnergonPopUp(buildWorkerBtn.getMinNeededEnergonAmount(),1);
+					animatedPopUps.createDecreaseEnergonPopUp(buildWorkerBtn.getMinNeededEnergonAmount());
 					playerbase.setCreditsAmount(playerbase.getEnergonAmount()-buildWorkerBtn.getMinNeededEnergonAmount()); // uzsetiname naujas reksmes 
 					timerStart.startTimer(buildWorkerStartTime);
 					buildWorkerBtn.canBuildAgain(true);
@@ -207,7 +208,7 @@ public class BuildArea : MonoBehaviour
 					}
 				}*/
 				if((creditsMiningStationBtn.buildMiningStation()) && (canBuild)){
-					animatedPopUps.createDecreaseEnergonPopUp(creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation()); // uzsetiname naujas reksmes
@@ -231,7 +232,7 @@ public class BuildArea : MonoBehaviour
 					}
 				}
 				if((armyCampBuildBtn.armyCampBuildState()) && (canBuild)){
-					animatedPopUps.createDecreaseEnergonPopUp(armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp(),2); // creating pop up window
+					animatedPopUps.createDecreaseEnergonPopUp(armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp()); // uzsetiname naujas reksmes
@@ -249,6 +250,30 @@ public class BuildArea : MonoBehaviour
 						Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
 						playerWorkers[i].SetDestination(buildpozition);
 						playerWorkers[i].SetBuildingOrder(buildingTypes[6]); // nusiunciama buildingo tipa i workerio klase;
+						playerWorkers[i].setWorkerState(true); // workeris yra uzimtas
+						return;
+						}    
+					}
+				}
+				if((shrineBuildBtn.shrineBuildState()) && (canBuild)){
+					animatedPopUps.createDecreaseEnergonPopUp(shrineBuildBtn.getMinNeededEnergonAmountForShrine()); // creating pop up window
+            		animatedPopUps.createDecreaseCreditsPopUp(shrineBuildBtn.getMinNeededCreditsAmountForShrine()); // creating pop up window
+					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-shrineBuildBtn.getMinNeededCreditsAmountForShrine()); // uzsetiname naujas reksmes 
+					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-shrineBuildBtn.getMinNeededEnergonAmountForShrine()); // uzsetiname naujas reksmes
+					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					shrineBuildBtn.canBuildAgain(true);
+					playerbase.setBuildingArea(false);
+					// buildDefensive.SetActive(false);
+					var playerWorkers = FindObjectsOfType<Worker>(); 
+
+					for (int i = 0; i < playerWorkers.Length; i++)
+					{
+						if (!playerWorkers[i].isWorkerAssigned()) // jeigu workeris yra laisvas tai jo reiksme yra false, kitu atveju bus true
+						{
+						//Variable for knowing, what's the current position of this object, which has this class
+						Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
+						playerWorkers[i].SetDestination(buildpozition);
+						playerWorkers[i].SetBuildingOrder(buildingTypes[7]); // nusiunciama buildingo tipa i workerio klase;
 						playerWorkers[i].setWorkerState(true); // workeris yra uzimtas
 						return;
 						}    
@@ -276,6 +301,7 @@ public class BuildArea : MonoBehaviour
 								playerWorkers[y].setWorkerState(true); // workeris yra uzimtas
 							}
 						}
+						playerbase.setBuildingArea(false);
 					}
 					else {
 						for (int i = 0; i < changePosBuildings.Length; i++){

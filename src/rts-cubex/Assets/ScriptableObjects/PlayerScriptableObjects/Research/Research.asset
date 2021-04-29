@@ -17,7 +17,8 @@ MonoBehaviour:
   sHeavyTroopLevel: 1
   sMaxHP: 100
   sHeavyMaxHP: 300
-  sDamage: 10
+  heroMakeDamagePoints: 15
+  sDamage: 80
   sHeavyTroopScalingCoef: 300
   sHeavyTroopShieldScalingCoef: 300
   sLightTroopScalingCoef: 100
@@ -38,11 +39,11 @@ MonoBehaviour:
   heavyHealthIncrease: 35
   lightDamageIncrease: 3
   heavyDamageIncrease: 2
-  damage: 10
-  heavyDamage: 10
+  damage: 80
+  heavyDamage: 80
   maxLightTroopLevel: 10
   maxHeavyTroopLevel: 10
-  maxResearchLevel: 3
+  maxResearchLevel: 10
   heavyTroopScalingCoef: 300
   lightTroopScalingCoef: 100
   troopResearchHealth: 250

@@ -17,6 +17,7 @@ public class ArmyCamp : MonoBehaviour
     [SerializeField] GameObject armyCampMainPanel;
     // panel Manager type variable
     PanelManager panelManager;
+    [SerializeField] GameObject selectionCanvas;
 
     void Start()
     {
@@ -112,6 +113,7 @@ public class ArmyCamp : MonoBehaviour
             }  
             else{
                 // set main window
+                selectionCanvas.SetActive(true);
                 armyCampMainPanel.SetActive(true);
                 // deactivate other building panels
                 panelManager.changeStatusOfAllPanels();

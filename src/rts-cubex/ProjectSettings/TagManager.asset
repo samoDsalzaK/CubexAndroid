@@ -49,8 +49,11 @@ TagManager:
   - _PlayerWall
   - cryptominingstation
   - Camp
-  - Sniper
-  - Bloom
+  - Shrine
+  - ChangeSkinPanel
+  - buidlingResearch
+  - playerTurret
+  - lootbox
   layers:
   - Default
   - TransparentFX
@@ -78,8 +81,8 @@ TagManager:
   - HoloTools
   - creditsMiningStation
   - armyCamp
-  - 
-  - 
+  - UI_minimap
+  - ignoreMesh
   - 
   - 
   - 
