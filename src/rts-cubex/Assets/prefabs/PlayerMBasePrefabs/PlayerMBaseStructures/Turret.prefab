@@ -795,7 +795,7 @@ GameObject:
   - component: {fileID: 8270420972566905699}
   - component: {fileID: 6246711788948759138}
   - component: {fileID: 3718276905824885826}
-  - component: {fileID: 1451495538583479837}
+  - component: {fileID: 7632275015761181834}
   m_Layer: 0
   m_Name: Turret
   m_TagString: playerTurret
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   - {fileID: 1256390105813336878}
   - {fileID: 4964921764610476559}
   - {fileID: 7462037305913370418}
---- !u!114 &1451495538583479837
+--- !u!114 &7632275015761181834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1977407095747823598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e48c1f8f0652e943ad161b8ecf80b1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b276bca288fed84fa609005a559932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1977407095962541481

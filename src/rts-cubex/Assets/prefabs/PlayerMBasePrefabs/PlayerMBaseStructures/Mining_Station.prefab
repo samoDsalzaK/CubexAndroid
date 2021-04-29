@@ -767,7 +767,7 @@ GameObject:
   - component: {fileID: 1774960677586803749}
   - component: {fileID: 6676090623400280629}
   - component: {fileID: 5347484938715819128}
-  - component: {fileID: 8504032550940944605}
+  - component: {fileID: 1107742767573389854}
   m_Layer: 24
   m_Name: CreditsMiningStation
   m_TagString: cryptominingstation
@@ -1079,7 +1079,7 @@ MonoBehaviour:
   - {fileID: 1774960678306601792}
   - {fileID: 1774960679475225812}
   - {fileID: 1774960677962024878}
---- !u!114 &8504032550940944605
+--- !u!114 &1107742767573389854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1774960677586803753}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e48c1f8f0652e943ad161b8ecf80b1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b276bca288fed84fa609005a559932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1774960677640377337

@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 7026670296846579821}
   - component: {fileID: 3393487943254005360}
   - component: {fileID: 8646871941444505356}
-  - component: {fileID: 3380740238786923076}
+  - component: {fileID: 2578317416514862203}
   m_Layer: 0
   m_Name: Research Troops center
   m_TagString: PlayerBase
@@ -789,7 +789,7 @@ MonoBehaviour:
   - {fileID: 4374515022430053105}
   - {fileID: 1249464296864123397}
   - {fileID: 4992561905046809637}
---- !u!114 &3380740238786923076
+--- !u!114 &2578317416514862203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -798,7 +798,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2114141825804516185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e48c1f8f0652e943ad161b8ecf80b1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b276bca288fed84fa609005a559932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2114141826371210906

@@ -1326,7 +1326,7 @@ GameObject:
   - component: {fileID: 6753416723767533610}
   - component: {fileID: 8698244020213426800}
   - component: {fileID: 7863305349756506639}
-  - component: {fileID: 4707440686717612736}
+  - component: {fileID: 4282384626333555913}
   m_Layer: 11
   m_Name: Body
   m_TagString: energonFactory
@@ -1454,7 +1454,7 @@ MonoBehaviour:
   - {fileID: 8334146038308130517}
   - {fileID: 1543420013458330184}
   - {fileID: 7423053995039908529}
---- !u!114 &4707440686717612736
+--- !u!114 &4282384626333555913
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4101529652087659166}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e48c1f8f0652e943ad161b8ecf80b1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b276bca288fed84fa609005a559932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4255749153864533475
