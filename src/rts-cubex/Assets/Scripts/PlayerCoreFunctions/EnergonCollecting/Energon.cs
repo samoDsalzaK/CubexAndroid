@@ -93,6 +93,7 @@ public class Energon : MonoBehaviour
                 availableEnergon--;
                 workerNav.setEnergonInWorker(takenEnergonAmount);
                 workerNav.setEnergonStationPozition(transform.position);
+                //print("Player base storage point: " + basePosition.getStoragePointPoisition());
                 workerNav.SetDestination(basePosition.getStoragePointPoisition());
             }
             else

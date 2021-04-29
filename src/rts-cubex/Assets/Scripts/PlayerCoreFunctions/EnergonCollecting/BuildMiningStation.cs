@@ -63,6 +63,7 @@ public class BuildMiningStation : MonoBehaviour
             {
                 //Variable for knowing, what's the current position of this object, which has this class
                 Vector3 thisDepositPosition = transform.position;
+                print("Chosen energon at: " + thisDepositPosition);
                 playerWorkers[i].GetComponent<Worker>().SetDestination(thisDepositPosition);
                 playerWorkers[i].GetComponent<Worker>().setWorkerState(true);// kai paspaudziu tai workeris yra uzimtas
                 index = playerWorkers[i].GetComponent<Worker>().getWorkerIndex();
