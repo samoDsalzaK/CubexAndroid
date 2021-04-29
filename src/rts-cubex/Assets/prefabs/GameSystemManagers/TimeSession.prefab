@@ -48,7 +48,7 @@ MonoBehaviour:
   seconds: 0
   minutes: 0
   isTimeFinished: 0
-  isTimeUnlimited: 0
+  isTimeUnlimited: 1
 --- !u!114 &6971076199858595212
 MonoBehaviour:
   m_ObjectHideFlags: 0
