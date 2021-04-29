@@ -11,9 +11,7 @@ using UnityEngine.UI;
 
 public class MapMaker : MonoBehaviour
 {
-    [Header("Map UI cnf.:")]
-    [SerializeField] GameObject levelLoadingCanvas;
-    [SerializeField] Image loadBar;
+    [Header("Map UI cnf.:")]    
     [SerializeField] GameObject gameHood;
     [SerializeField] float delayTime = 2f;
     [Header("Level map cnf.:")]   
@@ -632,7 +630,6 @@ public class MapMaker : MonoBehaviour
                 //loadBar.fillAmount += 0.125f;                
             }
             createLevel = false;
-            levelLoadingCanvas.SetActive(false);
         }
         
     }
