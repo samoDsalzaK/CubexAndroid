@@ -3040,9 +3040,9 @@ GameObject:
   - component: {fileID: 8667124572798103238}
   - component: {fileID: 1861850107175287393}
   - component: {fileID: 3347259296992178644}
-  m_Layer: 19
+  m_Layer: 0
   m_Name: BWArea
-  m_TagString: Ground
+  m_TagString: maphole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

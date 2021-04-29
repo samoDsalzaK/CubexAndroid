@@ -54,6 +54,8 @@ TagManager:
   - buidlingResearch
   - playerTurret
   - lootbox
+  - maphole
+  - Bloom
   layers:
   - Default
   - TransparentFX

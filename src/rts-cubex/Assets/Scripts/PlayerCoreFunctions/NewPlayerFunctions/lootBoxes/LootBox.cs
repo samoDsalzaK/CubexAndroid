@@ -13,7 +13,7 @@ public class LootBox : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] int boxType = 0; //0 - energon, 1 - credits
     [Tooltip("Ground looter unit tag(troop, worker, etc...)")]
-    [SerializeField] string looterTag = "Unit";
+    [SerializeField] List<string> looterTags;
     [SerializeField] int energonToAdd = 15;
     [SerializeField] int creditsToAdd = 20;
     [SerializeField] float destroyDelayTime = 1f;
@@ -25,7 +25,7 @@ public class LootBox : MonoBehaviour
     public int BoxType {set { boxType=value; } get { return boxType; }}
     enum Box{Energon, Credits};
     void Start()
-    {
+    {       
         //Find player base, to which energon or credits will be added
         playerBase = FindObjectOfType<Base>();
         boxSmoke = GetComponent<ParticleSystem>();
@@ -54,8 +54,8 @@ public class LootBox : MonoBehaviour
              handleDestruction();
         }
     }
-    private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.tag == looterTag)
+    private void OnCollisionEnter(Collision other) {       
+        if (isLooterTag(other.gameObject.tag))
         {
             //Gives res
             if (boxType == (int)Box.Energon)
@@ -120,5 +120,13 @@ public class LootBox : MonoBehaviour
         infoText.text = ("+" + creditsToAdd);
         boxColor.a = 1f;
         infoText.color = boxColor;
+    }
+    public bool isLooterTag(string t)
+    {
+        foreach(var tag in looterTags)
+            if (tag == t)
+                return true;
+
+        return false;
     }
 }

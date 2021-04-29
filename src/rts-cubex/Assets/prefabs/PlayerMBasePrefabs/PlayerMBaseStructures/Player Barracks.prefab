@@ -1808,6 +1808,7 @@ MonoBehaviour:
     type: 3}
   sniperSpawnee: {fileID: 3780746492402608663, guid: a42bae23c0d162244b835771eda5505f,
     type: 3}
+  bloomUnit: {fileID: 0}
   spawnButton: {fileID: 4605234313605401355}
   heavySpawnButton: {fileID: 2985030764329148438}
   exitButton: {fileID: 4605234312108469294}
@@ -2733,6 +2734,84 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3509336070214849265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8125127383477640611}
+  - component: {fileID: 6607095964707035099}
+  - component: {fileID: 5144627058703050887}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8125127383477640611
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3509336070214849265}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4093995993649906331}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6607095964707035099
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3509336070214849265}
+  m_CullTransparentMesh: 0
+--- !u!114 &5144627058703050887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3509336070214849265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 12
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Train bloom (50 credits)
 --- !u!1 &3759274456660112174
 GameObject:
   m_ObjectHideFlags: 0
@@ -8225,10 +8304,10 @@ RectTransform:
   m_Father: {fileID: 4605234313477030335}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 67.9, y: 34}
-  m_SizeDelta: {x: -611, y: -90}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 65, y: 51}
+  m_SizeDelta: {x: 170, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7596709778534679667
 CanvasRenderer:
@@ -8674,6 +8753,7 @@ MonoBehaviour:
   heavySpawnee: {fileID: 4350613679145975105, guid: 695e68d7c76b8f44a8ab4a72651e7ee4,
     type: 3}
   sniperSpawnee: {fileID: 0}
+  bloomUnit: {fileID: 0}
   spawnButton: {fileID: 4605234313605401355}
   heavySpawnButton: {fileID: 4605234312485177134}
   exitButton: {fileID: 4605234312108469294}
@@ -9038,7 +9118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4605234313477030335
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9068,6 +9148,7 @@ RectTransform:
   - {fileID: 2087509401654430637}
   - {fileID: 3456219302966176751}
   - {fileID: 382385299871539700}
+  - {fileID: 4093995993649906331}
   m_Father: {fileID: 4605234312274577628}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9261,6 +9342,8 @@ MonoBehaviour:
   heavySpawnee: {fileID: 4350613679145975105, guid: 695e68d7c76b8f44a8ab4a72651e7ee4,
     type: 3}
   sniperSpawnee: {fileID: 3780746492402608663, guid: a42bae23c0d162244b835771eda5505f,
+    type: 3}
+  bloomUnit: {fileID: 2713070176982510316, guid: cdb281eb7ccd9bc4fa44bc5395d57d92,
     type: 3}
   spawnButton: {fileID: 4605234313605401355}
   heavySpawnButton: {fileID: 4605234312485177134}
@@ -10795,6 +10878,190 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7692719129780360292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4093995993649906331}
+  - component: {fileID: 3162274237156121734}
+  - component: {fileID: 3619850899609482032}
+  - component: {fileID: 6771380905570556763}
+  - component: {fileID: 8885831840586022099}
+  - component: {fileID: 5487444372659729609}
+  m_Layer: 5
+  m_Name: SpawnBloomBtn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4093995993649906331
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692719129780360292}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.4018536, y: 1.4018536, z: 1.4018536}
+  m_Children:
+  - {fileID: 8125127383477640611}
+  m_Father: {fileID: 4605234313477030335}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 90.32, y: 16}
+  m_SizeDelta: {x: 176.90164, y: 19.28006}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3162274237156121734
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692719129780360292}
+  m_CullTransparentMesh: 0
+--- !u!114 &3619850899609482032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692719129780360292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6771380905570556763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692719129780360292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 3619850899609482032}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5487444372659729609}
+        m_MethodName: train
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8885831840586022099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692719129780360292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f6393a6da888545876f277c8869927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnee: {fileID: 6896241092319077033, guid: 108d6f1a4897bba44b9283e8b1ac71f1, type: 3}
+  heavySpawnee: {fileID: 4350613679145975105, guid: 695e68d7c76b8f44a8ab4a72651e7ee4,
+    type: 3}
+  sniperSpawnee: {fileID: 0}
+  bloomUnit: {fileID: 0}
+  spawnButton: {fileID: 4605234313605401355}
+  heavySpawnButton: {fileID: 6771380905570556763}
+  exitButton: {fileID: 4605234312108469294}
+  spawnDelay: 3
+  spawnDelayHeavy: 5
+  unitCost: 15
+  heavyUnitCost: 25
+  sniperUnitCost: 35
+  unitPosition: {fileID: 4008119625493878065}
+  TroopSpawningPanel: {fileID: 4605234313477030320}
+  lightTroopWeight: 1
+  heavyTroopWeight: 2
+  sniperTroopWeight: 3
+  lightTroopTimer: {fileID: 0}
+  heavyTroopTimer: {fileID: 1764283573235371538}
+  sniperTroopTimer: {fileID: 0}
+  oBGResearch: {fileID: 11400000, guid: 66ebc9217506f33429244c398909f76c, type: 2}
+  unitCodeIndex: 0
+--- !u!114 &5487444372659729609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692719129780360292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a51efeb64e9d5e4284d1fd8205d7eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taskBuilding: {fileID: 3982760522625839459}
+  energonPrice: 0
+  creditsPrice: 50
+  taskName: bloom
+  priceDisplayText: {fileID: 5144627058703050887}
 --- !u!1 &8315781546054153556
 GameObject:
   m_ObjectHideFlags: 0

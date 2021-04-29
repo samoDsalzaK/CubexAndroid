@@ -7,6 +7,7 @@ public class TimedSpawn : MonoBehaviour {
     [SerializeField] GameObject spawnee;
     [SerializeField] GameObject heavySpawnee;
     [SerializeField] GameObject sniperSpawnee;
+    [SerializeField] GameObject bloomUnit;
     [SerializeField] Button spawnButton;
     [SerializeField] Button heavySpawnButton;
     [SerializeField] Button exitButton;
@@ -144,7 +145,15 @@ public class TimedSpawn : MonoBehaviour {
         playerBase.addPlayerTroopsAmount(heavyTroopWeight); 
 
     }
+    public void spawnBloomObject () {
+        //if(playerBase.getPlayerTroopsAmount()<=playerBase.getPlayerMaxTroopsAmount()){
+        GameObject bloomTrooper = Instantiate (bloomUnit, unitPosition.position, Quaternion.identity);
+        // spawnTrooper.name = spawnTrooper.name + unitCodeIndex;
+        unitCodeIndex++;
+        //FindObjectOfType<FogOfWar> ().AppendList (spawnTrooper);
+        playerBase.addPlayerTroopsAmount(lightTroopWeight); 
 
+    }
     public void spawnSniperObject () {
         //if(playerBase.getPlayerTroopsAmount()<=playerBase.getPlayerMaxTroopsAmount()){
         GameObject spawnTrooper = Instantiate (sniperSpawnee, unitPosition.position, Quaternion.identity);

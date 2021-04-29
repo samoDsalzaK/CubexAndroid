@@ -167,6 +167,29 @@ public class TaskManager : MonoBehaviour
                                 }   
 
                             break;
+                            case "bloom":                                 
+                                if (!task.Pending)
+                                {
+                                        if (playerBase && !isTesting)
+                                        {
+                                            if (task.Credits > 0)
+                                                animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
+                                            if (task.Energon > 0)
+                                                animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
+                                            playerBase.setEnergonAmount(playerBase.getEnergonAmount() - task.Energon);
+                                            playerBase.setCreditsAmount(playerBase.getCreditsAmount() - task.Credits);
+                                        }
+                                        else 
+                                        {
+                                            baseEnergon -= task.Energon;
+                                            baseCredits -= task.Credits;
+                                        }
+                                    
+                                        task.Pending = true;                              
+                                        StartCoroutine(trainTimer(troopTimer, task)); //Delay and changing task state                            
+                                }   
+
+                            break;
                         }
                 }                
             }

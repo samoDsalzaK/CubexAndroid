@@ -198,7 +198,14 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 201326391
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3875708981835398289, guid: c8d82213c001ca74abb44fb0153e8458,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3875708981835398291, guid: c8d82213c001ca74abb44fb0153e8458, type: 3}
+    - {fileID: 3875708981714771145, guid: c8d82213c001ca74abb44fb0153e8458, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c8d82213c001ca74abb44fb0153e8458, type: 3}
 --- !u!1001 &96022508
 PrefabInstance:
@@ -285,6 +292,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MiniMapCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4055536831804087105, guid: 3913f1c1a9c0a8549a8192622cc1736c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4055536831804087110, guid: 3913f1c1a9c0a8549a8192622cc1736c,
         type: 3}
@@ -459,6 +471,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MiniMapCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428258162792842089, guid: e631baf35d36fe143ac268fe4abf032c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e631baf35d36fe143ac268fe4abf032c, type: 3}
@@ -754,6 +771,11 @@ PrefabInstance:
     - target: {fileID: 433646286512166575, guid: 86ecba109c1752f42b5196eaaed8b442,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 615769749183049088, guid: 86ecba109c1752f42b5196eaaed8b442,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
