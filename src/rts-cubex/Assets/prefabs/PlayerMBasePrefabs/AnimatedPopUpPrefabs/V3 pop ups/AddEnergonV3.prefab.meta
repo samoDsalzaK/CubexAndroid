@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:src/rts-cubex/Assets/Scripts/NavMeshComponents/Scripts/NavMeshComponents.asmdef.meta
+guid: 6440029a401a8e3469600a265d72d75e
+AssemblyDefinitionImporter:
+=======
 guid: 8e68de6565288da49b5ec8d1404df68e
 PrefabImporter:
+>>>>>>> main:src/rts-cubex/Assets/prefabs/PlayerMBasePrefabs/AnimatedPopUpPrefabs/V3 pop ups/AddEnergonV3.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

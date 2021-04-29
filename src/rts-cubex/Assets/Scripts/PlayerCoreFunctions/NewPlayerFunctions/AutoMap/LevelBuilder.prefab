@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2152516419450918473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3838516044077512843}
+  - component: {fileID: 6364303084441207735}
+  - component: {fileID: 1910160708}
+  m_Layer: 0
+  m_Name: LevelBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3838516044077512843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2152516419450918473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6364303084441207735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2152516419450918473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f74fa5039a3a074191d2711bdcf6c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameHood: {fileID: 0}
+  delayTime: 30
+  mainCamera: {fileID: 0}
+  pCube: {fileID: 1049119169126351701, guid: 069878fb70b09da4db31c6be3a6e52d8, type: 3}
+  walls: {fileID: 3278041012353780772, guid: adac1fc2b24493242a9b0f5ed443153e, type: 3}
+  areaWall: {fileID: 706042165436362283, guid: f0861b2f7d1885d498856998ee1e5ab3, type: 3}
+  holeCube: {fileID: 3654597538073302902, guid: 04a4fcfdb1958354d81d289745d7b2e6,
+    type: 3}
+  moundCube: {fileID: 1394730482024109165, guid: acf11419c0f0ee4428cfb2480b77a85e,
+    type: 3}
+  moundNormal: {fileID: 4448742607508523904, guid: a3510dbe1a3c8b247b800824a890bdf0,
+    type: 3}
+  energonDeposit: {fileID: 813274202905404770, guid: 2d326ee9638786e4a9a76fc1b7be4010,
+    type: 3}
+  wallCube: {fileID: 7837839292907508701, guid: 15e979bf577d2574183e238ad3f3bc7f,
+    type: 3}
+  sPlayerBase: {fileID: 755612447165250645, guid: 7c798978728a8b345a589b5e1ca29966,
+    type: 3}
+  sBorgBase: {fileID: 1525609497285559154, guid: 21db69939d83a554ab56e1b973c99514,
+    type: 3}
+  lootBox: {fileID: 3522917265492798337, guid: f4f96d5d9cf2c8b4abe332131ea80b5c, type: 3}
+  pWidth: 6
+  pHeight: 6
+  wallHeight: 2
+  holeCount: 2
+  moundCount: 2
+  tOffset: 50
+  generateNavMesh: 1
+  generateWalls: 1
+  createAreaWalls: 1
+  createHoles: 1
+  createMounds: 1
+  spawnEDeposits: 1
+  spawnGameBases: 1
+  spawnLootBoxes: 1
+--- !u!114 &1910160708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2152516419450918473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 134211639
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 0}

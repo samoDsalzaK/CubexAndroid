@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:src/rts-cubex/Assets/Scripts/NavMeshComponents.meta
+guid: 5b831bf87f6041d4d9ac1394a677ad23
+=======
 guid: 8b77d98fb650d354cbaba79468d16156
+>>>>>>> main:src/rts-cubex/Assets/Images/Game Asset Skin Images.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

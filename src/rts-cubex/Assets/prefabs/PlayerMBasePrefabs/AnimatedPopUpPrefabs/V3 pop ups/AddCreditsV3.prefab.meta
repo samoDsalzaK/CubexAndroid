@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:src/rts-cubex/Assets/Scripts/NavMeshComponents/Editor/NavMeshComponentsEditor.asmdef.meta
+guid: 09f5f94a758f45f4b99d05523c64d0e7
+AssemblyDefinitionImporter:
+=======
 guid: b21b0a91fb860d2459b48e1bb8987831
 PrefabImporter:
+>>>>>>> main:src/rts-cubex/Assets/prefabs/PlayerMBasePrefabs/AnimatedPopUpPrefabs/V3 pop ups/AddCreditsV3.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

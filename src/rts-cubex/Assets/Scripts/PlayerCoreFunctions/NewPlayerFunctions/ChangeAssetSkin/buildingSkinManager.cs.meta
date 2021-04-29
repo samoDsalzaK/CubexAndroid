@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:src/rts-cubex/Assets/Scripts/NavMeshComponents/Editor/NavMeshAssetManager.cs.meta
+guid: 0b276bca288fed84fa609005a559932c
+=======
 guid: 7e48c1f8f0652e943ad161b8ecf80b1a
+>>>>>>> main:src/rts-cubex/Assets/Scripts/PlayerCoreFunctions/NewPlayerFunctions/ChangeAssetSkin/buildingSkinManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

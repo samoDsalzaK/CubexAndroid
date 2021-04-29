@@ -73,12 +73,29 @@ public class Shrine : MonoBehaviour
     public bool IsTesting { get { return isTesting; }}
     public Base PlayerBase { get { return playerBase; }}
     private int clickIndex = 0;
+    private createAnimatedPopUp animatedPopUps;
+    public  createAnimatedPopUp AnimatedPopUps { set { animatedPopUps = value; } get { return animatedPopUps; }}
+    private GameObject playerBaseObj;
+    public GameObject PlayerBaseObj { get { return playerBaseObj; }}
     //HeroClasses hClass = HeroClasses.Defender;
 
     PanelManager panelManager;
 
     private void OnMouseDown() {
         
+        if (clickIndex >= 1)
+        {
+            mainUIWindow.SetActive(false);
+            selectionCanvas.SetActive(false);
+            clickIndex = 0;
+        }
+        else
+        {
+            mainUIWindow.SetActive(true);
+            selectionCanvas.SetActive(true);
+            clickIndex++;
+        }
+
         panelManager = GetComponent<PanelManager>();
         var status = panelManager.checkForActivePanels();
       	if (status){
@@ -90,18 +107,7 @@ public class Shrine : MonoBehaviour
         	panelManager.changeStatusOfAllPanels();
       	}	
 
-        /*if (clickIndex >= 1)
-        {
-            mainUIWindow.SetActive(false);
-            selectionCanvas.SetActive(false);
-            clickIndex = 0;
-        }
-        else
-        {
-            mainUIWindow.SetActive(true);
-            selectionCanvas.SetActive(true);
-            clickIndex++;
-        }*/
+        
     }
 
     void Start()
@@ -109,7 +115,10 @@ public class Shrine : MonoBehaviour
         timer = GetComponent<TaskTimer>();
         if (!isTesting)
         {
-            playerBase = FindObjectOfType<Base>();
+            playerBaseObj = GameObject.Find("PlayerBase");
+            playerBase = playerBaseObj.GetComponent<Base>();
+            animatedPopUps = playerBaseObj.GetComponent<createAnimatedPopUp>();
+            AnimatedPopUps = animatedPopUps;
         }
     }
 
@@ -229,7 +238,9 @@ public class Shrine : MonoBehaviour
                     else
                     {
                           playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
+                          animatedPopUps.createDecreaseEnergonPopUp(heroToTrainUnit.EnergonPrice);
                           playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
+                          animatedPopUps.createDecreaseCreditsPopUp(heroToTrainUnit.CreditsPrice);
                     }
                 }
                 
@@ -277,7 +288,9 @@ public class Shrine : MonoBehaviour
                     else
                     {
                           playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
+                          animatedPopUps.createDecreaseEnergonPopUp(heroToTrainUnit.EnergonPrice);
                           playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
+                          animatedPopUps.createDecreaseCreditsPopUp(heroToTrainUnit.CreditsPrice);
                     }
                 }
                                             

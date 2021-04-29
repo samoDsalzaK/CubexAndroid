@@ -53,6 +53,7 @@ TagManager:
   - ChangeSkinPanel
   - buidlingResearch
   - playerTurret
+  - lootbox
   layers:
   - Default
   - TransparentFX
@@ -81,7 +82,7 @@ TagManager:
   - creditsMiningStation
   - armyCamp
   - UI_minimap
-  - 
+  - ignoreMesh
   - 
   - 
   - 

@@ -1489,7 +1489,7 @@ GameObject:
   - component: {fileID: 3590966219447685087}
   - component: {fileID: 5654656037203728410}
   - component: {fileID: 7735140294355211106}
-  - component: {fileID: 3794988971275428850}
+  - component: {fileID: 1499570738982264091}
   m_Layer: 0
   m_Name: Shrine
   m_TagString: Shrine
@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   returnEnergonAmount: 20
   returnCreditsAmount: 20
---- !u!114 &3794988971275428850
+--- !u!114 &1499570738982264091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1717,7 +1717,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334640026855581189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e48c1f8f0652e943ad161b8ecf80b1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b276bca288fed84fa609005a559932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1483482645651408984

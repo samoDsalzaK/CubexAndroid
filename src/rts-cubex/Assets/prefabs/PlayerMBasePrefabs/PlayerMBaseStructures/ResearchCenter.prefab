@@ -1981,7 +1981,7 @@ GameObject:
   - component: {fileID: 1812910221272301757}
   - component: {fileID: 837818339019936593}
   - component: {fileID: 2108771956614347596}
-  - component: {fileID: 8336369053602650802}
+  - component: {fileID: 4731252032257346822}
   m_Layer: 0
   m_Name: ResearchCenterBody
   m_TagString: Untagged
@@ -2175,7 +2175,7 @@ MonoBehaviour:
   - {fileID: 749130672388656043}
   - {fileID: 8498303372920500628}
   - {fileID: 1235497799182489503}
---- !u!114 &8336369053602650802
+--- !u!114 &4731252032257346822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2184,7 +2184,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5462856044865562789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e48c1f8f0652e943ad161b8ecf80b1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b276bca288fed84fa609005a559932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5462856045666505025

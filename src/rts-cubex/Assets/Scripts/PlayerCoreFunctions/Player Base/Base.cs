@@ -70,6 +70,8 @@ public class Base : MonoBehaviour
     [SerializeField] int maxBaseEnergonAmount;
     [SerializeField] int maxBaseCreditsAmount;
 
+    public int MaxBEnergon { get {return maxBaseEnergonAmount; }}
+    public int MaxBCredits { get {return maxBaseCreditsAmount; }}
     [SerializeField] GameObject selectionCanvas;
 
 

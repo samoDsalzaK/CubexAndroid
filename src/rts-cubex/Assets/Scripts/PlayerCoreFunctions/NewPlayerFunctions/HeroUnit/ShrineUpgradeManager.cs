@@ -17,11 +17,13 @@ public class ShrineUpgradeManager : MonoBehaviour
     private Shrine shrine;
     private List<HeroUnitToTrain> heroChars = new List<HeroUnitToTrain>();
     private bool displayUpgrades = false;
-
+    private createAnimatedPopUp animatedPopUps;
     void Start()
     {
         shrine = GetComponent<Shrine>();
         heroChars = shrine.HToTrain;
+        if (!shrine.IsTesting)
+            animatedPopUps = GameObject.Find("PlayerBase").GetComponent<createAnimatedPopUp>();
         //print(shrine.ResearchLevel);
     }
 
@@ -216,7 +218,9 @@ public class ShrineUpgradeManager : MonoBehaviour
             else
             {
                 shrine.PlayerBase.setEnergonAmount(shrine.PlayerBase.getEnergonAmount() - eprice);
+                animatedPopUps.createDecreaseEnergonPopUp(eprice);
                 shrine.PlayerBase.setCreditsAmount(shrine.PlayerBase.getCreditsAmount() -  cprice);
+                animatedPopUps.createDecreaseCreditsPopUp(cprice);
                 print("Doing upgrade task(" + uindex + ")");
                 return true;
             }
