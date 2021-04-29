@@ -6,6 +6,10 @@ public class CameraMovement : MonoBehaviour
     public float zoomSpeed;
     public float minZoomDistance;
     public float maxZoomDistance;
+    [SerializeField] float leftLimit;
+    [SerializeField] float rightLimit;
+    [SerializeField] float topLimit;
+    [SerializeField] float botLimit;
     private Camera cam;
     private void Awake()
     {
@@ -23,7 +27,11 @@ public class CameraMovement : MonoBehaviour
         float zInput = Input.GetAxis("Vertical");
         Vector3 dir = transform.forward * zInput + transform.right * xInput;
         transform.position += dir * moveSpeed * Time.deltaTime;
-        
+        transform.position = new Vector3(
+        Mathf.Clamp(transform.position.x, leftLimit, rightLimit),
+        transform.position.y,
+        Mathf.Clamp(transform.position.z, botLimit, topLimit)
+        );
     }
 
     void Zoom()

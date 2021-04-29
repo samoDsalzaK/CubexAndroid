@@ -12,7 +12,7 @@ public class move : MonoBehaviour
     [SerializeField] bool lockMove = false;
     private TroopAttack ta;
     public bool LockMove { set {lockMove = value; } get {return lockMove; }}
-    public NavMeshAgent Agent {get {return agent;}}
+    public NavMeshAgent Agent {get {return agent; }}
     void Start()
     {
         ta = GetComponent<TroopAttack>();
