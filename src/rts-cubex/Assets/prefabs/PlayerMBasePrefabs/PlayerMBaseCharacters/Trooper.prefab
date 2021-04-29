@@ -5405,6 +5405,7 @@ GameObject:
   - component: {fileID: 9216765147727073550}
   - component: {fileID: 4911912778824775077}
   - component: {fileID: 1483587779}
+  - component: {fileID: 7736572773864075079}
   m_Layer: 13
   m_Name: Trooper
   m_TagString: Unit
@@ -5528,6 +5529,7 @@ MonoBehaviour:
   onItsWay: 0
   isHero: 0
   mainModel: {fileID: 0}
+  lockMove: 0
 --- !u!114 &6262681847201353907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5547,6 +5549,7 @@ MonoBehaviour:
   isSelected: 0
   hero: 0
   selectionIcon: {fileID: 0}
+  heroToolbar: {fileID: 0}
 --- !u!54 &9216765147727073550
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5591,6 +5594,8 @@ MonoBehaviour:
   isHero: 0
   nearHero: 0
   heroEffectParticles: {fileID: 1665479752516486356}
+  shieldRegTime: 0.3
+  heroCharText: {fileID: 0}
 --- !u!114 &1483587779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5604,6 +5609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireGun: {fileID: 864074275}
+  secondFireGun: {fileID: 0}
   scannerRadius: 20
   projectile: {fileID: 833446331802415920, guid: 77ef53da12353e342b06c0d87ea4a8ae,
     type: 3}
@@ -5611,6 +5617,21 @@ MonoBehaviour:
   startAttacking: 0
   fireRate: 1
   targetName: enemy
+  targetTagNames: []
+  spottedEnemy: {fileID: 0}
+--- !u!114 &7736572773864075079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6896241092319077033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9bfaa12c65a67d45add0c96096541d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  troopType: Light
 --- !u!1 &7698980596658233804
 GameObject:
   m_ObjectHideFlags: 0
