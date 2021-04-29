@@ -5,7 +5,7 @@ using UnityEngine;
 public class TroopAttack : MonoBehaviour
 {
     [SerializeField] Transform fireGun;
-    [SerializeField] float scannerRadius = 20f;    
+    [SerializeField] float scannerRadius = 20f;
     [SerializeField] GameObject projectile;
     [SerializeField] float launchForce = 700f;
     [SerializeField] bool startAttacking = false;
@@ -14,7 +14,13 @@ public class TroopAttack : MonoBehaviour
     private bool lockFire = false;
     private float nextFire = 0.0f;
     private GameObject spottedEnemy;
-    public bool LockFire { set {lockFire = value; } get { return lockFire; }}
+    public bool LockFire { set { lockFire = value; } get { return lockFire; } }
+    SniperMagazine magazine;
+
+    void Start()
+    {
+        magazine = GetComponent<SniperMagazine>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -39,11 +45,11 @@ public class TroopAttack : MonoBehaviour
     private void scanAreaForEnemies()
     {
         //Check if enemy in range
-       // if (spottedEnemy)
-            checkIfEnemyInFireRange();
-       // else
-             //Check if enemy our of range
-             checkIfEnemyOutOfFireRange();
+        // if (spottedEnemy)
+        checkIfEnemyInFireRange();
+        // else
+        //Check if enemy our of range
+        checkIfEnemyOutOfFireRange();
     }
     private void checkIfEnemyInFireRange()
     {
@@ -61,7 +67,7 @@ public class TroopAttack : MonoBehaviour
             }
         }
     }
-    private void  checkIfEnemyOutOfFireRange()
+    private void checkIfEnemyOutOfFireRange()
     {
         if (spottedEnemy)
         {
@@ -80,8 +86,20 @@ public class TroopAttack : MonoBehaviour
     {
         if (spottedEnemy)
         {
-            var sProjectile = Instantiate(projectile, fireGun.position, fireGun.rotation);
-            sProjectile.GetComponent<Rigidbody>().AddForce (fireGun.right * launchForce);
+            if (magazine)
+            {
+                if (magazine.getAmmo() > 0 && magazine.getFullMag())
+                {
+                    magazine.decreaseAmmo();
+                    var sProjectile = Instantiate(projectile, fireGun.position, fireGun.rotation);
+                    sProjectile.GetComponent<Rigidbody>().AddForce(fireGun.right * launchForce);
+                }
+            }
+            else
+            {
+                var sProjectile = Instantiate(projectile, fireGun.position, fireGun.rotation);
+                sProjectile.GetComponent<Rigidbody>().AddForce(fireGun.right * launchForce);
+            }
         }
         else
         {

@@ -49,6 +49,8 @@ TagManager:
   - _PlayerWall
   - cryptominingstation
   - Camp
+  - Sniper
+  - Bloom
   layers:
   - Default
   - TransparentFX

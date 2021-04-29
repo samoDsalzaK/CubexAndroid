@@ -130,6 +130,26 @@ public class TaskManager : MonoBehaviour
                                 }   
 
                             break;
+
+                            case "SniperTroop":                                 
+                                if (!task.Pending)
+                                {
+                                        if (playerBase && !isTesting)
+                                        {
+                                            playerBase.setEnergonAmount(playerBase.getEnergonAmount() - task.Energon);
+                                            playerBase.setCreditsAmount(playerBase.getCreditsAmount() - task.Credits);
+                                        }
+                                        else 
+                                        {
+                                            baseEnergon -= task.Energon;
+                                            baseCredits -= task.Credits;
+                                        }
+                                    
+                                        task.Pending = true;                              
+                                        StartCoroutine(trainTimer(troopTimer, task)); //Delay and changing task state                            
+                                }   
+
+                            break;
                         }
                 }                
             }
