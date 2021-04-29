@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd5090f492621943a42516fbc05b6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
+  moveSpeed: 20
   zoomSpeed: 25
-  minZoomDistance: 10
+  minZoomDistance: 20
   maxZoomDistance: 50
 --- !u!114 &3875708981714771145
 MonoBehaviour:
@@ -75,6 +75,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Main Camera (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648501448943564920, guid: ce381ccf7e6839347907aeb8e6ef42a3,
+        type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4648501448943564922, guid: ce381ccf7e6839347907aeb8e6ef42a3,
         type: 3}
