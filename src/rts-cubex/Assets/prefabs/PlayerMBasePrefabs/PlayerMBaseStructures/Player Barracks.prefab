@@ -2988,7 +2988,7 @@ GameObject:
   - component: {fileID: 1247540542986263308}
   m_Layer: 0
   m_Name: Player Barracks
-  m_TagString: PlayerBase
+  m_TagString: PlayerBarracks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3165,7 +3165,7 @@ MonoBehaviour:
   emptyText: {fileID: 1037935025}
   errorWindow: {fileID: 1732169542}
   errorMsgWindowText: {fileID: 805809709}
-  cardSpacing: 50
+  cardSpacing: 100
   isTesting: 0
   baseEnergon: 1000
   baseCredits: 1000
