@@ -23,6 +23,7 @@ public class CameraMovement : MonoBehaviour
         float zInput = Input.GetAxis("Vertical");
         Vector3 dir = transform.forward * zInput + transform.right * xInput;
         transform.position += dir * moveSpeed * Time.deltaTime;
+        
     }
 
     void Zoom()
