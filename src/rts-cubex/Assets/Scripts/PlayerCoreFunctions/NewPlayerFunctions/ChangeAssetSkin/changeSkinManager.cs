@@ -114,25 +114,22 @@ public class changeSkinManager : MonoBehaviour
                         Debug.Log("Troop damage to add " + finalDamageToAdd);
                         Debug.Log("Modified troop damage " + oBGResearch.getHeavyDamage());
                     }
-                    /*else if (gameObject.GetComponent<TroopSkinManager>().returnTroopType == "Sniper"){
-                        // modify damage points for Sniper Unit
-                    }  */
-                    else{
-                        Debug.Log("No Damage component found!");
-                    }
-                    /*else{ // sniper unit
+                    /*else if (gameObject.GetComponent<TroopSkinManager>().returnTroopType == ""){ // sniper unit
                         Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
                         foreach (Transform t in ts) {
-                            if(t.gameObject.GetComponent<TroopsDamage>() != null)
+                            if(t.gameObject.GetComponent<TroopAttack>() != null)
                             {
-                                Debug.Log("Previuos damage " + gameObject.GetComponent<TroopsDamage>().GetDamage());
-                                float finalDamageToAdd = (gameObject.GetComponent<TroopsDamage>().GetDamage() * (float)(increaseTroopsDamage/100f));
-                                gameObject.GetComponent<TroopsDamage>().setDamage((int)finalDamageToAdd);
+                                Debug.Log("Previuos damage " + gameObject.GetComponent<TroopAttack>().GetDamage());
+                                float finalDamageToAdd = (gameObject.GetComponent<TroopAttack>().GetDamage() * (float)(increaseTroopsDamage/100f));
+                                gameObject.GetComponent<TroopAttack>().setDamage((int)finalDamageToAdd);
                                 Debug.Log("Troop damage to add " + finalDamageToAdd);
-                                Debug.Log("Modified troop damage " + gameObject.GetComponent<TroopsDamage>().GetDamage());
+                                Debug.Log("Modified troop damage " + gameObject.GetComponent<TroopAttack>().GetDamage());
                             }
                         }
                     }*/
+                    else{
+                        Debug.Log("No Damage component found!");  
+                    }
                     if (gameObject.GetComponent<TroopHealth>() != null){
                         Debug.Log("Previuos health " + gameObject.GetComponent<TroopHealth>().UnitHP);
                         float finalTroopHealthToAdd = (-1)*(gameObject.GetComponent<TroopHealth>().UnitHP * (float)(decreaseTroopsHealth/100f));

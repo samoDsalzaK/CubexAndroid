@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 4477749208458914748}
   - component: {fileID: 5743849160333511677}
   - component: {fileID: -4137134587250072473}
+  - component: {fileID: 4856074107465946019}
   m_Layer: 13
   m_Name: Sniper
   m_TagString: Unit
@@ -567,7 +568,7 @@ MonoBehaviour:
   onItsWay: 0
   isHero: 0
   mainModel: {fileID: 0}
-  bloomWorking: 0
+  lockMove: 0
 --- !u!114 &3574847050633977066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,6 +588,7 @@ MonoBehaviour:
   isSelected: 0
   hero: 0
   selectionIcon: {fileID: 0}
+  heroToolbar: {fileID: 0}
 --- !u!54 &7756219686415664997
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -631,6 +633,8 @@ MonoBehaviour:
   isHero: 0
   nearHero: 0
   heroEffectParticles: {fileID: 0}
+  shieldRegTime: 0.3
+  heroCharText: {fileID: 0}
 --- !u!114 &5743849160333511677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,6 +648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireGun: {fileID: 6350454626834403184}
+  secondFireGun: {fileID: 0}
   scannerRadius: 40
   projectile: {fileID: 833446331802415920, guid: 77ef53da12353e342b06c0d87ea4a8ae,
     type: 3}
@@ -651,6 +656,8 @@ MonoBehaviour:
   startAttacking: 0
   fireRate: 2
   targetName: enemy
+  targetTagNames: []
+  spottedEnemy: {fileID: 0}
 --- !u!114 &-4137134587250072473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,6 +676,19 @@ MonoBehaviour:
   reload1: {fileID: 7528412902762902283}
   reload2: {fileID: 4074192705057700159}
   fullMag: 1
+--- !u!114 &4856074107465946019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3780746492402608663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9bfaa12c65a67d45add0c96096541d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  troopType: 
 --- !u!1 &4074192705057700159
 GameObject:
   m_ObjectHideFlags: 0

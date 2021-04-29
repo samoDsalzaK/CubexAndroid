@@ -16679,6 +16679,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AddEnergonV3
       objectReference: {fileID: 0}
+    - target: {fileID: 2940052934092374567, guid: 6440029a401a8e3469600a265d72d75e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7409676916912488079, guid: 6440029a401a8e3469600a265d72d75e,
         type: 3}
       propertyPath: m_LocalPosition.x
