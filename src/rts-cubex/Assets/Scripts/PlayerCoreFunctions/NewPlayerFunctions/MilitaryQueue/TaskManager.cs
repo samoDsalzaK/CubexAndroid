@@ -11,7 +11,7 @@ public class BuildTask : System.Object
     [SerializeField] string taskName = "";
     [SerializeField] bool state;//FinishedOrNot
     [SerializeField] bool pending;
-    public BuildTask(int credits, int energon, string taskName)
+    public BuildTask(int energon, int credits, string taskName)
     {
         this.credits = credits;
         this.energon = energon;
@@ -96,8 +96,11 @@ public class TaskManager : MonoBehaviour
                                 {
                                     if (playerBase && !isTesting) 
                                     {
-                                        //animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
-                                        animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
+                                        if (task.Credits > 0)
+                                            animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
+                                        if (task.Energon > 0)
+                                            animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
+
                                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - task.Energon);
                                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - task.Credits);
                                         
@@ -121,7 +124,11 @@ public class TaskManager : MonoBehaviour
                                         if (playerBase && !isTesting)
                                         {
                                             //animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
-                                            animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
+                                            if (task.Credits > 0)
+                                            animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
+                                            if (task.Energon > 0)
+                                                animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
+
                                             playerBase.setEnergonAmount(playerBase.getEnergonAmount() - task.Energon);
                                             playerBase.setCreditsAmount(playerBase.getCreditsAmount() - task.Credits);
                                         }
@@ -142,6 +149,10 @@ public class TaskManager : MonoBehaviour
                                 {
                                         if (playerBase && !isTesting)
                                         {
+                                            if (task.Credits > 0)
+                                                animatedPopUps.createDecreaseCreditsPopUp(task.Credits);
+                                            if (task.Energon > 0)
+                                                animatedPopUps.createDecreaseEnergonPopUp(task.Energon);
                                             playerBase.setEnergonAmount(playerBase.getEnergonAmount() - task.Energon);
                                             playerBase.setCreditsAmount(playerBase.getCreditsAmount() - task.Credits);
                                         }

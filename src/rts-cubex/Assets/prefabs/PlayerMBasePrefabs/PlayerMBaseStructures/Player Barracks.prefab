@@ -3165,7 +3165,7 @@ MonoBehaviour:
   emptyText: {fileID: 1037935025}
   errorWindow: {fileID: 1732169542}
   errorMsgWindowText: {fileID: 805809709}
-  cardSpacing: 100
+  cardSpacing: 50
   isTesting: 0
   baseEnergon: 1000
   baseCredits: 1000
