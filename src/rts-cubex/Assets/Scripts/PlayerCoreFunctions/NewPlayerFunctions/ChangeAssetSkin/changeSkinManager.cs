@@ -81,7 +81,7 @@ public class changeSkinManager : MonoBehaviour
                 break;
             case 2:
                 // Pyro skin changer
-                if (gameObject.tag == "Unit" || gameObject.tag == "bloom"){
+                if (gameObject.tag == "Unit" || gameObject.tag == "Bloom"){
                     if(gameObject.GetComponent<TroopSkinManager>().returnTroopType == "Light"){ //to understand where to take troop damage points
                         if(LightTroopsAmountCount > 0){
                             int damageDec = PlayerPrefs.GetInt("LightDamage");
@@ -114,25 +114,22 @@ public class changeSkinManager : MonoBehaviour
                         Debug.Log("Troop damage to add " + finalDamageToAdd);
                         Debug.Log("Modified troop damage " + oBGResearch.getHeavyDamage());
                     }
-                    /*else if (gameObject.GetComponent<TroopSkinManager>().returnTroopType == "Sniper"){
-                        // modify damage points for Sniper Unit
-                    }  */
-                    else{
-                        Debug.Log("No Damage component found!");
-                    }
-                    /*else{ // sniper unit
+                    /*else if (gameObject.GetComponent<TroopSkinManager>().returnTroopType == ""){ // sniper unit
                         Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
                         foreach (Transform t in ts) {
-                            if(t.gameObject.GetComponent<TroopsDamage>() != null)
+                            if(t.gameObject.GetComponent<TroopAttack>() != null)
                             {
-                                Debug.Log("Previuos damage " + gameObject.GetComponent<TroopsDamage>().GetDamage());
-                                float finalDamageToAdd = (gameObject.GetComponent<TroopsDamage>().GetDamage() * (float)(increaseTroopsDamage/100f));
-                                gameObject.GetComponent<TroopsDamage>().setDamage((int)finalDamageToAdd);
+                                Debug.Log("Previuos damage " + gameObject.GetComponent<TroopAttack>().GetDamage());
+                                float finalDamageToAdd = (gameObject.GetComponent<TroopAttack>().GetDamage() * (float)(increaseTroopsDamage/100f));
+                                gameObject.GetComponent<TroopAttack>().setDamage((int)finalDamageToAdd);
                                 Debug.Log("Troop damage to add " + finalDamageToAdd);
-                                Debug.Log("Modified troop damage " + gameObject.GetComponent<TroopsDamage>().GetDamage());
+                                Debug.Log("Modified troop damage " + gameObject.GetComponent<TroopAttack>().GetDamage());
                             }
                         }
                     }*/
+                    else{
+                        Debug.Log("No Damage component found!");  
+                    }
                     if (gameObject.GetComponent<TroopHealth>() != null){
                         Debug.Log("Previuos health " + gameObject.GetComponent<TroopHealth>().UnitHP);
                         float finalTroopHealthToAdd = (-1)*(gameObject.GetComponent<TroopHealth>().UnitHP * (float)(decreaseTroopsHealth/100f));
@@ -185,7 +182,7 @@ public class changeSkinManager : MonoBehaviour
                 Debug.Log("Pyro asset skin applied");
                 break;
             case 3:
-                if (gameObject.tag != "Unit" || gameObject.tag != "bloom"){ // check if tag is not player troops
+                if (gameObject.tag != "Unit" || gameObject.tag != "Bloom"){ // check if tag is not player troops
                     if (gameObject.tag == "PlayerBase"){
                         //set new color to playerbase
                         Color changeColour = new Color32(0,198, 255, 255); // light blue
@@ -251,6 +248,7 @@ public class changeSkinManager : MonoBehaviour
                                     Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<TurretHealth>().getTurretHealth());
                                     break;
                                 }
+                                Debug.Log("There is no health component assigned to building");
                             }
                         }
                     }
@@ -326,6 +324,7 @@ public class changeSkinManager : MonoBehaviour
                                     break;
                                 }
                             }
+                            Debug.Log("There is no health component assigned to building");
                         }
                     }
                     Debug.Log("Earth asset skin applied");

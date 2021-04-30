@@ -5001,7 +5001,9 @@ MonoBehaviour:
   displayInfoCanvas: {fileID: 7267766509622981922}
   infoText: {fileID: 1269712823}
   boxType: 0
-  looterTag: Unit
+  looterTags:
+  - Bloom
+  - Unit
   energonToAdd: 15
   creditsToAdd: 20
   destroyDelayTime: 2

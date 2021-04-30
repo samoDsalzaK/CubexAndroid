@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class TaskMaker : MonoBehaviour
 {
     [SerializeField] GameObject taskBuilding;
-    [SerializeField] int energonPrice = 15;
-    [SerializeField] int creditsPrice = 15;
+    [SerializeField] int energonPrice;
+    [SerializeField] int creditsPrice;
     [SerializeField] string taskName = "LightTroop";
     [SerializeField] Text priceDisplayText;
     private void Start() {

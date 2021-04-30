@@ -8,6 +8,7 @@ public class move : MonoBehaviour
     [SerializeField] GameObject unitPosition;
     [SerializeField] bool onItsWay;
     [SerializeField] bool isHero = false;
+    [SerializeField] bool isBloom = false;
     [SerializeField] GameObject mainModel;
     [SerializeField] bool lockMove = false;
     private TroopAttack ta;
@@ -73,6 +74,14 @@ public class move : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
                 {
+                    if (isBloom && hit.transform.gameObject.tag == "maphole")
+                    {
+                        agent.isStopped = false;
+                        agent.SetDestination(hit.point);
+                        if (mainModel)
+                            mainModel.transform.position = transform.position;
+                            //mainModel.transform.position = hit.point;
+                    }
                     if (hit.transform.gameObject.tag == "lootbox" || hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground") || hit.transform.gameObject.layer == LayerMask.NameToLayer("LvlMap"))
                     {
                         agent.isStopped = false;

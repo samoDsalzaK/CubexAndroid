@@ -75,6 +75,9 @@ public class UnitBuildTimer : MonoBehaviour {
                     case "SniperTroop" :
                         timedSpawn.spawnSniperObject();
                     break;
+                    case "bloom":
+                        timedSpawn.spawnBloomObject();
+                    break;
                 }
                 
                  // textBox.text = originalText;
