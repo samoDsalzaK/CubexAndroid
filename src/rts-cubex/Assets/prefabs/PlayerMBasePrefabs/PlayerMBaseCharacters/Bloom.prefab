@@ -681,6 +681,7 @@ GameObject:
   - component: {fileID: 2713070176982510318}
   - component: {fileID: -9152300673977565557}
   - component: {fileID: 858043075}
+  - component: {fileID: 809297258257458975}
   m_Layer: 13
   m_Name: Bloom
   m_TagString: Bloom
@@ -820,6 +821,19 @@ MonoBehaviour:
   stopCollectBtn: {fileID: 1471578220115523479}
   unloadBtn: {fileID: 432041828318699035}
   bloomMenu: {fileID: 6572655161132537339}
+--- !u!114 &809297258257458975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2713070176982510316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9bfaa12c65a67d45add0c96096541d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  troopType: 
 --- !u!1 &2713070177351780963
 GameObject:
   m_ObjectHideFlags: 0

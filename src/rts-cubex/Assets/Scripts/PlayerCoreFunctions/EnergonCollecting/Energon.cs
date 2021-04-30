@@ -55,6 +55,7 @@ public class Energon : MonoBehaviour
         // check for active panels in this building hierarchy if yes do not trigger on mouse click
         var status = panelManager.checkForActivePanels();
         if (status){
+            Debug.Log("Some panel is active right now");
             return;
         }  
         else{
@@ -89,8 +90,8 @@ public class Energon : MonoBehaviour
                 enteredWorker.GetComponent<WorkerLifeCycle>().decreaseWorkerLife();
                 return;
                 }
-                int temp = availableEnergon;
-                availableEnergon--;
+                //int temp = availableEnergon;
+                availableEnergon-=takenEnergonAmount;
                 workerNav.setEnergonInWorker(takenEnergonAmount);
                 workerNav.setEnergonStationPozition(transform.position);
                 //print("Player base storage point: " + basePosition.getStoragePointPoisition());
