@@ -83,6 +83,14 @@ public class InGameMarketManager : MonoBehaviour
     public void inCreaseLevelTime(int price, string type, float increaseValue, int buttonID){
         // find timesession
         Debug.Log("Offer 3 bought");
+        if (type == "credits"){
+            playerbase.setCreditsAmount(playerbase.getCreditsAmount() - price); // decreasing credits amount
+            animatedPopUps.createDecreaseCreditsPopUp(price);
+        }
+        else if (type == "energon"){
+            playerbase.setEnergonAmount(playerbase.getEnergonAmount() - price); // decreasing energon amount
+            animatedPopUps.createDecreaseEnergonPopUp(price);
+        }
         gameTime = FindObjectOfType<GameSesionTime>();
         gameTime.addTime(increaseValue); // adding minutes to level time
         // create animated pop up
@@ -94,6 +102,14 @@ public class InGameMarketManager : MonoBehaviour
     public void inCreaseTroopsCapacity(int price, string type, int increaseValue, int buttonID){
         // playerbase increase troop capacity
         Debug.Log("Offer 4 bought");
+        if (type == "credits"){
+            playerbase.setCreditsAmount(playerbase.getCreditsAmount() - price); // decreasing credits amount
+            animatedPopUps.createDecreaseCreditsPopUp(price);
+        }
+        else if (type == "energon"){
+            playerbase.setEnergonAmount(playerbase.getEnergonAmount() - price); // decreasing energon amount
+            animatedPopUps.createDecreaseEnergonPopUp(price);
+        }
         playerbase.setPlayerMaxTroopsAmount(playerbase.getPlayerMaxTroopsAmount() + increaseValue); // increasing player troops capacity
         // create animated pop up
         inGameButtonHandler.changeStateOfInGameMarketBtn(buttonID,1);

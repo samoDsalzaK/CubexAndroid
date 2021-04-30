@@ -9885,7 +9885,7 @@ MonoBehaviour:
   - 1
   - 2
   - 5
-  inCreaseTroopsCapacityValues: 0a000000140000001e000000
+  inCreaseTroopsCapacityValues: 050000000f00000019000000
   refreshCoolDownTimers:
   - 1
   - 2

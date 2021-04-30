@@ -81,7 +81,7 @@ public class changeSkinManager : MonoBehaviour
                 break;
             case 2:
                 // Pyro skin changer
-                if (gameObject.tag == "Unit" || gameObject.tag == "bloom"){
+                if (gameObject.tag == "Unit" || gameObject.tag == "Bloom"){
                     if(gameObject.GetComponent<TroopSkinManager>().returnTroopType == "Light"){ //to understand where to take troop damage points
                         if(LightTroopsAmountCount > 0){
                             int damageDec = PlayerPrefs.GetInt("LightDamage");
@@ -182,7 +182,7 @@ public class changeSkinManager : MonoBehaviour
                 Debug.Log("Pyro asset skin applied");
                 break;
             case 3:
-                if (gameObject.tag != "Unit" || gameObject.tag != "bloom"){ // check if tag is not player troops
+                if (gameObject.tag != "Unit" || gameObject.tag != "Bloom"){ // check if tag is not player troops
                     if (gameObject.tag == "PlayerBase"){
                         //set new color to playerbase
                         Color changeColour = new Color32(0,198, 255, 255); // light blue
@@ -248,6 +248,7 @@ public class changeSkinManager : MonoBehaviour
                                     Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<TurretHealth>().getTurretHealth());
                                     break;
                                 }
+                                Debug.Log("There is no health component assigned to building");
                             }
                         }
                     }
@@ -323,6 +324,7 @@ public class changeSkinManager : MonoBehaviour
                                     break;
                                 }
                             }
+                            Debug.Log("There is no health component assigned to building");
                         }
                     }
                     Debug.Log("Earth asset skin applied");
