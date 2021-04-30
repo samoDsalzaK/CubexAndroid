@@ -546,6 +546,7 @@ public class MapMaker : MonoBehaviour
                 //SpawnPlayerBase
                 var sPos = spawnPoints[Random.Range(0, spawnPoints.Count)];            
                 var spawnPlayerBase = Instantiate(sPlayerBase, sPos.position + new Vector3(0f, yPosOffset, 0f), sPlayerBase.transform.rotation);
+                //transporting main camera to playerbase view
                 mainCamera.transform.position = new Vector3(spawnPlayerBase.transform.position.x, mainCamera.transform.position.y, spawnPlayerBase.transform.position.z);
                 
                 spawnPoints.Remove(sPos);
