@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Base : MonoBehaviour
 {
+    [SerializeField] bool isDeactivated = false;
     [Header("Main Base tool display parameters")]
     [SerializeField] GameObject Screen; // this GameObject variable for saving main base panel
     [SerializeField] GameObject ResourceAmountScreen;// this is the screen which will apear when player will not have enough resources to build game structure; 
@@ -131,6 +132,7 @@ public class Base : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       if (isDeactivated) return;
        if (healthOfTheBase.getHealth() <= 0)
        {
          FindObjectOfType<GameSession>().increaseDestroyedPlayerBaseAmount();
