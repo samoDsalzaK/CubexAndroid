@@ -10,17 +10,20 @@ public class EnemySpawn : System.Object {
     [Header("Trap configuration")]
     [SerializeField] GameObject mapTrigger;
     [SerializeField] bool playerEntered = false;
-
+    [Range(0, 1)]
+    [SerializeField] int type = 0;
     public Transform SpawnPoint {get {return spawnPoint;}}
     public Transform ArrivalPoint {get {return arrivalPoint;}}
     public GameObject MapTrigger { get {return mapTrigger; }}
     public bool PlayerEntered {set {playerEntered = value;} get { return playerEntered;}}
+    public int Type {set {type = value;} get {return type;}}
 }
 public class SLevelManager : MonoBehaviour
 {
     //NOTES:
-    //FIX troop movement
-    //Add starting enemies
+    //Fix enemy traps
+    //Add patrolling enemy 
+    //Add enemy camps
     [Header("Player cnf.:")]
     [SerializeField] Transform mStartPoint;
     [SerializeField] Transform mSquadStartArrivalPoint;
@@ -99,7 +102,7 @@ public class SLevelManager : MonoBehaviour
             {
                 foreach(var p in spawnEnemyPoints)
                 {
-                    if (!p.PlayerEntered)
+                    if (p.Type == 0)
                     {
                         //Spawn enemy squad at the specific location
                         for(int eindex = 0; eindex < eSMCount; eindex++)
@@ -124,10 +127,10 @@ public class SLevelManager : MonoBehaviour
                 print("Attacked the player from the trap!!!!!");
                 foreach(var p in spawnEnemyPoints)
                 {
-                    if(p.PlayerEntered)
+                    if(p.PlayerEntered && p.Type == 1)
                     {
                         //Spawning enemies
-                        for (int eindex = 0; eindex < eSMCount + 1; eSMCount++)
+                        for (int eindex = 0; eindex < eSMCount; eindex++)
                         {
                             var spawnEnemy = Instantiate(enemyUnit, p.SpawnPoint.position, enemyUnit.transform.rotation);
                             var moveCtrl = spawnEnemy.GetComponent<NavMeshAgent>();

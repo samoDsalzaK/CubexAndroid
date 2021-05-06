@@ -22,9 +22,10 @@ public class LevelTrigger : MonoBehaviour
                     {
                         if (p.MapTrigger.name == gameObject.name)
                         {
-                            playerEntered = !playerEntered;
+                            playerEntered = true;
                             p.PlayerEntered = playerEntered;
-                            Destroy(gameObject);
+                            gameObject.SetActive(false);
+                            return;
                             
                         }
                     }

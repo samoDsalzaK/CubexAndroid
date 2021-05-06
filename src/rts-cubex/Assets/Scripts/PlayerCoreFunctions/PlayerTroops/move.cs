@@ -72,7 +72,7 @@ public class move : MonoBehaviour
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("LvlMap")))
                 {
                     if (isBloom && hit.transform.gameObject.tag == "maphole")
                     {
