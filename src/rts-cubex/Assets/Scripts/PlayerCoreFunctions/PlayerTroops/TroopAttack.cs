@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class TroopAttack : MonoBehaviour
 {
+    [Header("For enemy units")]
+    [SerializeField] bool followPlayerInCombat = false;
     [SerializeField] Transform fireGun;
     [SerializeField] Transform secondFireGun;
     [SerializeField] float scannerRadius = 20f;    
@@ -20,9 +22,23 @@ public class TroopAttack : MonoBehaviour
     public bool LockFire { set {lockFire = value; } get { return lockFire; }}
     public GameObject Projectile { get { return projectile; }}
     public GameObject SpottedEnemy { get { return spottedEnemy; }}
+    private float distanceToEnemy = 0f;
     // Update is called once per frame
     void Update()
     {
+        //For aggresive combat enemy mode
+        if (followPlayerInCombat)
+        {
+            if (spottedEnemy)
+            {
+                var moveCtrl = GetComponent<NavMeshAgent>();
+                if (moveCtrl)
+                {
+                    if (distanceToEnemy > scannerRadius / 2)
+                        moveCtrl.destination = spottedEnemy.transform.position;
+                }
+            }
+        }
         if (!lockFire)
         {
             scanAreaForEnemies(); //Scan enemies
@@ -72,9 +88,9 @@ public class TroopAttack : MonoBehaviour
         {
             var troopPos = transform.position;
             var spottedEnemyPos = spottedEnemy.transform.position;
-            var distance = Vector3.Distance(spottedEnemyPos, troopPos);
+            distanceToEnemy = Vector3.Distance(spottedEnemyPos, troopPos);
 
-            if (distance > scannerRadius)
+            if (distanceToEnemy > scannerRadius)
             {
                 spottedEnemy = null;
                 return; //If enemy is out of range, then stop tracking it
