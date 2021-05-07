@@ -25,7 +25,7 @@ public class MiningStationUpgradeManager : MonoBehaviour
     private Base playerbase;
 
     // Health type variable
-    private HealthOfRegBuilding miningStationHealth;
+    HealthOfRegBuilding miningStationHealth;
 
     // button handler type varibale
     private buttonHadler button_Hadler;

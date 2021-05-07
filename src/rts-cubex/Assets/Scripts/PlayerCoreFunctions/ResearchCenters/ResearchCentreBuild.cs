@@ -34,18 +34,26 @@ public class ResearchCentreBuild : MonoBehaviour
            playerbase = FindObjectOfType<Base>();
          }
          buttonText.text = "Build Building Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
-         availableResearchCenters.text = playerbase.getResearchCentreUnitAmount()+ "/1";
+         availableResearchCenters.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBuildingResearchAmountInLevel;
     }  
     private void Update() {
-        availableResearchCenters.text = playerbase.getResearchCentreUnitAmount()+ "/1";
         //Checks if the structure is built in the base
         if (structureBuilt)
         {
-            playerbase.setResearchCentreUnitAmount(playerbase.getResearchCentreUnitAmount() + 1);
-            buttonText.text = "Build Building Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
-            buildResearchCentreBtn.interactable = false;
-            canBuildResearchCentre = false; 
-            structureBuilt = false;
+			if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBuildingResearchAmountInLevel){
+				buttonText.text = "Building Research Center\n" + "Max amount reached";
+				availableResearchCenters.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBuildingResearchAmountInLevel;
+				buildResearchCentreBtn.interactable = false;
+				canBuildResearchCentre = false; 
+				structureBuilt = false;
+			}
+			else{
+				buttonText.text = "Build Building Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
+				availableResearchCenters.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBuildingResearchAmountInLevel;
+				buildResearchCentreBtn.interactable = true;
+				canBuildResearchCentre = false; 
+				structureBuilt = false;
+			}
         }
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section

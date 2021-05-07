@@ -47,6 +47,12 @@ public class TurretpgradeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(turretHealth.getCurrentTurretHealth() <= 0)
+        {
+			playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel - 1;
+			playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(4);
+            Destroy(gameObject);
+        }
         turretUpgrageBtText.text = "Upgrade Turret to level " + (turretLevel + 1) + "\n" + "(" + minNeedCreditsAmountForTurretUpgrade + " credits & " + minNeedEnergonAmountForTurretUpgrade + " energon)";
         turretLevelText.text = "Turret Level : " + turretLevel;
         turretDamagePoints.text = "Damage Points : " + turretFire.getDamage();

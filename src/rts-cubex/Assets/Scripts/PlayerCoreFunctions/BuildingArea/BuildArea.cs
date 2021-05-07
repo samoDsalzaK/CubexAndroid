@@ -79,6 +79,7 @@ public class BuildArea : MonoBehaviour
                     playerbase.setCreditsAmount(playerbase.getCreditsAmount()-barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // uzsetiname naujas reksmes 
                     playerbase.setEnergonAmount(playerbase.getEnergonAmount()-barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // uzsetiname naujas reksmes
                     playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel + 1; // change amount of actual barracks on the game map 
                     barrackBtn.canBuildAgain(true);
                     playerbase.setBuildingArea(false);
 
@@ -104,6 +105,7 @@ public class BuildArea : MonoBehaviour
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-turretBtn.getMinNeededCreditsAmountForTurret()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-turretBtn.getMinNeededEnergonAmountForTurret()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel + 1;
 					turretBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 					//  buildDefensive.SetActive(false);
@@ -130,6 +132,7 @@ public class BuildArea : MonoBehaviour
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-researchCenterBtn.getMinNeededCreditsAmountForResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-researchCenterBtn.getMinNeededEnergonAmountForResearchCentre()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel + 1;
 					researchCenterBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 				
@@ -155,6 +158,7 @@ public class BuildArea : MonoBehaviour
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-troopsCenterBtn.getMinNeededCreditsAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel + 1;
 					troopsCenterBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 				
@@ -213,6 +217,7 @@ public class BuildArea : MonoBehaviour
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel + 1;
 					creditsMiningStationBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 					// buildDefensive.SetActive(false);
@@ -237,6 +242,7 @@ public class BuildArea : MonoBehaviour
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel + 1;
 					armyCampBuildBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 					// buildDefensive.SetActive(false);
@@ -261,6 +267,7 @@ public class BuildArea : MonoBehaviour
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-shrineBuildBtn.getMinNeededCreditsAmountForShrine()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-shrineBuildBtn.getMinNeededEnergonAmountForShrine()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel + 1;
 					shrineBuildBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 					// buildDefensive.SetActive(false);

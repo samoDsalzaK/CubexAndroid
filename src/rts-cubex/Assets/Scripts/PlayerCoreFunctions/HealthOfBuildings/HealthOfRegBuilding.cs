@@ -43,6 +43,12 @@ public class HealthOfRegBuilding : MonoBehaviour
         }
         if (health <= 0)
         {
+            if (gameObject.tag == "cryptominingstation"){
+                var playerbase = FindObjectOfType<Base>();
+                playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel - 1;
+			    //Debug.Log(playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel);
+                playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(8);
+            }
             Destroy(gameObject);
         }
     }

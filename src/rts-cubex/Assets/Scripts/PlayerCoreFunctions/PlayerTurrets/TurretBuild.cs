@@ -19,6 +19,7 @@ public class TurretBuild : MonoBehaviour
     //Button variable, which will used for disablying when the user clicked on the barracks construction button
     [SerializeField] Button buildTurretBtn;
     [SerializeField] Text buttonText;
+    [SerializeField] Text availableTurretsText;
     private Base playerbase;
     [SerializeField] int minNeededEnergonAmountForTurret;//5
     [SerializeField] int minNeededCreditsAmountForTurret;//50
@@ -33,18 +34,29 @@ public class TurretBuild : MonoBehaviour
         {
            playerbase = FindObjectOfType<Base>();
         }
-    //    clickUndo.SetActive(false);
-       buttonText.text = "Create Turret\n" + "(" + minNeededEnergonAmountForTurret + " energon & " + minNeededCreditsAmountForTurret  + " credits)";
+    //  clickUndo.SetActive(false);
+        buttonText.text = "Create Turret\n" + "(" + minNeededEnergonAmountForTurret + " energon & " + minNeededCreditsAmountForTurret  + " credits)";
+		//Debug.Log(playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel);
+		availableTurretsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTurretAmountInLevel;
     }  
     private void Update() {
-
         //Checks if structure is built in the base
         if (structureBuilt)
         {
-             buildTurretBtn.interactable = true;
-             buttonText.text = "Create Turret\n" + "(" + minNeededEnergonAmountForTurret + " energon & " + minNeededCreditsAmountForTurret  + " credits)";
-             canBuildTurret = false;
-             structureBuilt = false;
+			if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTurretAmountInLevel){
+				availableTurretsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTurretAmountInLevel;
+				buttonText.text = "Turret\n" + "Max amount reached";
+				buildTurretBtn.interactable = false;
+				canBuildTurret = false;
+				structureBuilt = false;
+			}
+			else{
+				buildTurretBtn.interactable = true;
+				availableTurretsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTurretAmountInLevel;
+				buttonText.text = "Create Turret\n" + "(" + minNeededEnergonAmountForTurret + " energon & " + minNeededCreditsAmountForTurret  + " credits)";
+				canBuildTurret = false;
+				structureBuilt = false;
+			}
         }
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section

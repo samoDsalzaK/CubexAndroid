@@ -13,9 +13,9 @@ public class ResearchLevel : MonoBehaviour
     private Base playerbase;
     private HealthOfRegBuilding researchHealth;
     [SerializeField] ResearchConf oBGResearch;
-	PanelManager panelManager;
-	createAnimatedPopUp animatedPopUps;
-  [SerializeField] GameObject selectionCanvas;
+    PanelManager panelManager;
+    createAnimatedPopUp animatedPopUps;
+    [SerializeField] GameObject selectionCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,10 +39,11 @@ public class ResearchLevel : MonoBehaviour
     void Update()
     {
         if(researchHealth.getHealth() <= 0)
-          {
-            playerbase.setResearchCentreUnitAmount(playerbase.getResearchCentreUnitAmount() - 1);
+        {
+			playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel - 1;
+			playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(6);
             Destroy(gameObject);
-          }
+        }
         researchCenterLevelText.text = "Research Center Level : " + oBGResearch.getBuildingResearchLevel(); 
         researchUpgradeBtnText.text = "Upgrade Research Center to level " + (oBGResearch.getBuildingResearchLevel() + 1) + "\n" + "(" + oBGResearch.getMinNeededCreditsAmountForResearch() + " credits & " + oBGResearch.getMinNeededEnergonAmountForResearch() + " energon)"; 
         researchCenterHPText.text = "Health " + researchHealth.getHealth() + " / " + researchHealth.getHealthOfStructureOriginal();

@@ -108,8 +108,9 @@ public class Research : MonoBehaviour {
         }
         if(troopsResearchHealth.getHealth() <= 0)
         {
-          playerBase.setTroopsResearchCentreUnitAmount(playerBase.getTroopsResearchCentreUnitAmount() - 1);
-          Destroy(gameObject);
+            playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel = playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel - 1;
+            playerBase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(7);
+            Destroy(gameObject);
         }
     }
 

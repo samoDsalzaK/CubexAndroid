@@ -68,7 +68,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
         }
         else
         {
-         playerbase = FindObjectOfType<Base>();
+         	playerbase = FindObjectOfType<Base>();
         }
         workerLife = GetComponent<WorkerLifeCycle>();
         playerworker = GetComponent<Worker>();
@@ -86,15 +86,14 @@ public class TimerForSpawningOriginal : MonoBehaviour
             fillingvariable += Time.deltaTime;
             buildingBar.fillAmount = fillingvariable / timereferencetasks[timeArrayPozition];
             startingTime -= Time.deltaTime;
-             if(startingTime >= 60.00f)
-              {
-                 timeLeft.text = ((int)(startingTime / 60)).ToString() + " min " + ((int)(startingTime % 60)).ToString() + " sec";
-              }
-             else
-              {
-                 timeLeft.text = ((int)(startingTime % 60)).ToString() + " sec";
-              }
-
+			if(startingTime >= 60.00f)
+			{
+				timeLeft.text = ((int)(startingTime / 60)).ToString() + " min " + ((int)(startingTime % 60)).ToString() + " sec";
+			}
+			else
+			{
+				timeLeft.text = ((int)(startingTime % 60)).ToString() + " sec";
+			}
             if (startingTime <= 0)
             {
                 //resets the timeStart variable to value, which was at the start of the system.
@@ -121,7 +120,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 										Instantiate(barrack, pozition, Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 										workerLife.decreaseWorkerLife();
-										playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
+										playerworker.setWorkerState(false); // statas reiskia kad workeris yra laisvas
 										return;
 									}
 								}
@@ -131,8 +130,8 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							Instantiate(barrack, pozition, Quaternion.identity);
 							if(playerScorePoints != null)
 							{
-								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
-								playerScorePoints.addPlayerBarrackAmount(1);
+								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints); // each building creation gives 10 points
+								playerScorePoints.addPlayerBarrackAmount(1); // also adding barrack building amount
 							}
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount()+1);
 							playerworker.setWorkerState(false);

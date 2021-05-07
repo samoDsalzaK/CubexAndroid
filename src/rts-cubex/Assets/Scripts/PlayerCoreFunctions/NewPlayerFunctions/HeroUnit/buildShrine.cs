@@ -16,6 +16,7 @@ public class buildShrine : MonoBehaviour
     //Button variable, which will used for disablying when the user clicked on the barracks construction button
     [SerializeField] Button buildShrineBtn;
     [SerializeField] Text buttonText;
+    [SerializeField] Text availableShrineText;
     private Base playerbase;
     [SerializeField] int minNeededEnergonAmount;
     [SerializeField] int minNeededCreditsAmount;
@@ -34,6 +35,7 @@ public class buildShrine : MonoBehaviour
            playerbase = FindObjectOfType<Base>();
         }
         buttonText.text = "Create Hero Shrine\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+        availableShrineText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerShrineAmountInLevel;
         creditsLeft.text = "Credits left : " + playerbase.getCreditsAmount();
         energonLeft.text = "Energon left : " + playerbase.getEnergonAmount();
     }
@@ -43,10 +45,21 @@ public class buildShrine : MonoBehaviour
     {
         if (structureBuilt)
         {
-            buildShrineBtn.interactable = true;
-            buttonText.text = "Create Hero Shrine\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
-            canBuildShrine = false;
-            structureBuilt = false;
+            if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerShrineAmountInLevel){
+                availableShrineText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerShrineAmountInLevel;
+                buttonText.text = "Shrine\n" + "Max amount reached";
+                buildShrineBtn.interactable = false;
+                canBuildShrine = false;
+                structureBuilt = false;  
+            }
+            else{
+                buildShrineBtn.interactable = true;
+                availableShrineText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerShrineAmountInLevel;
+                buttonText.text = "Create Hero Shrine\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+                canBuildShrine = false;
+                structureBuilt = false;  
+            }
+            
         }
     }
 

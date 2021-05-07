@@ -17,6 +17,7 @@ public class buildArmyCamp : MonoBehaviour
     //Button variable, which will used for disablying when the user clicked on the barracks construction button
     [SerializeField] Button buildArmyCampBtn;
     [SerializeField] Text buttonText;
+    [SerializeField] Text availableArmyCampsText;
     private Base playerbase;
     [SerializeField] int minNeededEnergonAmount;
     [SerializeField] int minNeededCreditsAmount;
@@ -32,6 +33,7 @@ public class buildArmyCamp : MonoBehaviour
            playerbase = FindObjectOfType<Base>();
         }
        buttonText.text = "Create Army Camp\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+       availableArmyCampsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerArmyCampAmountInLevel;
     }
 
     // Update is called once per frame
@@ -40,10 +42,20 @@ public class buildArmyCamp : MonoBehaviour
         //Checks if the barracks structure is built in the base
         if (structureBuilt)
         {
-            buildArmyCampBtn.interactable = true;
-            buttonText.text = "Create Army Camp\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
-            canBuildArmyCamp = false;
-            structureBuilt = false;
+            if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerArmyCampAmountInLevel){
+                availableArmyCampsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerArmyCampAmountInLevel;
+                buttonText.text = "Army Camp\n" + "Max amount reached";
+                buildArmyCampBtn.interactable = false;
+                canBuildArmyCamp = false;
+                structureBuilt = false; 
+            }
+            else{
+                buildArmyCampBtn.interactable = true;
+                availableArmyCampsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerArmyCampAmountInLevel;
+                buttonText.text = "Create Army Camp\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+                canBuildArmyCamp = false;
+                structureBuilt = false; 
+            }
         }
     }
 

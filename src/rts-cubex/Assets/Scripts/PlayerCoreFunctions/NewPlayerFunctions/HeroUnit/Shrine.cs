@@ -81,6 +81,8 @@ public class Shrine : MonoBehaviour
 
     PanelManager panelManager;
 
+    HealthOfRegBuilding shrineHealth;
+
     private void OnMouseDown() {
         
         if (clickIndex >= 1)
@@ -119,12 +121,19 @@ public class Shrine : MonoBehaviour
             playerBase = playerBaseObj.GetComponent<Base>();
             animatedPopUps = playerBaseObj.GetComponent<createAnimatedPopUp>();
             AnimatedPopUps = animatedPopUps;
+            shrineHealth = GetComponent<HealthOfRegBuilding>();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(shrineHealth.getHealth() <= 0)
+        {
+			playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel = playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel - 1;
+			playerBase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(3);
+            Destroy(gameObject);
+        }
         //Update Shrine data GUI text
         if (!isTesting)
         {
