@@ -73,7 +73,7 @@ public class WorkerSpawningTimer : MonoBehaviour
                 
                 playerbase.Spawning();
 
-                btnText.text = "Create Worker \n"  + buildRegWorker.getMinNeededEnergonAmount() + " credits)";
+                btnText.text = "Create Worker \n"  + buildRegWorker.getMinNeededEnergonAmount() + " (energon)";
                 return;
             }
         }

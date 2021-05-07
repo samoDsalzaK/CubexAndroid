@@ -54,6 +54,7 @@ TagManager:
   - buidlingResearch
   - playerTurret
   - lootbox
+  - maphole
   - Bloom
   layers:
   - Default
@@ -84,7 +85,7 @@ TagManager:
   - armyCamp
   - UI_minimap
   - ignoreMesh
-  - groupLayer
+  - 
   - 
   - 
   - 
