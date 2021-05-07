@@ -3,6 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+    //NOTES:
+    //Fix troop save zone
+    //Add hero to save
+    //Add spawning wave system
+    //Add objective system
+    //Add mini story interaction
+
+[System.Serializable]
+public class LevelObject : System.Object {
+    [Header("Level object configuration")]
+    [SerializeField] GameObject mlevelObject;
+    [SerializeField] Transform spawnPoint;
+    [SerializeField] Transform guardSpawnPoint; 
+    [Header("Level obj type(0-a,1-lb,2-t)")]
+    [Range(0, 2)] // 0 - army camp, 1 - lootbox
+    [SerializeField] int type = 0;
+    [SerializeField] bool saveOp = false;
+    public int Type {get { return type; }}
+    public bool SaveOp {get { return saveOp; }}
+    public GameObject MlevelObject {set {mlevelObject = value;} get {return mlevelObject;}}
+    public Transform SpawnPoint {set {spawnPoint = value;} get {return spawnPoint;}}
+    public Transform GuardSpawnPoint {set {guardSpawnPoint = value;} get {return guardSpawnPoint;}}
+}
+
 [System.Serializable]
 public class EnemySpawn : System.Object {
     [SerializeField] Transform spawnPoint;
@@ -20,10 +44,7 @@ public class EnemySpawn : System.Object {
 }
 public class SLevelManager : MonoBehaviour
 {
-    //NOTES:
-    //Fix enemy traps
-    //Add patrolling enemy 
-    //Add enemy camps
+  
     [Header("Player cnf.:")]
     [SerializeField] Transform mStartPoint;
     [SerializeField] Transform mSquadStartArrivalPoint;
@@ -39,8 +60,18 @@ public class SLevelManager : MonoBehaviour
     [SerializeField] int eSMCount = 3;
     [SerializeField] bool directSquadToStartPoint = false;
     [SerializeField] bool checkTraps = true;
+    [SerializeField] int trapSquadAmount = 2;
+    [Header("Helper objects to spawn")]
+    [SerializeField] int guardsCount = 3;
+    [SerializeField] int troopSquadMToSave = 6; //Troop count to save
+    [SerializeField] bool spawnLevelObjects = true;
+    [SerializeField] List<LevelObject> levelObjects;
+    [SerializeField] int energonRestore = 1000;
+    [SerializeField] int creditsRestore = 1000;
+
     public List<EnemySpawn> SpawnEnemyPoints {get {return spawnEnemyPoints;}}
-    public bool CheckTraps {set { checkTraps = value; } get {return checkTraps;}}
+    public  bool CheckTraps {set { checkTraps = value; } get {return checkTraps;}}
+    private bool lootBoxSwitch = true;
     //private Base playerBase;
     void Start()
     {
@@ -130,7 +161,7 @@ public class SLevelManager : MonoBehaviour
                     if(p.PlayerEntered && p.Type == 1)
                     {
                         //Spawning enemies
-                        for (int eindex = 0; eindex < eSMCount; eindex++)
+                        for (int eindex = 0; eindex < eSMCount + trapSquadAmount; eindex++)
                         {
                             var spawnEnemy = Instantiate(enemyUnit, p.SpawnPoint.position, enemyUnit.transform.rotation);
                             var moveCtrl = spawnEnemy.GetComponent<NavMeshAgent>();
@@ -146,6 +177,101 @@ public class SLevelManager : MonoBehaviour
             
             }
         }
+        //Spawn level objects
+        if (spawnLevelObjects)
+        {
+            if (levelObjects == null|| levelObjects.Count <= 0)
+            {
+                 spawnLevelObjects = false;
+                 return;
+            }
+           
+            foreach(var o in levelObjects)
+            {
+                //Spawning level object
+                if (o.Type == 0)
+                {
+                    var spawnLevelObject = Instantiate(o.MlevelObject, o.SpawnPoint.position, o.MlevelObject.transform.rotation);
+                    if (spawnLevelObject)
+                    {
+                        print("Level object spawned! " + spawnLevelObject.name);
+                    }
+                    //Spawning guards
+                    for(int eindex = 0; eindex < guardsCount; eindex++)
+                    {
+                        var spawnEnemy = Instantiate(enemyUnit, o.GuardSpawnPoint.position, o.GuardSpawnPoint.rotation);
+                        
+                        var moveCtrl = spawnEnemy.GetComponent<NavMeshAgent>();
+
+                        if (moveCtrl)
+                        {
+                            print("Sending guards to guard " + spawnLevelObject.name);
+                            //NOTE: Add later distance measurement
+                            moveCtrl.destination = spawnLevelObject.transform.position;
+                        }
+                    }
+                }
+                else if (o.Type == 1)
+                {
+                    
+                    var spawnLootBox = Instantiate(o.MlevelObject, o.SpawnPoint.position, o.MlevelObject.transform.rotation);
+                    if (spawnLootBox)
+                    {
+                        var lCtrl = spawnLootBox.GetComponent<LootBox>();
+                        if (lCtrl)
+                        {
+                            if (lootBoxSwitch)
+                            {
+                                lCtrl.EnergonToAdd += energonRestore;
+                                lCtrl.BoxType = 0;
+                            }
+                            else
+                            {
+                                lCtrl.BoxType = 1;
+                                lCtrl.CreditsToAdd += creditsRestore;
+                            }
+
+                            lootBoxSwitch = !lootBoxSwitch;
+                        }
+                         //Spawning guards
+                        for(int eindex = 0; eindex < guardsCount; eindex++)
+                        {
+                            var spawnEnemy = Instantiate(enemyUnit, o.GuardSpawnPoint.position, o.GuardSpawnPoint.rotation);
+                            
+                            var moveCtrl = spawnEnemy.GetComponent<NavMeshAgent>();
+
+                            if (moveCtrl)
+                            {
+                                print("Sending guards to guard " + spawnLootBox.name);
+                                //NOTE: Add later distance measurement
+                                moveCtrl.destination = spawnLootBox.transform.position;
+                            }
+                        }
+                    }
+                    
+                    
+                }
+                //NOTE: Fix later
+                else if (o.Type == 2 && o.SaveOp)
+                {
+                    //Spawning troops to save and moving them to certain position
+                    for (int tIndex = 0; tIndex < troopSquadMToSave; tIndex++)
+                    {
+                        var spawnTroop = Instantiate(o.MlevelObject, o.GuardSpawnPoint.position, o.GuardSpawnPoint.rotation);
+                        var moveCtrl = spawnTroop.GetComponent<NavMeshAgent>();
+                        if (moveCtrl)
+                        {
+                           //print("Sending guards to guard " + spawnLootBox.name);
+                           //NOTE: Add later distance measurement
+                           moveCtrl.destination = spawnTroop.transform.position;
+                        }
+                    }
+                }
+            }
+            //Closing level object spawning
+            spawnLevelObjects = false;
+        }
+      
     }
     private bool triggeredTraps()
     {         
