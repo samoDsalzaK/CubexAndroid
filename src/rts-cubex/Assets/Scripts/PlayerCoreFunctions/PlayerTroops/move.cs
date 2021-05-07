@@ -11,10 +11,14 @@ public class move : MonoBehaviour
     [SerializeField] GameObject mainModel;
     [SerializeField] bool lockMove = false;
     private TroopAttack ta;
-    public bool LockMove { set {lockMove = value; } get {return lockMove; }}
-    public NavMeshAgent Agent {get {return agent; }}
+    public bool LockMove { set { lockMove = value; } get { return lockMove; } }
+    public NavMeshAgent Agent { get { return agent; } }
+    [SerializeField] bool isGroup;
+    TroopGroupSelection canMove;
     void Start()
     {
+        if (isGroup)
+            canMove = GetComponent<TroopGroupSelection>();
         ta = GetComponent<TroopAttack>();
         agent = GetComponent<NavMeshAgent>();
         agent.Warp(transform.position);
@@ -22,8 +26,8 @@ public class move : MonoBehaviour
         var gs = FindObjectOfType<GameSession>();
         if (gs)
             gs.addTroopAmount(1);
-        
-        if (!isHero)
+
+        if (!isHero && !isGroup)
         {
             var camps = GameObject.FindGameObjectsWithTag("Camp");
             if (camps.Length > 0)
@@ -47,16 +51,26 @@ public class move : MonoBehaviour
             unitMove();
     }
     private void unitMove()
-    {        
-        if (!click.GetSelected())
+    {
+        if (isGroup)
         {
-            return;
+            if (!canMove.GetSelected())
+            {
+                return;
+            }
+        }
+        else
+        {
+            if (!click.GetSelected())
+            {
+                return;
+            }
         }
         // Checking when to stop the moving unit
         if (agent.velocity.magnitude > 0f)
         {
-           // ta.LockFire = true;
-           // print("Unit is moving");
+            // ta.LockFire = true;
+            // print("Unit is moving");
             if (agent.remainingDistance < 1f)
             {
                 //ta.LockFire = false;
@@ -64,8 +78,8 @@ public class move : MonoBehaviour
             }
             //print(agent.remainingDistance);
         }
-        
-       
+
+
         if (Input.GetMouseButtonDown(0))
         {
             if (!EventSystem.current.IsPointerOverGameObject())
@@ -79,7 +93,7 @@ public class move : MonoBehaviour
                         agent.SetDestination(hit.point);
                         if (mainModel)
                             mainModel.transform.position = transform.position;
-                            //mainModel.transform.position = hit.point;
+                        //mainModel.transform.position = hit.point;
                     }
                     else
                     {
@@ -104,6 +118,6 @@ public class move : MonoBehaviour
         onItsWay = isOnWay;
     }
 
-    
+
 
 }

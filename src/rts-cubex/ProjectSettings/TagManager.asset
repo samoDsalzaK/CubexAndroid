@@ -54,6 +54,7 @@ TagManager:
   - buidlingResearch
   - playerTurret
   - lootbox
+  - Bloom
   layers:
   - Default
   - TransparentFX
@@ -83,7 +84,7 @@ TagManager:
   - armyCamp
   - UI_minimap
   - ignoreMesh
-  - 
+  - groupLayer
   - 
   - 
   - 
