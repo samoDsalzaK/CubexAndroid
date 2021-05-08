@@ -67,6 +67,8 @@ public class Base : MonoBehaviour
     [SerializeField] int maxBaseEnergonAmount;
     [SerializeField] int maxBaseCreditsAmount;
 
+	[SerializeField] int addionalWorkerCount;
+
     public int MaxBEnergon { get {return maxBaseEnergonAmount; }}
     public int MaxBCredits { get {return maxBaseCreditsAmount; }}
     [SerializeField] GameObject selectionCanvas;
@@ -86,8 +88,10 @@ public class Base : MonoBehaviour
 
     createAnimatedPopUp animatedPopUps;    
 
-	InGameMarketButtonHandler buttonHadler;
-	InGameMarketManager marketManager;
+    InGameMarketButtonHandler buttonHadler;
+    InGameMarketManager marketManager;
+
+    PlayerScoring playerScoring;
 
 	GameSession gameSession;
     // Start is called before the first frame update
@@ -125,6 +129,7 @@ public class Base : MonoBehaviour
 		marketManager = GetComponent<InGameMarketManager>();
 		GetComponent<changeSkinManager>().applyChosenSkin(gameObject);
 		GetComponent<changeSkinManager>().onStartSkinSelectionPopUp();
+    	playerScoring = GetComponent<PlayerScoring>();
 		gameSession = FindObjectOfType<GameSession>();
 		currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
     }
@@ -150,11 +155,11 @@ public class Base : MonoBehaviour
         existingAndMaxWorkersAmount.text = " Workers: " + workersAmountOriginal +"/"+ maxWorkerAmountInLevel; 
         currentPlayerTroopsAmount.text = "Troops: " + playerTroopsAmount + "/" + maxPlayerTroopsAmount;
 
-		// fill in credits and energon amount image
-		EnergonAmountScreenText.text = energon + " / " + maxBaseEnergonAmount + " energon";
-		CreditsAmountScreenText.text = credits + " / " + maxBaseCreditsAmount + " credits";
-		EnergonAmountScreen.fillAmount = (float)energon / (float)maxBaseEnergonAmount; 
-		CreditsAmountScreen.fillAmount = (float)credits / (float)maxBaseCreditsAmount;
+        // fill in credits and energon amount image
+        EnergonAmountScreenText.text = energon + " / " + maxBaseEnergonAmount + " energon";
+        CreditsAmountScreenText.text = credits + " / " + maxBaseCreditsAmount + " credits";
+        EnergonAmountScreen.fillAmount = (float)energon / (float)maxBaseEnergonAmount; 
+        CreditsAmountScreen.fillAmount = (float)credits / (float)maxBaseCreditsAmount;
 
         if(getWorkersAmountState())
         {
@@ -270,16 +275,11 @@ public class Base : MonoBehaviour
     spawnedWorker.GetComponent<Worker>().setWorkerIndex(workerIndex);
     //Debug.Log(spawnedWorker.GetComponent<Worker>().getWorkerIndex());
     index ++;
-    var playerScorePoints = FindObjectOfType<GameSession>();
-        if(playerScorePoints != null)
-        {
-			playerScorePoints.addPlayerWorkersAmount(1);
-        }
-
-        if(existingWorkerAmount >= maxWorkerAmountInLevel)
-        {
-         	createworker.interactable = false;
-        }
+	playerScoring.addScoreAfterWorkerCreation(index);
+    	if(existingWorkerAmount >= maxWorkerAmountInLevel)
+    	{
+        	createworker.interactable = false;
+    	}
     }
     
     public void addAdditionalWorker() 
@@ -292,8 +292,10 @@ public class Base : MonoBehaviour
 		}
 		animatedPopUps.createDecreaseCreditsPopUp(fixedPriceOfOneAdditionalWorker);
 		credits -= fixedPriceOfOneAdditionalWorker;
+		int currentMaxWorkers = maxWorkerAmountInLevel;
 		maxWorkerAmountInLevel++;
-		
+		addionalWorkerCount++;
+		playerScoring.addScoreAferAdditionalWorker(addionalWorkerCount);
 		if(existingWorkerAmount < maxWorkerAmountInLevel)
 		{
 			createworker.interactable = true;
@@ -327,6 +329,7 @@ public class Base : MonoBehaviour
 			buttonHadler.unlockBtn(1);
 			buttonHadler.setButtonText(1);
 		}
+		playerScoring.addScoreAfterBaseUpgrade(playerBaselevel);
     }
     // UI geteris/seteris workeriams // kai vienas zusta kai buvo max skaicius mygtukas vel turi bui ijungtas su galimybe vel spawninti.
     public bool getWorkersAmountState()

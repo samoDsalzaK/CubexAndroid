@@ -74,40 +74,34 @@ public class ResearchLevel : MonoBehaviour
     }
     public void upgradeBaseResearchLevel() // cia apskritai visos bazes, o ne playerio tawn holo!
     {
-       if(oBGResearch.getBuildingResearchLevel() == oBGResearch.getMaxBuildingResearchLevel())
+       	if(oBGResearch.getBuildingResearchLevel() == oBGResearch.getMaxBuildingResearchLevel())
         {
           return;
         }
-       if(oBGResearch.getBuildingResearchLevel() == playerbase.getPlayerBaseLevel())
+      	if(oBGResearch.getBuildingResearchLevel() == playerbase.getPlayerBaseLevel())
         {
           playerbase.setErrorStateForPlayerBase(true);
           researchCenterUpgradePanel.SetActive(false);
           return;
         }
-       if(playerbase.getCreditsAmount() < oBGResearch.getMinNeededCreditsAmountForResearch() || playerbase.getEnergonAmount() < oBGResearch.getMinNeededEnergonAmountForResearch())
+       	if(playerbase.getCreditsAmount() < oBGResearch.getMinNeededCreditsAmountForResearch() || playerbase.getEnergonAmount() < oBGResearch.getMinNeededEnergonAmountForResearch())
         {
           playerbase.setResourceAMountScreenStateForUpgrade(true);
           return;
         } 
         
-      oBGResearch.setBuildingResearchLevel(oBGResearch.getBuildingResearchLevel() + 1); // scriptable object change value
-	  animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
-	  animatedPopUps.createDecreaseCreditsPopUp(oBGResearch.getMinNeededCreditsAmountForResearch()); // creating pop ups
-	  animatedPopUps.createDecreaseEnergonPopUp(oBGResearch.getMinNeededEnergonAmountForResearch()); // creating pop ups
-      playerbase.setCreditsAmount(playerbase.getCreditsAmount() - oBGResearch.getMinNeededCreditsAmountForResearch());
-      playerbase.setEnergonAmount(playerbase.getEnergonAmount() - oBGResearch.getMinNeededEnergonAmountForResearch());
-      researchHealth.setHealthOfStructureOriginal(researchHealth.getHealthOfStructureOriginal() + oBGResearch.getUpgradeBuildingResearchLevelHP());
-      oBGResearch.setBuildingResearchHealth(oBGResearch.getBuildingResearchHealth() + oBGResearch.getUpgradeBuildingResearchLevelHP());
-      oBGResearch.setMinNeededEnergonAmountForResearch(oBGResearch.getMinNeededEnergonAmountForResearch() + 20);
-      oBGResearch.setMinNeededCreditsAmountForResearch(oBGResearch.getMinNeededCreditsAmountForResearch() + 10);
-      oBGResearch.setUpgradeBuildingResearchLevelHP(oBGResearch.getUpgradeBuildingResearchLevelHP() + ((oBGResearch.getBuildingResearchLevel() + 1))*10);
-      var playerScorePoints = FindObjectOfType<GameSession>();
-
-      if(playerScorePoints != null)
-      {
-        playerScorePoints.AddPlayerScorePoints(oBGResearch.getPlayerScoreEarned()); // for each upgrade player gets points.
-        oBGResearch.setPlayerScoreEarned(oBGResearch.getPlayerScoreEarned());
-      }
+		oBGResearch.setBuildingResearchLevel(oBGResearch.getBuildingResearchLevel() + 1); // scriptable object change value
+		animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
+		animatedPopUps.createDecreaseCreditsPopUp(oBGResearch.getMinNeededCreditsAmountForResearch()); // creating pop ups
+		animatedPopUps.createDecreaseEnergonPopUp(oBGResearch.getMinNeededEnergonAmountForResearch()); // creating pop ups
+		playerbase.setCreditsAmount(playerbase.getCreditsAmount() - oBGResearch.getMinNeededCreditsAmountForResearch());
+		playerbase.setEnergonAmount(playerbase.getEnergonAmount() - oBGResearch.getMinNeededEnergonAmountForResearch());
+		researchHealth.setHealthOfStructureOriginal(researchHealth.getHealthOfStructureOriginal() + oBGResearch.getUpgradeBuildingResearchLevelHP());
+		oBGResearch.setBuildingResearchHealth(oBGResearch.getBuildingResearchHealth() + oBGResearch.getUpgradeBuildingResearchLevelHP());
+		oBGResearch.setMinNeededEnergonAmountForResearch(oBGResearch.getMinNeededEnergonAmountForResearch() + 20);
+		oBGResearch.setMinNeededCreditsAmountForResearch(oBGResearch.getMinNeededCreditsAmountForResearch() + 10);
+		oBGResearch.setUpgradeBuildingResearchLevelHP(oBGResearch.getUpgradeBuildingResearchLevelHP() + ((oBGResearch.getBuildingResearchLevel() + 1))*10);
+		playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureUpgrade("buildingResearch", oBGResearch.getBuildingResearchLevel());
     }
     public int getBaseResearchLevel()
     {

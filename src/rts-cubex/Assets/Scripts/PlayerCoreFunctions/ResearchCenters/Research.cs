@@ -244,6 +244,8 @@ public class Research : MonoBehaviour {
             StartCoroutine (Increase ());
             playerBase.setCreditsAmount (playerBase.getCreditsAmount () - researchCost);
             oBGResearch.setResearchLevel(1);
+            playerBase.GetComponent<PlayerScoring>().addScoreAfterStructureUpgrade("troopsResearch", oBGResearch.getResearchLevel());
+            Debug.Log(oBGResearch.getResearchLevel());
         } 
         else if (oBGResearch.getResearchLevel()>=maxResearchLevel){
             closeResearch ();

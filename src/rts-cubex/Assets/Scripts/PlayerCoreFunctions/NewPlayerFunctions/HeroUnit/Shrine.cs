@@ -85,7 +85,7 @@ public class Shrine : MonoBehaviour
 
     private void OnMouseDown() {
         
-        if (clickIndex >= 1)
+        /*if (clickIndex >= 1)
         {
             mainUIWindow.SetActive(false);
             selectionCanvas.SetActive(false);
@@ -96,7 +96,7 @@ public class Shrine : MonoBehaviour
             mainUIWindow.SetActive(true);
             selectionCanvas.SetActive(true);
             clickIndex++;
-        }
+        }*/
 
         panelManager = GetComponent<PanelManager>();
         var status = panelManager.checkForActivePanels();
@@ -246,10 +246,11 @@ public class Shrine : MonoBehaviour
                     }
                     else
                     {
-                          playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
-                          animatedPopUps.createDecreaseEnergonPopUp(heroToTrainUnit.EnergonPrice);
-                          playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
-                          animatedPopUps.createDecreaseCreditsPopUp(heroToTrainUnit.CreditsPrice);
+                        playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
+                        animatedPopUps.createDecreaseEnergonPopUp(heroToTrainUnit.EnergonPrice);
+                        playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
+                        animatedPopUps.createDecreaseCreditsPopUp(heroToTrainUnit.CreditsPrice);
+                        playerBase.GetComponent<PlayerScoring>().addScoreAfterHeroCreation();
                     }
                 }
                 
@@ -296,10 +297,11 @@ public class Shrine : MonoBehaviour
                     }
                     else
                     {
-                          playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
-                          animatedPopUps.createDecreaseEnergonPopUp(heroToTrainUnit.EnergonPrice);
-                          playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
-                          animatedPopUps.createDecreaseCreditsPopUp(heroToTrainUnit.CreditsPrice);
+                        playerBase.setEnergonAmount(playerBase.getEnergonAmount() - heroToTrainUnit.EnergonPrice);
+                        animatedPopUps.createDecreaseEnergonPopUp(heroToTrainUnit.EnergonPrice);
+                        playerBase.setCreditsAmount(playerBase.getCreditsAmount() -  heroToTrainUnit.CreditsPrice);
+                        animatedPopUps.createDecreaseCreditsPopUp(heroToTrainUnit.CreditsPrice);
+                        playerBase.GetComponent<PlayerScoring>().addScoreAfterHeroCreation();
                     }
                 }
                                             

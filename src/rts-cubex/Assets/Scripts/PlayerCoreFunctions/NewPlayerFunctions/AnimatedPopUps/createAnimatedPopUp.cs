@@ -10,7 +10,7 @@ public class createAnimatedPopUp : MonoBehaviour
     [Header("Configuration parameters Animated Pop UPs v2")]
     [SerializeField] GameObject addCreditsPopUpPLCanvas, decreaseCreditsPopUpPLCanvas, addEnergonPopUpPLCanvas, decreaseEnergonPopUpPLCanvas; // version 2*/
     [Header("Configuration parameters Animated Pop UPs v3")]
-    [SerializeField] GameObject addCreditsPopUpV3, decreaseCreditsPopUpV3, addEnergonPopUpV3, decreaseEnergonPopUpV3, addTimePopUpV3, addTroopsPopUpV3; // version 3
+    [SerializeField] GameObject addCreditsPopUpV3, decreaseCreditsPopUpV3, addEnergonPopUpV3, decreaseEnergonPopUpV3, addTimePopUpV3, addTroopsPopUpV3, addScorePointsPopUpV3; // version 3
     // Start is called before the first frame update
 
     // addCreditsPopUp - done
@@ -21,6 +21,7 @@ public class createAnimatedPopUp : MonoBehaviour
         decreaseCreditsPopUpV3.SetActive(false);
         addEnergonPopUpV3.SetActive(false);
         decreaseEnergonPopUpV3.SetActive(false);
+        addScorePointsPopUpV3.SetActive(false);
         /*addTimePopUpV3.SetActive(false);
         addTroopsPopUpV3.SetActive(false);*/
     }
@@ -185,6 +186,19 @@ public class createAnimatedPopUp : MonoBehaviour
         StartCoroutine(troopsPopUpTimer());
     }
 
+    // player score points add popo up
+    public void createAddPlayerScorePointsPopUp(int scorePointsToAdd){
+        Transform[] ts = addScorePointsPopUpV3.transform.GetComponentsInChildren<Transform>();
+        foreach (Transform t in ts) {
+            if(t.gameObject.GetComponent<Text>() != null)
+            {
+                t.gameObject.GetComponent<Text>().text = "+" + scorePointsToAdd + " points ↑ ";
+            }
+        }
+        addScorePointsPopUpV3.SetActive(true);
+        StartCoroutine(scorePopUpTimer());
+    }
+
     public IEnumerator creditsPopUpTimer(int var){
         yield return new WaitForSeconds(1.3f);
         if(var == 1){
@@ -221,6 +235,10 @@ public class createAnimatedPopUp : MonoBehaviour
     public IEnumerator troopsPopUpTimer(){
         yield return new WaitForSeconds(1.3f);
         addTroopsPopUpV3.SetActive(false);
+    }
+    public IEnumerator scorePopUpTimer(){
+        yield return new WaitForSeconds(1.3f);
+        addScorePointsPopUpV3.SetActive(false);
     }
 }
 

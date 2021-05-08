@@ -107,7 +107,6 @@ public class TimerForSpawningOriginal : MonoBehaviour
                 //startBtn.interactable = true;
                 //Resets the current button's text value, which can be defined in the inspector by using this class string variable nameBtn.
                 //var playerworker = FindObjectsOfType<Worker>();
-                var playerScorePoints = FindObjectOfType<GameSession>();
                 switch(/*buildingType*/timeArrayPozition)
                 {
 					case 0/*"barrack"*/:
@@ -128,11 +127,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						}
 						else{
 							Instantiate(barrack, pozition, Quaternion.identity);
-							if(playerScorePoints != null)
-							{
-								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints); // each building creation gives 10 points
-								playerScorePoints.addPlayerBarrackAmount(1); // also adding barrack building amount
-							}
+							playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureBuild("barrack");
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount()+1);
 							playerworker.setWorkerState(false);
 							workerLife.decreaseWorkerLife();
@@ -156,11 +151,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						}
 						else{
 							Instantiate(researchCenter, pozition, Quaternion.identity);
-							if(playerScorePoints != null)
-							{
-								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
-								playerScorePoints.addPlayerResearchAmount(1);
-							}
+							playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureBuild("buildingResearch");
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 							playerworker.setWorkerState(false);
 							workerLife.decreaseWorkerLife();
@@ -184,11 +175,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						}
 						else{
 							Instantiate(turret, pozition, Quaternion.identity);
-							if(playerScorePoints != null)
-							{
-								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
-								playerScorePoints.addPlayerTurretAmount(1);
-							}
+							playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureBuild("turret");
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount()+1);
 							playerworker.setWorkerState(false);
 							workerLife.decreaseWorkerLife();
@@ -212,11 +199,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						}
 						else{
 							Instantiate(troopsResearchCenter, pozition, Quaternion.identity);
-							if(playerScorePoints != null)
-							{
-								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
-								playerScorePoints.addPlayerResearchAmount(1);
-							}
+							playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureBuild("troopsResearch");
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 							workerLife.decreaseWorkerLife();
 							playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
@@ -225,11 +208,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 					case 1/*"Depo"*/:
 						Debug.Log("Collector created");
 						Instantiate(collector, pozition, Quaternion.identity);
-						if(playerScorePoints != null)
-						{
-							playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
-							playerScorePoints.addPlayerCollectorAmount(1);
-						}
+						playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureBuild("energonCollector");
 						workerLife.decreaseWorkerLife();
 						//playerworker.setWorkerState(false);
 					break;
@@ -262,17 +241,13 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						}
 						else{
 							Instantiate(creditsMiningStation, pozition, Quaternion.identity);
-							if(playerScorePoints != null)
-							{
-								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
-								//playerScorePoints.addPlayerWallsAmount(1);
-							}
+							playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureBuild("creditsMiningStation");
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 							workerLife.decreaseWorkerLife();
 							playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
 						}
 					break;
-					case 7:
+					case 7: /*army camp*/
 						if(pressedBtnIndex != 0){
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
@@ -290,17 +265,13 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						}
 						else{
 							Instantiate(armyCamp, pozition, Quaternion.identity);
-							if(playerScorePoints != null)
-							{
-								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
-								//playerScorePoints.addPlayerWallsAmount(1);
-							}
+							playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureBuild("armyCamp");
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 							workerLife.decreaseWorkerLife();
 							playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
 						}
 					break;
-					case 8:
+					case 8: /*shrine*/
 						if(pressedBtnIndex != 0){
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
@@ -318,11 +289,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 						}
 						else{
 							Instantiate(shrine, pozition, Quaternion.identity);
-							if(playerScorePoints != null)
-							{
-								playerScorePoints.AddPlayerScorePoints(playerEarnedPoints);
-								//playerScorePoints.addPlayerWallsAmount(1);
-							}
+							playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureBuild("shrine");
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 							workerLife.decreaseWorkerLife();
 							playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
