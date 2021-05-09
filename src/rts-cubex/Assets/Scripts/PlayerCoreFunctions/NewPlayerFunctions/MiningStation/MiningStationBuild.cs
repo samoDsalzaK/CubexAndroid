@@ -16,6 +16,7 @@ public class MiningStationBuild : MonoBehaviour
     //Button variable, which will used for disablying when the user clicked on the barracks construction button
     [SerializeField] Button buildMiningStationBtn;
     [SerializeField] Text buttonText;
+    [SerializeField] Text availableCreditsMiningStationText;
 	[SerializeField] GameObject errorForWorker; // panel will pop up if there are no active workers on the map
     [SerializeField] GameObject errorWorkerIssue2;
     //boolean variable for indicating when the user can build a barracks structure
@@ -28,7 +29,7 @@ public class MiningStationBuild : MonoBehaviour
    // [SerializeField] GameObject clickUndo;
     private void Start() 
     {
-      if(FindObjectOfType<Base>() == null)
+        if(FindObjectOfType<Base>() == null)
         {
            return;
         }
@@ -37,22 +38,32 @@ public class MiningStationBuild : MonoBehaviour
            playerbase = FindObjectOfType<Base>();
         }
     	//    clickUndo.SetActive(false);
-       	buttonText.text = "Build Crypto Energon\n mining station\n" + "(" + minNeededEnergonAmountForMiningStation + " energon & " + minNeededCreditsAmountForMiningStation  + " credits)";
+       	buttonText.text = "Build Credits\n mining station\n" + "(" + minNeededEnergonAmountForMiningStation + " energon & " + minNeededCreditsAmountForMiningStation  + " credits)";
+        availableCreditsMiningStationText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerCreditsMiningStationAmountInLevel;
 	    creditsLeft.text = "Credits left : " + playerbase.getCreditsAmount();
         energonLeft.text = "Energon left : " + playerbase.getEnergonAmount();
     }  
     private void Update() {
-
         //Checks if structure is built in the base
         if (structureBuilt)
         {
-             buildMiningStationBtn.interactable = true;
-             buttonText.text = "Build Crypto Energon\n mining station\n" + "(" + minNeededEnergonAmountForMiningStation + " energon & " + minNeededCreditsAmountForMiningStation  + " credits)";
-             canBuildMiningStation = false;
-             structureBuilt = false;
-             creditsLeft.text = "Credits left : " + playerbase.getCreditsAmount();
-             energonLeft.text = "Energon left : " + playerbase.getEnergonAmount();
+            if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerCreditsMiningStationAmountInLevel){
+                buttonText.text = "Credits Mining Station\n" + "Max amount reached";
+                availableCreditsMiningStationText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerCreditsMiningStationAmountInLevel;
+                buildMiningStationBtn.interactable = false;
+                canBuildMiningStation = false;
+                structureBuilt = false;
+            }   
+            else{
+                buildMiningStationBtn.interactable = true;
+                buttonText.text = "Build Credits\n mining station\n" + "(" + minNeededEnergonAmountForMiningStation + " energon & " + minNeededCreditsAmountForMiningStation  + " credits)";
+                availableCreditsMiningStationText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerCreditsMiningStationAmountInLevel;
+                canBuildMiningStation = false;
+                structureBuilt = false;
+            }
         }
+        creditsLeft.text = "Credits left : " + playerbase.getCreditsAmount();
+        energonLeft.text = "Energon left : " + playerbase.getEnergonAmount(); 
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
     public void buildMiningStationAction()

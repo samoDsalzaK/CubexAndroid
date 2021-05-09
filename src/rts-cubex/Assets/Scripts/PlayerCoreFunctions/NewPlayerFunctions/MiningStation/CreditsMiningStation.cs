@@ -85,7 +85,7 @@ public class CreditsMiningStation : MonoBehaviour
           return;
         }
         else{
-          playerbase = FindObjectOfType<Base>();
+            playerbase = FindObjectOfType<Base>();
         }
 
         panelManager = GetComponent<PanelManager>();
@@ -145,6 +145,9 @@ public class CreditsMiningStation : MonoBehaviour
     public void reedemCreditsAction(){
         animatedPopUps.createAddCreditsPopUp(minedCreditsAmount);
         playerbase.setCreditsAmount(playerbase.getCreditsAmount() + minedCreditsAmount);
+        if(minedCreditsAmount > 0){
+            playerbase.GetComponent<PlayerScoring>().addScoreAfterCreditsReedem(minedCreditsAmount);
+        }
         minedCreditsAmount = 0;
     }
 }

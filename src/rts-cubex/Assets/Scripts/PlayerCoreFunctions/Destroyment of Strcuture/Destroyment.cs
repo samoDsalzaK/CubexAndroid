@@ -9,6 +9,7 @@ public class Destroyment : MonoBehaviour
     private Base playerbase;
     HealthOfRegBuilding buildingHealth;
     createAnimatedPopUp animatedPopUps;
+	TurretHealth turretHealth;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class Destroyment : MonoBehaviour
       }
       
       buildingHealth = GetComponent<HealthOfRegBuilding>();
+	  turretHealth = GetComponent<TurretHealth>();
       animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
     }
 
@@ -33,7 +35,13 @@ public class Destroyment : MonoBehaviour
     public void destroyGameStrucuture() // destroy turret // desroy defensive wall // destroy barrack // destroy mining station // army camp
     {
         animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
-        Destroy(gameObject);
+		if (gameObject.tag == "playerTurret"){
+			turretHealth.setHP(0);
+		}
+		else{
+			buildingHealth.setHealth(0);
+		}
+        // Destroy(gameObject);
         // creating animated pop ups
         animatedPopUps.createAddCreditsPopUp(returnCreditsAmount);
         animatedPopUps.createAddEnergonPopUp(returnEnergonAmount);

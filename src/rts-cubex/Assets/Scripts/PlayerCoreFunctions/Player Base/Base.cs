@@ -32,8 +32,6 @@ public class Base : MonoBehaviour
     bool errorStateForPlayerCollector;
     bool buildingArea;
     bool createWorkerAmountState;
-    int researchCentreUnitAmount; // variable for building research center amount 
-    int troopsResearchCenterAmount; // varibale for troops research amount
     int workersAmountOriginal; // variable which holds only free workers amount in the player's baze
     [SerializeField] int conversionAmount; // needed min amount of enrgon to exchange it to credits
     [SerializeField] int existingWorkerAmount; // variable which holds amount of all workers which are spawned on the player base (free and not free)
@@ -59,7 +57,6 @@ public class Base : MonoBehaviour
     [SerializeField] Text creditsLeft3;
     [SerializeField] Text energonLeft3;
     Vector3 pozitionOfWorker;
-    [SerializeField] int playerScoreEarned;
     [SerializeField] int powerNumber;
     [SerializeField] int playerTroopsAmount;
     [SerializeField] Image EnergonAmountScreen;
@@ -70,10 +67,13 @@ public class Base : MonoBehaviour
     [SerializeField] int maxBaseEnergonAmount;
     [SerializeField] int maxBaseCreditsAmount;
 
+	[SerializeField] int addionalWorkerCount;
+
     public int MaxBEnergon { get {return maxBaseEnergonAmount; }}
     public int MaxBCredits { get {return maxBaseCreditsAmount; }}
     [SerializeField] GameObject selectionCanvas;
 
+    [SerializeField] Text currentPlayerScoreText;
 
     [Header("Tutorial manager parameters")]
     [SerializeField] bool isTutorialChecked = false;
@@ -88,14 +88,16 @@ public class Base : MonoBehaviour
 
     createAnimatedPopUp animatedPopUps;    
 
-	InGameMarketButtonHandler buttonHadler;
-	InGameMarketManager marketManager;
+    InGameMarketButtonHandler buttonHadler;
+    InGameMarketManager marketManager;
+
+    PlayerScoring playerScoring;
+
+	GameSession gameSession;
     // Start is called before the first frame update
     void Start()
     {
 		workersAmountOriginal = 0;  // variable which holds only free workers amount in the player's baze
-		researchCentreUnitAmount = 0;
-		troopsResearchCenterAmount = 0;
 		existingWorkerAmount = 0;
 		resourceAmountScreenState = false; // initialize boolean variables
 		resourceAmountScreenStateForUpgrade = false;
@@ -127,6 +129,9 @@ public class Base : MonoBehaviour
 		marketManager = GetComponent<InGameMarketManager>();
 		GetComponent<changeSkinManager>().applyChosenSkin(gameObject);
 		GetComponent<changeSkinManager>().onStartSkinSelectionPopUp();
+    	playerScoring = GetComponent<PlayerScoring>();
+		gameSession = FindObjectOfType<GameSession>();
+		currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
     }
     // Update is called once per frame
     void Update()
@@ -150,11 +155,11 @@ public class Base : MonoBehaviour
         existingAndMaxWorkersAmount.text = " Workers: " + workersAmountOriginal +"/"+ maxWorkerAmountInLevel; 
         currentPlayerTroopsAmount.text = "Troops: " + playerTroopsAmount + "/" + maxPlayerTroopsAmount;
 
-		// fill in credits and energon amount image
-		EnergonAmountScreenText.text = energon + " / " + maxBaseEnergonAmount + " energon";
-		CreditsAmountScreenText.text = credits + " / " + maxBaseCreditsAmount + " credits";
-		EnergonAmountScreen.fillAmount = (float)energon / (float)maxBaseEnergonAmount; 
-		CreditsAmountScreen.fillAmount = (float)credits / (float)maxBaseCreditsAmount;
+        // fill in credits and energon amount image
+        EnergonAmountScreenText.text = energon + " / " + maxBaseEnergonAmount + " energon";
+        CreditsAmountScreenText.text = credits + " / " + maxBaseCreditsAmount + " credits";
+        EnergonAmountScreen.fillAmount = (float)energon / (float)maxBaseEnergonAmount; 
+        CreditsAmountScreen.fillAmount = (float)credits / (float)maxBaseCreditsAmount;
 
         if(getWorkersAmountState())
         {
@@ -232,6 +237,7 @@ public class Base : MonoBehaviour
         {
             upgradeBaseButtonText.text = "You have reached max level";
         }
+		currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
     }
     void OnMouseDown()
     {
@@ -269,16 +275,11 @@ public class Base : MonoBehaviour
     spawnedWorker.GetComponent<Worker>().setWorkerIndex(workerIndex);
     //Debug.Log(spawnedWorker.GetComponent<Worker>().getWorkerIndex());
     index ++;
-    var playerScorePoints = FindObjectOfType<GameSession>();
-        if(playerScorePoints != null)
-        {
-          playerScorePoints.addPlayerWorkersAmount(1);
-        }
-
-        if(existingWorkerAmount >= maxWorkerAmountInLevel)
-        {
-          createworker.interactable = false;
-        }
+	playerScoring.addScoreAfterWorkerCreation(index);
+    	if(existingWorkerAmount >= maxWorkerAmountInLevel)
+    	{
+        	createworker.interactable = false;
+    	}
     }
     
     public void addAdditionalWorker() 
@@ -291,8 +292,10 @@ public class Base : MonoBehaviour
 		}
 		animatedPopUps.createDecreaseCreditsPopUp(fixedPriceOfOneAdditionalWorker);
 		credits -= fixedPriceOfOneAdditionalWorker;
+		int currentMaxWorkers = maxWorkerAmountInLevel;
 		maxWorkerAmountInLevel++;
-		
+		addionalWorkerCount++;
+		playerScoring.addScoreAferAdditionalWorker(addionalWorkerCount);
 		if(existingWorkerAmount < maxWorkerAmountInLevel)
 		{
 			createworker.interactable = true;
@@ -322,16 +325,11 @@ public class Base : MonoBehaviour
 		maxPlayerTroopsAmount += 10;
 		baseUpgradeHPAmount += (int)Mathf.Pow(2,powerNumber); // uzsetiname nauja reiksme HP, siaip cia galima parasyti koki desni pagal kuri dides tas skaicius, pavyzdziui prideti skaiciu kuris bus padaugintas is bazes levelio
 		powerNumber++;
-		var playerScorePoints = FindObjectOfType<GameSession>();
-		if(playerScorePoints != null)
-		{
-			playerScorePoints.AddPlayerScorePoints(playerScoreEarned);
-			playerScoreEarned += 5;
-		}
 		if (playerBaselevel == marketManager.getMinLevelNeeded){ // unlock market button when level 3 playerbase is reached
 			buttonHadler.unlockBtn(1);
 			buttonHadler.setButtonText(1);
 		}
+		playerScoring.addScoreAfterBaseUpgrade(playerBaselevel);
     }
     // UI geteris/seteris workeriams // kai vienas zusta kai buvo max skaicius mygtukas vel turi bui ijungtas su galimybe vel spawninti.
     public bool getWorkersAmountState()
@@ -371,7 +369,7 @@ public class Base : MonoBehaviour
     }
     // UI geteris/seteris jei reikia uztobulinti zaidiejo baze
     public bool getErrorStateForPlayerBase()
-		{
+	{
 		return errorStateForPlayerBase;
     }
     public void setErrorStateForPlayerBase(bool screenStatus)
@@ -439,24 +437,6 @@ public class Base : MonoBehaviour
     public void setworkersAmount(int workersAmount)
     {
       	workersAmountOriginal = workersAmount;
-    }
-    // kiek yra pasatatyta research center zaidejo bazeje
-    public int getResearchCentreUnitAmount()
-    {
-      	return researchCentreUnitAmount;
-    }
-    public void setResearchCentreUnitAmount(int newUnitAmount)
-    {
-      	researchCentreUnitAmount = newUnitAmount;
-    }
-    // kiek yra pastatyta troopsu research centru
-    public int getTroopsResearchCentreUnitAmount()
-    {
-      	return troopsResearchCenterAmount;
-    }
-    public void setTroopsResearchCentreUnitAmount(int newUnitAmount)
-    {
-      	troopsResearchCenterAmount = newUnitAmount;
     }
     // zaidejo bazes lygis
     public int getPlayerBaseLevel()

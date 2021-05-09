@@ -221,6 +221,8 @@ public class ShrineUpgradeManager : MonoBehaviour
                 animatedPopUps.createDecreaseEnergonPopUp(eprice);
                 shrine.PlayerBase.setCreditsAmount(shrine.PlayerBase.getCreditsAmount() -  cprice);
                 animatedPopUps.createDecreaseCreditsPopUp(cprice);
+                shrine.PlayerBase.GetComponent<PlayerScoring>().addScoreAfterStructureUpgrade("shrine",uindex);
+                Debug.Log(uindex);
                 print("Doing upgrade task(" + uindex + ")");
                 return true;
             }

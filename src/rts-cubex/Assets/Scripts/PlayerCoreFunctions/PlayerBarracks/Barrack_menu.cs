@@ -7,15 +7,27 @@ public class Barrack_menu : MonoBehaviour {
    // [SerializeField] PanelCode code;
     [SerializeField] GameObject barracks;
     [SerializeField] bool isTutorialChecked=false;
-    private HealthOfRegBuilding troopsResearchHealth;
+    private HealthOfRegBuilding barrackHealth;
     [SerializeField] ResearchConf oBGResearch;
     PanelManager panelManager;
     [SerializeField] GameObject selectionCanvas;
+    Base playerbase;
     private void Start() {
-        troopsResearchHealth = GetComponent<HealthOfRegBuilding>();
-        troopsResearchHealth.setHealthOfStructureOriginal(oBGResearch.getBarrackHealth());
-        troopsResearchHealth.setHealth(oBGResearch.getBarrackHealth());
+        barrackHealth = GetComponent<HealthOfRegBuilding>();
+        barrackHealth.setHealthOfStructureOriginal(oBGResearch.getBarrackHealth());
+        barrackHealth.setHealth(oBGResearch.getBarrackHealth());
         panelManager = GetComponent<PanelManager>();
+        playerbase = FindObjectOfType<Base>(); 
+    }
+    void Update(){
+        if(barrackHealth.getHealth() <= 0)
+        {
+			playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel - 1;
+			//Debug.Log(playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel);
+            playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(1);
+            Destroy(gameObject);
+            //Debug.Log("Destroyed");
+        }
     }
     void OnMouseDown () {
         // check for active panels in this building hierarchy if yes do not trigger on mouse click

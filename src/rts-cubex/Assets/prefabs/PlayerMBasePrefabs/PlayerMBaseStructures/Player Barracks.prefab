@@ -3304,6 +3304,7 @@ MonoBehaviour:
   - {fileID: 2522659648221886376}
   - {fileID: 71575229}
   - {fileID: 1732169542}
+  - {fileID: 1167365698691529796}
 --- !u!114 &2800309741515257981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9118,7 +9119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4605234313477030335
 RectTransform:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public class MiningStationUpgradeManager : MonoBehaviour
     private Base playerbase;
 
     // Health type variable
-    private HealthOfRegBuilding miningStationHealth;
+    HealthOfRegBuilding miningStationHealth;
 
     // button handler type varibale
     private buttonHadler button_Hadler;
@@ -108,6 +108,8 @@ public class MiningStationUpgradeManager : MonoBehaviour
             miningStationHealth.setHealthOfStructureOriginal(miningStationHealth.getHealthOfStructureOriginal() + upgradeHpAmount[miningStationLevel-1]);
             // increase structure level
             miningStationLevel++;
+            // adding player score
+            playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureUpgrade("creditsMiningStation", miningStationLevel);
             // unlocking next credits mining slot 
             button_Hadler.unlockBtn(miningStationLevel);
             button_Hadler.setButtonTextBack(miningStationLevel, miningStation.changeTimeNeedForMining[miningStationLevel-1]);

@@ -35,18 +35,27 @@ public class BuildTroopsResearchCenter : MonoBehaviour
            playerbase = FindObjectOfType<Base>();
         }
         buttonText.text = "Build Troops Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
-        troopsResearchAmountText.text = playerbase.getTroopsResearchCentreUnitAmount()+ "/1";
+        troopsResearchAmountText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel  + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTroopsResearchAmountInLevel;
     }
     private void Update() {
-        troopsResearchAmountText.text = playerbase.getTroopsResearchCentreUnitAmount()+ "/1";
         //Checks if the barracks structure is built in the base
         if (structureBuilt)
         {
-            playerbase.setTroopsResearchCentreUnitAmount(playerbase.getTroopsResearchCentreUnitAmount() + 1);
-            buttonText.text = "Build Troops Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
-            buildTroopsResearchCentreBtn.interactable = false;
-            canBuildTroopsResearchCentre = false; 
-            structureBuilt = false;
+            if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTroopsResearchAmountInLevel){
+                troopsResearchAmountText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel  + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTroopsResearchAmountInLevel;
+                buttonText.text = "Troops Research Center\n" + "Max amount reached";
+                buildTroopsResearchCentreBtn.interactable = false;
+                canBuildTroopsResearchCentre = false; 
+                structureBuilt = false;
+            }
+            else{
+                troopsResearchAmountText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel  + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTroopsResearchAmountInLevel;
+                buttonText.text = "Build Troops Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
+                buildTroopsResearchCentreBtn.interactable = true;
+                canBuildTroopsResearchCentre = false; 
+                structureBuilt = false;
+            }
+           
         }
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section

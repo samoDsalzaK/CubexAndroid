@@ -20,6 +20,7 @@ public class BarrackBuild : MonoBehaviour
     //Button variable, which will used for disablying when the user clicked on the barracks construction button
     [SerializeField] Button buildBarrackBtn;
     [SerializeField] Text buttonText;
+    [SerializeField] Text availableBarracksText;
     private Base playerbase;
     [SerializeField] int minNeededEnergonAmount;
     [SerializeField] int minNeededCreditsAmount;
@@ -34,16 +35,27 @@ public class BarrackBuild : MonoBehaviour
            playerbase = FindObjectOfType<Base>();
         }
        buttonText.text = "Create Troops Barrack\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+       availableBarracksText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBarrackAmountInLevel;
     }  
     private void Update() {
 
         //Checks if the barracks structure is built in the base
         if (structureBuilt)
         {
-             buildBarrackBtn.interactable = true;
-             buttonText.text = "Create Troops Barrack\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
-             canBuildBarrack = false;
-             structureBuilt = false;
+            if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBarrackAmountInLevel){
+                buttonText.text = "Troops Barrack\n" + "Max amount reached";
+                availableBarracksText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBarrackAmountInLevel;
+                buildBarrackBtn.interactable = false;
+                canBuildBarrack = false;
+                structureBuilt = false;
+            }
+            else{
+                buildBarrackBtn.interactable = true;
+                availableBarracksText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBarrackAmountInLevel;
+                buttonText.text = "Create Troops Barrack\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+                canBuildBarrack = false;
+                structureBuilt = false;
+            }
         }
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
