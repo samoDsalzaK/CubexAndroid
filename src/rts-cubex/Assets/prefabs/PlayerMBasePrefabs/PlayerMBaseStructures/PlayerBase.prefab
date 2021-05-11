@@ -9602,6 +9602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b493152b13f2db94f812c17f276cb5e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDeactivated: 0
   Screen: {fileID: 2779801082835378931}
   ResourceAmountScreen: {fileID: 6822470893548989748}
   ResourcesAmountScreenForUpgrades: {fileID: 2779801081869381299}
@@ -9651,6 +9652,7 @@ MonoBehaviour:
   maxBaseCreditsAmount: 3000
   selectionCanvas: {fileID: 6280203001907912084}
   isTutorialChecked: 0
+  isSaved: 1
   gameHood: {fileID: 0}
 --- !u!54 &755612447165250649
 Rigidbody:

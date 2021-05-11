@@ -12,8 +12,10 @@ public class move : MonoBehaviour
     [SerializeField] GameObject mainModel;
     [SerializeField] bool lockMove = false;
     private TroopAttack ta;
+    private bool needsCamp = true;
     public bool LockMove { set {lockMove = value; } get {return lockMove; }}
     public NavMeshAgent Agent {get {return agent; }}
+    public bool NeedsCamp { set {needsCamp = value;} get { return needsCamp; }}
     void Start()
     {
         ta = GetComponent<TroopAttack>();
@@ -26,17 +28,20 @@ public class move : MonoBehaviour
         
         if (!isHero)
         {
-            var camps = GameObject.FindGameObjectsWithTag("Camp");
-            if (camps.Length > 0)
+            if (needsCamp)
             {
-                foreach (var item in camps)
+                var camps = GameObject.FindGameObjectsWithTag("Camp");
+                if (camps.Length > 0)
                 {
-                    var army = item.GetComponent<ArmyCamp>();
-                    if (army.Occupied < army.Capacity)
+                    foreach (var item in camps)
                     {
-                        agent.destination = item.transform.position;
-                        onItsWay = true;
-                        break;
+                        var army = item.GetComponent<ArmyCamp>();
+                        if (army.Occupied < army.Capacity)
+                        {
+                            agent.destination = item.transform.position;
+                            onItsWay = true;
+                            break;
+                        }
                     }
                 }
             }

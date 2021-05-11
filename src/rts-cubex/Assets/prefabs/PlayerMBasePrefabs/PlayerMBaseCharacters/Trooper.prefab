@@ -5528,6 +5528,7 @@ MonoBehaviour:
   unitPosition: {fileID: 6896241092319077033}
   onItsWay: 0
   isHero: 0
+  isBloom: 0
   mainModel: {fileID: 0}
   lockMove: 0
 --- !u!114 &6262681847201353907
@@ -5608,6 +5609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20753e51dd4510c428d4a449702068fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followPlayerInCombat: 0
   fireGun: {fileID: 864074275}
   secondFireGun: {fileID: 0}
   scannerRadius: 20

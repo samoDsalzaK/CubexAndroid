@@ -10,14 +10,14 @@ using UnityEngine.AI;
     //Add objective system
     //Add mini story interaction
 
-[System.Serializable]
+[System.Serializable] //Objects that need to be guarded by enemies and the player needs to free them
 public class LevelObject : System.Object {
     [Header("Level object configuration")]
     [SerializeField] GameObject mlevelObject;
     [SerializeField] Transform spawnPoint;
-    [SerializeField] Transform guardSpawnPoint; 
+    [SerializeField] Transform guardSpawnPoint;
     [Header("Level obj type(0-a,1-lb,2-t)")]
-    [Range(0, 2)] // 0 - army camp, 1 - lootbox
+    [Range(0, 2)] // 0 - army camp, 1 - lootbox, 2 - troops to save
     [SerializeField] int type = 0;
     [SerializeField] bool saveOp = false;
     public int Type {get { return type; }}
@@ -52,6 +52,9 @@ public class SLevelManager : MonoBehaviour
     [SerializeField] List<GameObject> troopTypesToSpawn; //Holds light and heavy
     [SerializeField] int troopAmount = 6;
     [SerializeField] List<GameObject> spawnedSquad = new List<GameObject>();
+    [SerializeField] GameObject playerBase;
+    [SerializeField] Transform pSpawnPoint;
+    [SerializeField] bool spawnPlayerBaseToSave = false;
     [Header("Enemy cnf.:")]
     [SerializeField] bool spawnEnemies = true;
     [SerializeField] GameObject enemyUnit;
@@ -68,17 +71,39 @@ public class SLevelManager : MonoBehaviour
     [SerializeField] List<LevelObject> levelObjects;
     [SerializeField] int energonRestore = 1000;
     [SerializeField] int creditsRestore = 1000;
-
     public List<EnemySpawn> SpawnEnemyPoints {get {return spawnEnemyPoints;}}
     public  bool CheckTraps {set { checkTraps = value; } get {return checkTraps;}}
     private bool lootBoxSwitch = true;
     //private Base playerBase;
     void Start()
-    {
-        //Mission squad spawning logic
-       // playerBase = FindObjectOfType<Base>();
+    {       
+       //Spawning player bse that is required to save
+       if (spawnPlayerBaseToSave)
+       {
+           var spawnBase = Instantiate(playerBase, pSpawnPoint.position, playerBase.transform.rotation);
+           if (spawnBase)
+           {
+               spawnBase.tag = "basesave";               
+               print(spawnBase.tag == "basesave" ? "Player base to save spawned!" : "Base spawned but bad tag setted!");
+
+               var bMgr = spawnBase.GetComponent<Base>();
+               if (bMgr)
+               {
+                   bMgr.IsSaved = false;
+                   bMgr.setEnergonAmount(0);
+                   bMgr.setCreditsAmount(0);
+               }
+           }
+       }
 
         var spawnedHero = Instantiate(startingHero, mStartPoint.transform.position, startingHero.transform.rotation);
+        //Turning on hero interaction mode
+        var hImanager = spawnedHero.GetComponent<IManager>();
+        if (hImanager)
+        {
+            if (!hImanager.SaveMode)
+                hImanager.SaveMode = true;
+        }
         var spHeroAgent = spawnedHero.GetComponent<NavMeshAgent>();
         //spHeroAgent.destination = mSquadStartArrivalPoint.position;
 
@@ -258,6 +283,8 @@ public class SLevelManager : MonoBehaviour
                     for (int tIndex = 0; tIndex < troopSquadMToSave; tIndex++)
                     {
                         var spawnTroop = Instantiate(o.MlevelObject, o.GuardSpawnPoint.position, o.GuardSpawnPoint.rotation);
+                        spawnTroop.GetComponent<move>().NeedsCamp = false;
+                        spawnTroop.tag = "usave";
                         var moveCtrl = spawnTroop.GetComponent<NavMeshAgent>();
                         if (moveCtrl)
                         {

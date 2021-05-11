@@ -11,6 +11,7 @@ public class ClickOn : MonoBehaviour {
     [SerializeField] bool hero = false;
     [SerializeField] GameObject selectionIcon;
     [SerializeField] GameObject heroToolbar;
+    public bool IsSelected { set {isSelected = value; } get {return isSelected; }}
     void Start () {
         
         isSelected = false;
