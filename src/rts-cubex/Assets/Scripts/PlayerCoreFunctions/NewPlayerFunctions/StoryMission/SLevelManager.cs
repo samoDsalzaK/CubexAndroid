@@ -45,6 +45,7 @@ public class EnemySpawn : System.Object {
 public class SLevelManager : MonoBehaviour {
 
     [Header ("Player cnf.:")]
+    [SerializeField] bool checkIfPlayerWon = false;
     [SerializeField] Transform mStartPoint;
     [SerializeField] Transform mSquadStartArrivalPoint;
     [SerializeField] GameObject startingHero;
@@ -80,11 +81,18 @@ public class SLevelManager : MonoBehaviour {
     [SerializeField] int eWaveAmount = 1;
     [SerializeField] int sMemberCount = 3;
     [SerializeField] float enemyWaveDelayStart = 30f;
+    [SerializeField] float defendTimeOffset = 20f;
+    [SerializeField] bool attackStarted = false;
+    [Range(1, 2)]
+    [SerializeField] float waveEnemySpeedCoef = 2f;
     private TaskTimer tt;
+    private ObjectiveTracker ot;
+    public bool CheckIfPlayerWon {get { return checkIfPlayerWon; }}
     //private Base playerBase;
     void Start () {
+        ot = GetComponent<ObjectiveTracker>();
         tt = GetComponent<TaskTimer>();
-        //Spawning player bse that is required to save
+        //Spawning player base that is required to be saved
         if (spawnPlayerBaseToSave) {
             spawnBase = Instantiate (playerBase, pSpawnPoint.position, playerBase.transform.rotation);
             if (spawnBase) {
@@ -145,7 +153,20 @@ public class SLevelManager : MonoBehaviour {
             //Reseting value to false
             directSquadToStartPoint = !directSquadToStartPoint;
         }
+        //Enemy wave spawning logic
+        if (attackStarted && tt.FinishedTask)
+        {
+            print("Stopping enemy wave spawn!");
+            attackStarted = false;
+            startSpawningWave = false;
 
+            //Setting data to objective tracker system logic....
+            checkIfPlayerWon = true;
+        }
+        if (attackStarted)
+        {
+            //Update timer text for attack..
+        }
         //Check if player base is saved, then start spawning waves
         var baseClr = spawnBase.GetComponent<Base> ();
         if (baseClr.IsSaved && startSpawningWave) 
@@ -159,24 +180,39 @@ public class SLevelManager : MonoBehaviour {
                     {  
                         print("Starting countdown to spawning enemy wave!");
                         tt.startTimer(enemyWaveDelayStart);  
+
+                        //Update ready timer text
                     } 
                     //Spawn enemy wave
                     if (tt.FinishedTask)
                     {
-                     print("Spawning enemy waves!");
-                        foreach (var p in spawnEnemyPoints) {
-                            if (p.Type == 0)
-                            {
-                                for (int eindex = 0; eindex < sMemberCount; eindex++) {
-                                    var spawnEnemy = Instantiate (enemyUnit, p.SpawnPoint.position, enemyUnit.transform.rotation);
-                                    var eMCtrl = spawnEnemy.GetComponent<NavMeshAgent> ();
-                                    if (eMCtrl && spawnBase) {
-                                        eMCtrl.destination = spawnBase.transform.position;
+                        if (!attackStarted) //Setting timer for the attack wave on the player base
+                        {
+                            var defendTime = enemyWaveDelayStart + defendTimeOffset;
+                            tt.startTimer(defendTime);  
+                            attackStarted = true;
+                            print("Started wave (" + eWaveAmount + ") attack timer");
+                        }
+                        if (attackStarted)
+                        {
+                            print("Spawning enemy waves!");
+                            foreach (var p in spawnEnemyPoints) {
+                                if (p.Type == 0)
+                                {
+                                    for (int eindex = 0; eindex < sMemberCount; eindex++) {
+                                        var spawnEnemy = Instantiate (enemyUnit, p.ArrivalPoint.position, enemyUnit.transform.rotation);
+                                        var eMCtrl = spawnEnemy.GetComponent<NavMeshAgent> ();
+                                        if (eMCtrl && spawnBase) {
+                                            eMCtrl.speed = eMCtrl.speed * waveEnemySpeedCoef;
+                                            //Setting priority to travel to the player base
+                                            eMCtrl.destination = spawnBase.transform.position;
+                                        }
                                     }
                                 }
                             }
+                            eWaveAmount--;
                         }
-                        eWaveAmount--;
+                       
                     }
                 }
                
@@ -232,9 +268,13 @@ public class SLevelManager : MonoBehaviour {
 
             foreach (var o in levelObjects) {
                 //Spawning level object
-                if (o.Type == 0) {
+                if (o.Type == 0) { //Spawning army camp
                     var spawnLevelObject = Instantiate (o.MlevelObject, o.SpawnPoint.position, o.MlevelObject.transform.rotation);
                     if (spawnLevelObject) {
+                        var aMgr = spawnLevelObject.GetComponent<ArmyCamp>();
+                        aMgr.StoryMode = true;
+                        aMgr.StoryMode = true;
+                        ot.CheckArmyCamps = true;
                         print ("Level object spawned! " + spawnLevelObject.name);
                     }
                     //Spawning guards
@@ -249,8 +289,8 @@ public class SLevelManager : MonoBehaviour {
                             moveCtrl.destination = spawnLevelObject.transform.position;
                         }
                     }
-                } else if (o.Type == 1) {
-
+                } else if (o.Type == 1) { //Spawning lootboxes
+                    ot.CheckLootBoxes = true;
                     var spawnLootBox = Instantiate (o.MlevelObject, o.SpawnPoint.position, o.MlevelObject.transform.rotation);
                     if (spawnLootBox) {
                         var lCtrl = spawnLootBox.GetComponent<LootBox> ();
@@ -282,6 +322,7 @@ public class SLevelManager : MonoBehaviour {
                 }
                 //NOTE: Fix later
                 else if (o.Type == 2 && o.SaveOp) {
+                    ot.CheckTroopsSaved = true;
                     //Spawning troops to save and moving them to certain position
                     for (int tIndex = 0; tIndex < troopSquadMToSave; tIndex++) {
                         var spawnTroop = Instantiate (o.MlevelObject, o.GuardSpawnPoint.position, o.GuardSpawnPoint.rotation);

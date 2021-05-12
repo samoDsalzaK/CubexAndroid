@@ -95,6 +95,7 @@ public class IManager : MonoBehaviour
                                 
                                 //  pMgr.ExistMaxWorkersAmount.SetActive(true);
                                 //  pMgr.CPlayerTroopsAmount.SetActive(true);
+                                 playerBase.tag = "PlayerBase";
                                  pMgr.IsSaved = baseSaved;
                             }
                         }

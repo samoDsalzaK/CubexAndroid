@@ -2913,6 +2913,29 @@ Transform:
   m_Father: {fileID: 9020542386000545390}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &533043714107069375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8557807614590602289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbefa92dcf7e1724baa34f5130cd2d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelPassed: 0
+  levelFailed: 0
+  desiredUnitName: zax
+  desiredBuildTag: PlayerBase
+  lootBoxTag: lootbox
+  tagTroopsToSave: usave
+  armyCampTag: Camp
+  checkLootBoxes: 1
+  checkTroopsSaved: 1
+  checkArmyCamps: 1
+  savedArmyCamps: 0
 --- !u!114 &8242193077354391732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5500,6 +5523,16 @@ PrefabInstance:
     - target: {fileID: 2814440327775427762, guid: ae25cdc69a6144542821b2f588a63e1b,
         type: 3}
       propertyPath: spawnPlayerBaseToSave
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814440327775427762, guid: ae25cdc69a6144542821b2f588a63e1b,
+        type: 3}
+      propertyPath: defendTimeOffset
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814440327775427762, guid: ae25cdc69a6144542821b2f588a63e1b,
+        type: 3}
+      propertyPath: spawnEnemies
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
