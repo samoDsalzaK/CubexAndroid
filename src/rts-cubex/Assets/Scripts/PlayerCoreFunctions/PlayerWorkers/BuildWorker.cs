@@ -26,11 +26,16 @@ public class BuildWorker : MonoBehaviour
         buttonText.text = "Create Worker\n" + "(" + minNeededEnergonAmount + " energon)";
     }  
     private void Update() {
+        // check for current build button state and apply text changes
+        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(9)){
+            structureBuilt = true;
+        }
         //Checks if the barracks structure is built in the base
         if (structureBuilt)
         {
-             canBuildWorker = false;
-             structureBuilt = false;
+            buttonText.text = "Create Worker\n" + "(" + minNeededEnergonAmount + " energon)";
+            canBuildWorker = false;
+            structureBuilt = false;
         }
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
@@ -42,16 +47,21 @@ public class BuildWorker : MonoBehaviour
         playerbase.setResourceAMountScreenState(true);    
         return; 
         }
-        playerbase.setBuildingArea(true);
-     //   clickUndo.SetActive(true);
-        //State variable is setted to true, which means that the button is clicked
-        canBuildWorker = true;
-        //Button interaction state is setted to false
-        buildWorkerBtn.interactable = false;
-        buttonText.text = "Select Build Site";  
-        //Add button locking system...
-        //Like showing the text which says place the barracks object in the base area
-        //Debug.Log("Select a place where to build a barrack.");
+
+        // change button activity
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(9);
+        if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(9)){
+            playerbase.setBuildingArea(true);
+            //State variable is setted to true, which means that the button is clicked
+            canBuildWorker = true;
+            //buildArmyCampBtn.interactable = false;
+            buttonText.text = "Select Place";  
+        }
+        else{
+            canBuildWorker = false;
+            structureBuilt = true; 
+            playerbase.setBuildingArea(false);
+        }
     }
 
     public bool buildWorker()

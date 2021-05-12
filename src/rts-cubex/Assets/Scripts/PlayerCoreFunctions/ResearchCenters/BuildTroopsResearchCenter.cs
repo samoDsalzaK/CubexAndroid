@@ -39,6 +39,10 @@ public class BuildTroopsResearchCenter : MonoBehaviour
     }
     private void Update() {
         //Checks if the barracks structure is built in the base
+        // check for current build button state and apply text changes
+        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(4)){
+            structureBuilt = true;
+        }
         if (structureBuilt)
         {
             if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTroopsResearchAmountInLevel){
@@ -88,15 +92,20 @@ public class BuildTroopsResearchCenter : MonoBehaviour
             playerbase.setResourceAMountScreenState(true);    
             return; 
         }
-        playerbase.setBuildingArea(true);
-        //State variable is setted to true, which means that the button is clicked
-        canBuildTroopsResearchCentre = true;
-        //Button interaction state is setted to false
-        buildTroopsResearchCentreBtn.interactable = false;
-        buttonText.text = "Select Place";  
-        //Add button locking system...
-        //Like showing the text which says place the barracks object in the base area
-        //Debug.Log("Select a place where to build a barrack.");
+        // change button activity
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(4);
+        if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(4)){
+            playerbase.setBuildingArea(true);
+            //State variable is setted to true, which means that the button is clicked
+            canBuildTroopsResearchCentre = true;
+            //buildArmyCampBtn.interactable = false;
+            buttonText.text = "Select Place";  
+        }
+        else{
+            canBuildTroopsResearchCentre = false;
+            structureBuilt = true; 
+            playerbase.setBuildingArea(false);
+        }
     }
 
     public bool buildResearchCentre()

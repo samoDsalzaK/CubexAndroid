@@ -920,7 +920,6 @@ MonoBehaviour:
   turretUpgradeDamageAmount: 10
   turretLevel: 1
   turretmaxLevel: 10
-  playerScoreEarned: 5
   selectionCanvas: {fileID: 7462037305913370418}
 --- !u!54 &3439333121147045472
 Rigidbody:
@@ -1008,6 +1007,7 @@ MonoBehaviour:
   errorWorkerIssue2: {fileID: 1256390105813336878}
   errorForChangingPos: {fileID: 4964921764610476559}
   btnIndex: 2
+  changePosBuildingIndex: 6
 --- !u!114 &3718276905824885826
 MonoBehaviour:
   m_ObjectHideFlags: 0

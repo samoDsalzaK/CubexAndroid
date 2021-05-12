@@ -229,6 +229,8 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							if(changePosBuildings != null){
 								for (int i = 0; i < changePosBuildings.Length; i++){
 									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+										//Debug.Log("Im here");
+										//Debug.Log(changePosBuildings[i].canChange);
 										changePosBuildings[i].destroyGameObject();
 										Instantiate(creditsMiningStation, pozition, Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);

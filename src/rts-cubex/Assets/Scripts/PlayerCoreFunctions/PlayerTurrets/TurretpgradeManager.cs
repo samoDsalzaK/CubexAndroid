@@ -25,6 +25,7 @@ public class TurretpgradeManager : MonoBehaviour
     PanelManager panelManager;
     createAnimatedPopUp animatedPopUps;
     [SerializeField] GameObject selectionCanvas;
+    changePosition changePos;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +43,7 @@ public class TurretpgradeManager : MonoBehaviour
         turretFire = GetComponent<TurretFire>(); 
         panelManager = GetComponent<PanelManager>();
         animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
+        changePos = GetComponent<changePosition>();
     }
     // Update is called once per frame
     void Update()
@@ -79,6 +81,7 @@ public class TurretpgradeManager : MonoBehaviour
             turretHealthPoins.text = "Health " + turretHealth.getCurrentTurretHealth() + " / " + turretHealth.getTurretHealth();
             turretDamagePoints.text = "Damage Points : " + turretFire.getDamage();
             // deactivate other building panels
+            changePos.setDefaultValues();
             panelManager.changeStatusOfAllPanels();
         }
         
