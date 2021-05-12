@@ -14,10 +14,14 @@ public class IManager : MonoBehaviour
     [SerializeField] bool baseSaved = false;
     public bool SaveMode {set { saveMode = value; } get { return saveMode; }}
     private GameObject foundedPlayerBase;
+    private ObjectiveTracker ot;
     void Start()
     {
         if (saveMode)
+        {
             print("Hero " + gameObject.name + " is checking troops to save!");
+            ot = FindObjectOfType<ObjectiveTracker>();
+        }
     }
 
     // Update is called once per frame
@@ -65,6 +69,12 @@ public class IManager : MonoBehaviour
                 if (click)
                     click.IsSelected = true;
 
+                var mdgr = FindObjectOfType<MissionDialogueMgr>();
+                if (mdgr)
+                {
+                    mdgr.Act2Open = true;
+                } 
+
                 print("Troop: " + troopToSave.name + " is " + (troopToSave.tag == tagNewToAdd ? "saved!" : "not saved!"));
 
             }
@@ -75,6 +85,18 @@ public class IManager : MonoBehaviour
                     print("We found the lost alpha base!");
                     var playerBase = hitCollider.gameObject;
                     foundedPlayerBase = playerBase;
+
+                    //Marking that the base is found
+                    if(!ot.BaseFounded)
+                    {
+                        ot.BaseFounded = true;
+                        var mdgr = FindObjectOfType<MissionDialogueMgr>();
+                        if (mdgr)
+                        {
+                            mdgr.Act3Open = true;
+                        }
+                    }
+
                     if (playerBase)
                     {
                         var pMgr = playerBase.GetComponent<Base>();
@@ -97,6 +119,12 @@ public class IManager : MonoBehaviour
                                 //  pMgr.CPlayerTroopsAmount.SetActive(true);
                                  playerBase.tag = "PlayerBase";
                                  pMgr.IsSaved = baseSaved;
+
+                                 var mdgr = FindObjectOfType<MissionDialogueMgr>();
+                                 if (mdgr)
+                                 {
+                                    mdgr.Act4Open = true;
+                                 }
                             }
                         }
                     }

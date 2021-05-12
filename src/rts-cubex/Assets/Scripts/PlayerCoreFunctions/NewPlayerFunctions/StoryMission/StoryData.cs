@@ -1,18 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class StoryData : MonoBehaviour
+[CreateAssetMenu(fileName="StoryDialogueData",menuName="StoryData",order=0)]
+public class StoryData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //List that contains all the Lost Alpha mission dialogue
+    [SerializeField] List<string> dialogueLines;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public List<string> DialogueLines {get { return dialogueLines; }}
 }

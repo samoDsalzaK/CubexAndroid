@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.UI;
 //NOTES:
 //Fix troop save zone
 //Add hero to save
@@ -43,7 +43,7 @@ public class EnemySpawn : System.Object {
     public int Type { set { type = value; } get { return type; } }
 }
 public class SLevelManager : MonoBehaviour {
-
+    
     [Header ("Player cnf.:")]
     [SerializeField] bool checkIfPlayerWon = false;
     [SerializeField] Transform mStartPoint;
@@ -75,6 +75,7 @@ public class SLevelManager : MonoBehaviour {
     public bool CheckTraps { set { checkTraps = value; } get { return checkTraps; } }
     private bool lootBoxSwitch = true;
     private GameObject spawnBase;
+    private GameObject spawnedHero;
     //Spawn enemy waves logic
     private bool startSpawningWave = true;
     [Header("Enemy wave configuration")]
@@ -82,12 +83,17 @@ public class SLevelManager : MonoBehaviour {
     [SerializeField] int sMemberCount = 3;
     [SerializeField] float enemyWaveDelayStart = 30f;
     [SerializeField] float defendTimeOffset = 20f;
-    [SerializeField] bool attackStarted = false;
+    [SerializeField] bool attackStarted = false;    
     [Range(1, 2)]
     [SerializeField] float waveEnemySpeedCoef = 2f;
+    [Header("EW UI cnf.:")]
+    [SerializeField] GameObject timerWindow;
+    [SerializeField] Text timerText;
     private TaskTimer tt;
     private ObjectiveTracker ot;
     public bool CheckIfPlayerWon {get { return checkIfPlayerWon; }}
+    public Transform MSquadStartArrivalPoint {get {return mSquadStartArrivalPoint; }}
+    public GameObject SpawnedHero {get {return spawnedHero; }}
     //private Base playerBase;
     void Start () {
         ot = GetComponent<ObjectiveTracker>();
@@ -108,7 +114,7 @@ public class SLevelManager : MonoBehaviour {
             }
         }
 
-        var spawnedHero = Instantiate (startingHero, mStartPoint.transform.position, startingHero.transform.rotation);
+         spawnedHero = Instantiate (startingHero, mStartPoint.transform.position, startingHero.transform.rotation);
         //Turning on hero interaction mode
         var hImanager = spawnedHero.GetComponent<IManager> ();
         if (hImanager) {
@@ -162,10 +168,12 @@ public class SLevelManager : MonoBehaviour {
 
             //Setting data to objective tracker system logic....
             checkIfPlayerWon = true;
+            timerWindow.SetActive(false);
         }
         if (attackStarted)
         {
             //Update timer text for attack..
+            timerText.text = "Enemy wave attack time: " + Mathf.Round(tt.TimeStart) + " s";
         }
         //Check if player base is saved, then start spawning waves
         var baseClr = spawnBase.GetComponent<Base> ();
@@ -180,9 +188,13 @@ public class SLevelManager : MonoBehaviour {
                     {  
                         print("Starting countdown to spawning enemy wave!");
                         tt.startTimer(enemyWaveDelayStart);  
-
+                        timerWindow.SetActive(true);
                         //Update ready timer text
                     } 
+                    if (tt.StartCountdown)
+                    {
+                        timerText.text = "Enemy attack starts after: " + Mathf.Round(tt.TimeStart) + " s";
+                    }
                     //Spawn enemy wave
                     if (tt.FinishedTask)
                     {

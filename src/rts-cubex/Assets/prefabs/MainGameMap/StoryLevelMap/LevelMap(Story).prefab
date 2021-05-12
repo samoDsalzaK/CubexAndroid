@@ -2925,6 +2925,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbefa92dcf7e1724baa34f5130cd2d46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectivesTexts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  restartDelay: 5
   levelPassed: 0
   levelFailed: 0
   desiredUnitName: zax
@@ -2932,10 +2937,38 @@ MonoBehaviour:
   lootBoxTag: lootbox
   tagTroopsToSave: usave
   armyCampTag: Camp
-  checkLootBoxes: 1
-  checkTroopsSaved: 1
-  checkArmyCamps: 1
+  baseFounded: 0
+  checkLootBoxes: 0
+  checkTroopsSaved: 0
+  checkArmyCamps: 0
   savedArmyCamps: 0
+  checkIfBaseFound: 1
+--- !u!114 &3320092127737215912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8557807614590602289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f0ee4ef6144db84083c6196808865ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proPotraint: {fileID: 0}
+  troopPotraint: {fileID: 0}
+  buttonNext: {fileID: 0}
+  exitButton: {fileID: 0}
+  restartButton: {fileID: 0}
+  menuBtn: {fileID: 0}
+  dWindow: {fileID: 0}
+  speakerName: {fileID: 0}
+  displayText: {fileID: 0}
+  sdata: {fileID: 11400000, guid: 15f3f4c6535244d4f88aec9e7a0b341f, type: 2}
+  startSpeaking: 0
+  startIndex: 0
+  dMax: 1
+  minRequiredDistance: 7
 --- !u!114 &8242193077354391732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5534,6 +5567,11 @@ PrefabInstance:
         type: 3}
       propertyPath: spawnEnemies
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814440327775427762, guid: ae25cdc69a6144542821b2f588a63e1b,
+        type: 3}
+      propertyPath: sMemberCount
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae25cdc69a6144542821b2f588a63e1b, type: 3}
