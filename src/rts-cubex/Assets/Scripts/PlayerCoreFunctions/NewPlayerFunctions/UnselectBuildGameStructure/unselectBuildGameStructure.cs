@@ -62,12 +62,13 @@ public class unselectBuildGameStructure : MonoBehaviour
 
     // on exit change states of all activity build buttons
     public void onExitChangeAllBuildButtonActivity(){
-        /*var changePosBuildings = FindObjectsOfType<changePosition>();
+        var changePosBuildings = FindObjectsOfType<changePosition>();
         for (int i = 0; i < changePosBuildings.Length; i++){
 		    if(changePosBuildings[i].canChange){ // check again if button is already pressed
-				changePosBuildings[i].setDefaultColor();
+                changePosBuildings[i].canChange = false;
+				changePosBuildings[i].setDefaultValues();
 			}
-		}*/
+		}
         for (int j = 1; j < buildStrucutureButtonActivity.Count; j++){
             buildStrucutureButtonActivity[j] = false; 
         }

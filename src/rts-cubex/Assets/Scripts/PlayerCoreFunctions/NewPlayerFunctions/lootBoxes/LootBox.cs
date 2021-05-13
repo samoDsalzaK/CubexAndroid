@@ -69,8 +69,8 @@ public class LootBox : MonoBehaviour
                     if (playerBase.getEnergonAmount() + energonToAdd < playerBase.MaxBEnergon)
                     {
                         //Displaying add res info
-                       displayInfo(energonToAdd);
-
+                        displayInfo(energonToAdd);
+                        playerBase.GetComponent<PlayerScoring>().addScoreAfterOpenedLootBox();
                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() + energonToAdd);
                         isBoxOpened = true;
                     }
@@ -90,7 +90,7 @@ public class LootBox : MonoBehaviour
                     {
                         //Displaying add res info
                         displayInfo(creditsToAdd);
-
+                        playerBase.GetComponent<PlayerScoring>().addScoreAfterOpenedLootBox();
                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() + creditsToAdd);
                          isBoxOpened = true;
                     }

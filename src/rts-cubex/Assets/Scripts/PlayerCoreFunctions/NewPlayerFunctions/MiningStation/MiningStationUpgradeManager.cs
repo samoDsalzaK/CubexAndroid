@@ -59,6 +59,15 @@ public class MiningStationUpgradeManager : MonoBehaviour
     void Update()
     {
         miningStationHealthText.text = "Mining station health : " + miningStationHealth.getHealth() + " / " + miningStationHealth.getHealthOfStructureOriginal();
+        /*if(miningStationHealth.getHealth() <= 0)
+        {
+			playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel - 1;
+			Debug.Log(playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel);
+            //Debug.Log(playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel);
+            playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(8);
+            //Destroy(gameObject);
+            //Debug.Log("Destroyed");
+        }*/
     }
     
     public void updateText(){

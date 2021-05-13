@@ -245,11 +245,11 @@ MonoBehaviour:
   timereferencetasks:
   - 15
   - 10
-  - 15
+  - 3
   - 10
   - 10
   - 15
-  - 10
+  - 3
   - 10
   - 10
   barrack: {fileID: 3982760522625839459, guid: 6bbee8d24627e634bb9904ceb9f20567, type: 3}

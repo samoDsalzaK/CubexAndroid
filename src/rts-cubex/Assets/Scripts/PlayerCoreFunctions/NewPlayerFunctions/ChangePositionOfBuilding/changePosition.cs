@@ -32,6 +32,10 @@ public class changePosition : MonoBehaviour
     private int clickCount = 0;
 
     [SerializeField] Material defaultMaterial;
+
+    bool isInChangePosMode = false; // variable which will say if there is building in change pos mode
+
+    public bool isInChangeMode {get {return isInChangePosMode;} set {isInChangePosMode = value;}}
    
     void Start (){
         if(FindObjectOfType<Base>() == null)
@@ -51,7 +55,8 @@ public class changePosition : MonoBehaviour
     }
 
     public void setDefaultValues(){
-        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(changePosBuildingIndex) && isPressed){
+        //Debug.Log("Here");
+        if (isInChangePosMode){
             return;
         }
         else{
@@ -59,10 +64,13 @@ public class changePosition : MonoBehaviour
             //playerbase.setBuildingArea(false);
             clickCount = 0;
             isPressed = false;
+            //Debug.Log("Here");
             if(gameObject.GetComponent<Renderer>() != null){
+                //Debug.Log("Here");
                 gameObject.GetComponent<Renderer>().material = defaultMaterial;
             }
             else{
+                //Debug.Log("Here");
                 Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
                 foreach (Transform t in ts) {
                     if(t.gameObject.GetComponent<Renderer>() != null)
@@ -76,9 +84,6 @@ public class changePosition : MonoBehaviour
     
     
     public void changePosAction(){
-        if (clickCount == 1){
-            isPressed = false;
-        }
         // find playerbase object on the game map
         playerbase = FindObjectOfType<Base>();
         if(GetComponent<LocalPanelManager>() != null){
@@ -115,7 +120,7 @@ public class changePosition : MonoBehaviour
         var changePosBuildings = FindObjectsOfType<changePosition>();
         if(changePosBuildings != null){
             for (int i = 0; i < changePosBuildings.Length; i++){
-                if(changePosBuildings[i].canChange){
+                if(changePosBuildings[i].isInChangeMode){
                     Debug.Log("Can not change, because other building is in change position mode");
                     if(localPanelManager != null){
                         localPanelManager.deactivatePanels();
@@ -174,14 +179,6 @@ public class changePosition : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /*public void changePositionOfBuilding(Vector3 pos){
-        building.transform.position = pos;
-        playerbase.setBuildingArea(false);
-        changePos.interactable = true;
-        changePosBtnText.text = "Change position";
-        isPressed = false;
-    }*/
-
     public void activateButton(){
         changePos.interactable = true;
         changePosBtnText.text = "Change position";
@@ -189,20 +186,5 @@ public class changePosition : MonoBehaviour
 
     public void deactivateButton(){
         changePos.interactable = false;
-    }
-
-    public void setDefaultColor(){
-        if(gameObject.GetComponent<Renderer>() != null){
-                gameObject.GetComponent<Renderer>().material = defaultMaterial;
-            }
-            else{
-               Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
-                foreach (Transform t in ts) {
-                    if(t.gameObject.GetComponent<Renderer>() != null)
-                    {
-                        t.gameObject.GetComponent<Renderer>().material = defaultMaterial; // setting default building colour
-                    }
-                } 
-            }
     }
 }

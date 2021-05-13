@@ -97,7 +97,8 @@ public class WallDestroy : MonoBehaviour
                             playerBase.setCreditsAmount(playerBase.getCreditsAmount() + wall.CreditsPrice);
                         }
                         var gobj = hit.transform.gameObject; 
-                        buildingArea.SetActive(false);                       
+                        buildingArea.SetActive(false);   
+                        playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel = playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel - 1;                    
                         Destroy(gobj.transform.parent.gameObject);
                     }
                     else

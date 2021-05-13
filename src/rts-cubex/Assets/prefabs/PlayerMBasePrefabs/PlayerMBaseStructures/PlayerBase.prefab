@@ -763,7 +763,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Create wall
 
-    (15 energon & 15Credits)'
+    (15 energon & 15 Credits)'
 --- !u!1 &983468273
 GameObject:
   m_ObjectHideFlags: 0
@@ -9797,6 +9797,9 @@ MonoBehaviour:
   allBEnergonPrice: 0
   allBCreditsPrice: 0
   shiftSpawnedBuilds: []
+  availableWallsAmount: {fileID: 4577189702998500232}
+  lockBtn: 0
+  btnText: {fileID: 942369739}
 --- !u!114 &2940134455390689103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10005,7 +10008,7 @@ MonoBehaviour:
   playerMaxTurretAmountInLevel: 2
   playerMaxCreditsMiningStationAmountInLevel: 2
   playerMaxShrineAmountInLevel: 1
-  playerMaxWallsAmountInLevel: 0
+  playerMaxWallsAmountInLevel: 5
   playerMaxBuildingResearchAmountInLevel: 1
   playerMaxTroopsResearchAmountInLevel: 1
 --- !u!114 &1916242202460054510

@@ -76,18 +76,18 @@ public class ResearchLevel : MonoBehaviour
     {
        	if(oBGResearch.getBuildingResearchLevel() == oBGResearch.getMaxBuildingResearchLevel())
         {
-          return;
+          	return;
         }
       	if(oBGResearch.getBuildingResearchLevel() == playerbase.getPlayerBaseLevel())
         {
-          playerbase.setErrorStateForPlayerBase(true);
-          researchCenterUpgradePanel.SetActive(false);
-          return;
+			playerbase.setErrorStateForPlayerBase(true);
+			researchCenterUpgradePanel.SetActive(false);
+			return;
         }
        	if(playerbase.getCreditsAmount() < oBGResearch.getMinNeededCreditsAmountForResearch() || playerbase.getEnergonAmount() < oBGResearch.getMinNeededEnergonAmountForResearch())
         {
-          playerbase.setResourceAMountScreenStateForUpgrade(true);
-          return;
+			playerbase.setResourceAMountScreenStateForUpgrade(true);
+			return;
         } 
         
 		oBGResearch.setBuildingResearchLevel(oBGResearch.getBuildingResearchLevel() + 1); // scriptable object change value

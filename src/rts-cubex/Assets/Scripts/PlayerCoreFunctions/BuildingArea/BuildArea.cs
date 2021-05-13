@@ -299,11 +299,13 @@ public class BuildArea : MonoBehaviour
 					for (int i = 0; i < changePosBuildings.Length; i++){
 						if(changePosBuildings[i].canChange){ // check again if button is already pressed
 							index = changePosBuildings[i].returnBtnIndex;
+							changePosBuildings[i].isInChangeMode = true;
 							//Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
 							//changePosBuildings[i].changePositionOfBuilding(buildpozition);
 						}
 					}
 					if (index != 0){ // index as additional check system
+						
 						var playerWorkers = FindObjectsOfType<Worker>(); // find all the workers on the map
 						for (int y = 0; y < playerWorkers.Length; y++)
 					   	{
@@ -318,14 +320,15 @@ public class BuildArea : MonoBehaviour
 						playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
 						playerbase.setBuildingArea(false);
 						for (int i = 0; i < changePosBuildings.Length; i++){
-							if(changePosBuildings[i].returnBtnIndex == index){ // check again if button is already pressed
-								changePosBuildings[i].deactivateButton();
+							if((changePosBuildings[i].returnBtnIndex == index) && (changePosBuildings[i].isInChangeMode)){ // check again if button is already pressed
+								changePosBuildings[i].deactivateButton();	
 							}
 						}
 					}
 					else {
 						for (int i = 0; i < changePosBuildings.Length; i++){
 							if(changePosBuildings[i].canChange){ // check again if button is already pressed
+								changePosBuildings[i].isInChangeMode = false;
 								changePosBuildings[i].activateButton(); // activate and set back button text
 							}
 						}
