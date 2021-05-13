@@ -8,7 +8,9 @@ public class ChallengeMgr : MonoBehaviour
     [Header("Main challenge level config parameters")]
     [SerializeField] bool isOpeningTextOpened = false;
     [SerializeField] float printDelay = 3f;
+    [SerializeField] GameObject currentWaveText;
     [SerializeField] GameObject matchGreatText;
+    [SerializeField] GameObject objectivesText;
     [SerializeField] bool levelEnd = false;
     [SerializeField] GameObject levelEndWindow;
     [SerializeField] List<string> allPlayerBTags;
@@ -46,7 +48,11 @@ public class ChallengeMgr : MonoBehaviour
         maker = GetComponent<MapMaker>();
         tt = GetComponent<TaskTimer>();
         if (challengeLevel)
+        {
             actionWindow.SetActive(true);
+            objectivesText.SetActive(true);
+            currentWaveText.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -54,6 +60,9 @@ public class ChallengeMgr : MonoBehaviour
     {
         if (challengeLevel)
         {
+            //Displaying current wave
+            currentWaveText.GetComponent<Text>().text = "Enemy wave: " + (waveAmount - (waveAmount - 1));
+
             if (!isOpeningTextOpened)
             {
                 printMatchText();

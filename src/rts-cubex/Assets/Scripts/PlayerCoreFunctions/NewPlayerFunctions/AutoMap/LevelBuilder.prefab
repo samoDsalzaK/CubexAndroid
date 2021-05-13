@@ -126,6 +126,7 @@ MonoBehaviour:
   isOpeningTextOpened: 0
   printDelay: 1
   matchGreatText: {fileID: 0}
+  objectivesText: {fileID: 0}
   levelEnd: 0
   levelEndWindow: {fileID: 0}
   allPlayerBTags:
@@ -149,7 +150,7 @@ MonoBehaviour:
   attackStarted: 0
   readyingForAttack: 0
   enemyReadyTime: 5
-  enemyAttackTime: 8
+  enemyAttackTime: 70
   waveAmount: 3
   actionWindow: {fileID: 0}
   actionText: {fileID: 0}
