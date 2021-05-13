@@ -763,7 +763,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Create wall
 
-    (15 energon & 15Credits)'
+    (15 energon & 15 Credits)'
 --- !u!1 &983468273
 GameObject:
   m_ObjectHideFlags: 0
@@ -6362,6 +6362,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 6837376183524659640}
+        m_MethodName: onExitChangeAllBuildButtonActivity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &755612446446097693
 GameObject:
   m_ObjectHideFlags: 0
@@ -7488,6 +7499,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2779801082835378931}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 6837376183524659640}
+        m_MethodName: onExitChangeAllBuildButtonActivity
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9551,6 +9573,7 @@ GameObject:
   - component: {fileID: 1497788373962922491}
   - component: {fileID: 5489247703059113794}
   - component: {fileID: 1916242202460054510}
+  - component: {fileID: 6837376183524659640}
   m_Layer: 9
   m_Name: PlayerBase
   m_TagString: PlayerBase
@@ -9774,6 +9797,9 @@ MonoBehaviour:
   allBEnergonPrice: 0
   allBCreditsPrice: 0
   shiftSpawnedBuilds: []
+  availableWallsAmount: {fileID: 4577189702998500232}
+  lockBtn: 0
+  btnText: {fileID: 942369739}
 --- !u!114 &2940134455390689103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9982,7 +10008,7 @@ MonoBehaviour:
   playerMaxTurretAmountInLevel: 2
   playerMaxCreditsMiningStationAmountInLevel: 2
   playerMaxShrineAmountInLevel: 1
-  playerMaxWallsAmountInLevel: 0
+  playerMaxWallsAmountInLevel: 5
   playerMaxBuildingResearchAmountInLevel: 1
   playerMaxTroopsResearchAmountInLevel: 1
 --- !u!114 &1916242202460054510
@@ -10011,6 +10037,19 @@ MonoBehaviour:
   pointsEarnedForCreditsReedem: 0
   pointsEarnedForAdditionalWorker: 0a000000140000001e00000032000000
   pointsEarnedForLootBox: 50
+--- !u!114 &6837376183524659640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755612447165250645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d491ba87a2b95754bb3114429f71b42d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfAvailableGameStructures: 9
 --- !u!1 &755612447314088123
 GameObject:
   m_ObjectHideFlags: 0
@@ -11041,6 +11080,17 @@ MonoBehaviour:
       - m_Target: {fileID: 2779801082835378931}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 6837376183524659640}
+        m_MethodName: onExitChangeAllBuildButtonActivity
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14656,6 +14706,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 6837376183524659640}
+        m_MethodName: onExitChangeAllBuildButtonActivity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6280203001907912084
 GameObject:
   m_ObjectHideFlags: 0
@@ -15668,6 +15729,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 6837376183524659640}
+        m_MethodName: onExitChangeAllBuildButtonActivity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &7902679528686424027
 GameObject:
   m_ObjectHideFlags: 0
@@ -16035,6 +16107,17 @@ MonoBehaviour:
       - m_Target: {fileID: 755612446581722467}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 6837376183524659640}
+        m_MethodName: onExitChangeAllBuildButtonActivity
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -17913,18 +17996,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5363501618228825855 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 344881882609729606, guid: 50db34857b1cec14bac5f03ae755733b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5667701450275868345}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4714235395475934263 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1138263286995894926, guid: 50db34857b1cec14bac5f03ae755733b,
@@ -17937,6 +18008,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5667701450275868345}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5363501618228825855 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 344881882609729606, guid: 50db34857b1cec14bac5f03ae755733b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5667701450275868345}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6015555751109246467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18061,15 +18144,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ea698cc440cb694e81c5c64e1f03998, type: 3}
---- !u!1 &6924286324253314225 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3702959091981382322, guid: 8ea698cc440cb694e81c5c64e1f03998,
-    type: 3}
-  m_PrefabInstance: {fileID: 6015555751109246467}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1260167114467617963 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4757647583551427240, guid: 8ea698cc440cb694e81c5c64e1f03998,
+    type: 3}
+  m_PrefabInstance: {fileID: 6015555751109246467}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6924286324253314225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3702959091981382322, guid: 8ea698cc440cb694e81c5c64e1f03998,
     type: 3}
   m_PrefabInstance: {fileID: 6015555751109246467}
   m_PrefabAsset: {fileID: 0}

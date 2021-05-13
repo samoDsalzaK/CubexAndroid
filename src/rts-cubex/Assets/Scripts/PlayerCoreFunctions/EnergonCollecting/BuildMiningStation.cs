@@ -34,7 +34,7 @@ public class BuildMiningStation : MonoBehaviour
     {
         if(FindObjectOfType<CollectorBuild>() != null)
         {
-          collectorBuild = FindObjectOfType<CollectorBuild>();
+            collectorBuild = FindObjectOfType<CollectorBuild>();
         }
         else
         {

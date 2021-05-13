@@ -43,6 +43,10 @@ public class buildShrine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // check for current build button state and apply text changes
+        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(5)){
+            structureBuilt = true;
+        }
         if (structureBuilt)
         {
             if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerShrineAmountInLevel){
@@ -78,9 +82,9 @@ public class buildShrine : MonoBehaviour
 		for (int y = 0; y < playerWorkers.Length; y++)
 			{
 				if(!playerWorkers[y].isWorkerAssigned()){ // find first free worker on the map
-               count ++;
+                count ++;
             }
-         }
+        }
         if (count == 0){
             playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
             errorForWorker2.SetActive(true);
@@ -92,15 +96,20 @@ public class buildShrine : MonoBehaviour
         playerbase.setResourceAMountScreenState(true);    
         return; 
         }
-        playerbase.setBuildingArea(true);
-        //State variable is setted to true, which means that the button is clicked
-        canBuildShrine = true;
-        //Button interaction state is setted to false
-        buildShrineBtn.interactable = false;
-        buttonText.text = "Select Build Site";  
-        //Add button locking system...
-        //Like showing the text which says place the barracks object in the base area
-        //Debug.Log("Select a place where to build a barrack.");
+        // change button activity
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(5);
+        if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(5)){
+            playerbase.setBuildingArea(true);
+            //State variable is setted to true, which means that the button is clicked
+            canBuildShrine = true;
+            //buildArmyCampBtn.interactable = false;
+            buttonText.text = "Select Place";  
+        }
+        else{
+            canBuildShrine = false;
+            structureBuilt = true; 
+            playerbase.setBuildingArea(false);
+        }
     }
 
     public bool shrineBuildState()

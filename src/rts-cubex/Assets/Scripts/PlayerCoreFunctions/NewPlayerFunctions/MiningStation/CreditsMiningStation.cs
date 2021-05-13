@@ -76,6 +76,8 @@ public class CreditsMiningStation : MonoBehaviour
 
     TimerForMining timer; // creating Timer type variable
 
+    changePosition changePos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +92,7 @@ public class CreditsMiningStation : MonoBehaviour
 
         panelManager = GetComponent<PanelManager>();
         animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
+        changePos = GetComponent<changePosition>();
     }
     // Update is called once per frame
     void Update()
@@ -113,6 +116,7 @@ public class CreditsMiningStation : MonoBehaviour
             selectionCanvas.SetActive(true);
             // deactivate other building panels
             panelManager.changeStatusOfAllPanels();
+            changePos.setDefaultValues();
         }
         // check for active panels in this building hierarchy and deactivate them
         //panelManager.deactivateParentPanels(MainMiningStationPanel)

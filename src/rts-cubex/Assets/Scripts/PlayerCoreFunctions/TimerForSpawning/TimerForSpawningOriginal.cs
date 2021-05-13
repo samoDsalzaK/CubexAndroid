@@ -114,7 +114,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
 								for (int i = 0; i < changePosBuildings.Length; i++){
-									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].isInChangeMode)){
 										changePosBuildings[i].destroyGameObject();
 										Instantiate(barrack, pozition, Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
@@ -138,7 +138,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
 								for (int i = 0; i < changePosBuildings.Length; i++){
-									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].isInChangeMode)){
 										changePosBuildings[i].destroyGameObject();
 										Instantiate(researchCenter, pozition, Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
@@ -162,7 +162,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
 								for (int i = 0; i < changePosBuildings.Length; i++){
-									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].isInChangeMode)){
 										changePosBuildings[i].destroyGameObject();
 										Instantiate(turret, pozition, Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
@@ -186,7 +186,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
 								for (int i = 0; i < changePosBuildings.Length; i++){
-									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].isInChangeMode)){
 										changePosBuildings[i].destroyGameObject();
 										Instantiate(troopsResearchCenter, pozition, Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
@@ -228,7 +228,9 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
 								for (int i = 0; i < changePosBuildings.Length; i++){
-									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].isInChangeMode)){
+										//Debug.Log("Im here");
+										//Debug.Log(changePosBuildings[i].canChange);
 										changePosBuildings[i].destroyGameObject();
 										Instantiate(creditsMiningStation, pozition, Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
@@ -252,7 +254,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
 								for (int i = 0; i < changePosBuildings.Length; i++){
-									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].isInChangeMode)){
 										changePosBuildings[i].destroyGameObject();
 										Instantiate(armyCamp, pozition, Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
@@ -276,7 +278,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							var changePosBuildings = FindObjectsOfType<changePosition>();
 							if(changePosBuildings != null){
 								for (int i = 0; i < changePosBuildings.Length; i++){
-									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].canChange)){
+									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].isInChangeMode)){
 										changePosBuildings[i].destroyGameObject();
 										Instantiate(shrine, pozition, Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);

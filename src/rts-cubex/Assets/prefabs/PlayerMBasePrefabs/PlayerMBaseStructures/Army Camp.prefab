@@ -1632,6 +1632,8 @@ MonoBehaviour:
   errorWorkerIssue2: {fileID: 7553164012414799029}
   errorForChangingPos: {fileID: 8774951871399564509}
   btnIndex: 7
+  changePosBuildingIndex: 2
+  defaultMaterial: {fileID: 2100000, guid: adf2b95d884a12a4f80e01ef452affdf, type: 2}
 --- !u!114 &4287787477462452463
 MonoBehaviour:
   m_ObjectHideFlags: 0

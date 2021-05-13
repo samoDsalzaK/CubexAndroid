@@ -13,10 +13,14 @@ public class PanelManager : MonoBehaviour
 
     public bool changeStatus {get {return isActive;} set {isActive = value;}}
 
+    Base playerbase;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(FindObjectOfType<Base>() != null){
+            playerbase = FindObjectOfType<Base>();
+        }
     }
 
     // Update is called once per frame
@@ -41,6 +45,7 @@ public class PanelManager : MonoBehaviour
                     activePanels[i].deactivatePanels();
 				}
 			}
+            playerbase.GetComponent<unselectBuildGameStructure>().onExitChangeAllBuildButtonActivity();
 		}
         // make yourself to be visible
         isActive = true;
@@ -70,6 +75,7 @@ public class PanelManager : MonoBehaviour
                     {
                         isActive = false;
                         deactivatePanels();
+                        playerbase.GetComponent<unselectBuildGameStructure>().onExitChangeAllBuildButtonActivity();
                     }
                     else
                     {

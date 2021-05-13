@@ -67,7 +67,7 @@ public class Base : MonoBehaviour
     [SerializeField] int maxBaseEnergonAmount;
     [SerializeField] int maxBaseCreditsAmount;
 
-	[SerializeField] int addionalWorkerCount;
+	  [SerializeField] int addionalWorkerCount;
 
     public int MaxBEnergon { get {return maxBaseEnergonAmount; }}
     public int MaxBCredits { get {return maxBaseCreditsAmount; }}
@@ -93,7 +93,7 @@ public class Base : MonoBehaviour
 
     PlayerScoring playerScoring;
 
-	GameSession gameSession;
+	  GameSession gameSession;
     // Start is called before the first frame update
     void Start()
     {
@@ -275,7 +275,7 @@ public class Base : MonoBehaviour
     spawnedWorker.GetComponent<Worker>().setWorkerIndex(workerIndex);
     //Debug.Log(spawnedWorker.GetComponent<Worker>().getWorkerIndex());
     index ++;
-	playerScoring.addScoreAfterWorkerCreation(index);
+	  playerScoring.addScoreAfterWorkerCreation(index);
     	if(existingWorkerAmount >= maxWorkerAmountInLevel)
     	{
         	createworker.interactable = false;
@@ -300,7 +300,7 @@ public class Base : MonoBehaviour
 		{
 			createworker.interactable = true;
 		}
-	} 
+	  } 
 
     public void upgradeBaseMethod()
     {
@@ -369,7 +369,7 @@ public class Base : MonoBehaviour
     }
     // UI geteris/seteris jei reikia uztobulinti zaidiejo baze
     public bool getErrorStateForPlayerBase()
-	{
+	  {
 		return errorStateForPlayerBase;
     }
     public void setErrorStateForPlayerBase(bool screenStatus)

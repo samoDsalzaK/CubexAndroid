@@ -35,6 +35,9 @@ public class InteractiveBuild : MonoBehaviour
     [Header("Debug data")]
     [SerializeField] List<GameObject> shiftSpawnedBuilds;
     private Helper helperTools = new Helper();
+    [SerializeField] Text availableWallsAmount;
+    [SerializeField] bool lockBtn = false;
+    [SerializeField] Text btnText;
     public void interactiveBuildMode() //Button method to open build mode
     {
         if (sBuildingIcon)
@@ -43,7 +46,6 @@ public class InteractiveBuild : MonoBehaviour
             sBuildingIcon.SetActive(true);
             buildingArea.SetActive(true);
             buildButton.interactable = false;
-
         }
         else
         {
@@ -71,11 +73,18 @@ public class InteractiveBuild : MonoBehaviour
                 }
             }
         }
+        availableWallsAmount.text = playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel + " / " + playerBase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerWallsAmountInLevel;
     }
 
     // Update is called once per frame
     void Update()
     {
+        availableWallsAmount.text = playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel + " / " + playerBase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerWallsAmountInLevel;
+        if (playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel < playerBase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerWallsAmountInLevel){
+            buildButton.interactable = true;
+            lockBtn = false;
+            btnText.text = "Create Wall \n" + "(" + energonPriceToBuild + " energon &" + creditsPriceToBuild + " credits)";
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             openBMode = false;           
@@ -234,8 +243,8 @@ public class InteractiveBuild : MonoBehaviour
                             }
                         }  
                         rayBuilder.SpawnedShiftBuilds = new List<GameObject>();  
-                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(creditsPriceToBuild); // creating animated pop ups
-                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild); // creating animated  pop ups
+                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseCreditsPopUp(AllBCreditsPrice); // creating animated pop ups
+                        playerBase.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(AllBEnergonPrice); // creating animated  pop ups
                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - AllBEnergonPrice);
                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - AllBCreditsPrice);                     
                     }
@@ -288,6 +297,16 @@ public class InteractiveBuild : MonoBehaviour
                         var bModel = helperTools.getChildGameObjectByName(sBuildingIcon, "Wall_1");
                         if (bModel)
                         {
+                            if (playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel >= playerBase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerWallsAmountInLevel){
+                                availableWallsAmount.text = playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel + " / " + playerBase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerWallsAmountInLevel;
+                                print("ERROR: Maximum wall amount limit reached!");
+                                playerBase.GetComponent<LocalPanelManager>().deactivatePanels();
+                                errorWindow.SetActive(true);
+                                errorMsg.text = "Maximum wall amount limit reached!";
+                                openBMode = false; 
+                                lockBtn = true;
+                                return;
+                            }
                             var wallCheck = bModel.GetComponent<WallBuildCheck>();
                             if (!wallCheck.SpaceOccupied)
                             {
@@ -312,6 +331,12 @@ public class InteractiveBuild : MonoBehaviour
                                         playerBase.GetComponent<createAnimatedPopUp>().createDecreaseEnergonPopUp(energonPriceToBuild);
                                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() - energonPriceToBuild);
                                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() - creditsPriceToBuild);
+                                        playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel = playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel + 1;
+                                        availableWallsAmount.text = playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel + " / " + playerBase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerWallsAmountInLevel;
+                                        if (playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerWallsAmountInLevel >= playerBase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerWallsAmountInLevel){
+                                            btnText.text = "Create Wall\n" + "Max amount reached";
+                                            lockBtn = true;
+                                        }
                                         openBMode = false;
                                     // }                            
                                     // else
@@ -356,7 +381,12 @@ public class InteractiveBuild : MonoBehaviour
         {
             sBuildingIcon.SetActive(false);
             buildingArea.SetActive(false);
-            buildButton.interactable = true;
+            if(!lockBtn){
+                buildButton.interactable = true;
+            }
+            else{
+                buildButton.interactable = false;
+            }
             return;
         }
     }
