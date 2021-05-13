@@ -49,6 +49,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] bool spawnEDeposits = false;
     [SerializeField] bool spawnGameBases = false;
     [SerializeField] bool spawnLootBoxes = false;
+    [SerializeField] bool readyToBuildChallenge = false;
     
     //Level main group
     private GameObject levelMap;
@@ -76,10 +77,16 @@ public class MapMaker : MonoBehaviour
     //For caching created level assets in scene
     //For ground
     private List<List<GameObject>> sCubes = new List<List<GameObject>>(); //list of spawned cubes
+    
+    public List<List<GameObject>> SCubes {get { return sCubes; }}
+    public GameObject SPlayerBase { get { return sPlayerBase; }}
+    public GameObject GameHood { get { return gameHood; }}
+    public GameObject MainCamera { get { return mainCamera; }}
     //For mounds 
     private List<GameObject> mounds = new List<GameObject>();
     //For holes
     private List<GameObject> holes = new List<GameObject>();
+    public bool ReadyToBuildChallenge { get { return readyToBuildChallenge; }}
     
     //Helper class for picking child objects
     private Helper help = new Helper();
@@ -125,6 +132,7 @@ public class MapMaker : MonoBehaviour
                     //  if (sCubes[0].Count >= pWidth) print("PRow created!");
                                     
                 }
+                readyToBuildChallenge = true;
                 groundGrp.transform.parent = levelMap.transform;   
 
                 //For centering of platform rect in 0,0,0

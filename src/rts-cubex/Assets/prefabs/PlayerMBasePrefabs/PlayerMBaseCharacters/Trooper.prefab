@@ -5619,7 +5619,8 @@ MonoBehaviour:
   startAttacking: 0
   fireRate: 1
   targetName: enemy
-  targetTagNames: []
+  targetTagNames:
+  - enemytroop
   spottedEnemy: {fileID: 0}
 --- !u!114 &7736572773864075079
 MonoBehaviour:

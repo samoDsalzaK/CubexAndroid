@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: 6743389648152817490}
   - component: {fileID: 5800584358768814890}
   - component: {fileID: 622687724}
+  - component: {fileID: 5496474528944183195}
   m_Layer: 15
   m_Name: EnemyUnit(Story)
   m_TagString: enemyTroop
@@ -571,6 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   killPointsForPlayer: 5
   isTroop: 1
+  isInCh: 0
 --- !u!114 &622687724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,6 +600,19 @@ MonoBehaviour:
   - playerbase
   - shrine
   spottedEnemy: {fileID: 0}
+--- !u!114 &5496474528944183195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8572546774208808328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c764d11965a1e47bf0a2a2ec01b3a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChEnemy: 0
 --- !u!1001 &5801190190560038239
 PrefabInstance:
   m_ObjectHideFlags: 0
