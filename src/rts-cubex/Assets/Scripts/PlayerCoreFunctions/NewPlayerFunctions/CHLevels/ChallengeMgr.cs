@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class ChallengeMgr : MonoBehaviour
 {
     [Header("Main challenge level config parameters")]
+    [SerializeField] int currentDifficulty = 0;
     [SerializeField] bool isOpeningTextOpened = false;
     [SerializeField] float printDelay = 3f;
     [SerializeField] GameObject currentWaveText;
@@ -37,12 +38,13 @@ public class ChallengeMgr : MonoBehaviour
     [SerializeField] int buildingsBuilt = 0;
     [SerializeField] int troopsTrained = 0;
 
-    public int EnemiesKilled { set {enemiesKilled = 0; } get {return enemiesKilled;}}
-    public int BuildingsBuilt { set {buildingsBuilt = 0; } get {return buildingsBuilt;}}
-    public int TroopsTrained { set {troopsTrained = 0; } get {return troopsTrained; }}
+    public int EnemiesKilled { set {enemiesKilled = value; } get {return enemiesKilled;}}
+    public int BuildingsBuilt { set {buildingsBuilt = value; } get {return buildingsBuilt;}}
+    public int TroopsTrained { set {troopsTrained = value; } get {return troopsTrained; }}
 
     private TaskTimer tt;
     private GameObject spawnPlayerBase;
+
     void Start()
     {
         maker = GetComponent<MapMaker>();
@@ -52,6 +54,8 @@ public class ChallengeMgr : MonoBehaviour
             actionWindow.SetActive(true);
             objectivesText.SetActive(true);
             currentWaveText.SetActive(true);
+            currentDifficulty = PlayerPrefs.GetInt("ChDiff");
+            waveAmount += currentDifficulty;
         }
     }
 
@@ -61,7 +65,7 @@ public class ChallengeMgr : MonoBehaviour
         if (challengeLevel)
         {
             //Displaying current wave
-            currentWaveText.GetComponent<Text>().text = "Enemy wave: " + (waveAmount - (waveAmount - 1));
+            currentWaveText.GetComponent<Text>().text = ("Left enemy waves: " + waveAmount);
 
             if (!isOpeningTextOpened)
             {
@@ -101,7 +105,13 @@ public class ChallengeMgr : MonoBehaviour
                         
                         var yPosOffset = pCube.transform.localScale.y + 2f;
                         spawnPlayerBase = Instantiate(sPlayerBase, spawnPos + new Vector3(0f, yPosOffset, 0f), sPlayerBase.transform.rotation);
-
+                        
+                        var baseSkinMgr = spawnPlayerBase.GetComponent<changeSkinManager>();
+                        if (baseSkinMgr)
+                        {
+                            baseSkinMgr.IsSpecialLevel = true;
+                        }
+                        
                         var mainCamera = maker.MainCamera;
                         mainCamera.transform.position = new Vector3(spawnPlayerBase.transform.position.x, mainCamera.transform.position.y, spawnPlayerBase.transform.position.z);
                 
@@ -202,11 +212,14 @@ public class ChallengeMgr : MonoBehaviour
                 }
                 if (waveAmount > 0)
                 {
+                    //Calculating time offset
+                    var timeOffsetDiff = (currentDifficulty > 0 ? enemyAttackTime / (currentDifficulty + 1) : 0);
+                    
                     if (levelTick && !attackStarted)
                     {
                         if (!readyingForAttack)
                         {
-                            tt.startTimer(enemyReadyTime);
+                            tt.startTimer(enemyReadyTime - (timeOffsetDiff / 2));
                             print("Enemy is readying for the attack!");
                             readyingForAttack = true;                            
                                 
@@ -242,32 +255,36 @@ public class ChallengeMgr : MonoBehaviour
                                     {
                                         var spawnEnemy = Instantiate(enemyUnit, lane[index].transform.position, enemyUnit.transform.rotation);
                                         
-                                        //Turning off skirmish mode
-                                        if (spawnEnemy.GetComponent<DeathManagerTroop>())
-                                        {
-                                            var dMgr = spawnEnemy.GetComponent<DeathManagerTroop>();
-                                            dMgr.IsInCh = true;
-                                        }
+                                        // //Turning off skirmish mode
+                                        // if (spawnEnemy.GetComponent<DeathManagerTroop>())
+                                        // {
+                                        //     var dMgr = spawnEnemy.GetComponent<DeathManagerTroop>();
+                                        //     dMgr.IsInCh = true;
+                                        // }
                                         //Turining on challenge mode
-                                        if (spawnEnemy.GetComponent<PlayerScore>())
+                                        if (spawnEnemy.GetComponent<HealthEnemyAI>())
                                         {
-                                            var sMgr = spawnEnemy.GetComponent<PlayerScore>();
+                                            var sMgr = spawnEnemy.GetComponent<HealthEnemyAI>();
                                             sMgr.IsChEnemy = true;
                                         }
 
                                         if (spawnEnemy.GetComponent<NavMeshAgent>())
                                         {
                                             var moveCtrl = spawnEnemy.GetComponent<NavMeshAgent>();
-                                            print("Enemy unit is travelling to playerBase position!");
+                                            moveCtrl.speed += (currentDifficulty > 0 ?  (moveCtrl.speed - (currentDifficulty + 1)) * (currentDifficulty + 1) : 0);
+                                            //print("Enemy unit is travelling to playerBase position!");
                                             moveCtrl.destination = spawnPlayerBase.transform.position;
                                         }
                                     }
                                 }
                             }
-                            //Starting attack timer
-                            tt.startTimer(enemyAttackTime);
+                            //Informing the player to fight
+                            printMatchText();
+                            //Starting attack timer                            
+                            tt.startTimer(enemyAttackTime + timeOffsetDiff);
                             levelTick = false;
-                            enemyGroupSize++;
+                            //Increasing enemy group by difficulty
+                            enemyGroupSize += currentDifficulty > 0 ? (currentDifficulty + 1) : 1;
                             waveAmount--;
                         }
                     }

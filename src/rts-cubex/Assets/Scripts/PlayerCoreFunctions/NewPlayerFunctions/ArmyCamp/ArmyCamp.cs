@@ -91,21 +91,21 @@ public class ArmyCamp : MonoBehaviour
 
             }
         }
-        if (storyMode)
-        {
-            if (other.gameObject.tag == enemyTag && !startCheckingEnemies)
-            {
-                startCheckingEnemies = true;
-            }
-            if (startCheckingEnemies)
-            {
-                if (other.gameObject.tag == enemyTag)
-                {
-                    enemyNear = true;
-                    enemyCount++;
-                }
-            }
-        }
+        // if (storyMode)
+        // {
+        //     if (other.gameObject.tag == enemyTag && !startCheckingEnemies)
+        //     {
+        //         startCheckingEnemies = true;
+        //     }
+        //     if (startCheckingEnemies)
+        //     {
+        //         if (other.gameObject.tag == enemyTag)
+        //         {
+        //             enemyNear = true;
+        //             enemyCount++;
+        //         }
+        //     }
+        // }
         
     }
     // private void OnTriggerStay(Collider other) {
@@ -127,6 +127,7 @@ public class ArmyCamp : MonoBehaviour
     //             {
     //                 enemyNear = false;
     //                 startCheckingEnemies = false;
+    //                 enemyCount--;
     //             }
     //         }
     //     }
@@ -146,17 +147,17 @@ public class ArmyCamp : MonoBehaviour
                 }
             }
         }
-        if (storyMode)
-        {           
-            if (startCheckingEnemies)
-            {
-                if (other.gameObject.tag == enemyTag)
-                {
-                    enemyNear = false;
-                    enemyCount--;
-                }
-            }
-        }
+        // if (storyMode)
+        // {           
+        //     if (startCheckingEnemies)
+        //     {
+        //         if (other.gameObject.tag == enemyTag)
+        //         {
+        //             enemyNear = false;
+        //             enemyCount--;
+        //         }
+        //     }
+        // }
         
     }
 

@@ -9618,7 +9618,7 @@ MonoBehaviour:
   additionalWorkerText: {fileID: 755612446242843053}
   credits: 2000
   energon: 2000
-  maxPlayerTroopsAmount: 15
+  maxPlayerTroopsAmount: 30
   worker: {fileID: 608484017586329166, guid: 7e394d7db6139774a9733f119d335875, type: 3}
   createBuilding: {fileID: 2779801082484389189}
   conversionAmount: 10
@@ -9906,6 +9906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9b718e1279a2146ba40b884faf2c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSpecialLevel: 0
   increaseTroopsDamage: 15
   decreaseTroopsHealth: 10
   decreaseBuildingTime: 10

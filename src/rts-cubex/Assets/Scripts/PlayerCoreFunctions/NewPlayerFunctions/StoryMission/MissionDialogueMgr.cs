@@ -11,6 +11,8 @@ public class MissionDialogueMgr : MonoBehaviour
     [SerializeField] GameObject proPotraint;
     [SerializeField] GameObject troopPotraint;
     [Header("Other UI config:")]
+    [Header("Dialogue info")]
+    [SerializeField] string heroineRank = "(Captain)";
     [SerializeField] GameObject buttonNext;
     [SerializeField] GameObject exitButton;
     [SerializeField] GameObject restartButton;
@@ -53,7 +55,7 @@ public class MissionDialogueMgr : MonoBehaviour
         if (act1Open)
         {
             var distance = Vector3.Distance(spawnedHero.transform.position, arrivalPoint);
-            print("Distance to point: " + distance);
+            //print("Distance to point: " + distance);
             if (distance < minRequiredDistance)
             {
                 //play dialogue
@@ -72,12 +74,12 @@ public class MissionDialogueMgr : MonoBehaviour
 
                         spawnedHero.GetComponent<ClickOn>().HeroToolbar.SetActive(false);
 
-                        speakerName.text = spawnedHero.name.Substring(0, 3);
+                        speakerName.text = spawnedHero.name.Substring(0, 3) + heroineRank;
                         proPotraint.SetActive(true);
                         troopPotraint.SetActive(false);
                     }
                     
-                    displayText.text = dataText;   
+                    displayText.text = dataText.Remove(0, 3);   
                    
                 }
 
@@ -104,12 +106,12 @@ public class MissionDialogueMgr : MonoBehaviour
                 {
                     spawnedHero.GetComponent<ClickOn>().HeroToolbar.SetActive(false);
 
-                    speakerName.text = "Surviving troop";
+                    speakerName.text = "Surviving troop(Leader)";
                     proPotraint.SetActive(false);
                     troopPotraint.SetActive(true);
                 }
                     
-                displayText.text = dataText;   
+                displayText.text = dataText.Remove(0, 3);   
                    
             }
 
@@ -137,12 +139,12 @@ public class MissionDialogueMgr : MonoBehaviour
                 {
                     spawnedHero.GetComponent<ClickOn>().HeroToolbar.SetActive(false);
 
-                    speakerName.text = spawnedHero.name.Substring(0, 3);
+                    speakerName.text = spawnedHero.name.Substring(0, 3) + heroineRank;
                     proPotraint.SetActive(true);
                     troopPotraint.SetActive(false);
                 }
                     
-                displayText.text = dataText;   
+                displayText.text = dataText.Remove(0, 3);   
                    
             }
 
@@ -169,12 +171,12 @@ public class MissionDialogueMgr : MonoBehaviour
                 {
                     spawnedHero.GetComponent<ClickOn>().HeroToolbar.SetActive(false);
 
-                    speakerName.text = spawnedHero.name.Substring(0, 3);
+                    speakerName.text = spawnedHero.name.Substring(0, 3) + heroineRank;
                     proPotraint.SetActive(true);
                     troopPotraint.SetActive(false);
                 }
                     
-                displayText.text = dataText;   
+                displayText.text = dataText.Remove(0, 3);   
                    
             }
             act4Open = false;
@@ -205,12 +207,12 @@ public class MissionDialogueMgr : MonoBehaviour
                 {
                     spawnedHero.GetComponent<ClickOn>().HeroToolbar.SetActive(false);
 
-                    speakerName.text = spawnedHero.name.Substring(0, 3);
+                    speakerName.text = spawnedHero.name.Substring(0, 3) + heroineRank;
                     proPotraint.SetActive(true);
                     troopPotraint.SetActive(false);
                 }
                     
-                displayText.text = dataText;   
+                displayText.text = dataText.Remove(0, 3);   
                    
             }
             act5Open = false;
@@ -232,24 +234,24 @@ public class MissionDialogueMgr : MonoBehaviour
 
        if (dataText.Contains("[H]") )
        {
-            speakerName.text = spawnedHero.name.Substring(0, 3);
+            speakerName.text = spawnedHero.name.Substring(0, 3) + heroineRank;
             proPotraint.SetActive(true);
             troopPotraint.SetActive(false);
        }
        if (dataText.Contains("[T]") )
        {
-            speakerName.text = "Nearby trooper";
+            speakerName.text = "Nearby trooper(Squad member)";
             proPotraint.SetActive(false);
             troopPotraint.SetActive(true);
        }
        if (dataText.Contains("[TS]") )
        {
-            speakerName.text = "Surviving troop";
+            speakerName.text = "Surviving troop(Leader)";
             proPotraint.SetActive(false);
             troopPotraint.SetActive(true);
        }  
 
-       displayText.text = dataText;
+       displayText.text = dataText.Remove(0, 3);
 
     }
 }

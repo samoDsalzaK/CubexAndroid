@@ -6,18 +6,27 @@ public class TroopLaserMovement : MonoBehaviour {
     Rigidbody laserMove;
     private Research damage;
     [SerializeField] float thrust = 2f;
+    [SerializeField] float lifeTime = 7f;
     [SerializeField] ResearchConf oBGResearch;
     [SerializeField] string [] enemyTags;
     [SerializeField] bool heroFire = false;
     [SerializeField] int currentDamagePoints = 0;
     public bool HeroFire { set {heroFire = value; } get { return heroFire; }}
     public ResearchConf OBGResearch { get { return oBGResearch; }}
+    private TaskTimer tt;
     void Start () {
         laserMove = GetComponent<Rigidbody> ();
+        tt = GetComponent<TaskTimer>();
+        tt.startTimer(lifeTime);
         //if (FindObjectOfType<Research> () != null) {
         //damage = FindObjectOfType<Research> ();}
     }
     void Update () {
+        if (tt.FinishedTask)
+        {
+            Destroy(gameObject);
+        }
+
         laserMove.velocity = transform.TransformDirection (new Vector3 (0f, 0f, thrust));
         var giveDamagePoints = HeroFire ? oBGResearch.HeroMakeDamagePoints : oBGResearch.getDamage();
         currentDamagePoints = giveDamagePoints;

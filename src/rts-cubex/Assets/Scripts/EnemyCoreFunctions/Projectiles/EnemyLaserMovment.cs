@@ -6,17 +6,26 @@ public class EnemyLaserMovment : MonoBehaviour
 {
     [SerializeField] float speed = 5f; 
     [SerializeField] int damagePoints = 25; 
+    [SerializeField] float lifeTimeTime = 7f;
     // [SerializeField] string playerUnitTag = "Unit";
     // [SerializeField] string playerBaseTag = "PlayerBase";
     Rigidbody laserMov;
+    private TaskTimer tt;
     void Start()
     {
         laserMov = GetComponent<Rigidbody>();
+        tt = GetComponent<TaskTimer>();
+        tt.startTimer(lifeTimeTime);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (tt.FinishedTask)
+        {
+            Destroy(gameObject);
+        }
+
         laserMov.velocity = transform.TransformDirection(new Vector3(0f, 0f, speed));
     }
     private void OnTriggerEnter(Collider other) {
@@ -34,22 +43,29 @@ public class EnemyLaserMovment : MonoBehaviour
             break;
             
             case "shrine":
-            other.gameObject.GetComponent<HealthOfRegBuilding>().decreaseHealth(damagePoints);
+            if (other.gameObject.GetComponent<HealthOfRegBuilding>())
+            {
+                other.gameObject.GetComponent<HealthOfRegBuilding>().decreaseHealth(damagePoints);
+            }
             Destroy(gameObject);
+          
             break;
 
             case "PlayerBase":
-            other.gameObject.GetComponent<HealthOfRegBuilding>().decreaseHealth(damagePoints);
+            if (other.gameObject.GetComponent<HealthOfRegBuilding>())
+                 other.gameObject.GetComponent<HealthOfRegBuilding>().decreaseHealth(damagePoints);
             Destroy(gameObject);
             break;
 
             case "energonFactory":
-            other.gameObject.GetComponent<HealthOfRegBuilding>().decreaseHealth(damagePoints);
+            if (other.gameObject.GetComponent<HealthOfRegBuilding>())
+                other.gameObject.GetComponent<HealthOfRegBuilding>().decreaseHealth(damagePoints);
             Destroy(gameObject);
             break;
 
             case "Worker":
-            other.gameObject.GetComponent<HealthOfRegBuilding>().decreaseHealth(damagePoints);
+            if (other.gameObject.GetComponent<HealthOfRegWorker>())
+                other.gameObject.GetComponent<HealthOfRegWorker>().decreaseHealth(damagePoints);
             Destroy(gameObject);
             break;
 

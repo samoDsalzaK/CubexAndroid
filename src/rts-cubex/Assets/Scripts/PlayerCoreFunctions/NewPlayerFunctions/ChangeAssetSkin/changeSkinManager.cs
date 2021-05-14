@@ -13,6 +13,7 @@ public class changeSkinManager : MonoBehaviour
     // 4 - Earth 
     // Start is called before the first frame update
     [Header("Configuration parameters for asset skin management")]
+    [SerializeField] bool isSpecialLevel = false;
     /*-------------------------------------------*/
     // Pyro skin addtional boosts (in persantage)
     // +15 % troops damage
@@ -52,6 +53,7 @@ public class changeSkinManager : MonoBehaviour
     // when upgrading troop level in research center, set this counter to 0!
     int changeLightTroopCount {set {LightTroopsAmountCount=value;} get {return LightTroopsAmountCount;}}
     int changeheavyTroopCount {set {HeavyTroopsAmountCount=value;} get {return HeavyTroopsAmountCount;}}
+    public bool IsSpecialLevel { set {isSpecialLevel = value; } get {return isSpecialLevel; }}
     void Start()
     {
 
@@ -338,45 +340,48 @@ public class changeSkinManager : MonoBehaviour
 
     // function for pop up window to inform player about skin selection
     public void onStartSkinSelectionPopUp(){
-        int selectedSkinValue = PlayerPrefs.GetInt("skinSelection"); // grab selected skin value
-        string skinName = PlayerPrefs.GetString("skinName"); // getting selected skin name
-        Color btnColour;
-        switch(selectedSkinValue){
-            case 1:
-                // Default
-                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "\n" + "This asset doesn't provide any boosts"; // setting panel text
-                btnColour = new Color32(15,41, 243, 255);
-                skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().color  = btnColour;
-                btnText.text = "Okey";
-                skinSelectionPopUpOnLevelStart.SetActive(true); // pop uping panel
-                Time.timeScale = 0; // stopping game
-                break;
-            case 2:
-                // Pyro
-                skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Pyro;
-                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" + "+" + increaseTroopsDamage + " % troops damage" + "\n" + "-" + decreaseTroopsHealth + " % troops health";
-                btnText.text = "Okey";
-                skinSelectionPopUpOnLevelStart.SetActive(true);
-                Time.timeScale = 0;
-                break;
-            case 3:
-                // Ice
-                skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Ice;
-                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" + "-" + decreaseBuildingTime + " % building time" + "\n" + "-" + decreaseBuildingHealth + " % building health";
-                btnText.text = "Okey";
-                skinSelectionPopUpOnLevelStart.SetActive(true);
-                Time.timeScale = 0;
-                break;
-            case 4:
-                // Earth
-                skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Earth;
-                skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" +  "+" + increaseBuildingTime + " % building time" + "\n" + "+" + increaseBuildingHealth + " % building health";
-                btnText.text = "Okey";
-                skinSelectionPopUpOnLevelStart.SetActive(true);
-                Time.timeScale = 0;
-                break;
-            default:
-                break;
+        if (!isSpecialLevel)
+        {
+            int selectedSkinValue = PlayerPrefs.GetInt("skinSelection"); // grab selected skin value
+            string skinName = PlayerPrefs.GetString("skinName"); // getting selected skin name
+            Color btnColour;
+            switch(selectedSkinValue){
+                case 1:
+                    // Default
+                    skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "\n" + "This asset doesn't provide any boosts"; // setting panel text
+                    btnColour = new Color32(15,41, 243, 255);
+                    skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().color  = btnColour;
+                    btnText.text = "Okey";
+                    skinSelectionPopUpOnLevelStart.SetActive(true); // pop uping panel
+                    Time.timeScale = 0; // stopping game
+                    break;
+                case 2:
+                    // Pyro
+                    skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Pyro;
+                    skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" + "+" + increaseTroopsDamage + " % troops damage" + "\n" + "-" + decreaseTroopsHealth + " % troops health";
+                    btnText.text = "Okey";
+                    skinSelectionPopUpOnLevelStart.SetActive(true);
+                    Time.timeScale = 0;
+                    break;
+                case 3:
+                    // Ice
+                    skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Ice;
+                    skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" + "-" + decreaseBuildingTime + " % building time" + "\n" + "-" + decreaseBuildingHealth + " % building health";
+                    btnText.text = "Okey";
+                    skinSelectionPopUpOnLevelStart.SetActive(true);
+                    Time.timeScale = 0;
+                    break;
+                case 4:
+                    // Earth
+                    skinSelectionPopUpOnLevelStartImage.GetComponent<UnityEngine.UI.Image>().sprite = Earth;
+                    skinSelectionPopUpOnLevelStartText.text = "You have selected " + skinName + " asset skin" + "\n" + "You get :" + "\n" +  "+" + increaseBuildingTime + " % building time" + "\n" + "+" + increaseBuildingHealth + " % building health";
+                    btnText.text = "Okey";
+                    skinSelectionPopUpOnLevelStart.SetActive(true);
+                    Time.timeScale = 0;
+                    break;
+                default:
+                    break;
+            }
         }
 	}
 }

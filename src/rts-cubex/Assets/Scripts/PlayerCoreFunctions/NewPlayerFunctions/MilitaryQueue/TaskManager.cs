@@ -61,7 +61,8 @@ public class TaskManager : MonoBehaviour
         bTasks = new List<BuildTask>();
         taskCards = new List<GameObject>();
         troopTimer = GetComponent<UnitBuildTimer>(); 
-        playerBase = FindObjectOfType<Base>();      
+        playerBase = FindObjectOfType<Base>();   
+        
         animatedPopUps = playerBase.GetComponent<createAnimatedPopUp>();
         if (playerBase)
         {

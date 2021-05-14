@@ -145,7 +145,10 @@ public class Base : MonoBehaviour
        if (isDeactivated) return;
        if (healthOfTheBase.getHealth() <= 0)
        {
-         FindObjectOfType<GameSession>().increaseDestroyedPlayerBaseAmount();
+         var gs = FindObjectOfType<GameSession>();
+         if (gs)
+             FindObjectOfType<GameSession>().increaseDestroyedPlayerBaseAmount();
+             
          Destroy(gameObject);
 
        }

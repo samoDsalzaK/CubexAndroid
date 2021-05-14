@@ -96,6 +96,9 @@ public class SLevelManager : MonoBehaviour {
     public GameObject SpawnedHero {get {return spawnedHero; }}
     //private Base playerBase;
     void Start () {
+        //Setting default game time play
+        Time.timeScale = 1f;
+
         ot = GetComponent<ObjectiveTracker>();
         tt = GetComponent<TaskTimer>();
         //Spawning player base that is required to be saved
@@ -111,6 +114,12 @@ public class SLevelManager : MonoBehaviour {
                     bMgr.setEnergonAmount (0);
                     bMgr.setCreditsAmount (0);
                 }
+
+                var baseSkinMgr = spawnBase.GetComponent<changeSkinManager>();
+                if (baseSkinMgr)
+                {
+                    baseSkinMgr.IsSpecialLevel = true;
+                }
             }
         }
 
@@ -121,7 +130,12 @@ public class SLevelManager : MonoBehaviour {
             if (!hImanager.SaveMode)
                 hImanager.SaveMode = true;
         }
-        var spHeroAgent = spawnedHero.GetComponent<NavMeshAgent> ();
+        var hMoveCtrl = spawnedHero.GetComponent<move>();
+        if (hMoveCtrl)
+        {
+            hMoveCtrl.setOnItsWay(true);
+        }
+        // var spHeroAgent = spawnedHero.GetComponent<NavMeshAgent> ();
         //spHeroAgent.destination = mSquadStartArrivalPoint.position;
 
         spawnedSquad.Add (spawnedHero);
@@ -152,6 +166,7 @@ public class SLevelManager : MonoBehaviour {
     void Update () {
         if (directSquadToStartPoint) {
             foreach (var m in spawnedSquad) {
+                FindObjectOfType<Base>().addPlayerTroopsAmount(1);
                 var moveCtrl = m.GetComponent<NavMeshAgent> ();
                 if (moveCtrl)
                     moveCtrl.destination = mSquadStartArrivalPoint.position;
@@ -176,61 +191,63 @@ public class SLevelManager : MonoBehaviour {
             timerText.text = "Enemy wave attack time: " + Mathf.Round(tt.TimeStart) + " s";
         }
         //Check if player base is saved, then start spawning waves
-        var baseClr = spawnBase.GetComponent<Base> ();
-        if (baseClr.IsSaved && startSpawningWave) 
-        {   
-             
-            if (spawnEnemyPoints.Count > 0) 
-            {                
-                if (eWaveAmount > 0) 
-                {
-                    if (!tt.StartCountdown && !tt.FinishedTask)  
-                    {  
-                        print("Starting countdown to spawning enemy wave!");
-                        tt.startTimer(enemyWaveDelayStart);  
-                        timerWindow.SetActive(true);
-                        //Update ready timer text
-                    } 
-                    if (tt.StartCountdown)
+        if (spawnBase)
+        {
+            var baseClr = spawnBase.GetComponent<Base> ();
+            if (baseClr.IsSaved && startSpawningWave) 
+            {   
+                
+                if (spawnEnemyPoints.Count > 0) 
+                {                
+                    if (eWaveAmount > 0) 
                     {
-                        timerText.text = "Enemy attack starts after: " + Mathf.Round(tt.TimeStart) + " s";
-                    }
-                    //Spawn enemy wave
-                    if (tt.FinishedTask)
-                    {
-                        if (!attackStarted) //Setting timer for the attack wave on the player base
+                        if (!tt.StartCountdown && !tt.FinishedTask)  
+                        {  
+                            print("Starting countdown to spawning enemy wave!");
+                            tt.startTimer(enemyWaveDelayStart);  
+                            timerWindow.SetActive(true);
+                            //Update ready timer text
+                        } 
+                        if (tt.StartCountdown)
                         {
-                            var defendTime = enemyWaveDelayStart + defendTimeOffset;
-                            tt.startTimer(defendTime);  
-                            attackStarted = true;
-                            print("Started wave (" + eWaveAmount + ") attack timer");
+                            timerText.text = "Enemy attack starts after: " + Mathf.Round(tt.TimeStart) + " s";
                         }
-                        if (attackStarted)
+                        //Spawn enemy wave
+                        if (tt.FinishedTask)
                         {
-                            print("Spawning enemy waves!");
-                            foreach (var p in spawnEnemyPoints) {
-                                if (p.Type == 0)
-                                {
-                                    for (int eindex = 0; eindex < sMemberCount; eindex++) {
-                                        var spawnEnemy = Instantiate (enemyUnit, p.ArrivalPoint.position, enemyUnit.transform.rotation);
-                                        var eMCtrl = spawnEnemy.GetComponent<NavMeshAgent> ();
-                                        if (eMCtrl && spawnBase) {
-                                            eMCtrl.speed = eMCtrl.speed * waveEnemySpeedCoef;
-                                            //Setting priority to travel to the player base
-                                            eMCtrl.destination = spawnBase.transform.position;
+                            if (!attackStarted) //Setting timer for the attack wave on the player base
+                            {
+                                var defendTime = enemyWaveDelayStart + defendTimeOffset;
+                                tt.startTimer(defendTime);  
+                                attackStarted = true;
+                                print("Started wave (" + eWaveAmount + ") attack timer");
+                            }
+                            if (attackStarted)
+                            {
+                                print("Spawning enemy waves!");
+                                foreach (var p in spawnEnemyPoints) {
+                                    if (p.Type == 0)
+                                    {
+                                        for (int eindex = 0; eindex < sMemberCount; eindex++) {
+                                            var spawnEnemy = Instantiate (enemyUnit, p.ArrivalPoint.position, enemyUnit.transform.rotation);
+                                            var eMCtrl = spawnEnemy.GetComponent<NavMeshAgent> ();
+                                            if (eMCtrl && spawnBase) {
+                                                eMCtrl.speed = eMCtrl.speed * waveEnemySpeedCoef;
+                                                //Setting priority to travel to the player base
+                                                eMCtrl.destination = spawnBase.transform.position;
+                                            }
                                         }
                                     }
                                 }
+                                eWaveAmount--;
                             }
-                            eWaveAmount--;
+                        
                         }
-                       
                     }
+                
                 }
-               
             }
         }
-
         if (spawnEnemies) {
 
             //Spawning enemies in the level
@@ -285,7 +302,6 @@ public class SLevelManager : MonoBehaviour {
                     if (spawnLevelObject) {
                         var aMgr = spawnLevelObject.GetComponent<ArmyCamp>();
                         aMgr.StoryMode = true;
-                        aMgr.StoryMode = true;
                         ot.CheckArmyCamps = true;
                         print ("Level object spawned! " + spawnLevelObject.name);
                     }
@@ -339,6 +355,7 @@ public class SLevelManager : MonoBehaviour {
                     for (int tIndex = 0; tIndex < troopSquadMToSave; tIndex++) {
                         var spawnTroop = Instantiate (o.MlevelObject, o.GuardSpawnPoint.position, o.GuardSpawnPoint.rotation);
                         spawnTroop.GetComponent<move> ().NeedsCamp = false;
+                        spawnTroop.GetComponent<move>().IsStory = true;
                         spawnTroop.tag = "usave";
                         var moveCtrl = spawnTroop.GetComponent<NavMeshAgent> ();
                         if (moveCtrl) {

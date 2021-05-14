@@ -17,22 +17,23 @@ MonoBehaviour:
   - '[H]We need to be coutious.  Magister command reported, that the base lost transmission
     quickly.  Which means, the Borg might have attacked with a strong force.'
   - '[H]As we go, let''s scout the area to see if any survivors are somewhere nearby
-    And if we find a working army camp, which is guarded by the enemy, let''s try
+    and if we find a working army camp, which is guarded by the enemy, let''s try
     to  free it because it will aid us if we meet a strong opposition..'
   - '[T]Sir! Yes! sir!'
   - '[H]Let''s go! Move it men!'
-  - '[T]Sir! look b''s dead ahead!'
-  - '[H]Let''s take every borg we find on the way before they report to their leadership!'
+  - '[T]Sir! look borgys''s dead ahead!'
+  - '[H]Let''s take out every borg we find on the way before they report to their
+    leadership!'
   - '[TS]Thank you! you are omega squad. The greatest squad from the Terran military. 
     May we join you to retake the base? We were chased away from the base. They came
     out of nowhere!.'
   - '[H]You are saved. You can join our squad in order to retake the base.'
   - '[TS] Thank you. We are in your debt.'
   - '[H]We have found alpha. But wait the base seems to have functional military
-    gear  but we can''t use it because the energon and credits reserves are stolen.
-    Let''s scout  The area for stolen storage boxes. We will need them to retore
-    the base resource reserves,  which the the military gear requires. If the enemy
-    will do a quick retaliation and try to box us in we need to ready.'
+    gear  but we can''t use it because the energon and credits reserve boxes are
+    stolen. Let''s scout  The area for stolen storage boxes. We will need them to
+    retore the base resource reserves,  which the the military gear requires. If
+    the enemy will do a quick retaliation and try to box us in we need to ready.'
   - '[H]We did it!'
   - '[T]Sir! We intercepted encrypted enemy chatter.. We walked into a trap! They
     are sending some of their forces to takes us out with the base!'

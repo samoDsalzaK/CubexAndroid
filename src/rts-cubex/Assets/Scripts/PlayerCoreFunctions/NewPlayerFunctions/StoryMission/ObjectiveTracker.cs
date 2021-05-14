@@ -5,11 +5,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class ObjectiveTracker : MonoBehaviour
 {
+    //NOTE: Add you loose state to the story mission and remove restart
     [Header("UI configuration")]
     [SerializeField] List<GameObject> objectivesTexts;
+    [SerializeField] GameObject storyLooseWindow;
+    [SerializeField] GameObject menuBtn;
+    [SerializeField] Text looseDescriptionText;
     [Header("Main system cnf.:")]
-    [Range(5f, 15f)]
-    [SerializeField] float restartDelay = 5f;
+    [SerializeField] float openScreenDelay = 5f;
     [SerializeField] bool levelPassed = false;
     [SerializeField] bool levelFailed = false;
     [SerializeField] string desiredUnitName = "zax";
@@ -63,7 +66,6 @@ public class ObjectiveTracker : MonoBehaviour
                 print("Player has passed the level! YOU WON!");
                 objectivesTexts[0].GetComponent<Text>().text = "Objectives:\nDefend alpha base againts enemy waves[Passed]";
                 levelPassed = true;
-                handleLevelEnd();
             }
         }
         //Setting the main leading hero
@@ -82,7 +84,16 @@ public class ObjectiveTracker : MonoBehaviour
 
                         //Print objectives to player
                         objectivesTexts[0].SetActive(true);
-                        objectivesTexts[0].GetComponent<Text>().text += "\nFind alpha base";
+                        objectivesTexts[0].GetComponent<Text>().text += "\n[Main]Find alpha base";
+
+                        objectivesTexts[1].SetActive(true);
+                        objectivesTexts[1].GetComponent<Text>().text = "[Bonus]Free discovered army camps";
+
+                        objectivesTexts[2].SetActive(true);
+                        objectivesTexts[2].GetComponent<Text>().text = "[Bonus]Save troop survivors";
+
+                        objectivesTexts[3].SetActive(true);
+                        objectivesTexts[3].GetComponent<Text>().text = "[Main]Don't let the main hero die";
                     }
                 }
             }
@@ -94,7 +105,7 @@ public class ObjectiveTracker : MonoBehaviour
             {
                 if (baseFounded)
                 {                   
-                    objectivesTexts[0].GetComponent<Text>().text = "Objectives:\nFind the stolen energon and credit boxes";
+                    objectivesTexts[0].GetComponent<Text>().text = "Objectives:\n[Main]Find the stolen energon and credit boxes";
                     checkIfBaseFound = false;
                 }
             }
@@ -102,11 +113,14 @@ public class ObjectiveTracker : MonoBehaviour
             if (!proUnitSpawned && proUnitFound)
             {
                 print("Mission failed! The main leading hero is lost!");
-                objectivesTexts[0].GetComponent<Text>().text = "Objectives:\nDefend alpha base againts enemy waves[Failed]";
+                objectivesTexts[0].GetComponent<Text>().text = "Objectives:\n[Main]Defend alpha base againts enemy waves[Failed]";
                 levelFailed = true;
                 //After the leading unit died, restart the level
                 //NOTE: Later make a you lose screen, and give the player a chance to restart level, or go to main menu
-                handleLevelEnd();
+                //handleLevelEnd();
+               
+                objectivesTexts[3].GetComponent<Text>().text = "[Main]Don't let the main hero die[Failed]";
+                handleLevelEndWithDesc("The main leading hero is lost! Next time don't let the main hero die...");
             }
             //Checking founded playerBase health
             playerBase = GameObject.FindGameObjectWithTag(desiredBuildTag);
@@ -114,7 +128,7 @@ public class ObjectiveTracker : MonoBehaviour
             {
                 if (!buildSaved)
                 {
-                    objectivesTexts[0].GetComponent<Text>().text = "Objectives:\nDefend alpha base againts enemy waves";
+                    objectivesTexts[0].GetComponent<Text>().text = "Objectives:\n[Main]Defend alpha base againts enemy waves";
                     print("Player base is saved! Checking health. NOTE: If player base HP=0, then level lost!");
                     buildSaved = true;
                 }
@@ -123,10 +137,11 @@ public class ObjectiveTracker : MonoBehaviour
                 {
                    if (healthMgr.getHealth() <= 0)
                    {
-                       objectivesTexts[0].GetComponent<Text>().text = "Objectives:\nDefend alpha base againts enemy waves[Failed]";
+                       objectivesTexts[0].GetComponent<Text>().text = "Objectives:\n[Main]Defend alpha base againts enemy waves[Failed]";
                        print("Mission failed! The alpha base has been destroyed!");
                        levelFailed = true;
-                       handleLevelEnd();
+                         
+                       handleLevelEndWithDesc("The alpha base has been destroyed! Next time prepeare stronger defences!");
                    }
                 }
             }
@@ -160,7 +175,7 @@ public class ObjectiveTracker : MonoBehaviour
                 {
                     print("All lost troops are saved!");
                     objectivesTexts[2].SetActive(true);
-                    objectivesTexts[2].GetComponent<Text>().text = "Save lost troops[DONE]";
+                    objectivesTexts[2].GetComponent<Text>().text = "[Bonus]Save troop survivors[Done]";
                     checkTroopsSaved = false;
                 }
                 
@@ -173,7 +188,7 @@ public class ObjectiveTracker : MonoBehaviour
                 {
                     print("All army camps are saved!");
                     objectivesTexts[1].SetActive(true);
-                    objectivesTexts[1].GetComponent<Text>().text = "Save army troop camp[DONE]";
+                    objectivesTexts[1].GetComponent<Text>().text = "[Bonus]Free discovered army camps[DONE]";
                     checkArmyCamps = false; 
                 }
 
@@ -182,7 +197,7 @@ public class ObjectiveTracker : MonoBehaviour
                     var aMgr = a.GetComponent<ArmyCamp>();
                     if (aMgr)
                     {
-                        if ((aMgr.StartCheckingEnemies && !aMgr.EnemyNear) && aMgr.EnemyCount <= 0)
+                        if (aMgr.Occupied > 0)
                         {
                             savedArmyCamps++;
                         }
@@ -191,13 +206,16 @@ public class ObjectiveTracker : MonoBehaviour
             }
         }
     }
-    private void handleLevelEnd()
+    private void handleLevelEndWithDesc(string msg)
     {         
-         StartCoroutine(restartWithDelay());
+         StartCoroutine(openLooseWithDelay(msg));
     }
-    IEnumerator restartWithDelay()
-    {
-        yield return new WaitForSeconds(restartDelay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    IEnumerator openLooseWithDelay(string msg)
+    {        
+        yield return new WaitForSeconds(openScreenDelay);        
+        looseDescriptionText.text = msg;
+        storyLooseWindow.SetActive(true);
+        menuBtn.SetActive(false);
+        Time.timeScale = 0f;
     }
 }

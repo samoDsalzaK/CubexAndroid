@@ -6629,7 +6629,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
+  m_Speed: 12
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 80
@@ -6759,7 +6759,7 @@ MonoBehaviour:
   followPlayerInCombat: 0
   fireGun: {fileID: 99156683133809790}
   secondFireGun: {fileID: 6620785589922636601}
-  scannerRadius: 20
+  scannerRadius: 35
   projectile: {fileID: 833446331802415920, guid: d8bf847321ef346408421d36ff6abcd8,
     type: 3}
   launchForce: 80
@@ -6813,10 +6813,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521a0db9305dc4c4da0ab362aca335e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseToSaveTag: basesave
   saveTroopTag: usave
   tagNewToAdd: Unit
   range: 30
   saveMode: 0
+  baseSaved: 0
 --- !u!1001 &6266638844945244268
 PrefabInstance:
   m_ObjectHideFlags: 0
