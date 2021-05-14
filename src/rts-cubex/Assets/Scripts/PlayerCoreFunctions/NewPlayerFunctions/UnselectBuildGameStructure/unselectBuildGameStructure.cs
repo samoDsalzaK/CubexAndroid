@@ -65,11 +65,18 @@ public class unselectBuildGameStructure : MonoBehaviour
         var changePosBuildings = FindObjectsOfType<changePosition>();
         for (int i = 0; i < changePosBuildings.Length; i++){
 		    if(changePosBuildings[i].canChange){ // check again if button is already pressed
+                // pop up error window up
+                playerbase.GetComponent<createAnimatedPopUp>().createIncorrectPozitionPopUp();
                 changePosBuildings[i].canChange = false;
 				changePosBuildings[i].setDefaultValues();
 			}
 		}
-        for (int j = 1; j < buildStrucutureButtonActivity.Count; j++){
+        for (int j = 1; j <= buildStrucutureButtonActivity.Count; j++){
+            if ((bool)buildStrucutureButtonActivity[j]){
+                // pop up error window
+                playerbase.GetComponent<createAnimatedPopUp>().createIncorrectPozitionPopUp();
+                //Debug.Log("Show error windwo pop up");
+            }
             buildStrucutureButtonActivity[j] = false; 
         }
         playerbase.setBuildingArea(false);
