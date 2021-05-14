@@ -62,7 +62,7 @@ public class changePosition : MonoBehaviour
         else{
             changePosBtnText.text = "Change Position";
             //playerbase.setBuildingArea(false);
-            clickCount = 0;
+            //clickCount = 0;
             isPressed = false;
             //Debug.Log("Here");
             if(gameObject.GetComponent<Renderer>() != null){
@@ -151,13 +151,13 @@ public class changePosition : MonoBehaviour
             playerbase.setBuildingArea(true);
             isPressed = true;
             changePosBtnText.text = "Select place";
-            clickCount = 1;
+            //clickCount = 1;
         }
         else{
             isPressed = false;
             changePosBtnText.text = "Change Position";
             playerbase.setBuildingArea(false);
-            clickCount = 0;
+            //clickCount = 0;
             if(gameObject.GetComponent<Renderer>() != null){
                 gameObject.GetComponent<Renderer>().material = defaultMaterial;
             }

@@ -93,7 +93,7 @@ public class buildArmyCamp : MonoBehaviour
             return; 
         }
         // change button activity
-        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(2);
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(2); // true
         if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(2)){
             playerbase.setBuildingArea(true);
             //State variable is setted to true, which means that the button is clicked

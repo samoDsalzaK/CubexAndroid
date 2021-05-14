@@ -42,7 +42,7 @@ public class ResearchLevel : MonoBehaviour
         {
 			playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel - 1;
 			playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(6);
-            Destroy(gameObject);
+         	Destroy(gameObject);
         }
         researchCenterLevelText.text = "Research Center Level : " + oBGResearch.getBuildingResearchLevel(); 
         researchUpgradeBtnText.text = "Upgrade Research Center to level " + (oBGResearch.getBuildingResearchLevel() + 1) + "\n" + "(" + oBGResearch.getMinNeededCreditsAmountForResearch() + " credits & " + oBGResearch.getMinNeededEnergonAmountForResearch() + " energon)"; 
