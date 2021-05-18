@@ -77,7 +77,7 @@ public class InGameMarketButtonHandler : MonoBehaviour
 
     private void buttonCallBack(Button buttonPressed)
     {
-        int selection;
+        //sint selection;
         if (buttonPressed == inGameMarketBtn)
         {
             if ((bool)buttonActivityHashMap[1]){ // when button will be pressed another time se button state to false (value 0) and deactivate panel
@@ -139,7 +139,7 @@ public class InGameMarketButtonHandler : MonoBehaviour
     }
 
     // function for unlocking in game market button
-    public void unlockBtn(int buttonID){
+    public void unlockBtn(int buttonID){ 
         if (buttonUnlockTracker.ContainsKey(buttonID)){
             buttonUnlockTracker[buttonID] = true; // setting value to true, means that button is unlocked
         }

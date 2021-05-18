@@ -45,6 +45,7 @@ public class PanelManager : MonoBehaviour
                     activePanels[i].deactivatePanels();
 				}
 			}
+            playerbase = FindObjectOfType<Base>();
             playerbase.GetComponent<unselectBuildGameStructure>().onExitChangeAllBuildButtonActivity();
 		}
         // make yourself to be visible
