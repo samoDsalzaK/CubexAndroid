@@ -115,7 +115,7 @@ public class Shrine : MonoBehaviour
         timer = GetComponent<TaskTimer>();
         if (!isTesting)
         {
-            playerBaseObj = GameObject.Find("PlayerBase");
+            playerBaseObj = GameObject.FindGameObjectWithTag("PlayerBase");
             playerBase = playerBaseObj.GetComponent<Base>();
             animatedPopUps = playerBaseObj.GetComponent<createAnimatedPopUp>();
             AnimatedPopUps = animatedPopUps;

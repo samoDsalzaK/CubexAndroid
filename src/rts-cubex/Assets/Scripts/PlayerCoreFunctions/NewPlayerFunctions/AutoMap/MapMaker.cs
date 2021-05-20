@@ -22,6 +22,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] GameObject wallCube;
     [SerializeField] GameObject sPlayerBase;
     [SerializeField] GameObject sBorgBase;
+    [SerializeField] GameObject levelSessionMgr;
     [SerializeField] GameObject lootBox;
     [Tooltip("Platform Width in Cubes")]
     [Range(6, 6)] //For locking values in inspector
@@ -50,7 +51,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] bool spawnGameBases = false;
     [SerializeField] bool spawnLootBoxes = false;
     [SerializeField] bool readyToBuildChallenge = false;
-    
+    [SerializeField] bool isTimeUnlimited = true;
     //Level main group
     private GameObject levelMap;
     //Level sub groups
@@ -533,7 +534,8 @@ public class MapMaker : MonoBehaviour
             {                          
                 // //Activating the game hood
                 gameHood.SetActive(true);
-
+                if (!isTimeUnlimited)
+                    levelSessionMgr.SetActive(true);
                 gSpawnMBaseGrp = new GameObject("Game_MBases");
                 gSpawnMBaseGrp.transform.position = Vector3.zero;
 

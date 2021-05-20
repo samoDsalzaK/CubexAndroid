@@ -12,6 +12,7 @@ public class IManager : MonoBehaviour
     [SerializeField] float range = 30f;
     [SerializeField] bool saveMode = false;
     [SerializeField] bool baseSaved = false;
+    [SerializeField] bool troopsSaved = false;
     public bool SaveMode {set { saveMode = value; } get { return saveMode; }}
     private GameObject foundedPlayerBase;
     private ObjectiveTracker ot;
@@ -68,15 +69,10 @@ public class IManager : MonoBehaviour
                 var click = troopToSave.GetComponent<ClickOn>();
                 if (click)
                     click.IsSelected = true;
-
-                var mdgr = FindObjectOfType<MissionDialogueMgr>();
-                if (mdgr)
-                {
-                    mdgr.Act2Open = true;
-                } 
+               
 
                 print("Troop: " + troopToSave.name + " is " + (troopToSave.tag == tagNewToAdd ? "saved!" : "not saved!"));
-
+                // troopsSaved = true;
             }
             if (!baseSaved)
             {
@@ -105,7 +101,7 @@ public class IManager : MonoBehaviour
                             var creditsRes = pMgr.getEnergonAmount();
                             var energonMgr = pMgr.getCreditsAmount();
 
-                            if (creditsRes <= 0 && energonMgr <= 0)
+                            if (creditsRes <= 0 || energonMgr <= 0)
                             {
                                 print("The base is unavailable to use. It is rquired to save nergon and credits!");
                             }

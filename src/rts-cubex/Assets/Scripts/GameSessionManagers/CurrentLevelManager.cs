@@ -47,7 +47,8 @@ public class CurrentLevelManager : MonoBehaviour
                 areEnemyBasesDestroyed = false; 
             
             //Setting compliation status..
-            PlayerPrefs.SetInt(settingsName + SceneManager.GetActiveScene().buildIndex, areEnemyBasesDestroyed ? 1 : 0);
+            //PlayerPrefs.SetInt(settingsName + SceneManager.GetActiveScene().buildIndex, areEnemyBasesDestroyed ? 1 : 0);
+            FindObjectOfType<GameSesionTime>().IsTimeFinished = true;
             FindObjectOfType<GameSession>().enemyDestroyedState(areEnemyBasesDestroyed);
             StartCoroutine(loadCompWindow());
          }

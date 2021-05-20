@@ -125,7 +125,7 @@ public class LootBox : MonoBehaviour
     private void displayInfo(int resAmount)
     {
         displayInfoCanvas.SetActive(true);
-        infoText.text = ("+" + creditsToAdd);
+        infoText.text = ("+" + resAmount);
         boxColor.a = 1f;
         infoText.color = boxColor;
     }

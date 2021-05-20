@@ -6659,6 +6659,8 @@ MonoBehaviour:
   isBloom: 0
   mainModel: {fileID: 0}
   lockMove: 0
+  isStory: 0
+  saveTag: usave
 --- !u!114 &3105380516392312665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6816,7 +6818,7 @@ MonoBehaviour:
   baseToSaveTag: basesave
   saveTroopTag: usave
   tagNewToAdd: Unit
-  range: 30
+  range: 35
   saveMode: 0
   baseSaved: 0
 --- !u!1001 &6266638844945244268

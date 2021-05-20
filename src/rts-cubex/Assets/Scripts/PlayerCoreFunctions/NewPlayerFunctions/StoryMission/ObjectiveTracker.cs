@@ -177,6 +177,12 @@ public class ObjectiveTracker : MonoBehaviour
                     objectivesTexts[2].SetActive(true);
                     objectivesTexts[2].GetComponent<Text>().text = "[Bonus]Save troop survivors[Done]";
                     checkTroopsSaved = false;
+
+                    var mdgr = GetComponent<MissionDialogueMgr>();
+                    if (mdgr)
+                    {
+                        mdgr.Act2Open = true;
+                    }
                 }
                 
             }

@@ -65,7 +65,7 @@ public class ChallengeMgr : MonoBehaviour
         if (challengeLevel)
         {
             //Displaying current wave
-            currentWaveText.GetComponent<Text>().text = ("Left enemy waves: " + waveAmount);
+            currentWaveText.GetComponent<Text>().text = ("Left enemy waves: " + (waveAmount >= 0 ? waveAmount : 0));
 
             if (!isOpeningTextOpened)
             {

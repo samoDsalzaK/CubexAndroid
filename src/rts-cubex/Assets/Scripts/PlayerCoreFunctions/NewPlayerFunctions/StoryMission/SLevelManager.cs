@@ -324,11 +324,11 @@ public class SLevelManager : MonoBehaviour {
                         var lCtrl = spawnLootBox.GetComponent<LootBox> ();
                         if (lCtrl) {
                             if (lootBoxSwitch) {
-                                lCtrl.EnergonToAdd += energonRestore;
+                                lCtrl.EnergonToAdd = energonRestore;
                                 lCtrl.BoxType = 0;
                             } else {
                                 lCtrl.BoxType = 1;
-                                lCtrl.CreditsToAdd += creditsRestore;
+                                lCtrl.CreditsToAdd = creditsRestore;
                             }
 
                             lootBoxSwitch = !lootBoxSwitch;

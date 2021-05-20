@@ -106,7 +106,7 @@ public class MissionDialogueMgr : MonoBehaviour
                 {
                     spawnedHero.GetComponent<ClickOn>().HeroToolbar.SetActive(false);
 
-                    speakerName.text = "Surviving troop(Leader)";
+                    speakerName.text = "Surviving troop(Survivor group leader)";
                     proPotraint.SetActive(false);
                     troopPotraint.SetActive(true);
                 }
@@ -212,7 +212,7 @@ public class MissionDialogueMgr : MonoBehaviour
                     troopPotraint.SetActive(false);
                 }
                     
-                displayText.text = dataText.Remove(0, 3);   
+                displayText.text = dataText.Remove(0, 3) ;   
                    
             }
             act5Open = false;
@@ -246,7 +246,7 @@ public class MissionDialogueMgr : MonoBehaviour
        }
        if (dataText.Contains("[TS]") )
        {
-            speakerName.text = "Surviving troop(Leader)";
+            speakerName.text = "Surviving troop(Survivor group leader)";
             proPotraint.SetActive(false);
             troopPotraint.SetActive(true);
        }  
