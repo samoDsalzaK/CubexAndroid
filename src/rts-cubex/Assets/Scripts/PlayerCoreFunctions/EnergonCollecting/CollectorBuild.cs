@@ -28,23 +28,27 @@ public class CollectorBuild : MonoBehaviour
     //remembering the button's text
     private void Start() {
         
-         if(FindObjectOfType<Base>() == null)
-         {
+        if(FindObjectOfType<Base>() == null)
+        {
            return;
-         }
-         else{
+        }
+        else{
            playerbase = FindObjectOfType<Base>();
-         }
+        }
          
-         buttonText.text = "Create Energon Station\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+        buttonText.text = "Create Energon Station\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
     }
     private void Update() {
+		// check for current build button state and apply text changes
+        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(7)){
+            collectorStructureBuilt = true;
+        }
         //Checks if the collector structure is built, and if it is built, then this button is unlocked
         if (collectorStructureBuilt) 
         {
             //Sets the button click variable to false
            btnCollectorClicked = false;
-           buildButton.interactable = true; 
+           //buildButton.interactable = true; 
            //Displays the previous button's text
            buttonText.text = "Create Energon Station\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
            //sets this variable to false because the collector structure is already constructed
@@ -89,11 +93,20 @@ public class CollectorBuild : MonoBehaviour
            // Debug.Log(Math.Round(playerWorkers[i].GetComponent<WorkerLifeCycle>().getWorkerJobLeft(),2));
             if(!playerWorkers[i].GetComponent<Worker>().isWorkerAssigned() &&  Math.Round(playerWorkers[i].GetComponent<WorkerLifeCycle>().getWorkerJobLeft(),2) >= Math.Round(neededWorkerJobAmountForStrucuture,2))
             {
-              //Debug.Log(playerWorkers[i].GetComponent<WorkerLifeCycle>().getWorkerJobLeft());
-              btnCollectorClicked = true;
-              buildButton.interactable = false;
-              buttonText.text = "Select a deposit";  
-              return;      
+				//Debug.Log(playerWorkers[i].GetComponent<WorkerLifeCycle>().getWorkerJobLeft());
+				// change button activity
+                playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(7);
+        		if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(7)){
+            		//State variable is setted to true, which means that the button is clicked
+            		btnCollectorClicked = true;
+            		//buildArmyCampBtn.interactable = false;
+            		buttonText.text = "Select a deposit";  
+        			}
+        		else{
+					btnCollectorClicked = false;
+					collectorStructureBuilt = true; 
+       			}
+				return;      
             }
         }
     }   

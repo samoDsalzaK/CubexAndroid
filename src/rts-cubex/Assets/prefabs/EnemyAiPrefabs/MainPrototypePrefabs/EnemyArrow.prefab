@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1436199296172608780}
   - component: {fileID: 1436199296172608778}
   - component: {fileID: 3111186903059522656}
+  - component: {fileID: 2501735570579019439}
   m_Layer: 14
   m_Name: EnemyArrow
   m_TagString: EnemyArrow
@@ -126,6 +127,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2501735570579019439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436199296172608777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a0a15fafb4bcc41aa1cab5dfe0d8ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startCountdown: 0
+  finishedTask: 0
+  timeStart: 7
 --- !u!1 &1436199297367743601
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,10 @@ using UnityEngine.AI;
 
 public class ArmyCamp : MonoBehaviour
 {
+    [Header("STORE MODE: Enemy cnf.:")]
+    [SerializeField] string enemyTag = "enemyTroop";
+    [SerializeField] int enemyCount = 0;
+    [SerializeField] bool  enemyNear = false;
     [SerializeField] int capacity = 4;
     [SerializeField] int occupied = 0;
     float startingTime = 0;
@@ -18,15 +22,39 @@ public class ArmyCamp : MonoBehaviour
     // panel Manager type variable
     PanelManager panelManager;
     [SerializeField] GameObject selectionCanvas;
+    private bool  storyMode = false;
+    private bool  startCheckingEnemies = false;
+    public  bool  StartCheckingEnemies { set { startCheckingEnemies = value; } get { return startCheckingEnemies; }}
+    public   int  EnemyCount {get { return enemyCount; }}
+    public  bool  EnemyNear { set { enemyNear = value; } get { return enemyNear; }}
+    public  bool  StoryMode { set { storyMode = value; } get { return storyMode; }}
+
+    HealthOfRegBuilding armyCampHealth;
+
+    Base playerbase;
 
     void Start()
     {
         group = new List<GameObject>();
         textBar.SetActive(false);
         panelManager = GetComponent<PanelManager>();
+        armyCampHealth = GetComponent<HealthOfRegBuilding>();
+        if(FindObjectOfType<Base>() == null)
+        {
+            return;
+        }
+        else{
+            playerbase = FindObjectOfType<Base>();
+        }
     }
     void Update()
     {
+        if(armyCampHealth.getHealth() <= 0)
+        {
+			playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel - 1;
+			playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(2);
+            Destroy(gameObject);
+        }
         var camps = GameObject.FindGameObjectsWithTag("Camp");
         if (camps.Length > 0)
         {
@@ -82,8 +110,47 @@ public class ArmyCamp : MonoBehaviour
 
             }
         }
+        // if (storyMode)
+        // {
+        //     if (other.gameObject.tag == enemyTag && !startCheckingEnemies)
+        //     {
+        //         startCheckingEnemies = true;
+        //     }
+        //     if (startCheckingEnemies)
+        //     {
+        //         if (other.gameObject.tag == enemyTag)
+        //         {
+        //             enemyNear = true;
+        //             enemyCount++;
+        //         }
+        //     }
+        // }
+        
     }
-
+    // private void OnTriggerStay(Collider other) {
+    //     if (storyMode)
+    //     {
+    //         if (other.gameObject.tag == enemyTag && !startCheckingEnemies)
+    //         {
+    //             startCheckingEnemies = true;
+    //         }
+    //         //Opening mode, when one enemy arrives
+    //         if (startCheckingEnemies)
+    //         {
+                
+    //             if (other.gameObject.tag == enemyTag)
+    //             {
+    //                 enemyNear = true;
+    //             }
+    //             else
+    //             {
+    //                 enemyNear = false;
+    //                 startCheckingEnemies = false;
+    //                 enemyCount--;
+    //             }
+    //         }
+    //     }
+    // }
     private void OnTriggerExit(Collider other)
     {
         var troop = other.gameObject;
@@ -99,9 +166,25 @@ public class ArmyCamp : MonoBehaviour
                 }
             }
         }
+        // if (storyMode)
+        // {           
+        //     if (startCheckingEnemies)
+        //     {
+        //         if (other.gameObject.tag == enemyTag)
+        //         {
+        //             enemyNear = false;
+        //             enemyCount--;
+        //         }
+        //     }
+        // }
+        
     }
 
     private void OnMouseDown(){
+        if (enemyNear)
+        {
+            return;
+        }
         if(panelManager.checkIfWhereAreActivePanelsOnTheMap()){
             return;
         }

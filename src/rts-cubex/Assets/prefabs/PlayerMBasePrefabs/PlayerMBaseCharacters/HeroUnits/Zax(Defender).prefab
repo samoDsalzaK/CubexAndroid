@@ -1658,6 +1658,7 @@ MonoBehaviour:
   unitPosition: {fileID: 6398442191126425989}
   onItsWay: 0
   isHero: 1
+  isBloom: 0
   mainModel: {fileID: 0}
   lockMove: 0
 --- !u!114 &932710019250581169

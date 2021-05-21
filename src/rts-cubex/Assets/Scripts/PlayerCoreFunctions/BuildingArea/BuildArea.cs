@@ -72,14 +72,16 @@ public class BuildArea : MonoBehaviour
 
           	if (( hittedObject.transform.gameObject.layer == LayerMask.NameToLayer("BuildArea")))
           	{ 
-              	if((barrackBtn.buildBarrack()) && (canBuild))
+              	if((barrackBtn.buildBarrack()) && (canBuild) && (playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(1)))
               	{
 					animatedPopUps.createDecreaseEnergonPopUp(barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // creating pop up window
                     playerbase.setCreditsAmount(playerbase.getCreditsAmount()-barrackBtn.getMinNeededCreditsAmountForTroopsBarrack()); // uzsetiname naujas reksmes 
                     playerbase.setEnergonAmount(playerbase.getEnergonAmount()-barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // uzsetiname naujas reksmes
                     playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
-                    barrackBtn.canBuildAgain(true);
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel + 1; // change amount of actual barracks on the game map 
+                    playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(2); // fasle
+					barrackBtn.canBuildAgain(true);
                     playerbase.setBuildingArea(false);
 
                     var playerWorkers = FindObjectsOfType<Worker>(); 
@@ -97,13 +99,15 @@ public class BuildArea : MonoBehaviour
                       }    
                     }
               	}
-				if((turretBtn.buildTurret()) && (canBuild))
+				if((turretBtn.buildTurret()) && (canBuild) && (playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(6)))
 				{
 					animatedPopUps.createDecreaseEnergonPopUp(turretBtn.getMinNeededEnergonAmountForTurret()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(turretBtn.getMinNeededCreditsAmountForTurret()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-turretBtn.getMinNeededCreditsAmountForTurret()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-turretBtn.getMinNeededEnergonAmountForTurret()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel + 1;
+					playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(6);
 					turretBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 					//  buildDefensive.SetActive(false);
@@ -123,13 +127,15 @@ public class BuildArea : MonoBehaviour
 						}    
 					}
 				}
-				if((researchCenterBtn.buildResearchCentre()) && (canBuild))
+				if((researchCenterBtn.buildResearchCentre()) && (canBuild) && (playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(3)))
 				{
 					animatedPopUps.createDecreaseEnergonPopUp(researchCenterBtn.getMinNeededEnergonAmountForResearchCentre()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(researchCenterBtn.getMinNeededCreditsAmountForResearchCentre()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-researchCenterBtn.getMinNeededCreditsAmountForResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-researchCenterBtn.getMinNeededEnergonAmountForResearchCentre()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel + 1;
+					playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(3);
 					researchCenterBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 				
@@ -148,13 +154,15 @@ public class BuildArea : MonoBehaviour
 						}    
 					}
 				}
-				if((troopsCenterBtn.buildResearchCentre()) && (canBuild))
+				if((troopsCenterBtn.buildResearchCentre()) && (canBuild) && (playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(4)))
 				{
 					animatedPopUps.createDecreaseEnergonPopUp(troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(troopsCenterBtn.getMinNeededCreditsAmountForTroopsResearchCentre()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-troopsCenterBtn.getMinNeededCreditsAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-troopsCenterBtn.getMinNeededEnergonAmountForTroopsResearchCentre()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel + 1;
+					playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(4);
 					troopsCenterBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 				
@@ -173,7 +181,7 @@ public class BuildArea : MonoBehaviour
 						}    
 					}
 				}
-				if(buildWorkerBtn.buildWorker())
+				if(buildWorkerBtn.buildWorker() && (playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(9)))
 				{
 					playerbase.setBuildingArea(false);
 					// buildRegWorker.SetActive(false);
@@ -207,12 +215,14 @@ public class BuildArea : MonoBehaviour
 						}    
 					}
 				}*/
-				if((creditsMiningStationBtn.buildMiningStation()) && (canBuild)){
+				if((creditsMiningStationBtn.buildMiningStation()) && (canBuild) && (playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(8))){
 					animatedPopUps.createDecreaseEnergonPopUp(creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-creditsMiningStationBtn.getminNeededCreditsAmountForMiningStation()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-creditsMiningStationBtn.getminNeededEnergonAmountForMiningStation()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel + 1;
+					playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(8);
 					creditsMiningStationBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 					// buildDefensive.SetActive(false);
@@ -231,12 +241,14 @@ public class BuildArea : MonoBehaviour
 						}    
 					}
 				}
-				if((armyCampBuildBtn.armyCampBuildState()) && (canBuild)){
+				if((armyCampBuildBtn.armyCampBuildState()) && (canBuild) && (playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(2))){
 					animatedPopUps.createDecreaseEnergonPopUp(armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-armyCampBuildBtn.getMinNeededCreditsAmountForArmyCamp()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-armyCampBuildBtn.getMinNeededEnergonAmountForArmyCamp()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel + 1;
+					playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(2);
 					armyCampBuildBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 					// buildDefensive.SetActive(false);
@@ -255,12 +267,14 @@ public class BuildArea : MonoBehaviour
 						}    
 					}
 				}
-				if((shrineBuildBtn.shrineBuildState()) && (canBuild)){
+				if((shrineBuildBtn.shrineBuildState()) && (canBuild) && (playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(5))){
 					animatedPopUps.createDecreaseEnergonPopUp(shrineBuildBtn.getMinNeededEnergonAmountForShrine()); // creating pop up window
             		animatedPopUps.createDecreaseCreditsPopUp(shrineBuildBtn.getMinNeededCreditsAmountForShrine()); // creating pop up window
 					playerbase.setCreditsAmount(playerbase.getCreditsAmount()-shrineBuildBtn.getMinNeededCreditsAmountForShrine()); // uzsetiname naujas reksmes 
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-shrineBuildBtn.getMinNeededEnergonAmountForShrine()); // uzsetiname naujas reksmes
 					playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
+					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerShrineAmountInLevel + 1;
+					playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(5);
 					shrineBuildBtn.canBuildAgain(true);
 					playerbase.setBuildingArea(false);
 					// buildDefensive.SetActive(false);
@@ -285,11 +299,13 @@ public class BuildArea : MonoBehaviour
 					for (int i = 0; i < changePosBuildings.Length; i++){
 						if(changePosBuildings[i].canChange){ // check again if button is already pressed
 							index = changePosBuildings[i].returnBtnIndex;
+							changePosBuildings[i].isInChangeMode = true;
 							//Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
 							//changePosBuildings[i].changePositionOfBuilding(buildpozition);
 						}
 					}
 					if (index != 0){ // index as additional check system
+						
 						var playerWorkers = FindObjectsOfType<Worker>(); // find all the workers on the map
 						for (int y = 0; y < playerWorkers.Length; y++)
 					   	{
@@ -301,11 +317,18 @@ public class BuildArea : MonoBehaviour
 								playerWorkers[y].setWorkerState(true); // workeris yra uzimtas
 							}
 						}
+						playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
 						playerbase.setBuildingArea(false);
+						for (int i = 0; i < changePosBuildings.Length; i++){
+							if((changePosBuildings[i].returnBtnIndex == index) && (changePosBuildings[i].isInChangeMode)){ // check again if button is already pressed
+								changePosBuildings[i].deactivateButton();	
+							}
+						}
 					}
 					else {
 						for (int i = 0; i < changePosBuildings.Length; i++){
 							if(changePosBuildings[i].canChange){ // check again if button is already pressed
+								changePosBuildings[i].isInChangeMode = false;
 								changePosBuildings[i].activateButton(); // activate and set back button text
 							}
 						}

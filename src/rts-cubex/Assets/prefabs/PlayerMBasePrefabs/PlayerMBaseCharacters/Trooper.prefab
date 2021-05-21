@@ -5505,7 +5505,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -5528,6 +5528,7 @@ MonoBehaviour:
   unitPosition: {fileID: 6896241092319077033}
   onItsWay: 0
   isHero: 0
+  isBloom: 0
   mainModel: {fileID: 0}
   lockMove: 0
 --- !u!114 &6262681847201353907
@@ -5608,16 +5609,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20753e51dd4510c428d4a449702068fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followPlayerInCombat: 0
   fireGun: {fileID: 864074275}
   secondFireGun: {fileID: 0}
-  scannerRadius: 20
+  scannerRadius: 30
   projectile: {fileID: 833446331802415920, guid: 77ef53da12353e342b06c0d87ea4a8ae,
     type: 3}
   launchForce: 100
   startAttacking: 0
   fireRate: 1
   targetName: enemy
-  targetTagNames: []
+  targetTagNames:
+  - enemytroop
   spottedEnemy: {fileID: 0}
 --- !u!114 &7736572773864075079
 MonoBehaviour:

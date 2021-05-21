@@ -11,15 +11,16 @@ public class move : MonoBehaviour
     [SerializeField] bool isBloom = false;
     [SerializeField] GameObject mainModel;
     [SerializeField] bool lockMove = false;
+    [SerializeField] bool isStory = false;
+    [SerializeField] string saveTag = "usave";
     private TroopAttack ta;
-    public bool LockMove { set { lockMove = value; } get { return lockMove; } }
-    public NavMeshAgent Agent { get { return agent; } }
-    [SerializeField] bool isGroup;
-    TroopGroupSelection canMove;
+    private bool needsCamp = true;
+    public bool LockMove { set {lockMove = value; } get {return lockMove; }}
+    public NavMeshAgent Agent {get {return agent; }}
+    public bool NeedsCamp { set {needsCamp = value;} get { return needsCamp; }}
+    public bool IsStory { set {isStory = value;} get { return isStory; }}
     void Start()
     {
-        if (isGroup)
-            canMove = GetComponent<TroopGroupSelection>();
         ta = GetComponent<TroopAttack>();
         agent = GetComponent<NavMeshAgent>();
         agent.Warp(transform.position);
@@ -27,20 +28,23 @@ public class move : MonoBehaviour
         var gs = FindObjectOfType<GameSession>();
         if (gs)
             gs.addTroopAmount(1);
-
-        if (!isHero && !isGroup)
+        
+        if (!isHero)
         {
-            var camps = GameObject.FindGameObjectsWithTag("Camp");
-            if (camps.Length > 0)
+            if (needsCamp)
             {
-                foreach (var item in camps)
+                var camps = GameObject.FindGameObjectsWithTag("Camp");
+                if (camps.Length > 0)
                 {
-                    var army = item.GetComponent<ArmyCamp>();
-                    if (army.Occupied < army.Capacity)
+                    foreach (var item in camps)
                     {
-                        agent.destination = item.transform.position;
-                        onItsWay = true;
-                        break;
+                        var army = item.GetComponent<ArmyCamp>();
+                        if (army.Occupied < army.Capacity)
+                        {
+                            agent.destination = item.transform.position;
+                            onItsWay = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -48,30 +52,32 @@ public class move : MonoBehaviour
     }
     void Update()
     {
+        if (isStory)
+        {
+            if (gameObject.tag != saveTag)
+            {
+                var playerBase = FindObjectOfType<Base>();
+                if (playerBase)
+                {
+                    playerBase.addPlayerTroopsAmount(1);
+                    isStory = false;
+                }
+            }
+        }
         if (!lockMove)
             unitMove();
     }
     private void unitMove()
-    {
-        if (isGroup)
+    {        
+        if (!click.GetSelected())
         {
-            if (!canMove.GetSelected())
-            {
-                return;
-            }
-        }
-        else
-        {
-            if (!click.GetSelected())
-            {
-                return;
-            }
+            return;
         }
         // Checking when to stop the moving unit
         if (agent.velocity.magnitude > 0f)
         {
-            // ta.LockFire = true;
-            // print("Unit is moving");
+           // ta.LockFire = true;
+           // print("Unit is moving");
             if (agent.remainingDistance < 1f)
             {
                 //ta.LockFire = false;
@@ -79,14 +85,14 @@ public class move : MonoBehaviour
             }
             //print(agent.remainingDistance);
         }
-
-
+        
+       
         if (Input.GetMouseButtonDown(0))
         {
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("LvlMap")))
                 {
                     if (isBloom && hit.transform.gameObject.tag == "maphole")
                     {
@@ -102,7 +108,7 @@ public class move : MonoBehaviour
                         agent.SetDestination(hit.point);
                         if (mainModel)
                             mainModel.transform.position = transform.position;
-                        //mainModel.transform.position = hit.point;
+                            //mainModel.transform.position = hit.point;
                     }
                     else
                     {
@@ -127,6 +133,6 @@ public class move : MonoBehaviour
         onItsWay = isOnWay;
     }
 
-
+    
 
 }

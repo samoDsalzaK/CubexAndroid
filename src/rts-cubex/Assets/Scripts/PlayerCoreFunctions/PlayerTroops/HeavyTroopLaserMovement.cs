@@ -5,16 +5,25 @@ using UnityEngine;
 public class HeavyTroopLaserMovement : MonoBehaviour {
     Rigidbody laserMove;
     private Research damage;
+    [SerializeField] float lifeTime = 7f;
     [SerializeField] float thrust = 2f;
     [SerializeField] int defaultDamage=10;
     [SerializeField] ResearchConf oBGResearch;
     [SerializeField] string [] enemyTags;
+    private TaskTimer tt;
     void Start () {
         laserMove = GetComponent<Rigidbody> ();
+        tt = GetComponent<TaskTimer>();
+        tt.startTimer(lifeTime);
         //if (FindObjectOfType<Research> () != null) {
         //damage = FindObjectOfType<Research> ();}
     }
     void Update () {
+        if (tt.FinishedTask)
+        {
+            Destroy(gameObject);
+        }
+
         laserMove.velocity = transform.TransformDirection (new Vector3 (0f, 0f, thrust));
     }
     private void OnTriggerEnter (Collider other) {

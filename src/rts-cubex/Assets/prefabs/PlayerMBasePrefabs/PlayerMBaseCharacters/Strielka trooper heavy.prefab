@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8966758937274717865}
   - component: {fileID: 6053705760785091143}
   - component: {fileID: 3190202037935933648}
+  - component: {fileID: -4162506459769853751}
   m_Layer: 20
   m_Name: Strielka trooper heavy
   m_TagString: Arrow
@@ -58,6 +59,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -134,6 +136,21 @@ MonoBehaviour:
   - EBWorker
   - EBBarracks
   - EmDefBody
+--- !u!114 &-4162506459769853751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833446331802415920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a0a15fafb4bcc41aa1cab5dfe0d8ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startCountdown: 0
+  finishedTask: 0
+  timeStart: 5
 --- !u!1 &7614149247643207518
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,8 +190,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7614149247643207518}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 2
   m_Range: 10

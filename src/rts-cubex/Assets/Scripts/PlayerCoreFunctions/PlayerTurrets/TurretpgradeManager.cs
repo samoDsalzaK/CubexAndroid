@@ -22,10 +22,10 @@ public class TurretpgradeManager : MonoBehaviour
     private TurretHealth turretHealth;
     private ResearchLevel researchLevel;
     private TurretFire turretFire;
-    [SerializeField] int playerScoreEarned = 5;
     PanelManager panelManager;
     createAnimatedPopUp animatedPopUps;
     [SerializeField] GameObject selectionCanvas;
+    changePosition changePos;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,10 +43,17 @@ public class TurretpgradeManager : MonoBehaviour
         turretFire = GetComponent<TurretFire>(); 
         panelManager = GetComponent<PanelManager>();
         animatedPopUps = playerbase.GetComponent<createAnimatedPopUp>();
+        changePos = GetComponent<changePosition>();
     }
     // Update is called once per frame
     void Update()
     {
+        if(turretHealth.getCurrentTurretHealth() <= 0)
+        {
+			playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel - 1;
+			playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(4);
+            Destroy(gameObject);
+        }
         turretUpgrageBtText.text = "Upgrade Turret to level " + (turretLevel + 1) + "\n" + "(" + minNeedCreditsAmountForTurretUpgrade + " credits & " + minNeedEnergonAmountForTurretUpgrade + " energon)";
         turretLevelText.text = "Turret Level : " + turretLevel;
         turretDamagePoints.text = "Damage Points : " + turretFire.getDamage();
@@ -74,6 +81,7 @@ public class TurretpgradeManager : MonoBehaviour
             turretHealthPoins.text = "Health " + turretHealth.getCurrentTurretHealth() + " / " + turretHealth.getTurretHealth();
             turretDamagePoints.text = "Damage Points : " + turretFire.getDamage();
             // deactivate other building panels
+            changePos.setDefaultValues();
             panelManager.changeStatusOfAllPanels();
         }
         
@@ -99,8 +107,6 @@ public class TurretpgradeManager : MonoBehaviour
             return;
         }
 
-        var playerScorePoints = FindObjectOfType<GameSession>(); 
-
       switch (researchLevel.getBaseResearchLevel())
       {
         case 1 :
@@ -108,10 +114,6 @@ public class TurretpgradeManager : MonoBehaviour
         {
         turretUpgradeBtn.interactable = true;
         turretUpgrade();
-           if(playerScorePoints != null)
-            {
-              playerScorePoints.AddPlayerScorePoints(playerScoreEarned); 
-            }
         }
         if(turretLevel >= 2)
         {
@@ -124,10 +126,6 @@ public class TurretpgradeManager : MonoBehaviour
         {
         turretUpgradeBtn.interactable = true;
         turretUpgrade();
-           if(playerScorePoints != null)
-           {
-              playerScorePoints.AddPlayerScorePoints(playerScoreEarned * 2); 
-           }
         }
         if(turretLevel >= 4)
         {
@@ -140,10 +138,6 @@ public class TurretpgradeManager : MonoBehaviour
         {
         turretUpgradeBtn.interactable = true;
         turretUpgrade();
-           if(playerScorePoints != null)
-           {
-             playerScorePoints.AddPlayerScorePoints(playerScoreEarned * 3); 
-           }
         }
         if(turretLevel >= 6)
         {
@@ -156,10 +150,6 @@ public class TurretpgradeManager : MonoBehaviour
         {
         turretUpgradeBtn.interactable = true;
         turretUpgrade();
-           if(playerScorePoints != null)
-           {
-               playerScorePoints.AddPlayerScorePoints(playerScoreEarned * 4); 
-           }
         }
         if(turretLevel >= 8)
         {
@@ -172,10 +162,6 @@ public class TurretpgradeManager : MonoBehaviour
         {
         turretUpgradeBtn.interactable = true;
         turretUpgrade();
-           if(playerScorePoints != null)
-           {
-               playerScorePoints.AddPlayerScorePoints(playerScoreEarned * 5); 
-           }
         }
         if(turretLevel >= 10)
         {
@@ -197,6 +183,7 @@ public class TurretpgradeManager : MonoBehaviour
     minNeedEnergonAmountForTurretUpgrade += 20; // testinis varinatas
     turretUpgradeHPAmount += 15;
     turretFire.setDamagePoints(turretFire.getDamage() + turretUpgradeDamageAmount);
+    playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureUpgrade("turret", turretLevel);
     }
     public int getTurretLevel()
     {

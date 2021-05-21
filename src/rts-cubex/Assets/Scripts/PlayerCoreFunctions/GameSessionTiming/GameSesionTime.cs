@@ -8,6 +8,8 @@ public class GameSesionTime : MonoBehaviour
     [SerializeField] Text counterText;
     [SerializeField] float seconds;
     [SerializeField] float minutes;
+    [SerializeField] float maxSeconds = 0;
+    [SerializeField] float maxMinutes = 0;
     [SerializeField] bool isTimeFinished = false;
     //[SerializeField] float maxMinutes;
     [SerializeField] bool isTimeUnlimited = false;
@@ -15,21 +17,29 @@ public class GameSesionTime : MonoBehaviour
     //float currentValue; // variable to store current level time
     float totalTimeToAdd = 0f;
     CubexWindowManager cubexWindowManager;
+    public bool IsTimeFinished {set {isTimeFinished = value; } get {return isTimeFinished; }}
     // Update is called once per frame
     void Start(){
-        if (!isTimeUnlimited){
-            startingTime = minutes * 60f + seconds;
-            StartCoroutine(StartCountDown(startingTime));
-        }
+        // if (!isTimeUnlimited){
+        //     startingTime = minutes * 60f + seconds;
+        //     StartCoroutine(StartCountDown(startingTime));
+        // }
     }
     void Update()
     {
         // for unlimited level time 
-        if (isTimeUnlimited)
+        if (!isTimeFinished)
         {
             seconds = (int)(Time.timeSinceLevelLoad % 60f);
             minutes = (int)(Time.timeSinceLevelLoad / 60f) % 60;
             counterText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+        }
+        if (!isTimeUnlimited)
+        {
+            if (maxSeconds <= seconds && maxMinutes <= minutes)
+            {
+                isTimeFinished = true;
+            }
         }
     }
 

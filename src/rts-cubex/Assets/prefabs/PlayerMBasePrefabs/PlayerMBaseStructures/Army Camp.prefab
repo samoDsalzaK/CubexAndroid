@@ -1559,6 +1559,7 @@ GameObject:
   - component: {fileID: 4287787477462452463}
   - component: {fileID: 7484226736955348664}
   - component: {fileID: 7490847877929801882}
+  - component: {fileID: 6505829266066105195}
   m_Layer: 25
   m_Name: Army Camp
   m_TagString: Camp
@@ -1631,6 +1632,8 @@ MonoBehaviour:
   errorWorkerIssue2: {fileID: 7553164012414799029}
   errorForChangingPos: {fileID: 8774951871399564509}
   btnIndex: 7
+  changePosBuildingIndex: 2
+  defaultMaterial: {fileID: 2100000, guid: adf2b95d884a12a4f80e01ef452affdf, type: 2}
 --- !u!114 &4287787477462452463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,6 +1678,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b276bca288fed84fa609005a559932c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6505829266066105195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5614507205875969898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ada00a1452d723408432363d26d5b39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthOfStructureOriginal: 200
+  health: 200
+  healthOfBuilding: {fileID: 7512326542576357045}
+  healthBarForeground: {fileID: 7512326543149621730}
+  healthBarBackground: {fileID: 7512326542463498214}
+  regenerateHpAmount: 0
+  maxShield: 1000
+  shieldHealth: 0
+  shieldForeground: {fileID: 7512326543277101870}
+  shieldBackground: {fileID: 7512326541779089467}
 --- !u!1 &5703329079917210052
 GameObject:
   m_ObjectHideFlags: 0

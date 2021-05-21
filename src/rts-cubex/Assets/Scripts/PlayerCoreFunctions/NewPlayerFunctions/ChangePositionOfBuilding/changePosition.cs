@@ -14,25 +14,72 @@ public class changePosition : MonoBehaviour
     [SerializeField] GameObject errorWorkerIssue2;
     [SerializeField] GameObject errorForChangingPos;
     [SerializeField] int btnIndex;
+    [SerializeField] int changePosBuildingIndex;
     bool isPressed = false;
 
     public bool canChange {get{return isPressed;}set{isPressed = value;}}
 
     public int returnBtnIndex {get{return btnIndex;}}
 
+    public int returnChangePosBuildingIndex{get{return changePosBuildingIndex;}}
+
     private Base playerbase;
 
     private LocalPanelManager localPanelManager;
 
     private PanelManager panelManager; 
+
+    private int clickCount = 0;
+
+    [SerializeField] Material defaultMaterial;
+
+    bool isInChangePosMode = false; // variable which will say if there is building in change pos mode
+
+    public bool isInChangeMode {get {return isInChangePosMode;} set {isInChangePosMode = value;}}
    
     void Start (){
-        //
+        if(FindObjectOfType<Base>() == null)
+        {
+           return;
+        }
+        else
+        {
+            playerbase = FindObjectOfType<Base>();
+        }
+        changePosBtnText.text = "Change Position";
     }
 
 
     void Update (){
         //
+    }
+
+    public void setDefaultValues(){
+        //Debug.Log("Here");
+        if (isInChangePosMode){
+            return;
+        }
+        else{
+            changePosBtnText.text = "Change Position";
+            //playerbase.setBuildingArea(false);
+            //clickCount = 0;
+            isPressed = false;
+            //Debug.Log("Here");
+            if(gameObject.GetComponent<Renderer>() != null){
+                //Debug.Log("Here");
+                gameObject.GetComponent<Renderer>().material = defaultMaterial;
+            }
+            else{
+                //Debug.Log("Here");
+                Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
+                foreach (Transform t in ts) {
+                    if(t.gameObject.GetComponent<Renderer>() != null)
+                    {
+                        t.gameObject.GetComponent<Renderer>().material = defaultMaterial; // setting default building colour
+                    }
+                } 
+            }
+        }   
     }
     
     
@@ -73,7 +120,7 @@ public class changePosition : MonoBehaviour
         var changePosBuildings = FindObjectsOfType<changePosition>();
         if(changePosBuildings != null){
             for (int i = 0; i < changePosBuildings.Length; i++){
-                if(changePosBuildings[i].canChange){
+                if(changePosBuildings[i].isInChangeMode){
                     Debug.Log("Can not change, because other building is in change position mode");
                     if(localPanelManager != null){
                         localPanelManager.deactivatePanels();
@@ -84,8 +131,7 @@ public class changePosition : MonoBehaviour
                 }
             }
         }
-        isPressed = true;
-        playerbase.setBuildingArea(true);
+        
         Color changeColour = new Color32(255,0, 13, 100);
         if(gameObject.GetComponent<Renderer>() != null){
             gameObject.GetComponent<Renderer>().material.SetColor("_Color", changeColour); // change building colour when it is seleted for position change
@@ -99,25 +145,46 @@ public class changePosition : MonoBehaviour
                 }
             }
         }
-        changePos.interactable = false;
-        changePosBtnText.text = "Select place";
+        // change button activity
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(changePosBuildingIndex);
+        if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(changePosBuildingIndex)){
+            playerbase.setBuildingArea(true);
+            isPressed = true;
+            changePosBtnText.text = "Select place";
+            //clickCount = 1;
+        }
+        else{
+            isPressed = false;
+            changePosBtnText.text = "Change Position";
+            playerbase.setBuildingArea(false);
+            //clickCount = 0;
+            if(gameObject.GetComponent<Renderer>() != null){
+                gameObject.GetComponent<Renderer>().material = defaultMaterial;
+            }
+            else{
+               Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
+                foreach (Transform t in ts) {
+                    if(t.gameObject.GetComponent<Renderer>() != null)
+                    {
+                        t.gameObject.GetComponent<Renderer>().material = defaultMaterial; // setting default building colour
+                    }
+                } 
+            }
+        }
     }
     
 
     public void destroyGameObject(){
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(changePosBuildingIndex);
         Destroy(gameObject);
     }
-
-    /*public void changePositionOfBuilding(Vector3 pos){
-        building.transform.position = pos;
-        playerbase.setBuildingArea(false);
-        changePos.interactable = true;
-        changePosBtnText.text = "Change position";
-        isPressed = false;
-    }*/
 
     public void activateButton(){
         changePos.interactable = true;
         changePosBtnText.text = "Change position";
+    }
+
+    public void deactivateButton(){
+        changePos.interactable = false;
     }
 }

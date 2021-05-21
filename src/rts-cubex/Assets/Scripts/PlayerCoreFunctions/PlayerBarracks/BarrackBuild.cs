@@ -20,6 +20,7 @@ public class BarrackBuild : MonoBehaviour
     //Button variable, which will used for disablying when the user clicked on the barracks construction button
     [SerializeField] Button buildBarrackBtn;
     [SerializeField] Text buttonText;
+    [SerializeField] Text availableBarracksText;
     private Base playerbase;
     [SerializeField] int minNeededEnergonAmount;
     [SerializeField] int minNeededCreditsAmount;
@@ -34,16 +35,30 @@ public class BarrackBuild : MonoBehaviour
            playerbase = FindObjectOfType<Base>();
         }
        buttonText.text = "Create Troops Barrack\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+       availableBarracksText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBarrackAmountInLevel;
     }  
     private void Update() {
-
+        // check for current build button state and apply text changes
+        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(1)){
+            structureBuilt = true;
+        }
         //Checks if the barracks structure is built in the base
         if (structureBuilt)
         {
-             buildBarrackBtn.interactable = true;
-             buttonText.text = "Create Troops Barrack\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
-             canBuildBarrack = false;
-             structureBuilt = false;
+            if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBarrackAmountInLevel){
+                buttonText.text = "Troops Barrack\n" + "Max amount reached";
+                availableBarracksText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBarrackAmountInLevel;
+                buildBarrackBtn.interactable = false;
+                canBuildBarrack = false;
+                structureBuilt = false;
+            }
+            else{
+                buildBarrackBtn.interactable = true;
+                availableBarracksText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBarrackAmountInLevel;
+                buttonText.text = "Create Troops Barrack\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+                canBuildBarrack = false;
+                structureBuilt = false;
+            }
         }
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
@@ -76,15 +91,21 @@ public class BarrackBuild : MonoBehaviour
         playerbase.setResourceAMountScreenState(true);    
         return; 
         }
-        playerbase.setBuildingArea(true);
-        //State variable is setted to true, which means that the button is clicked
-        canBuildBarrack = true;
-        //Button interaction state is setted to false
-        buildBarrackBtn.interactable = false;
-        buttonText.text = "Select Build Site";  
-        //Add button locking system...
-        //Like showing the text which says place the barracks object in the base area
-        //Debug.Log("Select a place where to build a barrack.");
+        // change button activity
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(1);
+        if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(1)){
+            playerbase.setBuildingArea(true);
+            //State variable is setted to true, which means that the button is clicked
+            canBuildBarrack = true;
+            //buildArmyCampBtn.interactable = false;
+            buttonText.text = "Select Place";  
+        }
+        else{
+            //State variable is setted to true, which means that the button is clicked
+            canBuildBarrack = false;
+            structureBuilt = true; 
+            playerbase.setBuildingArea(false);
+        }
     }
 
     public bool buildBarrack()

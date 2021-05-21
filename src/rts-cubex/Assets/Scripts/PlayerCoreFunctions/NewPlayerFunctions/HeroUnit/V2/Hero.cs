@@ -48,7 +48,10 @@ public class Hero : MonoBehaviour
            var detectedDis = Vector3.Distance(hitCollider.gameObject.transform.position, heroPos.position);
       
            //Adding player troops if detected in the scanner range    
-           var playerTroopInRange = !isInUList(hitCollider.gameObject.name) && (hitCollider.tag == playerTroopTag && (hitCollider.gameObject.name.ToLower()).Contains("troop"));
+           var playerTroopInRange = (!isInUList(hitCollider.gameObject.name) && 
+                                                (hitCollider.tag == playerTroopTag && 
+                                                (hitCollider.gameObject.name.ToLower()).Contains("troop")))
+                                    && !hitCollider.gameObject.name.ToLower().Contains("heavy");
            if (playerTroopInRange)
            {               
                //print("Detected: " + hitCollider.gameObject.name + " at distance: " + detectedDis);

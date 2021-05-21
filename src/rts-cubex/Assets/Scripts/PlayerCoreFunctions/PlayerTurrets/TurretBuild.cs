@@ -19,6 +19,7 @@ public class TurretBuild : MonoBehaviour
     //Button variable, which will used for disablying when the user clicked on the barracks construction button
     [SerializeField] Button buildTurretBtn;
     [SerializeField] Text buttonText;
+    [SerializeField] Text availableTurretsText;
     private Base playerbase;
     [SerializeField] int minNeededEnergonAmountForTurret;//5
     [SerializeField] int minNeededCreditsAmountForTurret;//50
@@ -33,61 +34,80 @@ public class TurretBuild : MonoBehaviour
         {
            playerbase = FindObjectOfType<Base>();
         }
-    //    clickUndo.SetActive(false);
-       buttonText.text = "Create Turret\n" + "(" + minNeededEnergonAmountForTurret + " energon & " + minNeededCreditsAmountForTurret  + " credits)";
+    //  clickUndo.SetActive(false);
+        buttonText.text = "Create Turret\n" + "(" + minNeededEnergonAmountForTurret + " energon & " + minNeededCreditsAmountForTurret  + " credits)";
+		//Debug.Log(playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel);
+		availableTurretsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTurretAmountInLevel;
     }  
     private void Update() {
-
+		// check for current build button state and apply text changes
+        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(6)){
+            structureBuilt = true;
+        }
         //Checks if structure is built in the base
         if (structureBuilt)
         {
-             buildTurretBtn.interactable = true;
-             buttonText.text = "Create Turret\n" + "(" + minNeededEnergonAmountForTurret + " energon & " + minNeededCreditsAmountForTurret  + " credits)";
-             canBuildTurret = false;
-             structureBuilt = false;
+			if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTurretAmountInLevel){
+				availableTurretsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTurretAmountInLevel;
+				buttonText.text = "Turret\n" + "Max amount reached";
+				buildTurretBtn.interactable = false;
+				canBuildTurret = false;
+				structureBuilt = false;
+			}
+			else{
+				buildTurretBtn.interactable = true;
+				availableTurretsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerTurretAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerTurretAmountInLevel;
+				buttonText.text = "Create Turret\n" + "(" + minNeededEnergonAmountForTurret + " energon & " + minNeededCreditsAmountForTurret  + " credits)";
+				canBuildTurret = false;
+				structureBuilt = false;
+			}
         }
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
     public void buildTurretAction()
     {
-      // checks for workers on the map
-      if (playerbase.getworkersAmount() <= 0){
-         Debug.Log("Build worker first"); 
-         playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
-		   errorForWorker.SetActive(true);  
-         return;
-      }
-      // check if there are free workers on the map
-      var playerWorkers = FindObjectsOfType<Worker>(); // find all the workers on the map
-      var count = 0;
+		// checks for workers on the map
+		if (playerbase.getworkersAmount() <= 0){
+			Debug.Log("Build worker first"); 
+			playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
+			errorForWorker.SetActive(true);  
+			return;
+		}
+		// check if there are free workers on the map
+		var playerWorkers = FindObjectsOfType<Worker>(); // find all the workers on the map
+		var count = 0;
 		for (int y = 0; y < playerWorkers.Length; y++)
 			{
 				if(!playerWorkers[y].isWorkerAssigned()){ // find first free worker on the map
-               count ++;
+            	count ++;
             }
-         }
-      if (count == 0){
-         playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
-         errorForWorker2.SetActive(true);
-      }
-      // check for available resources
-      if (playerbase.getEnergonAmount() < minNeededEnergonAmountForTurret || playerbase.getCreditsAmount() < minNeededCreditsAmountForTurret) // patikrina esamus zaidejo resursus
-         {
+        }
+      	if (count == 0){
+         	playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
+         	errorForWorker2.SetActive(true);
+      	}
+      	// check for available resources
+      	if (playerbase.getEnergonAmount() < minNeededEnergonAmountForTurret || playerbase.getCreditsAmount() < minNeededCreditsAmountForTurret) // patikrina esamus zaidejo resursus
+        {
             playerbase.GetComponent<LocalPanelManager>().deactivatePanels();
             playerbase.setResourceAMountScreenState(true);    
             return; 
-         }
+        }
       
-        playerbase.setBuildingArea(true);
-     //   clickUndo.SetActive(true);
-        //State variable is setted to true, which means that the button is clicked
-        canBuildTurret = true;
-        //Button interaction state is setted to false
-        buildTurretBtn.interactable = false;
-        buttonText.text = "Select Place";  
-        //Add button locking system...
-        //Like showing the text which says place the barracks object in the base area
-        //Debug.Log("Select a place where to build a barrack.");
+	  	  // change button activity
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(6);
+        if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(6)){
+            playerbase.setBuildingArea(true);
+            //State variable is setted to true, which means that the button is clicked
+            canBuildTurret = true;
+            //buildArmyCampBtn.interactable = false;
+            buttonText.text = "Select Place";  
+        }
+        else{
+            canBuildTurret = false;
+            structureBuilt = true; 
+            playerbase.setBuildingArea(false);
+        }
     }
 
     public bool buildTurret()

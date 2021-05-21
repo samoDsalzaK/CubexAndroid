@@ -24,6 +24,8 @@ public class LootBox : MonoBehaviour
     private bool isBoxOpened = false;
 
     public int BoxType {set { boxType=value; } get { return boxType; }}
+    public int EnergonToAdd {set {energonToAdd = value;} get {return energonToAdd;}}
+    public int CreditsToAdd {set {creditsToAdd = value;} get {return creditsToAdd;}}
     enum Box{Energon, Credits};
     void Start()
     {       
@@ -69,8 +71,8 @@ public class LootBox : MonoBehaviour
                     if (playerBase.getEnergonAmount() + energonToAdd < playerBase.MaxBEnergon)
                     {
                         //Displaying add res info
-                       displayInfo(energonToAdd);
-
+                        displayInfo(energonToAdd);
+                        playerBase.GetComponent<PlayerScoring>().addScoreAfterOpenedLootBox();
                         playerBase.setEnergonAmount(playerBase.getEnergonAmount() + energonToAdd);
                         isBoxOpened = true;
                     }
@@ -90,7 +92,7 @@ public class LootBox : MonoBehaviour
                     {
                         //Displaying add res info
                         displayInfo(creditsToAdd);
-
+                        playerBase.GetComponent<PlayerScoring>().addScoreAfterOpenedLootBox();
                         playerBase.setCreditsAmount(playerBase.getCreditsAmount() + creditsToAdd);
                          isBoxOpened = true;
                     }
@@ -123,7 +125,7 @@ public class LootBox : MonoBehaviour
     private void displayInfo(int resAmount)
     {
         displayInfoCanvas.SetActive(true);
-        infoText.text = ("+" + creditsToAdd);
+        infoText.text = ("+" + resAmount);
         boxColor.a = 1f;
         infoText.color = boxColor;
     }

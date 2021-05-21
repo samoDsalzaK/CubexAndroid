@@ -108,8 +108,9 @@ public class Research : MonoBehaviour {
         }
         if(troopsResearchHealth.getHealth() <= 0)
         {
-          playerBase.setTroopsResearchCentreUnitAmount(playerBase.getTroopsResearchCentreUnitAmount() - 1);
-          Destroy(gameObject);
+            playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel = playerBase.GetComponent<setFidexAmountOfStructures>().changePlayerTroopsResearchAmountInLevel - 1;
+            playerBase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(7);
+            Destroy(gameObject);
         }
     }
 
@@ -243,6 +244,8 @@ public class Research : MonoBehaviour {
             StartCoroutine (Increase ());
             playerBase.setCreditsAmount (playerBase.getCreditsAmount () - researchCost);
             oBGResearch.setResearchLevel(1);
+            playerBase.GetComponent<PlayerScoring>().addScoreAfterStructureUpgrade("troopsResearch", oBGResearch.getResearchLevel());
+            Debug.Log(oBGResearch.getResearchLevel());
         } 
         else if (oBGResearch.getResearchLevel()>=maxResearchLevel){
             closeResearch ();

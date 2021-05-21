@@ -25,16 +25,23 @@ public class BuildMiningStation : MonoBehaviour
     }
     void Update()
     {
-        //Checks if there aare there any workers in the base area
-        if(playerbase.getworkersAmount() > 0 ) // man nereikia nes as turiu skaitliuka, kuris atsako uz visus laisvu workeriu kieki.
-        //if (FindObjectsOfType<Worker>().Length > 0)
-         canBuild = true;
+        if (playerbase)
+        {
+            //Checks if there aare there any workers in the base area
+            if(playerbase.getworkersAmount() > 0 ) // man nereikia nes as turiu skaitliuka, kuris atsako uz visus laisvu workeriu kieki.
+            //if (FindObjectsOfType<Worker>().Length > 0)
+            canBuild = true;
+        }
+        else
+        {
+            playerbase = FindObjectOfType<Base>();
+        }
     }
     void OnMouseDown() 
     {
         if(FindObjectOfType<CollectorBuild>() != null)
         {
-          collectorBuild = FindObjectOfType<CollectorBuild>();
+            collectorBuild = FindObjectOfType<CollectorBuild>();
         }
         else
         {

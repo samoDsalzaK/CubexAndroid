@@ -47,6 +47,8 @@ MonoBehaviour:
   counterText: {fileID: 0}
   seconds: 0
   minutes: 0
+  maxSeconds: 0
+  maxMinutes: 8
   isTimeFinished: 0
   isTimeUnlimited: 1
 --- !u!114 &6971076199858595212

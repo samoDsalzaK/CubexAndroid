@@ -48,10 +48,10 @@ MonoBehaviour:
   zoomSpeed: 25
   minZoomDistance: 10
   maxZoomDistance: 50
-  leftLimit: -150
-  rightLimit: 150
-  topLimit: 150
-  botLimit: -150
+  leftLimit: -300
+  rightLimit: 400
+  topLimit: 300
+  botLimit: -300
 --- !u!114 &3875708981714771145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +92,12 @@ PrefabInstance:
     - target: {fileID: 4648501448943564922, guid: ce381ccf7e6839347907aeb8e6ef42a3,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648501448943564922, guid: ce381ccf7e6839347907aeb8e6ef42a3,
+        type: 3}
+      propertyPath: m_radius
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 4648501448943564923, guid: ce381ccf7e6839347907aeb8e6ef42a3,
         type: 3}

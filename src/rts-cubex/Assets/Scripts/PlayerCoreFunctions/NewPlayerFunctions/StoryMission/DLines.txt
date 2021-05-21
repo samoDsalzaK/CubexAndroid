@@ -1,0 +1,42 @@
+Act 1
+[H]We are here men..\nTime for us to find alpha!
+
+[H]We need to be coutious. 
+Magister command reported, that the base lost transmission quickly. 
+Which means, the Borg might have attacked with a strong force.
+
+[H]As we go, let's scout the area to see if any survivors are somewhere nearby
+And if we find a working army camp, which is guarded by the enemy, let's try to 
+free it because it will aid us if we meet a strong opposition..
+
+[T]Sir! Yes! sir!
+
+[H]Let's go! Move it men!
+
+[T]Sir! look b's dead ahead!
+
+[H]Let's take every borg we find on the way before they report to their leadership!
+
+Act 2[Bonus]
+
+[TS]Thank you! you are omega squad. The greatest squad from the Terran military. 
+May we join you to retake the base? We were chased away from the base. They came
+out of nowhere!.
+[H]You are saved. You can join our squad in order to retake the base.
+[TS] Thank you. We are in your debt.
+
+Act 3
+[H]We have found alpha. But wait the base seems to have functional military gear 
+but we can't use it because the energon and credits reserves are stolen. Let's scout 
+The area for stolen storage boxes. We will need them to retore the base resource reserves, 
+which the the military gear requires. If the enemy will do a quick retaliation and try to box
+us in we need to ready.
+
+Act 4
+[H]We did it!
+[T]Sir! We intercepted encrypted enemy chatter.. We walked into a trap! They are sending some of their
+forces to takes us out with the base!
+[H]Let's fight with every resources we have! We are omega squad! Omega squad fight! Plan delta 72!
+
+Act 5
+[H]We did it! the base is secured and the mission is completed!
