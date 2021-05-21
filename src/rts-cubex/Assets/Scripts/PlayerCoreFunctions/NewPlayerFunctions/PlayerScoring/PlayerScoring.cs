@@ -187,25 +187,37 @@ public class PlayerScoring : MonoBehaviour
 
     // func for adding score points after enemy destroyment
     public void addScoreAfterEnemyDestoy(){
-        gameSession.AddPlayerScorePoints(pointsEarnedForEnemyDestoyment);
-        animatedPopUps.createAddPlayerScorePointsPopUp(pointsEarnedForEnemyDestoyment);
+        if (gameSession)
+        {
+            gameSession.AddPlayerScorePoints(pointsEarnedForEnemyDestoyment);
+            animatedPopUps.createAddPlayerScorePointsPopUp(pointsEarnedForEnemyDestoyment);
+        }
     }
 
     // func for adding score points after enemy destroyment
     public void addScoreAfterEnemyBaseDestoy(){
-        gameSession.AddPlayerScorePoints(pointsEarnedForEnemyBaseDestoyment);
-        animatedPopUps.createAddPlayerScorePointsPopUp(pointsEarnedForEnemyBaseDestoyment);
+        if (gameSession)
+        {
+            gameSession.AddPlayerScorePoints(pointsEarnedForEnemyBaseDestoyment);
+            animatedPopUps.createAddPlayerScorePointsPopUp(pointsEarnedForEnemyBaseDestoyment);
+        }
     }
 
     // func for adding score after hero unit creation
     public void addScoreAfterHeroCreation(){
-        gameSession.AddPlayerScorePoints(pointsEarnedForHeroCreation);
-        animatedPopUps.createAddPlayerScorePointsPopUp(pointsEarnedForHeroCreation);
+        if (gameSession)
+        {
+            gameSession.AddPlayerScorePoints(pointsEarnedForHeroCreation);
+            animatedPopUps.createAddPlayerScorePointsPopUp(pointsEarnedForHeroCreation);
+        }
     }
 
     // func for addding score after opened loot box
     public void addScoreAfterOpenedLootBox(){
-        gameSession.AddPlayerScorePoints(pointsEarnedForLootBox);
-        animatedPopUps.createAddPlayerScorePointsPopUp(pointsEarnedForLootBox);
+        if (gameSession)
+        {
+            gameSession.AddPlayerScorePoints(pointsEarnedForLootBox);
+            animatedPopUps.createAddPlayerScorePointsPopUp(pointsEarnedForLootBox);
+        }
     }
 }

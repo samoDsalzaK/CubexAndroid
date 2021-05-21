@@ -6,6 +6,7 @@ public class Base : MonoBehaviour
 {
     [SerializeField] bool isDeactivated = false;
     [Header("Main Base tool display parameters")]
+    [SerializeField] GameObject playerScoreCountWindow;
     [SerializeField] GameObject Screen; // this GameObject variable for saving main base panel
     [SerializeField] GameObject ResourceAmountScreen;// this is the screen which will apear when player will not have enough resources to build game structure; 
     [SerializeField] GameObject ResourcesAmountScreenForUpgrades; // this Error screen for upgrades when player does not have enough resources
@@ -142,7 +143,10 @@ public class Base : MonoBehaviour
 		GetComponent<changeSkinManager>().onStartSkinSelectionPopUp();
     	playerScoring = GetComponent<PlayerScoring>();
 		gameSession = FindObjectOfType<GameSession>();
-		currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
+    if (!gameSession)
+      playerScoreCountWindow.SetActive(false);
+    if (gameSession)
+		  currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
     }
     // Update is called once per frame
     void Update()
@@ -262,7 +266,8 @@ public class Base : MonoBehaviour
         {
             upgradeBaseButtonText.text = "You have reached max level";
         }
-		currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
+        if (gameSession)
+		      currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
     }
     void OnMouseDown()
     {
