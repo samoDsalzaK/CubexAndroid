@@ -239,7 +239,7 @@ public class Research : MonoBehaviour {
     }
     public void increaseResearch () {
         if ((playerBase.getCreditsAmount () >= researchCost)&&(oBGResearch.getResearchLevel()<maxResearchLevel)) {
-            animatedPopUps.createDecreaseCreditsPopUp(researchCost);
+            // animatedPopUps.createDecreaseCreditsPopUp(researchCost);
             StartCoroutine (Increase ());
             playerBase.setCreditsAmount (playerBase.getCreditsAmount () - researchCost);
             oBGResearch.setResearchLevel(1);
