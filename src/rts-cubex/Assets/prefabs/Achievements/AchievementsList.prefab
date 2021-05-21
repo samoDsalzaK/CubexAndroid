@@ -727,7 +727,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Achievements completed
 
-    (Scirmish)'
+    (Skirmish)'
 --- !u!1 &5726195766358242199
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,7 +745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5726195766358242152
 RectTransform:
   m_ObjectHideFlags: 0

@@ -267,11 +267,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AchievementsList
       objectReference: {fileID: 0}
-    - target: {fileID: 5726195766358242199, guid: 3c124013b4a33ad4aaba97cade9893c9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c124013b4a33ad4aaba97cade9893c9, type: 3}
 --- !u!114 &1080846263 stripped
