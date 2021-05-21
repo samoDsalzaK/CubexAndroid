@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 2578317416514862203}
   m_Layer: 0
   m_Name: Research Troops center
-  m_TagString: PlayerBase
+  m_TagString: TroopsResearch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -753,6 +753,8 @@ MonoBehaviour:
   errorWorkerIssue2: {fileID: 4374515022430053105}
   errorForChangingPos: {fileID: 6816630072039104781}
   btnIndex: 4
+  changePosBuildingIndex: 4
+  defaultMaterial: {fileID: 2100000, guid: e03094d788ab6a44e915538cdd2ad9e4, type: 2}
 --- !u!114 &3393487943254005360
 MonoBehaviour:
   m_ObjectHideFlags: 0

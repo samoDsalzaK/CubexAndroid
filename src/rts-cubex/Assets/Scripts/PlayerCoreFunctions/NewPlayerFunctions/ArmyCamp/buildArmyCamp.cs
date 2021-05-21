@@ -17,6 +17,7 @@ public class buildArmyCamp : MonoBehaviour
     //Button variable, which will used for disablying when the user clicked on the barracks construction button
     [SerializeField] Button buildArmyCampBtn;
     [SerializeField] Text buttonText;
+    [SerializeField] Text availableArmyCampsText;
     private Base playerbase;
     [SerializeField] int minNeededEnergonAmount;
     [SerializeField] int minNeededCreditsAmount;
@@ -31,19 +32,34 @@ public class buildArmyCamp : MonoBehaviour
         {
            playerbase = FindObjectOfType<Base>();
         }
-       buttonText.text = "Create Army Camp\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+        buttonText.text = "Create Army Camp\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+        availableArmyCampsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerArmyCampAmountInLevel;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // check for current build button state and apply text changes
+        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(2)){
+            structureBuilt = true;
+        }
         //Checks if the barracks structure is built in the base
         if (structureBuilt)
         {
-            buildArmyCampBtn.interactable = true;
-            buttonText.text = "Create Army Camp\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
-            canBuildArmyCamp = false;
-            structureBuilt = false;
+            if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerArmyCampAmountInLevel){
+                availableArmyCampsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerArmyCampAmountInLevel;
+                buttonText.text = "Army Camp\n" + "Max amount reached";
+                buildArmyCampBtn.interactable = false;
+                canBuildArmyCamp = false;
+                structureBuilt = false; 
+            }
+            else{
+                buildArmyCampBtn.interactable = true;
+                availableArmyCampsText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerArmyCampAmountInLevel;
+                buttonText.text = "Create Army Camp\n" + "(" + minNeededEnergonAmount + " energon & " +  minNeededCreditsAmount + " credits)";
+                canBuildArmyCamp = false;
+                structureBuilt = false; 
+            }
         }
     }
 
@@ -76,12 +92,21 @@ public class buildArmyCamp : MonoBehaviour
             playerbase.setResourceAMountScreenState(true);    
             return; 
         }
-        playerbase.setBuildingArea(true);
-        //State variable is setted to true, which means that the button is clicked
-        canBuildArmyCamp = true;
-        //Button interaction state is setted to false
-        buildArmyCampBtn.interactable = false;
-        buttonText.text = "Select Build Site";  
+        // change button activity
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(2); // true
+        if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(2)){
+            playerbase.setBuildingArea(true);
+            //State variable is setted to true, which means that the button is clicked
+            canBuildArmyCamp = true;
+            //buildArmyCampBtn.interactable = false;
+            buttonText.text = "Select Place";  
+        }
+        else{
+            canBuildArmyCamp = false;
+            structureBuilt = true; 
+            playerbase.setBuildingArea(false);
+        }
+        
     }
 
     public bool armyCampBuildState()

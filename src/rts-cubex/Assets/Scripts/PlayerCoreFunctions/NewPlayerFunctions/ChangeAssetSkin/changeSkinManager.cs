@@ -49,6 +49,8 @@ public class changeSkinManager : MonoBehaviour
     [SerializeField] Sprite Ice;
     [SerializeField] Sprite Earth;
 
+    [SerializeField] Image currentPlayerScoreImage;
+
     // getter and setter for troop counters\
     // when upgrading troop level in research center, set this counter to 0!
     int changeLightTroopCount {set {LightTroopsAmountCount=value;} get {return LightTroopsAmountCount;}}
@@ -180,6 +182,7 @@ public class changeSkinManager : MonoBehaviour
                             }
                         }
                     }
+                    currentPlayerScoreImage.GetComponent<UnityEngine.UI.Image>().color  = changeColour;
                 }
                 Debug.Log("Pyro asset skin applied");
                 break;
@@ -207,6 +210,7 @@ public class changeSkinManager : MonoBehaviour
                         gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
                         Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                         Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                        currentPlayerScoreImage.GetComponent<UnityEngine.UI.Image>().color  = changeColour;
                         break;
                     }
                     else if (gameObject.tag == "Worker"){
@@ -282,6 +286,7 @@ public class changeSkinManager : MonoBehaviour
                         gameObject.GetComponent<HealthOfRegBuilding>().setHealth(gameObject.GetComponent<HealthOfRegBuilding>().getHealth() + (int)finalHealthToAdd);
                         Debug.Log(gameObject.tag + " Building health to add " + finalHealthToAdd);
                         Debug.Log(gameObject.tag + " Modified building health " + gameObject.GetComponent<HealthOfRegBuilding>().getHealthOfStructureOriginal());
+                        currentPlayerScoreImage.GetComponent<UnityEngine.UI.Image>().color  = changeColour;
                         break;
                     }
                     else if (gameObject.tag == "Worker"){

@@ -28,14 +28,33 @@ public class ArmyCamp : MonoBehaviour
     public   int  EnemyCount {get { return enemyCount; }}
     public  bool  EnemyNear { set { enemyNear = value; } get { return enemyNear; }}
     public  bool  StoryMode { set { storyMode = value; } get { return storyMode; }}
+
+    HealthOfRegBuilding armyCampHealth;
+
+    Base playerbase;
+
     void Start()
     {
         group = new List<GameObject>();
         textBar.SetActive(false);
         panelManager = GetComponent<PanelManager>();
+        armyCampHealth = GetComponent<HealthOfRegBuilding>();
+        if(FindObjectOfType<Base>() == null)
+        {
+            return;
+        }
+        else{
+            playerbase = FindObjectOfType<Base>();
+        }
     }
     void Update()
     {
+        if(armyCampHealth.getHealth() <= 0)
+        {
+			playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerArmyCampAmountInLevel - 1;
+			playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(2);
+            Destroy(gameObject);
+        }
         var camps = GameObject.FindGameObjectsWithTag("Camp");
         if (camps.Length > 0)
         {

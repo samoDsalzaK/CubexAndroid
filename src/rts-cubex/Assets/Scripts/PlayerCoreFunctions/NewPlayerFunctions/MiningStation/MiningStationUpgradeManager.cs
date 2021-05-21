@@ -25,7 +25,7 @@ public class MiningStationUpgradeManager : MonoBehaviour
     private Base playerbase;
 
     // Health type variable
-    private HealthOfRegBuilding miningStationHealth;
+    HealthOfRegBuilding miningStationHealth;
 
     // button handler type varibale
     private buttonHadler button_Hadler;
@@ -59,6 +59,15 @@ public class MiningStationUpgradeManager : MonoBehaviour
     void Update()
     {
         miningStationHealthText.text = "Mining station health : " + miningStationHealth.getHealth() + " / " + miningStationHealth.getHealthOfStructureOriginal();
+        /*if(miningStationHealth.getHealth() <= 0)
+        {
+			playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel - 1;
+			Debug.Log(playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel);
+            //Debug.Log(playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel);
+            playerbase.GetComponent<setFidexAmountOfStructures>().changeBuildStructureButton(8);
+            //Destroy(gameObject);
+            //Debug.Log("Destroyed");
+        }*/
     }
     
     public void updateText(){
@@ -108,6 +117,8 @@ public class MiningStationUpgradeManager : MonoBehaviour
             miningStationHealth.setHealthOfStructureOriginal(miningStationHealth.getHealthOfStructureOriginal() + upgradeHpAmount[miningStationLevel-1]);
             // increase structure level
             miningStationLevel++;
+            // adding player score
+            playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureUpgrade("creditsMiningStation", miningStationLevel);
             // unlocking next credits mining slot 
             button_Hadler.unlockBtn(miningStationLevel);
             button_Hadler.setButtonTextBack(miningStationLevel, miningStation.changeTimeNeedForMining[miningStationLevel-1]);

@@ -16,6 +16,7 @@ public class MiningStationBuild : MonoBehaviour
     //Button variable, which will used for disablying when the user clicked on the barracks construction button
     [SerializeField] Button buildMiningStationBtn;
     [SerializeField] Text buttonText;
+    [SerializeField] Text availableCreditsMiningStationText;
 	[SerializeField] GameObject errorForWorker; // panel will pop up if there are no active workers on the map
     [SerializeField] GameObject errorWorkerIssue2;
     //boolean variable for indicating when the user can build a barracks structure
@@ -28,7 +29,7 @@ public class MiningStationBuild : MonoBehaviour
    // [SerializeField] GameObject clickUndo;
     private void Start() 
     {
-      if(FindObjectOfType<Base>() == null)
+        if(FindObjectOfType<Base>() == null)
         {
            return;
         }
@@ -37,22 +38,36 @@ public class MiningStationBuild : MonoBehaviour
            playerbase = FindObjectOfType<Base>();
         }
     	//    clickUndo.SetActive(false);
-       	buttonText.text = "Build Crypto Energon\n mining station\n" + "(" + minNeededEnergonAmountForMiningStation + " energon & " + minNeededCreditsAmountForMiningStation  + " credits)";
+       	buttonText.text = "Build Credits\n mining station\n" + "(" + minNeededEnergonAmountForMiningStation + " energon & " + minNeededCreditsAmountForMiningStation  + " credits)";
+        availableCreditsMiningStationText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerCreditsMiningStationAmountInLevel;
 	    creditsLeft.text = "Credits left : " + playerbase.getCreditsAmount();
         energonLeft.text = "Energon left : " + playerbase.getEnergonAmount();
     }  
     private void Update() {
-
+        // check for current build button state and apply text changes
+        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(8)){
+            structureBuilt = true;
+        }
         //Checks if structure is built in the base
         if (structureBuilt)
         {
-             buildMiningStationBtn.interactable = true;
-             buttonText.text = "Build Crypto Energon\n mining station\n" + "(" + minNeededEnergonAmountForMiningStation + " energon & " + minNeededCreditsAmountForMiningStation  + " credits)";
-             canBuildMiningStation = false;
-             structureBuilt = false;
-             creditsLeft.text = "Credits left : " + playerbase.getCreditsAmount();
-             energonLeft.text = "Energon left : " + playerbase.getEnergonAmount();
+            if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerCreditsMiningStationAmountInLevel){
+                buttonText.text = "Credits Mining Station\n" + "Max amount reached";
+                availableCreditsMiningStationText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerCreditsMiningStationAmountInLevel;
+                buildMiningStationBtn.interactable = false;
+                canBuildMiningStation = false;
+                structureBuilt = false;
+            }   
+            else{
+                buildMiningStationBtn.interactable = true;
+                buttonText.text = "Build Credits\n mining station\n" + "(" + minNeededEnergonAmountForMiningStation + " energon & " + minNeededCreditsAmountForMiningStation  + " credits)";
+                availableCreditsMiningStationText.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerCreditsMiningStationAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerCreditsMiningStationAmountInLevel;
+                canBuildMiningStation = false;
+                structureBuilt = false;
+            }
         }
+        creditsLeft.text = "Credits left : " + playerbase.getCreditsAmount();
+        energonLeft.text = "Energon left : " + playerbase.getEnergonAmount(); 
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
     public void buildMiningStationAction()
@@ -86,16 +101,20 @@ public class MiningStationBuild : MonoBehaviour
             playerbase.setResourceAMountScreenState(true);    
             return; 
         }
-        playerbase.setBuildingArea(true);
-     //   clickUndo.SetActive(true);
-        //State variable is setted to true, which means that the button is clicked
-        canBuildMiningStation = true;
-        //Button interaction state is setted to false
-        buildMiningStationBtn.interactable = false;
-        buttonText.text = "Select Place";  
-        //Add button locking system...
-        //Like showing the text which says place the barracks object in the base area
-        //Debug.Log("Select a place where to build a barrack.");
+        // change button activity
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(8);
+        if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(8)){
+            playerbase.setBuildingArea(true);
+            //State variable is setted to true, which means that the button is clicked
+            canBuildMiningStation = true;
+            //buildArmyCampBtn.interactable = false;
+            buttonText.text = "Select Place";  
+        }
+        else{
+            canBuildMiningStation = false;
+            structureBuilt = true; 
+            playerbase.setBuildingArea(false);
+        }
     }
 
     public bool buildMiningStation()

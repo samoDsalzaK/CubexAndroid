@@ -25,27 +25,39 @@ public class ResearchCentreBuild : MonoBehaviour
     [SerializeField] int minNeededCreditsAmountForResearchCentre;
     private void Start() 
     {
-         if(FindObjectOfType<Base>() == null)
-         {
-           return;
-         }
-         else
-         {
-           playerbase = FindObjectOfType<Base>();
-         }
-         buttonText.text = "Build Building Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
-         availableResearchCenters.text = playerbase.getResearchCentreUnitAmount()+ "/1";
+        if(FindObjectOfType<Base>() == null)
+        {
+           	return;
+        }
+        else
+        {
+        	playerbase = FindObjectOfType<Base>();
+        }
+        buttonText.text = "Build Building Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
+        availableResearchCenters.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBuildingResearchAmountInLevel;
     }  
     private void Update() {
-        availableResearchCenters.text = playerbase.getResearchCentreUnitAmount()+ "/1";
+		// check for current build button state and apply text changes
+        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(3)){
+            structureBuilt = true;
+        }
         //Checks if the structure is built in the base
         if (structureBuilt)
         {
-            playerbase.setResearchCentreUnitAmount(playerbase.getResearchCentreUnitAmount() + 1);
-            buttonText.text = "Build Building Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
-            buildResearchCentreBtn.interactable = false;
-            canBuildResearchCentre = false; 
-            structureBuilt = false;
+			if (playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel >= playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBuildingResearchAmountInLevel){
+				buttonText.text = "Building Research Center\n" + "Max amount reached";
+				availableResearchCenters.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBuildingResearchAmountInLevel;
+				buildResearchCentreBtn.interactable = false;
+				canBuildResearchCentre = false; 
+				structureBuilt = false;
+			}
+			else{
+				buttonText.text = "Build Building Research Center (" + minNeededCreditsAmountForResearchCentre + " credits & " + minNeededEnergonAmountForResearchCentre  + " energon)\n";
+				availableResearchCenters.text = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBuildingResearchAmountInLevel + " / " + playerbase.GetComponent<setFidexAmountOfStructures>().getMaxPlayerBuildingResearchAmountInLevel;
+				buildResearchCentreBtn.interactable = true;
+				canBuildResearchCentre = false; 
+				structureBuilt = false;
+			}
         }
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
@@ -78,15 +90,20 @@ public class ResearchCentreBuild : MonoBehaviour
 			playerbase.setResourceAMountScreenState(true);    
 			return; 
         }
-        playerbase.setBuildingArea(true);
-        //State variable is setted to true, which means that the button is clicked
-        canBuildResearchCentre = true;
-        //Button interaction state is setted to false
-        buildResearchCentreBtn.interactable = false;
-        buttonText.text = "Select Place";  
-        //Add button locking system...
-        //Like showing the text which says place the barracks object in the base area
-        //Debug.Log("Select a place where to build a barrack.");
+		// change button activity
+        playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(3);
+        if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(3)){
+            playerbase.setBuildingArea(true);
+            //State variable is setted to true, which means that the button is clicked
+            canBuildResearchCentre = true;
+            //buildArmyCampBtn.interactable = false;
+            buttonText.text = "Select Place";  
+        }
+        else{
+            canBuildResearchCentre = false;
+            structureBuilt = true; 
+            playerbase.setBuildingArea(false);
+        }
     }
 
     public bool buildResearchCentre()

@@ -20,6 +20,9 @@ public class GameSession : MonoBehaviour
     [SerializeField] int playerBarrackAmount = 0;
     [SerializeField] int playerResearchAmount = 0;
     [SerializeField] int playerWallsAmount = 0;
+    [SerializeField] int playerCreditsMiningStationAmount = 0;
+    [SerializeField] int playerArmyCampAmount = 0;
+    [SerializeField] int playerShrineAmount = 0;
     [SerializeField] int pDestroyedEnemyBaseAmount = 0;
     [SerializeField] int pDestroyedEnemyUnitAmount = 0;
     [Header("Enemy A.I. game session configuration parameters")]
@@ -133,6 +136,17 @@ public class GameSession : MonoBehaviour
     public void addPlayerWallsAmount(int o)
     {
         playerWallsAmount += o;
+    }
+    public void addPlayerMiningStationAmount(int a)
+    {
+        playerCreditsMiningStationAmount += a;
+    }
+    public void addPlayerArmyCampAmount(int b)
+    {
+        playerArmyCampAmount += b;
+    }
+    public void addPlayerShrineAmount(int c){
+        playerShrineAmount += c;
     }
 
     //---------------->Enemy A.I. section<--------------------
