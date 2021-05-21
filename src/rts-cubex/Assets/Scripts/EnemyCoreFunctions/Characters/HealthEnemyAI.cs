@@ -14,6 +14,8 @@ public class HealthEnemyAI : MonoBehaviour
     float increaseHealthBar;
     [SerializeField] int health;
     [SerializeField] int regenerateHpAmount;
+    [SerializeField] bool isChEnemy = false;
+    public bool IsChEnemy {set {isChEnemy = value;} get { return isChEnemy; }}
     Base playerbase;
     //int damagePoints = 15;
     void Start()
@@ -33,6 +35,16 @@ public class HealthEnemyAI : MonoBehaviour
         }
         if (health <= 0)
         {
+         Destroy(gameObject);
+         if (isChEnemy)
+         {
+             var cMgr = FindObjectOfType<ChallengeMgr>();
+             if (cMgr)
+             {
+                 print("adding score");
+                cMgr.EnemiesKilled++;
+             }
+         }
             if (gameObject.tag == "EnemyBase"){
                 playerbase.GetComponent<PlayerScoring>().addScoreAfterEnemyBaseDestoy();
             }

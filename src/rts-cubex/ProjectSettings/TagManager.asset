@@ -56,6 +56,8 @@ TagManager:
   - lootbox
   - maphole
   - Bloom
+  - usave
+  - basesave
   layers:
   - Default
   - TransparentFX
@@ -68,7 +70,7 @@ TagManager:
   - Energon
   - PlayerBase
   - BuildArea
-  - Ground
+  - mapTriggers
   - EnemyBase
   - clickablesLayer
   - enemyUnits
@@ -85,7 +87,7 @@ TagManager:
   - armyCamp
   - UI_minimap
   - ignoreMesh
-  - 
+  - iconsForMap
   - 
   - 
   - 

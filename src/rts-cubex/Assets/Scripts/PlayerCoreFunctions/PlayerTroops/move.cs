@@ -11,9 +11,14 @@ public class move : MonoBehaviour
     [SerializeField] bool isBloom = false;
     [SerializeField] GameObject mainModel;
     [SerializeField] bool lockMove = false;
+    [SerializeField] bool isStory = false;
+    [SerializeField] string saveTag = "usave";
     private TroopAttack ta;
+    private bool needsCamp = true;
     public bool LockMove { set {lockMove = value; } get {return lockMove; }}
     public NavMeshAgent Agent {get {return agent; }}
+    public bool NeedsCamp { set {needsCamp = value;} get { return needsCamp; }}
+    public bool IsStory { set {isStory = value;} get { return isStory; }}
     void Start()
     {
         ta = GetComponent<TroopAttack>();
@@ -26,17 +31,20 @@ public class move : MonoBehaviour
         
         if (!isHero)
         {
-            var camps = GameObject.FindGameObjectsWithTag("Camp");
-            if (camps.Length > 0)
+            if (needsCamp)
             {
-                foreach (var item in camps)
+                var camps = GameObject.FindGameObjectsWithTag("Camp");
+                if (camps.Length > 0)
                 {
-                    var army = item.GetComponent<ArmyCamp>();
-                    if (army.Occupied < army.Capacity)
+                    foreach (var item in camps)
                     {
-                        agent.destination = item.transform.position;
-                        onItsWay = true;
-                        break;
+                        var army = item.GetComponent<ArmyCamp>();
+                        if (army.Occupied < army.Capacity)
+                        {
+                            agent.destination = item.transform.position;
+                            onItsWay = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -44,6 +52,18 @@ public class move : MonoBehaviour
     }
     void Update()
     {
+        if (isStory)
+        {
+            if (gameObject.tag != saveTag)
+            {
+                var playerBase = FindObjectOfType<Base>();
+                if (playerBase)
+                {
+                    playerBase.addPlayerTroopsAmount(1);
+                    isStory = false;
+                }
+            }
+        }
         if (!lockMove)
             unitMove();
     }
@@ -72,7 +92,7 @@ public class move : MonoBehaviour
             if (!EventSystem.current.IsPointerOverGameObject())
             {
                 RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+                if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("LvlMap")))
                 {
                     if (isBloom && hit.transform.gameObject.tag == "maphole")
                     {

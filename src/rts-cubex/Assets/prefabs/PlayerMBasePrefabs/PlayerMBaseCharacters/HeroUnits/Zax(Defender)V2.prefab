@@ -6579,6 +6579,7 @@ GameObject:
   - component: {fileID: 745723439624908391}
   - component: {fileID: 99156681696831732}
   - component: {fileID: 3494326771220239468}
+  - component: {fileID: -8378182048551945080}
   m_Layer: 13
   m_Name: Zax(Defender)V2
   m_TagString: Unit
@@ -6628,7 +6629,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
+  m_Speed: 12
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 80
@@ -6655,8 +6656,11 @@ MonoBehaviour:
   unitPosition: {fileID: 9161153662228955245}
   onItsWay: 0
   isHero: 1
+  isBloom: 0
   mainModel: {fileID: 0}
   lockMove: 0
+  isStory: 0
+  saveTag: usave
 --- !u!114 &3105380516392312665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6754,9 +6758,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20753e51dd4510c428d4a449702068fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followPlayerInCombat: 0
   fireGun: {fileID: 99156683133809790}
   secondFireGun: {fileID: 6620785589922636601}
-  scannerRadius: 20
+  scannerRadius: 35
   projectile: {fileID: 833446331802415920, guid: d8bf847321ef346408421d36ff6abcd8,
     type: 3}
   launchForce: 80
@@ -6798,6 +6803,24 @@ MonoBehaviour:
   coolDownParticles: {fileID: 5576930991658058684}
   wallBarrackExistTime: 5
   startAbilityColdown: 0
+--- !u!114 &-8378182048551945080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9161153662228955245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 521a0db9305dc4c4da0ab362aca335e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseToSaveTag: basesave
+  saveTroopTag: usave
+  tagNewToAdd: Unit
+  range: 35
+  saveMode: 0
+  baseSaved: 0
 --- !u!1001 &6266638844945244268
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8966758937274717865}
   - component: {fileID: 6053705760785091143}
   - component: {fileID: 4091410932787655167}
+  - component: {fileID: 1862949880200835740}
   m_Layer: 20
   m_Name: ProjectileHero
   m_TagString: Arrow
@@ -125,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrust: 20
-  defaultDamage: 10
+  lifeTime: 5
   oBGResearch: {fileID: 11400000, guid: 66ebc9217506f33429244c398909f76c, type: 2}
   enemyTags:
   - EnemyBase
@@ -135,6 +136,23 @@ MonoBehaviour:
   - EBWorker
   - EBBarracks
   - EmDefBody
+  heroFire: 0
+  currentDamagePoints: 0
+--- !u!114 &1862949880200835740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833446331802415920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a0a15fafb4bcc41aa1cab5dfe0d8ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startCountdown: 0
+  finishedTask: 0
+  timeStart: 5
 --- !u!1 &7614149247643207518
 GameObject:
   m_ObjectHideFlags: 0

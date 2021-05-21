@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameSession : MonoBehaviour
 {
     //Game session manager DEMO version <----------------------
+    [SerializeField] bool isChallengeMode = false;
     [Header("Main game session configuration parameters")]
     
     [SerializeField] RankConfiguration rankConfSystem;
@@ -57,6 +58,8 @@ public class GameSession : MonoBehaviour
     }
 
     private void Update() {
+        if (isChallengeMode) return;
+        
         if (isEnemyDestroyed)
         {
             sessionStatusText = "Victory";

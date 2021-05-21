@@ -24,6 +24,8 @@ public class LootBox : MonoBehaviour
     private bool isBoxOpened = false;
 
     public int BoxType {set { boxType=value; } get { return boxType; }}
+    public int EnergonToAdd {set {energonToAdd = value;} get {return energonToAdd;}}
+    public int CreditsToAdd {set {creditsToAdd = value;} get {return creditsToAdd;}}
     enum Box{Energon, Credits};
     void Start()
     {       
@@ -123,7 +125,7 @@ public class LootBox : MonoBehaviour
     private void displayInfo(int resAmount)
     {
         displayInfoCanvas.SetActive(true);
-        infoText.text = ("+" + creditsToAdd);
+        infoText.text = ("+" + resAmount);
         boxColor.a = 1f;
         infoText.color = boxColor;
     }

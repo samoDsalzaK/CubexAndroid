@@ -22,6 +22,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField] GameObject wallCube;
     [SerializeField] GameObject sPlayerBase;
     [SerializeField] GameObject sBorgBase;
+    [SerializeField] GameObject levelSessionMgr;
     [SerializeField] GameObject lootBox;
     [Tooltip("Platform Width in Cubes")]
     [Range(6, 6)] //For locking values in inspector
@@ -49,7 +50,8 @@ public class MapMaker : MonoBehaviour
     [SerializeField] bool spawnEDeposits = false;
     [SerializeField] bool spawnGameBases = false;
     [SerializeField] bool spawnLootBoxes = false;
-    
+    [SerializeField] bool readyToBuildChallenge = false;
+    [SerializeField] bool isTimeUnlimited = true;
     //Level main group
     private GameObject levelMap;
     //Level sub groups
@@ -76,10 +78,16 @@ public class MapMaker : MonoBehaviour
     //For caching created level assets in scene
     //For ground
     private List<List<GameObject>> sCubes = new List<List<GameObject>>(); //list of spawned cubes
+    
+    public List<List<GameObject>> SCubes {get { return sCubes; }}
+    public GameObject SPlayerBase { get { return sPlayerBase; }}
+    public GameObject GameHood { get { return gameHood; }}
+    public GameObject MainCamera { get { return mainCamera; }}
     //For mounds 
     private List<GameObject> mounds = new List<GameObject>();
     //For holes
     private List<GameObject> holes = new List<GameObject>();
+    public bool ReadyToBuildChallenge { get { return readyToBuildChallenge; }}
     
     //Helper class for picking child objects
     private Helper help = new Helper();
@@ -125,6 +133,7 @@ public class MapMaker : MonoBehaviour
                     //  if (sCubes[0].Count >= pWidth) print("PRow created!");
                                     
                 }
+                readyToBuildChallenge = true;
                 groundGrp.transform.parent = levelMap.transform;   
 
                 //For centering of platform rect in 0,0,0
@@ -525,7 +534,8 @@ public class MapMaker : MonoBehaviour
             {                          
                 // //Activating the game hood
                 gameHood.SetActive(true);
-
+                if (!isTimeUnlimited)
+                    levelSessionMgr.SetActive(true);
                 gSpawnMBaseGrp = new GameObject("Game_MBases");
                 gSpawnMBaseGrp.transform.position = Vector3.zero;
 

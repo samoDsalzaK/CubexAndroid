@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Base : MonoBehaviour
 {
+    [SerializeField] bool isDeactivated = false;
     [Header("Main Base tool display parameters")]
+    [SerializeField] GameObject playerScoreCountWindow;
     [SerializeField] GameObject Screen; // this GameObject variable for saving main base panel
     [SerializeField] GameObject ResourceAmountScreen;// this is the screen which will apear when player will not have enough resources to build game structure; 
     [SerializeField] GameObject ResourcesAmountScreenForUpgrades; // this Error screen for upgrades when player does not have enough resources
@@ -77,6 +79,14 @@ public class Base : MonoBehaviour
 
     [Header("Tutorial manager parameters")]
     [SerializeField] bool isTutorialChecked = false;
+    [Header("For story managing")]
+    //For story logic
+    [SerializeField] bool isSaved = true;
+    public bool IsSaved { set {isSaved = value;} get {return isSaved; }}
+    private GameObject existMaxWorkersAmount;
+    private GameObject cPlayerTroopsAmount;
+    public GameObject ExistMaxWorkersAmount { get { return existMaxWorkersAmount; }}
+    public GameObject CPlayerTroopsAmount { get { return cPlayerTroopsAmount; }}
     private int index = 0; // parameter needed for worker indexing
     string workerIndex;  // string value which holds unique index of each spawned worker
 
@@ -115,10 +125,12 @@ public class Base : MonoBehaviour
         foreach (Transform t in ts) {
             if(t.gameObject.GetComponent<Text>() != null && t.gameObject.GetComponent<Text>().name == "maxandavailableworkeramount")
             {
-                existingAndMaxWorkersAmount = t.gameObject.GetComponent<Text>();
+                existMaxWorkersAmount = t.gameObject;
+                existingAndMaxWorkersAmount = existMaxWorkersAmount.GetComponent<Text>();
             }
             else if (t.gameObject.GetComponent<Text>() != null && t.gameObject.GetComponent<Text>().name == "playerTroopsAmount"){
-                currentPlayerTroopsAmount = t.gameObject.GetComponent<Text>();
+                cPlayerTroopsAmount = t.gameObject;
+                currentPlayerTroopsAmount = cPlayerTroopsAmount.GetComponent<Text>();
             }
         }
 
@@ -131,14 +143,21 @@ public class Base : MonoBehaviour
 		GetComponent<changeSkinManager>().onStartSkinSelectionPopUp();
     	playerScoring = GetComponent<PlayerScoring>();
 		gameSession = FindObjectOfType<GameSession>();
-		currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
+    if (!gameSession)
+      playerScoreCountWindow.SetActive(false);
+    if (gameSession)
+		  currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
     }
     // Update is called once per frame
     void Update()
     {
+       if (isDeactivated) return;
        if (healthOfTheBase.getHealth() <= 0)
        {
-         FindObjectOfType<GameSession>().increaseDestroyedPlayerBaseAmount();
+         var gs = FindObjectOfType<GameSession>();
+         if (gs)
+             FindObjectOfType<GameSession>().increaseDestroyedPlayerBaseAmount();
+             
          Destroy(gameObject);
 
        }
@@ -152,8 +171,18 @@ public class Base : MonoBehaviour
         energonLeft2.text = "Energon left : " + energon; // regular structure build
         creditsLeft3.text = "Credits left : " + credits; // research center build panel
         energonLeft3.text = "Energon left : " + energon; // reserach center build panel
-        existingAndMaxWorkersAmount.text = " Workers: " + workersAmountOriginal +"/"+ maxWorkerAmountInLevel; 
-        currentPlayerTroopsAmount.text = "Troops: " + playerTroopsAmount + "/" + maxPlayerTroopsAmount;
+        if (isSaved)
+        {
+          existingAndMaxWorkersAmount.color = new Color(existingAndMaxWorkersAmount.color.r, existingAndMaxWorkersAmount.color.g, existingAndMaxWorkersAmount.color.b, 1f);
+          currentPlayerTroopsAmount.color = new Color(currentPlayerTroopsAmount.color.r, currentPlayerTroopsAmount.color.g, currentPlayerTroopsAmount.color.b, 1f);
+          existingAndMaxWorkersAmount.text = " Workers: " + workersAmountOriginal +"/"+ maxWorkerAmountInLevel; 
+          currentPlayerTroopsAmount.text = "Troops: " + playerTroopsAmount + "/" + maxPlayerTroopsAmount;
+        }
+        else
+        {
+          existingAndMaxWorkersAmount.color = new Color(existingAndMaxWorkersAmount.color.r, existingAndMaxWorkersAmount.color.g, existingAndMaxWorkersAmount.color.b, 0f);
+          currentPlayerTroopsAmount.color = new Color(currentPlayerTroopsAmount.color.r, currentPlayerTroopsAmount.color.g, currentPlayerTroopsAmount.color.b, 0f);
+        }
 
         // fill in credits and energon amount image
         EnergonAmountScreenText.text = energon + " / " + maxBaseEnergonAmount + " energon";
@@ -237,10 +266,12 @@ public class Base : MonoBehaviour
         {
             upgradeBaseButtonText.text = "You have reached max level";
         }
-		currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
+        if (gameSession)
+		      currentPlayerScoreText.text = "Your current score : \n" + gameSession.getScorePlayerPoints() + " points ";
     }
     void OnMouseDown()
     {
+     
 		// check for active panels in this building hierarchy if yes do not trigger on mouse click
       	var status = panelManager.checkForActivePanels();
       	if (status){
@@ -248,6 +279,7 @@ public class Base : MonoBehaviour
       	}  
       	else{
         	// set main window
+           if (!isSaved) return;
           selectionCanvas.SetActive(true);
         	Screen.SetActive(true);
         	addCredits.text = "Credits left : " + credits;  
