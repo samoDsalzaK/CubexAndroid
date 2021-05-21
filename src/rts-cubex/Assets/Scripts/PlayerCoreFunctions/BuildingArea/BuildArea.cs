@@ -188,8 +188,9 @@ public class BuildArea : MonoBehaviour
 					Vector3 buildpozition = new Vector3(hittedObject.point.x, hittedObject.point.y, hittedObject.point.z);
 					playerbase.setPosition(buildpozition);
 					animatedPopUps.createDecreaseEnergonPopUp(buildWorkerBtn.getMinNeededEnergonAmount());
-					playerbase.setCreditsAmount(playerbase.getEnergonAmount()-buildWorkerBtn.getMinNeededEnergonAmount()); // uzsetiname naujas reksmes 
+					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-buildWorkerBtn.getMinNeededEnergonAmount()); // uzsetiname naujas reksmes 
 					timerStart.startTimer(buildWorkerStartTime);
+					playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(9);
 					buildWorkerBtn.canBuildAgain(true);
 				}
 				/*if((buildPlayerWallBtn.buildPlayerWall()) && (canBuild))
