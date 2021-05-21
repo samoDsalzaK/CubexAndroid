@@ -813,6 +813,11 @@ PrefabInstance:
       propertyPath: isTimeUnlimited
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8464270302268954969, guid: 1eccc5b53412de64998bf03e28cc18c5,
+        type: 3}
+      propertyPath: maxMinutes
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1eccc5b53412de64998bf03e28cc18c5, type: 3}
 --- !u!1001 &5325920419706763901
