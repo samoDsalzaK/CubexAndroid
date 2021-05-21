@@ -70,7 +70,8 @@ public class WorkerSpawningTimer : MonoBehaviour
                 startBtn.interactable = true;
                 
                 additionalWorker.interactable = true;
-                playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(9);
+                buildRegWorker.UpdateText();
+                //playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(9);
                 playerbase.Spawning();
                 //btnText.text = "Create Worker \n"  + buildRegWorker.getMinNeededEnergonAmount() + " (energon)";
                 return;
