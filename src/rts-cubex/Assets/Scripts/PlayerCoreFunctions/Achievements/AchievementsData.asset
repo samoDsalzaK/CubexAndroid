@@ -19,7 +19,7 @@ MonoBehaviour:
     troopsAmount: 0
     workerAmount: 1
     achievementNumber: 0
-    isCompleted: 1
+    isCompleted: 0
     isDisplayed: 0
     creditsPrize: 100
   - name: First trooper!
@@ -28,8 +28,8 @@ MonoBehaviour:
     troopsAmount: 1
     workerAmount: 0
     achievementNumber: 1
-    isCompleted: 1
-    isDisplayed: 1
+    isCompleted: 0
+    isDisplayed: 0
     creditsPrize: 50
   - name: Advanced troop research!
     description: Level up your research level from the troop research center
@@ -37,6 +37,6 @@ MonoBehaviour:
     troopsAmount: 0
     workerAmount: 0
     achievementNumber: 2
-    isCompleted: 1
-    isDisplayed: 1
+    isCompleted: 0
+    isDisplayed: 0
     creditsPrize: 50
