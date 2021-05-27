@@ -146,7 +146,7 @@ public class BuildRayField : MonoBehaviour
             var buildRays = other.gameObject.GetComponent<BuildRayField>();
             if (buildRays)
             {
-                if (!other.gameObject.name.Contains("_s") && !buildRays.IsStartBuilding)
+                if ((!other.gameObject.name.Contains("_s")  && !other.gameObject.name.Contains("_built")) && !buildRays.IsStartBuilding)
                 {
                     destroyHolos = true;
                     spawnedShiftBuilds.Remove(other.transform.parent.gameObject);

@@ -217,11 +217,11 @@ public class InteractiveBuild : MonoBehaviour
                         cleanShiftBuildings();
                         playerBase.GetComponent<LocalPanelManager>().deactivatePanels();
                         errorWindow.SetActive(true);                        
-                        errorMsg.text = (bIChecker.SpaceOccupied ? "Obstacle nearby! can't construct buildings!" : "Not enought funds to build these buildings!");
+                        errorMsg.text = (bIChecker.SpaceOccupied ? "Obstacle in front! can't construct buildings!" : "Not enought funds to build these buildings!");
                         openBMode = false; 
                         dragBuild = false;
 
-                        print("ERROR: " + (bIChecker.SpaceOccupied ? "Obstacle nearby! can't construct buildings!" : "Not enought funds to build these buildings!"));
+                        print("ERROR: " + (bIChecker.SpaceOccupied ? "Obstacle in front! can't construct buildings!" : "Not enought funds to build these buildings!"));
                         return;
                     }
 
@@ -237,6 +237,7 @@ public class InteractiveBuild : MonoBehaviour
                                 var bCheck = bModel.GetComponent<WallBuildCheck>();
                                 if (bModel && bCheck.IsTemp)
                                 {
+                                    bModel.name = bModel.name + "_built";
                                     bCheck.IsBuilt = true;
                                     bCheck.IsTemp = false;
                                     b.tag = "_PlayerWall";
@@ -255,7 +256,7 @@ public class InteractiveBuild : MonoBehaviour
                     // Stopping shift build after construction
                     dragBuild = false;
                     openBMode = false;
-                    iniBuilding = null;                    
+                    iniBuilding = null;                  
                     var bIconModel = helperTools.getChildGameObjectByName(sBuildingIcon, "Wall_1");
                     if (bIconModel)
                     {
