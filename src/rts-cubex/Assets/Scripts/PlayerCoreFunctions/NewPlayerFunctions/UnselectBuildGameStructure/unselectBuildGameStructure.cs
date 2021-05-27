@@ -72,6 +72,11 @@ public class unselectBuildGameStructure : MonoBehaviour
 			}
 		}
         for (int j = 1; j <= buildStrucutureButtonActivity.Count; j++){
+            if (FindObjectOfType<BuildWorker>() != null){ // for player workers
+                if(!FindObjectOfType<BuildWorker>().getWorkerBuildState){
+                    FindObjectOfType<BuildWorker>().canBuildAgain(true);
+                }
+            }
             if ((bool)buildStrucutureButtonActivity[j]){
                 // pop up error window
                 playerbase.GetComponent<createAnimatedPopUp>().createIncorrectPozitionPopUp();

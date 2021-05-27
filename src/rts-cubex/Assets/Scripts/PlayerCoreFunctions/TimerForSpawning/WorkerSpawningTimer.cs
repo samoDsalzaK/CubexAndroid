@@ -42,9 +42,9 @@ public class WorkerSpawningTimer : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-      playerbase = GetComponent<Base>();
+        playerbase = GetComponent<Base>();
 	}
-	
+	public bool workerBuildingState{ get {return startCountdown;} }
 	// Update is called once per frame
 	void Update () {
         btnWorkersAmountText.text = playerbase.getExistingworkersAmount() + "/" + playerbase.getMaxWorkerAmountInLevel();
@@ -70,7 +70,9 @@ public class WorkerSpawningTimer : MonoBehaviour
                 startBtn.interactable = true;
                 
                 additionalWorker.interactable = true;
-                buildRegWorker.UpdateText();
+                //buildRegWorker.UpdateText();
+                buildRegWorker.canBuildAgain(true);
+                buildRegWorker.getWorkerBuildState = false;
                 //playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(9);
                 playerbase.Spawning();
                 //btnText.text = "Create Worker \n"  + buildRegWorker.getMinNeededEnergonAmount() + " (energon)";
