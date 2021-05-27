@@ -190,6 +190,7 @@ public class BuildArea : MonoBehaviour
 					animatedPopUps.createDecreaseEnergonPopUp(buildWorkerBtn.getMinNeededEnergonAmount());
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-buildWorkerBtn.getMinNeededEnergonAmount()); // uzsetiname naujas reksmes 
 					timerStart.startTimer(buildWorkerStartTime);
+					playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(9);
 					buildWorkerBtn.canBuildAgain(true);
 				}
 				/*if((buildPlayerWallBtn.buildPlayerWall()) && (canBuild))

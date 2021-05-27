@@ -27,9 +27,9 @@ public class BuildWorker : MonoBehaviour
     }  
     private void Update() {
         // check for current build button state and apply text changes
-        if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(9)){
-            structureBuilt = true;
-        }
+        //if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(9)){
+        //    structureBuilt = true;
+        //}
         //Checks if the barracks structure is built in the base
         if (structureBuilt)
         {
@@ -37,6 +37,9 @@ public class BuildWorker : MonoBehaviour
             canBuildWorker = false;
             structureBuilt = false;
         }
+    }
+    public void UpdateText(){
+        buttonText.text = "Create Worker\n" + "(" + minNeededEnergonAmount + " energon)";
     }
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
     public void buildWorkerAction()
