@@ -8,7 +8,6 @@ public class TroopGroupSelection : MonoBehaviour
     [SerializeField] private Material selected;
     [SerializeField] GameObject[] figures;
     [SerializeField] public bool isSelected = false;
-    [SerializeField] GameObject selectionBox;
     public void ClickMe()
     {
         if (isSelected == false)
@@ -20,7 +19,6 @@ public class TroopGroupSelection : MonoBehaviour
                 {
                     figures[i].GetComponent<MeshRenderer>().material = not_selected;
                 }
-                selectionBox.SetActive(false);
             }
         }
         else
@@ -34,7 +32,6 @@ public class TroopGroupSelection : MonoBehaviour
 
                 }
                 isSelected = true;
-                selectionBox.SetActive(true);
             }
         }
     }
