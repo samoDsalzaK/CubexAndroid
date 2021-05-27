@@ -36,7 +36,7 @@ public class achievementManager : MonoBehaviour
                             {
                                 if (playerBase.getCreditsAmount() + a.CreditsPrize >= playerBase.MaxBCredits)
                                 {
-                                    playerBase.setCreditsAmount(playerBase.getCreditsAmount() + 0);
+                                    playerBase.setCreditsAmount(playerBase.getCreditsAmount() + playerBase.MaxBCredits - playerBase.getCreditsAmount());
                                     var popup = FindObjectOfType<createAnimatedPopUp>();
                                     popup.createAddCreditsPopUp(0);
                                 }
@@ -62,7 +62,7 @@ public class achievementManager : MonoBehaviour
                             {
                                 if (playerBase.getCreditsAmount() + a.CreditsPrize >= playerBase.MaxBCredits)
                                 {
-                                    playerBase.setCreditsAmount(playerBase.getCreditsAmount() + 0);
+                                    playerBase.setCreditsAmount(playerBase.getCreditsAmount() + playerBase.MaxBCredits - playerBase.getCreditsAmount());
                                     var popup = FindObjectOfType<createAnimatedPopUp>();
                                     popup.createAddCreditsPopUp(0);
                                 }
