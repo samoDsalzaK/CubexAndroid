@@ -3244,7 +3244,7 @@ MonoBehaviour:
   emptyText: {fileID: 1037935025}
   errorWindow: {fileID: 1732169542}
   errorMsgWindowText: {fileID: 805809709}
-  cardSpacing: 60
+  cardSpacing: 80
   isTesting: 0
   baseEnergon: 1000
   baseCredits: 1000
@@ -3286,6 +3286,8 @@ MonoBehaviour:
   errorWorkerIssue2: {fileID: 3172262127036372127}
   errorForChangingPos: {fileID: 6366219243397373133}
   btnIndex: 1
+  changePosBuildingIndex: 0
+  defaultMaterial: {fileID: 0}
 --- !u!114 &2484412062247554669
 MonoBehaviour:
   m_ObjectHideFlags: 0
