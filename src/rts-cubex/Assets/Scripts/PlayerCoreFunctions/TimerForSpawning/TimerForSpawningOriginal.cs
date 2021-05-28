@@ -188,7 +188,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 								for (int i = 0; i < changePosBuildings.Length; i++){
 									if((changePosBuildings[i].returnBtnIndex == pressedBtnIndex) && (changePosBuildings[i].isInChangeMode)){
 										changePosBuildings[i].destroyGameObject();
-										Instantiate(troopsResearchCenter, pozition, Quaternion.identity);
+										Instantiate(troopsResearchCenter, new Vector3(pozition.x, transform.position.y ,pozition.z), Quaternion.identity);
 										FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 										workerLife.decreaseWorkerLife();
 										playerworker.setWorkerState(false); // statas reiskia kas workeris yra laisvas
@@ -198,7 +198,7 @@ public class TimerForSpawningOriginal : MonoBehaviour
 							}
 						}
 						else{
-							Instantiate(troopsResearchCenter, pozition, Quaternion.identity);
+							Instantiate(troopsResearchCenter, new Vector3(pozition.x, transform.position.y ,pozition.z), Quaternion.identity);
 							playerbase.GetComponent<PlayerScoring>().addScoreAfterStructureBuild("troopsResearch");
 							FindObjectOfType<Base>().setworkersAmount(FindObjectOfType<Base>().getworkersAmount() + 1);
 							workerLife.decreaseWorkerLife();
