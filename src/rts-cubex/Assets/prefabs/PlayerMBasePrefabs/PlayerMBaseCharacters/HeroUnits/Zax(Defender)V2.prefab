@@ -6818,9 +6818,11 @@ MonoBehaviour:
   baseToSaveTag: basesave
   saveTroopTag: usave
   tagNewToAdd: Unit
+  selectedTroops: {fileID: 2100000, guid: 7ffc896daf4a6484f82cd4b0e2ed1abb, type: 2}
   range: 35
   saveMode: 0
   baseSaved: 0
+  troopsSaved: 0
 --- !u!1001 &6266638844945244268
 PrefabInstance:
   m_ObjectHideFlags: 0

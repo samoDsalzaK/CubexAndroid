@@ -19,7 +19,11 @@ public class BuildWorker : MonoBehaviour
     [SerializeField] Text buttonText;
     private Base playerbase;
     [SerializeField] int minNeededEnergonAmount = 10;
+    bool isInBuildState = false;
    // [SerializeField] GameObject clickUndo;
+
+    public bool getWorkerBuildState { get {return isInBuildState;} set {isInBuildState = value;} }
+
     private void Start() 
     {
         playerbase = FindObjectOfType<Base>();
@@ -27,9 +31,9 @@ public class BuildWorker : MonoBehaviour
     }  
     private void Update() {
         // check for current build button state and apply text changes
-        //if (!playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(9)){
-        //    structureBuilt = true;
-        //}
+        /*if (!isInBuildState){
+            UpdateText();
+        }*/
         //Checks if the barracks structure is built in the base
         if (structureBuilt)
         {
@@ -38,9 +42,9 @@ public class BuildWorker : MonoBehaviour
             structureBuilt = false;
         }
     }
-    public void UpdateText(){
+    /*public void UpdateText(){
         buttonText.text = "Create Worker\n" + "(" + minNeededEnergonAmount + " energon)";
-    }
+    }*/
     //When you've clicked on the button, this method will be invoked in the Unity ClickOn() section
     public void buildWorkerAction()
     {
@@ -50,7 +54,6 @@ public class BuildWorker : MonoBehaviour
         playerbase.setResourceAMountScreenState(true);    
         return; 
         }
-
         // change button activity
         playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(9);
         if(playerbase.GetComponent<unselectBuildGameStructure>().checkForCurrentButtonState(9)){
@@ -58,12 +61,14 @@ public class BuildWorker : MonoBehaviour
             //State variable is setted to true, which means that the button is clicked
             canBuildWorker = true;
             //buildArmyCampBtn.interactable = false;
-            buttonText.text = "Select Place";  
+            buttonText.text = "Select Place"; 
+            //isInBuildState = true;
         }
         else{
             canBuildWorker = false;
             structureBuilt = true; 
             playerbase.setBuildingArea(false);
+            //isInBuildState = false;
         }
     }
 

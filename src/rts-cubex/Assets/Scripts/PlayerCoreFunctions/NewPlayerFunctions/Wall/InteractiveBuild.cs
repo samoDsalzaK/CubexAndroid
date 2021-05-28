@@ -10,6 +10,7 @@ public class InteractiveBuild : MonoBehaviour
     [SerializeField] Text errorMsg;
     [SerializeField] Button buildButton;
     [Header("System cnf.")]
+    [SerializeField] float wallYOffset = 1f;
     [SerializeField] GameObject buildingIcon;
     [SerializeField] GameObject buildingArea; 
     [SerializeField] GameObject buildArea; // needed to create animated pop ups
@@ -38,6 +39,7 @@ public class InteractiveBuild : MonoBehaviour
     [SerializeField] Text availableWallsAmount;
     [SerializeField] bool lockBtn = false;
     [SerializeField] Text btnText;
+    private float wallIconPosY;
     public void interactiveBuildMode() //Button method to open build mode
     {
         if (sBuildingIcon)
@@ -58,7 +60,8 @@ public class InteractiveBuild : MonoBehaviour
         playerBase = GetComponent<Base>();
         if (buildingIcon)
         {
-            sBuildingIcon = Instantiate(buildingIcon, new Vector3(transform.position.x, buildArea.transform.position.y, transform.position.z), buildingIcon.transform.rotation);
+            wallIconPosY =  transform.position.y - wallYOffset;
+            sBuildingIcon = Instantiate(buildingIcon, new Vector3(transform.position.x, wallIconPosY, transform.position.z), buildingIcon.transform.rotation);
             
             if (sBuildingIcon)
             {
@@ -103,18 +106,19 @@ public class InteractiveBuild : MonoBehaviour
                 if (mouseHit.collider.tag == buildingArea.tag)
                 {                    
                     // Main drag build snapping logic 
+                    var currentPos = mouseHit.point;
                     if (dragBuild)
                     {
                         // Snapping transformation on required axis
                         // Snapping on X axis
-                        var currentPos = mouseHit.point;
+                       
                         if (isRotated)
                         {                     
-                            sBuildingIcon.transform.position = new Vector3(oldBuildIconPos.x, buildArea.transform.position.y, currentPos.z);
+                            sBuildingIcon.transform.position = new Vector3(oldBuildIconPos.x, wallIconPosY, currentPos.z);
                         }
                         else //Snapping Z axis
                         {
-                            sBuildingIcon.transform.position = new Vector3(currentPos.x, buildArea.transform.position.y, oldBuildIconPos.z);
+                            sBuildingIcon.transform.position = new Vector3(currentPos.x, wallIconPosY, oldBuildIconPos.z);
                         }
                         // Add initial building to sBuildingIcon
                         if (!iniBuilding)
@@ -143,7 +147,7 @@ public class InteractiveBuild : MonoBehaviour
                     }
                     else
                     {
-                        sBuildingIcon.transform.position = new Vector3(mouseHit.point.x, 0.5f, mouseHit.point.z);
+                        sBuildingIcon.transform.position = new Vector3(currentPos.x, wallIconPosY, currentPos.z);
                         oldBuildIconPos = sBuildingIcon.transform.position;
                     }
                 }
@@ -213,11 +217,11 @@ public class InteractiveBuild : MonoBehaviour
                         cleanShiftBuildings();
                         playerBase.GetComponent<LocalPanelManager>().deactivatePanels();
                         errorWindow.SetActive(true);                        
-                        errorMsg.text = (bIChecker.SpaceOccupied ? "Obstacle nearby! can't construct buildings!" : "Not enought funds to build these buildings!");
+                        errorMsg.text = (bIChecker.SpaceOccupied ? "Obstacle in front! can't construct buildings!" : "Not enought funds to build these buildings!");
                         openBMode = false; 
                         dragBuild = false;
 
-                        print("ERROR: " + (bIChecker.SpaceOccupied ? "Obstacle nearby! can't construct buildings!" : "Not enought funds to build these buildings!"));
+                        print("ERROR: " + (bIChecker.SpaceOccupied ? "Obstacle in front! can't construct buildings!" : "Not enought funds to build these buildings!"));
                         return;
                     }
 
@@ -233,6 +237,7 @@ public class InteractiveBuild : MonoBehaviour
                                 var bCheck = bModel.GetComponent<WallBuildCheck>();
                                 if (bModel && bCheck.IsTemp)
                                 {
+                                    bModel.name = bModel.name + "_built";
                                     bCheck.IsBuilt = true;
                                     bCheck.IsTemp = false;
                                     b.tag = "_PlayerWall";
@@ -251,7 +256,7 @@ public class InteractiveBuild : MonoBehaviour
                     // Stopping shift build after construction
                     dragBuild = false;
                     openBMode = false;
-                    iniBuilding = null;                    
+                    iniBuilding = null;                  
                     var bIconModel = helperTools.getChildGameObjectByName(sBuildingIcon, "Wall_1");
                     if (bIconModel)
                     {

@@ -530,6 +530,21 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3095772526410270974, guid: efd3a56b59baffb40bf21d431e1af268,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984846963605166330, guid: efd3a56b59baffb40bf21d431e1af268,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 420
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984846963605166330, guid: efd3a56b59baffb40bf21d431e1af268,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 9083938033716378134, guid: efd3a56b59baffb40bf21d431e1af268,
         type: 3}
       propertyPath: m_Color.a

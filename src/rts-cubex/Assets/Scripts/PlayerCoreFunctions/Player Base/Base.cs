@@ -107,6 +107,7 @@ public class Base : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      
 		workersAmountOriginal = 0;  // variable which holds only free workers amount in the player's baze
 		existingWorkerAmount = 0;
 		resourceAmountScreenState = false; // initialize boolean variables
@@ -143,6 +144,10 @@ public class Base : MonoBehaviour
 		GetComponent<changeSkinManager>().onStartSkinSelectionPopUp();
     	playerScoring = GetComponent<PlayerScoring>();
 		gameSession = FindObjectOfType<GameSession>();
+
+    if (gameSession.IsChallengeMode || gameSession.IsStoryMode)
+      playerScoreCountWindow.SetActive(false);
+
     if (!gameSession)
       playerScoreCountWindow.SetActive(false);
     if (gameSession)
