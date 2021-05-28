@@ -65,7 +65,7 @@ public class ChallengeMgr : MonoBehaviour
         if (challengeLevel)
         {
             //Displaying current wave
-            currentWaveText.GetComponent<Text>().text = ("Left enemy waves: " + waveAmount);
+            currentWaveText.GetComponent<Text>().text = ("Left enemy waves: " + (waveAmount - 1));
 
             if (!isOpeningTextOpened)
             {
@@ -174,11 +174,11 @@ public class ChallengeMgr : MonoBehaviour
                scoreText.text += "Troops trained: " + troopsTrained;
                rankText.text = "Rank:";
                //Picking rank for the player
-               if (enemiesKilled >= 10)
+               if (enemiesKilled >= 10 && enemiesKilled < 25)
                {
                    rankText.text += "Rookie Soldier";
                }
-               else if (enemiesKilled >= 25)
+               else if (enemiesKilled >= 25 && enemiesKilled < 40)
                {
                    rankText.text += "Real Field Commander";
                }
@@ -219,7 +219,7 @@ public class ChallengeMgr : MonoBehaviour
                     {
                         if (!readyingForAttack)
                         {
-                            tt.startTimer(enemyReadyTime - (timeOffsetDiff / 2));
+                            tt.startTimer(enemyReadyTime + (timeOffsetDiff / 4));
                             print("Enemy is readying for the attack!");
                             readyingForAttack = true;                            
                                 
@@ -281,10 +281,10 @@ public class ChallengeMgr : MonoBehaviour
                             //Informing the player to fight
                             printMatchText();
                             //Starting attack timer                            
-                            tt.startTimer(enemyAttackTime + timeOffsetDiff);
+                            tt.startTimer(enemyAttackTime - (timeOffsetDiff / 2));
                             levelTick = false;
                             //Increasing enemy group by difficulty
-                            enemyGroupSize += currentDifficulty > 0 ? (currentDifficulty + 1) : 1;
+                            enemyGroupSize += currentDifficulty > 0 ? (currentDifficulty + 2) : 1;
                             waveAmount--;
                         }
                     }

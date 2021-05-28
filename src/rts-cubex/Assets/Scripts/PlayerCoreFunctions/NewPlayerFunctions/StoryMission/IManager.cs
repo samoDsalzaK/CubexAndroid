@@ -9,6 +9,7 @@ public class IManager : MonoBehaviour
     [Header("Troop saving cnf.:")]
     [SerializeField] string saveTroopTag = "usave";
     [SerializeField] string tagNewToAdd = "Unit";
+    [SerializeField] Material selectedTroops;
     [SerializeField] float range = 30f;
     [SerializeField] bool saveMode = false;
     [SerializeField] bool baseSaved = false;
@@ -70,7 +71,7 @@ public class IManager : MonoBehaviour
                 if (click)
                     click.IsSelected = true;
                
-
+                troopToSave.GetComponent<MeshRenderer>().material.color = selectedTroops.color;
                 print("Troop: " + troopToSave.name + " is " + (troopToSave.tag == tagNewToAdd ? "saved!" : "not saved!"));
                 // troopsSaved = true;
             }
