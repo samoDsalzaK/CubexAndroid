@@ -1,15 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 public class GameSession : MonoBehaviour
 {
     //Game session manager DEMO version <----------------------
     [SerializeField] bool isChallengeMode = false;
-    [SerializeField] bool isStoryMode = false;
-    public bool IsChallengeMode { get {return isChallengeMode; }}
-    public bool IsStoryMode { get {return isStoryMode; }}
-    [SerializeField] bool testMode = false;
     [Header("Main game session configuration parameters")]
     
     [SerializeField] RankConfiguration rankConfSystem;
@@ -62,12 +58,7 @@ public class GameSession : MonoBehaviour
     }
 
     private void Update() {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            Destroy(gameObject);
-        }
-        if (testMode) return;
-        if (isChallengeMode || isStoryMode) return;
+        if (isChallengeMode) return;
         
         if (isEnemyDestroyed)
         {

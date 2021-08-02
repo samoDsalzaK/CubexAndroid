@@ -21,7 +21,6 @@ public class WallBuildCheck : MonoBehaviour
     public int EnergonPrice {get { return energonPrice; }}
     public int CreditsPrice {get { return creditsPrice; }}
     public Material WallBuiltMat {get {return wallBuiltMat; }}
-    private bool isWarningMode = false;
     private void Start() {
         //IsBuilt = false;
         rend = GetComponent<MeshRenderer>();
@@ -33,19 +32,8 @@ public class WallBuildCheck : MonoBehaviour
     private void Update() {
         if(isBuilt && !isTemp)
         {
-            rend.material = wallBuiltMat;            
+            rend.material = wallBuiltMat;
         }
-        if (!isBuilt && isWarningMode)
-        {
-            StartCoroutine(handleWarningMode());
-            
-        }
-    }
-    IEnumerator handleWarningMode()
-    {
-        yield return new WaitForSeconds(1f);
-        rend.material.color = originalColor;
-        isWarningMode = false;
     }
     private void OnTriggerEnter(Collider other) {
        // var rayBuilder = GetComponent<BuildRayField>();
@@ -54,8 +42,6 @@ public class WallBuildCheck : MonoBehaviour
             SpaceOccupied = true;
             if (rend != null && !IsBuilt)
                 rend.material.color = new Color(255f, 0f, 0f, 0.25f);
-
-            isWarningMode = true;
         }  
     }
     private void OnTriggerStay(Collider other) {

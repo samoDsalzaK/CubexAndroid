@@ -3244,7 +3244,7 @@ MonoBehaviour:
   emptyText: {fileID: 1037935025}
   errorWindow: {fileID: 1732169542}
   errorMsgWindowText: {fileID: 805809709}
-  cardSpacing: 80
+  cardSpacing: 60
   isTesting: 0
   baseEnergon: 1000
   baseCredits: 1000
@@ -9340,7 +9340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f6393a6da888545876f277c8869927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnee: {fileID: 6896241092319077033, guid: 108d6f1a4897bba44b9283e8b1ac71f1, type: 3}
+  spawnee: {fileID: 3148652773981038918, guid: 6edebf4a2d336654f92a37606125b4e4, type: 3}
   heavySpawnee: {fileID: 4350613679145975105, guid: 695e68d7c76b8f44a8ab4a72651e7ee4,
     type: 3}
   sniperSpawnee: {fileID: 3780746492402608663, guid: a42bae23c0d162244b835771eda5505f,

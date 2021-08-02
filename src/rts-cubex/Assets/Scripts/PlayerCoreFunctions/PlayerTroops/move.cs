@@ -107,17 +107,15 @@ public class move : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("LvlMap")))
                 {
-                   //print("Tag to move: " + hit.transform.gameObject.tag);
-                    if (transform.gameObject.tag == "Bloom" && hit.transform.gameObject.tag == "maphole")
+                    if (isBloom && hit.transform.gameObject.tag == "maphole")
                     {
-                        //print();
                         agent.isStopped = false;
                         agent.SetDestination(hit.point);
                         if (mainModel)
                             mainModel.transform.position = transform.position;
                         //mainModel.transform.position = hit.point;
                     }
-                    if (hit.transform.gameObject.tag == "lootbox"  || hit.transform.gameObject.tag == "Ground")
+                    if (hit.transform.gameObject.tag == "lootbox" || hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground") || hit.transform.gameObject.layer == LayerMask.NameToLayer("LvlMap"))
                     {
                         agent.isStopped = false;
                         agent.SetDestination(hit.point);

@@ -13,7 +13,6 @@ public class ClickOn : MonoBehaviour {
     [SerializeField] GameObject heroToolbar;
     public GameObject HeroToolbar { set { heroToolbar = value; } get {return heroToolbar;} }
     public bool IsSelected { set {isSelected = value; } get {return isSelected; }}
-    public Material Selected { get { return selected; }}
     void Start () {
         
         isSelected = false;

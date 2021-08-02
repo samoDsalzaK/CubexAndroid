@@ -189,19 +189,15 @@ public class createAnimatedPopUp : MonoBehaviour
 
     // player score points add popo up
     public void createAddPlayerScorePointsPopUp(int scorePointsToAdd){
-        var gs = FindObjectOfType<GameSession>();
-        if (!gs.IsChallengeMode && !gs.IsStoryMode)
-        {
-            Transform[] ts = addScorePointsPopUpV3.transform.GetComponentsInChildren<Transform>();
-            foreach (Transform t in ts) {
-                if(t.gameObject.GetComponent<Text>() != null)
-                {
-                    t.gameObject.GetComponent<Text>().text = "+" + scorePointsToAdd + " points ↑ ";
-                }
+        Transform[] ts = addScorePointsPopUpV3.transform.GetComponentsInChildren<Transform>();
+        foreach (Transform t in ts) {
+            if(t.gameObject.GetComponent<Text>() != null)
+            {
+                t.gameObject.GetComponent<Text>().text = "+" + scorePointsToAdd + " points ↑ ";
             }
-            addScorePointsPopUpV3.SetActive(true);
-            StartCoroutine(scorePopUpTimer());
         }
+        addScorePointsPopUpV3.SetActive(true);
+        StartCoroutine(scorePopUpTimer());
     }
 
     // incorrect building pozition pop up

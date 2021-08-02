@@ -80,7 +80,7 @@ public class BuildArea : MonoBehaviour
                     playerbase.setEnergonAmount(playerbase.getEnergonAmount()-barrackBtn.getMinNeededEnergonAmountForTroopsBarrack()); // uzsetiname naujas reksmes
                     playerbase.setworkersAmount(playerbase.getworkersAmount()-1); // atimame is skailiuko vieneta
 					playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel = playerbase.GetComponent<setFidexAmountOfStructures>().changePlayerBarrackAmountInLevel + 1; // change amount of actual barracks on the game map 
-                    playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(1); // fasle
+                    playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(2); // fasle
 					barrackBtn.canBuildAgain(true);
                     playerbase.setBuildingArea(false);
 
@@ -191,8 +191,7 @@ public class BuildArea : MonoBehaviour
 					playerbase.setEnergonAmount(playerbase.getEnergonAmount()-buildWorkerBtn.getMinNeededEnergonAmount()); // uzsetiname naujas reksmes 
 					timerStart.startTimer(buildWorkerStartTime);
 					playerbase.GetComponent<unselectBuildGameStructure>().changeBuildStructureButtonActivity(9);
-					buildWorkerBtn.getWorkerBuildState = true;
-					//buildWorkerBtn.canBuildAgain(true);
+					buildWorkerBtn.canBuildAgain(true);
 				}
 				/*if((buildPlayerWallBtn.buildPlayerWall()) && (canBuild))
 				{

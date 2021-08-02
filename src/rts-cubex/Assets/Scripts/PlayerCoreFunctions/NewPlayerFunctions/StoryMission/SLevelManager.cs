@@ -94,7 +94,6 @@ public class SLevelManager : MonoBehaviour {
     public bool CheckIfPlayerWon {get { return checkIfPlayerWon; }}
     public Transform MSquadStartArrivalPoint {get {return mSquadStartArrivalPoint; }}
     public GameObject SpawnedHero {get {return spawnedHero; }}
-    [SerializeField] float offsetXspawn = 10f;
     //private Base playerBase;
     void Start () {
         //Setting default game time play
@@ -143,10 +142,9 @@ public class SLevelManager : MonoBehaviour {
 
         for (int tIndex = 0; tIndex < troopAmount / 2 - 1; tIndex++) {
             var spawnedSquadMember = Instantiate (troopTypesToSpawn[0], mStartPoint.transform.position, troopTypesToSpawn[0].transform.rotation);
-            spawnedSquadMember.transform.position += new Vector3(offsetXspawn, 0f, 0f);
             var sqAgent = spawnedSquadMember.GetComponent<NavMeshAgent> ();
             //sqAgent.destination = mSquadStartArrivalPoint.position;
-            offsetXspawn += offsetXspawn;
+
             spawnedSquad.Add (spawnedSquadMember);
 
         }
